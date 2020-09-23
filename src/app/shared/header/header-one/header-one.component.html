@@ -1,0 +1,77 @@
+<header class="sticky" [ngClass]="class" [class.fixed]="stick && sticky">
+    <div class="mobile-fix-option"></div>
+    <div class="top-header" *ngIf="topbar">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="header-contact">
+                        <ul>
+                            <li>VIKRAM CREATIONS PRIVATE LIMITED</li>
+                            <li><i class="fa fa-phone" aria-hidden="true"></i>Call Us: +91-98918-69911</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-5 text-right">
+                    <ul class="header-dropdown">
+                        <!--  <li class="compare">
+                           <a [routerLink]="['/shop/compare']"><i class="fa fa-random" aria-hidden="true"></i>Compare</a> 
+                            &nbsp;
+                        </li>
+                        <li class="mobile-wishlist">
+                         <a [routerLink]="['/shop/wishlist']"><i class="fa fa-heart" aria-hidden="true"></i>Wishlist</a>
+                            &nbsp;
+                        </li> -->
+                        <li class="onhover-dropdown mobile-account" *ngIf="LoggedInUser==[] || LoggedInUser==undefined || LoggedInUser?.length==0">
+                            <span class="Logininfo"><a (click)="Login()" class="btn btn-solid btn-solid-small"><i class="fa fa-user"
+                                        aria-hidden="true"></i>Login</a></span>
+                        </li>
+                        <li class="onhover-dropdown mobile-account" *ngIf="LoggedInUser!=[] && LoggedInUser!=undefined && LoggedInUser?.length>0">
+                            <i class="fa fa-user" aria-hidden="true"></i> {{LoggedInUser[0].name}}
+                            <ul class="onhover-show-div">
+                                <li>
+                                    <a data-lng="en" [routerLink]="['/pages/dashboard']">
+                                        My Account
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-lng="en" [routerLink]="['/pages/dashboard/myorder']">
+                                        My Order
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-lng="es" (click)="Logout()">
+                                        Logout
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="main-menu">
+                    <div class="menu-left">
+                        <app-left-menu></app-left-menu>
+                        <div class="brand-logo">
+                            <a routerLink="/home/fashion" id="headerlogo">
+                                <img [src]="themeLogo" class="img-fluid" alt="logo">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="menu-right pull-right">
+                        <div>
+                            <app-menu></app-menu>
+                        </div>
+                        <div>
+                            <app-settings></app-settings>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

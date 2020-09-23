@@ -1,0 +1,167 @@
+<app-breadcrumb [title]="'Cart'" [breadcrumb]="'Cart'"></app-breadcrumb>
+<!-- section start -->
+<section class="cart-section section-b-space">
+    <div class="container">
+        <div class="col-sm-12 empty-cart-cls text-center" *ngIf="!productSizeColor.length">
+            <img src="assets/images/icon-empty-cart.png" class="img-fluid mb-4">
+            <h3><strong>Your Cart is Empty</strong></h3>
+            <h4>Add something to make me happy :)</h4>
+        </div>
+        <div *ngIf="productSizeColor.length">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="pb-4" *ngFor="let product of productSizeColor">
+                        <div class="cart-product-details">
+                            <div class="row">
+                                <div class="col-sm-2 text-center">
+                                    <a
+                                        (click)="GoToDetail(product.rowID,product?.productSizeId,product?.setType,product?.setNo);">
+                                        <img class="img-fluid" *ngIf="product?.setNo>0"
+                                            [src]="ProductImage+product?.productId+'/productSetImage/'+product?.setNo+'/'+product?.productImg[0]">
+                                        <img class="img-fluid" *ngIf="product?.setNo==0"
+                                            [src]="ProductImage+product?.productId+'/productColorImage/'+product?.productSizeColorId+'/'+product?.productImg[0]">
+                                    </a>
+                                </div>
+                                <div class="col-sm-10">
+                                    <p style="color:red" *ngIf="product?.setType==3">Note*: If you want to add
+                                        quantity of this
+                                        product please click on the
+                                        product image</p>
+                                    <div class="d-flex justify-content-between mobile-column">
+                                        <h5 [innerHTML]="(product?.productName).split('|')[0]"></h5>
+
+                                        <!-- <br/>
+                                        <h5 [innerHTML]="(product?.productName)"></h5> -->
+                                        <!-- {{ product?.productName| titlecase }}-->
+                                        <div class="qty-box">
+                                            <div class="input-group">
+                                                <span class="input-group-prepend">
+                                                    <button *ngIf="product?.setType==3" type="button"
+                                                        class="btn quantity-left-minus" [disabled]="product?.setType==3"
+                                                        data-type="minus">
+
+                                                    </button>
+                                                    <button type="button" class="btn quantity-left-minus"
+                                                        *ngIf="product?.setType!=3" data-type="minus"
+                                                        (click)="decrement(product)">
+                                                        <i class="ti-minus"></i>
+                                                    </button>
+
+                                                </span>
+                                                <input type="text" style="width: 70px;" name="quantity"
+                                                    class="form-control input-number" disabled
+                                                    [(ngModel)]="product.quantity">
+                                                <span class="input-group-prepend">
+
+                                                    <button *ngIf="product?.setType==3" type="button"
+                                                        class="btn quantity-left-minus" [disabled]="product?.setType==3"
+                                                        data-type="plus">
+
+                                                    </button>
+
+
+                                                    <button *ngIf="product?.setType!=3" type="button"
+                                                        class="btn quantity-right-plus" data-type="plus"
+                                                        (click)="increment(product)">
+                                                        <i class="ti-plus"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-details">
+                                        <div *ngIf="product?.setType>=2">
+                                            <span *ngFor="let lst of ColorSize(product?.productName); let i =index;">
+                                                <p *ngIf="i>0">
+                                                    {{lst}}
+                                                </p>
+                                            </span>
+                                        </div>
+                                        <div *ngIf="product?.setType==1"><span>Size:
+                                            </span><span>{{(product?.productName).split('|')[2]}}</span></div>
+                                        <div *ngIf="product?.setType==1"><span>Color:
+                                            </span><span>{{(product?.productName).split('|')[1]}}</span></div>
+                                    </div>
+
+                                    <div class="d-flex justify-content-start final-rate-offer">
+                                        <h4 class="text-black">
+                                            {{ (product.salePrice) | currency:productService?.Currency.currency:'symbol' }}
+                                        </h4>&nbsp;
+                                        <del>{{ product.price | currency:productService?.Currency.currency:'symbol' }}</del>
+                                        &nbsp;
+                                        <h5 class="text-red">
+                                            {{ product.perDiscount/product.totalPieces | number:'1.2-2' }}%</h5>
+
+                                    </div>
+                                    <h5>
+                                        Total Pieces: {{ product.totalPieces  }}</h5>
+
+                                    <div class="d-flex justify-content-between mt-3">
+                                        <a href="javascript:void(0)" (click)="removeItem(product)" class="icon">
+                                            <i class="ti-trash text-red" style="font-size:1.5rem;"></i>
+                                        </a>
+                                        <h3 *ngIf="product?.setType!=3">
+                                            {{ product.salePrice*product.totalPieces | currency:productService?.Currency.currency:'symbol' }}
+                                        </h3>
+                                        <h3 *ngIf="product?.setType==3">
+                                            {{ product.salePrice
+                                                 | currency:productService?.Currency.currency:'symbol' }}
+                                        </h3>
+                                    </div>
+                                    <!-- <div class="qty-box">
+                                        <div class="input-group">
+                                            <input type="text" name="quantity" class="form-control input-number" disabled [(ngModel)]="product.quantity">
+                                        </div>
+                                    </div> -->
+
+                                    <!-- <a (click)="removeItem(product)" class="icon">
+                                        <i class="ti-close"></i>
+                                    </a> -->
+                                    <!-- {{ product.discount | currency:productService?.Currency.currency:'symbol' }}  -->
+                                    <!-- <p>{{ product.totalPieces}}</p> -->
+
+                                    <!-- <p>{{ product.price/product.totalPieces | currency:productService?.Currency.currency:'symbol' }}</p> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center pb-4" *ngIf='productSizeColor.length'>
+                        <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">continue shopping</a>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="p-4" style="border: 1px solid #dddddd;">
+                        <h4 class="mb-4">Price Details</h4>
+                        <p class="d-flex justify-content-between">
+                            <span>Total Pieces: </span>
+                            <span><b>{{TotalPieces}}</b></span>
+                        </p>
+                        <p class="d-flex justify-content-between">
+                            <span>Total MRP: </span>
+                            <span><b>{{ Price | currency:productService?.Currency.currency:'symbol'}}</b></span>
+                        </p>
+                        <p class="d-flex justify-content-between">
+                            <span>Total Discounts on MRP: </span>
+                            <span><b>{{ Discount | currency:productService?.Currency.currency:'symbol'}}</b></span>
+                        </p>
+                        <hr>
+                        <p class="d-flex justify-content-between">
+                            <span>Total Amount: </span>
+                            <span><b>{{ Price-Discount | currency:productService?.Currency.currency:'symbol'}}</b></span>
+                        </p>
+                        <hr>
+                        <p class="text-green mb-4">You will save
+                            {{ Discount | currency:productService?.Currency.currency:'symbol'}} on this order</p>
+                        <div class="text-center">
+                            <a class="btn btn-solid" style="color:#fff;" (click)="ProceedToCheckout()">check out</a>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!--section end-->

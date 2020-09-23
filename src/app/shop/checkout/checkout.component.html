@@ -1,0 +1,365 @@
+<app-breadcrumb [title]="'Checkout'" [breadcrumb]="'Checkout'"></app-breadcrumb>
+<section class="section-b-space" style="padding-top: 20px !important;">
+    <div class="container">
+        <div class="checkout-page">
+            <div class="checkout-form">
+                <form>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h3 *ngIf="lstBillingAddress?.length>0" class="mb-4">Delivery Address</h3>
+                            <div class="row">
+                                <div class="col-md-6" *ngFor="let lstBilling of lstBillingAddress">
+                                    <address>
+                                        <p>
+                                            <b>Name: </b> {{lstBilling.fName}} {{lstBilling.lName}}
+                                        </p>
+                                        <p>
+                                            <b>Company Name: </b> {{lstBilling.companyName}}
+                                        </p>
+                                        
+                                        <p>
+                                            <b>Address: </b> {{lstBilling.address}}, {{lstBilling.city}}
+                                            {{lstBilling.state}}, {{lstBilling.zipCode}}, {{lstBilling.country}}
+                                        </p>
+                                        
+                                        <p>
+                                            <b>Email: </b> {{lstBilling.emailId}}
+                                        </p>
+                                        
+                                        <p>
+                                            <b>Mobile No:</b> {{lstBilling.phone}}
+                                        </p>
+                                        
+                                        <!-- <a href="javascript:void(0)" (click)="SelectBillingAddress(lstBilling)">Select
+                                            Address</a> -->
+                                            <button type="submit" class="btn-solid btn mt-3" (click)="SelectBillingAddress(lstBilling)"
+                                            [ngStyle]="(checkoutForm.controls['billingAddressId'].value==lstBilling.billingAddressId)?{'background-color':'#6fbd6f','background-image': 'none'}:{'background-color':''}">
+                                            {{checkoutForm.controls['billingAddressId'].value==lstBilling.billingAddressId?'Selected Delivery Address':'Deliver to this address'}}  
+                                            </button>
+
+                                    </address>
+                                    <hr>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="checkout-title mt-5">
+                                    <h3>Add New Delivery Address</h3>
+                                </div>
+                                <div class="row check-out">
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <div class="field-label">First Name</div>
+                                        <input type="text" name="fName" [formControl]="checkoutForm.controls['fName']" value="" placeholder="" autocomplete="off">
+                                        <div *ngIf="(checkoutForm.controls.fName.touched || Submitted) && checkoutForm.controls.fName.errors?.required" class="text text-danger">
+                                            First Name is required.
+                                        </div>
+                                        <div *ngIf="(checkoutForm.controls.fName.touched || Submitted) && checkoutForm.controls.fName.errors?.pattern" class="text text-danger">
+                                            First Name must be an alphabates.
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <div class="field-label">Last Name </div>
+                                        <input type="text" name="lName" [formControl]="checkoutForm.controls['lName']" value="" placeholder="" autocomplete="off">
+                                        <div *ngIf="(checkoutForm.controls.lName.touched || Submitted) && checkoutForm.controls.lName.errors?.required" class="text text-danger">
+                                            Last Name is required.
+                                        </div>
+                                        <div *ngIf="(checkoutForm.controls.lName.touched || Submitted) && checkoutForm.controls.lName.errors?.pattern" class="text text-danger">
+                                            Last Name must be an alphabates.
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <div class="field-label">Company Name </div>
+                                        <input type="text" name="companyName" [formControl]="checkoutForm.controls['companyName']" value="" placeholder="" autocomplete="off">
+                                        <div *ngIf="(checkoutForm.controls.companyName.touched || Submitted) && checkoutForm.controls.companyName.errors?.required" class="text text-danger">
+                                            Company Name is required.
+                                        </div>
+                                        <div *ngIf="(checkoutForm.controls.companyName.touched || Submitted) && checkoutForm.controls.companyName.errors?.pattern" class="text text-danger">
+                                            Company Name must be an alphabates.
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <div class="field-label">Phone</div>
+                                        <input type="text" name="phone" maxlength="10" [formControl]="checkoutForm.controls['phone']" value="" placeholder="" autocomplete="off">
+                                        <div *ngIf="(checkoutForm.controls.phone.touched || Submitted) && checkoutForm.controls.phone.errors?.required" class="text text-danger">
+                                            Phone No is required.
+                                        </div>
+                                        <div *ngIf="(checkoutForm.controls.phone.touched || Submitted) && checkoutForm.controls.phone.errors?.pattern" class="text text-danger">
+                                            Phone No is must be number.
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <div class="field-label">email Address</div>
+                                        <input type="text" name="emailId" [formControl]="checkoutForm.controls['emailId']" value="" placeholder="" autocomplete="off">
+                                        <div *ngIf="(checkoutForm.controls.emailId.touched || Submitted) && checkoutForm.controls.emailId.errors?.required" class="text text-danger">
+                                            Email address is required
+                                        </div>
+                                        <div *ngIf="(checkoutForm.controls.emailId.touched || Submitted) && checkoutForm.controls.emailId.errors?.emailId" class="text text-danger">
+                                            Invalid email address
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                        <div class="field-label">Country</div>
+                                        <select name="country" [formControl]="checkoutForm.controls['country']">
+                                            <option value="" selected>Select Country</option>
+                                            <option value="India">India</option>
+                                            <option value="USA">USA</option>
+                                            <option value="Australia">Australia</option>
+                                        </select>
+                                        <div *ngIf="(checkoutForm.controls.country.touched || Submitted) && checkoutForm.controls.country.errors?.required" class="text text-danger">
+                                            Country is required
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                        <div class="field-label">State</div>
+                                        <input type="text" name="state" [formControl]="checkoutForm.controls['state']" value="" placeholder="" autocomplete="off">
+                                        <div *ngIf="(checkoutForm.controls.state.touched || Submitted) && checkoutForm.controls.state.errors?.required" class="text text-danger">
+                                            State is required
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <div class="field-label">Address</div>
+                                        <textarea name="address" [formControl]="checkoutForm.controls['address']" style="height: 65px;" value="" placeholder="" autocomplete="off"></textarea>
+                                        <div *ngIf="(checkoutForm.controls.address.touched || Submitted) && checkoutForm.controls.address.errors?.required" class="text text-danger">
+                                            Address is required
+                                        </div>
+                                        <div *ngIf="(checkoutForm.controls.address.touched || Submitted) && checkoutForm.controls.address.errors?.maxlength" class="text text-danger">
+                                            Maximum 50 character
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                        <div class="field-label">city/City</div>
+                                        <input type="text" name="city" [formControl]="checkoutForm.controls['city']" value="" placeholder="" autocomplete="off">
+                                        <div *ngIf="(checkoutForm.controls.city.touched || Submitted) && checkoutForm.controls.city.errors?.required" class="text text-danger">
+                                            City is required
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                        <div class="field-label">Postal Code</div>
+                                        <input type="text" name="zipCode" [formControl]="checkoutForm.controls['zipCode']" value="" placeholder="" autocomplete="off">
+                                        <div *ngIf="(checkoutForm.controls.zipCode.touched || Submitted) && checkoutForm.controls.zipCode.errors?.required" class="text text-danger">
+                                            zipCode is required
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="row ">
+                                <div class="col-12">
+                                <div class="stripe-section">
+                                    <h5>stripe js</h5>
+                                    <div class="content">
+                                    <h5>dummy test</h5>
+                                    <table>
+                                        <tr>
+                                        <td>cart number</td>
+                                        <td>4242424242424242</td>
+                                        </tr>
+                                        <tr>
+                                        <td>mm/yy</td>
+                                        <td>2/2020</td>
+                                        </tr>
+                                        <tr>
+                                        <td>cvc</td>
+                                        <td>2222</td>
+                                        </tr>
+                                    </table>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row margin-cls">
+                                <div class="col-12">
+                                <div class="stripe-section">
+                                    <h5>paypal</h5>
+                                    <div class="content">
+                                    <h5>dummy test</h5>
+                                    <table>
+                                        <tr>
+                                        <td>cart number</td>
+                                        <td>4152521541244</td>
+                                        </tr>
+                                        <tr>
+                                        <td>mm/yy</td>
+                                        <td>11/18</td>
+                                        </tr>
+                                        <tr>
+                                        <td>cvc</td>
+                                        <td>521</td>
+                                        </tr>
+                                    </table>
+                                    </div>
+                                </div>
+                                </div>
+                            </div> -->
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12 col-xs-12">
+                            <div class="checkout-details" style="padding:15px !important;">
+                                <div class="order-box table-responsive">
+                                    <table class="table table-bordered table-hover">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th class="thead-dark">
+                                                    Product
+                                                </th>
+                                                <th class="thead-dark">
+                                                    Price
+                                                </th>
+                                                <th class="thead-dark">
+                                                    Qty
+                                                </th>
+                                                <th class="thead-dark">
+                                                    GST Rate(%)
+                                                </th>
+                                                <th class="thead-dark">
+                                                    GST Amount
+                                                </th>
+                                                <th class="thead-dark">
+                                                    Total
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let product of productSizeColor">
+                                                <td>
+                                                    {{ product?.productName }}
+                                                </td>
+                                                <td>
+                                                    {{ product?.salePrice | currency:productService?.Currency.currency:'symbol'}}
+                                                </td>
+                                                <td>
+                                                    {{ product?.quantity }}
+                                                </td>
+                                                <td>
+                                                    {{ product?.gstRate }}%
+                                                </td>
+                                                <td>
+                                                    {{ product?.gstAmount | currency:productService?.Currency.currency:'symbol'}}
+                                                </td>
+                                                <td>
+                                                    <span style="float: right; font-size: 16px; line-height: 20px;  font-weight: 400;">
+                                                        {{ (product.salePrice*product?.quantity+product?.gstAmount) | currency:productService?.Currency.currency:'symbol' }}</span>
+                                                </td>
+                                            </tr>
+                                            <tr *ngIf='!productSizeColor.length'>
+                                                <td colspan="6">
+                                                    There are no products in cart
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4">
+                                                    <b>Subtotal</b>
+                                                </td>
+                                                <td>
+                                                    <b>{{ getTotalGSTAmount() | currency:productService?.Currency.currency:'symbol'}}</b>
+                                                </td>
+                                                <td>
+                                                    <span style="float: right; font-size: 16px; line-height: 20px; color: var(--theme-deafult); font-weight: 400;">
+                                                    {{ getTotal() | currency:productService?.Currency.currency:'symbol'}}</span>
+                                                </td>
+                                            </tr>
+                                            <!-- <tr>
+                                                <td colspan="5">
+                                                    <b>GST ({{GST}}%)</b>
+                                                </td>
+                                                <td>
+                                                    <span style="float: right; font-size: 16px; line-height: 20px; color: var(--theme-deafult); font-weight: 400;">
+                                                        {{ getTotal()*(GST)/100 | currency:productService?.Currency.currency:'symbol'}}</span>
+                                                </td>
+                                            </tr> -->
+                                            <tr>
+                                                <td colspan="4">
+                                                    <b> Packing</b>
+                                                </td>
+                                                <td colspan="2">
+                                                    <span style="float: right; font-size: 16px; line-height: 20px; color: var(--theme-deafult); font-weight: 400;">
+                                                         <b>Free Packing</b></span>
+                                                </td>
+                                            </tr>
+                                            <tr class="total">
+                                                <td colspan="5">
+                                                    <b>Total</b>
+                                                </td>
+                                                <td>
+                                                    <span style="float: right; font-size: 16px; line-height: 20px; color: var(--theme-deafult); font-weight: 400;">
+                                                        {{ getTotal() | currency:productService?.Currency.currency:'symbol'}}</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <!-- <div class="title-box">
+                                        <div>Product <span> Total</span></div>
+                                    </div>
+                                    <ul class="qty" *ngIf='productSizeColor?.length'>
+                                        <li *ngFor="let product of productSizeColor">
+                                            {{ product?.productName }} × {{ product?.quantity }}
+                                            <span>
+                                                {{ product.salePrice  | currency:productService?.Currency.currency:'symbol' }}
+                                            </span>
+                                        </li>
+                                    </ul>
+                                    <ul class="qty" *ngIf='!productSizeColor.length'>
+                                        <li class="empty-checkout"> There are no products in cart </li>
+                                    </ul> -->
+                                    <!-- <ul class="sub-total">
+                                        <li>
+                                            Subtotal <span class="count">{{ getTotal() | currency:productService?.Currency.currency:'symbol'}}</span>
+                                        </li>
+                                        <li>
+                                            GST ({{GST}}%) <span class="count">{{ getTotal()*(GST)/100 | currency:productService?.Currency.currency:'symbol'}}</span>
+                                        </li>
+                                        <li *ngIf='productSizeColor.length'>
+                                            Shipping
+                                            <div class="shipping">
+                                                Free Shipping
+                                                
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <ul class="total">
+                                        <li>Total <span class="count">{{ getTotal()+(getTotal()*(GST)/100) | currency:productService?.Currency.currency:'symbol'}}</span>
+                                        </li>
+                                    </ul> -->
+                                </div>
+
+                                <div class="payment-box" *ngIf='productSizeColor?.length'>
+                                    <div class="upper-box">
+                                        <div class="payment-options">
+                                            <ul>
+                                                <li>
+                                                    <div class="radio-option">
+                                                        <input type="radio" [formControl]="checkoutForm.controls['paymentTypeId']" [value]="1" name="payment-group" id="payment-1">
+                                                        <label for="payment-1">Online Payment
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                                <li *ngIf="user[0].isAgentCustomer">
+                                                    <div class="radio-option">
+                                                        <input type="radio" [formControl]="checkoutForm.controls['paymentTypeId']" [value]="2" name="payment-group" id="payment-2">
+                                                        <label for="payment-2">Credit to Agent
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                                <li *ngIf="user[0].isVIPMember">
+                                                    <div class="radio-option">
+                                                        <input type="radio" [formControl]="checkoutForm.controls['paymentTypeId']" [value]="3" name="payment-group" id="payment-3">
+                                                        <label for="payment-3">Direct Credit
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <button type="submit" class="btn-solid btn" (click)="ProcessCheckOut()">
+                                            Place Order
+                                        </button>
+                                        <!-- <ngx-paypal [config]="payPalConfig" *ngIf="payment == 'Paypal'"></ngx-paypal> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,225 @@
+<!-- breadcrumb start -->
+<app-breadcrumb [title]="'404 page'" [breadcrumb]="'404 page'" *ngIf="orderDetails?.length==0"></app-breadcrumb>
+<!-- breadcrumb End -->
+
+<!-- section start -->
+<section class="p-0" *ngIf="orderDetails?.length==0">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="error-section">
+                    <h1>404</h1>
+                    <h2>page not found</h2>
+                    <a [routerLink]="'/home/fashion'" class="btn btn-solid">back to home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Section ends -->
+
+<!-- thank-you section start -->
+<section class="section-b-space light-layout" *ngIf="orderDetails?.length>0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="success-text">
+                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                    <h2>thank you</h2>
+                    <p>Payment has been received and Order Placed Successfully</p>
+                    <p>Order ID:{{ orderDetails[0].orderNumber }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Section ends -->
+
+<!-- order-detail section start -->
+<section class="section-b-space" *ngIf="orderDetails?.length>0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row order-success-sec">
+                    <div class="col-sm-4">
+                        <h4>summery</h4>
+                        <ul class="order-detail">
+                            <li>order ID: {{ orderDetails[0].orderNumber }}</li>
+                            <li>Order Date: {{ orderDetails[0].orderDate | date : 'MMM dd, yyyy'}}</li>
+                            <li>Order Total: {{ orderDetails[0].totalAmount | currency:productService?.Currency.currency:'symbol' }}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-4">
+                        <h4>shipping address</h4>
+                        <ul class="order-detail">
+                            <li>{{ orderDetails[0].address }}, {{orderDetails[0].city}}</li>
+                            <li>{{ orderDetails[0].state }}</li>
+                            <li>{{ orderDetails[0].country }}, {{ orderDetails[0].zipCode }}</li>
+                            <li>Contact No. {{ orderDetails[0].phone }}</li>
+                        </ul>
+                    </div>
+
+                    <div class="col-sm-4 payment-mode">
+                        <h4>payment method</h4>
+                        <p>Pay on Delivery (Cash/Card). Cash on delivery (COD) available. Card/Net banking acceptance subject to device availability.</p>
+                    </div>
+                    <!-- <div class="col-md-12">
+                        <div class="delivery-sec">
+                            <h3>expected date of delivery</h3>
+                            <h2>{{ orderDetails[0].orderDate | date : 'MMM dd, yyyy' }}</h2>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="product-order">
+                    <h3>your order details</h3>
+                    <!-- <div class="row product-order-detail">
+                        <div class="col-3 order_detail">
+                            <h4>Product Image</h4>
+                        </div>
+                        <div class="col-6 order_detail">
+                            <h4>product name</h4>
+                        </div>
+                        <div class="col-1 order_detail">
+                            <h4>Qty</h4>
+                        </div>
+                        <div class="col-2 order_detail">
+                            <h4>price</h4>
+                        </div>
+                    </div>
+                    <div class="row product-order-detail" *ngFor="let product of orderDetails[0].orderDetails">
+                        <div class="col-3">
+                            
+                            <img *ngIf="product?.setNo>0" [src]="ProductImage+product?.productId+'/productSetImage/'+product?.setNo+'/'+product?.productImg[0]" class="img-fluid">
+                            <img *ngIf="product?.setNo==0" [src]="ProductImage+product?.productId+'/productColorImage/'+product?.productSizeColorId+'/'+product?.productImg[0]" class="img-fluid">
+                        </div>
+                        <div class="col-6 order_detail">
+                            <div>
+                                <h5>{{ product?.productName }}</h5>
+                            </div>
+                        </div>
+                        <div class="col-1 order_detail">
+                            <div>
+                                <h5>{{ product.quantity }}</h5>
+                            </div>
+                        </div>
+                        <div class="col-2 order_detail">
+                            <div>
+                                <h5>{{ product?.price | currency:productService?.Currency.currency:'symbol' }}
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="total-sec">
+                        <ul>
+                            <li>Subtotal
+                                <span>{{ orderDetails[0].subTotal | currency:productService?.Currency.currency:'symbol' }}</span>
+                            </li>
+                            <li>Shipping
+                                <span>{{ orderDetails[0].shippingCharge>0 ? (orderDetails[0].shippingCharge  | currency:productService?.Currency.currency:'symbol') : 'Free Shipping'}}</span>
+                            </li>
+                            <li>GST (18%)
+                                <span>{{ orderDetails[0].tax  | currency:productService?.Currency.currency:'symbol'}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="final-total">
+                        <h3>total
+                            <span>{{ orderDetails[0].totalAmount | currency:productService?.Currency.currency:'symbol' }}</span>
+                        </h3>
+                    </div> -->
+                    <div class="order-box">
+                        <table class="table table-bordered table-hover">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th class="thead-dark">
+                                        Product
+                                    </th>
+                                    <th class="thead-dark">
+                                        Price
+                                    </th>
+                                    <th class="thead-dark">
+                                        Qty
+                                    </th>
+                                    <th class="thead-dark">
+                                        GST Rate(%)
+                                    </th>
+                                    <th class="thead-dark">
+                                        GST Amount
+                                    </th>
+                                    <th class="thead-dark">
+                                        Total
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let product of orderDetails[0].orderDetails">
+                                    <td>
+                                        {{ product?.productName }}
+                                    </td>
+                                    <td>
+                                        {{ product?.price | currency:productService?.Currency.currency:'symbol'}}
+                                    </td>
+                                    <td>
+                                        {{ product?.quantity }}
+                                    </td>
+                                    <td>
+                                        {{ product?.gstRate }}%
+                                    </td>
+                                    <td>
+                                        {{ product?.gstAmount | currency:productService?.Currency.currency:'symbol'}}
+                                    </td>
+                                    <td>
+                                        <span style="float: right; font-size: 16px; line-height: 20px;  font-weight: 400;">
+                                            {{ (product.price*product?.quantity+product?.gstAmount) | currency:productService?.Currency.currency:'symbol' }}</span>
+                                    </td>
+                                </tr>
+                                <tr *ngIf='!orderDetails.length'>
+                                    <td colspan="6">
+                                        There are no products in cart
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <b>Subtotal</b>
+                                    </td>
+                                    <td>
+                                        <b>{{ getTotalGSTAmount() | currency:productService?.Currency.currency:'symbol'}}</b>
+                                    </td>
+                                    <td>
+                                        <span style="float: right; font-size: 16px; line-height: 20px; color: var(--theme-deafult); font-weight: 400;">
+                                        {{ getTotal() | currency:productService?.Currency.currency:'symbol'}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="4">
+                                        <b> Shipping</b>
+                                    </td>
+                                    <td colspan="2">
+                                        <span style="float: right; font-size: 16px; line-height: 20px; color: var(--theme-deafult); font-weight: 400;">
+                                             <b>Free Shipping</b></span>
+                                    </td>
+                                </tr>
+                                <tr class="total">
+                                    <td colspan="5">
+                                        <b>Total</b>
+                                    </td>
+                                    <td>
+                                        <span style="float: right; font-size: 16px; line-height: 20px; color: var(--theme-deafult); font-weight: 400;">
+                                            {{ getTotal() | currency:productService?.Currency.currency:'symbol'}}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</section>
+<!-- Section ends -->
