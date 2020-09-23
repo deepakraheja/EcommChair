@@ -5,12 +5,12 @@ export const environment = {
   paypal_token: 'PAYPAL_CLIENT_ID',
   //Domain: 'http://localhost:4200/',
 
-  //BASE_API_URL: 'http://ecomapi.uccnoida.com/api/',
-  // ProductImage: 'http://ecomapi.uccnoida.com/ProductImage/',
+   BASE_API_URL: 'http://ecomChairapi.uccnoida.com/api/',
+   ProductImage: 'http://ecomchairapi.uccnoida.com/ProductImage/',
 
 
   //*********************Production Server************* */
 
-  BASE_API_URL: 'http://34.67.65.213/ecommapi/api/',
-  ProductImage: 'http://34.67.65.213/ecommapi/ProductImage/',
+  
+  
 };
