@@ -1,0 +1,909 @@
+<!-- <app-breadcrumb [title]="'Dashboard'" [breadcrumb]="'Dashboard'"></app-breadcrumb> -->
+<!-- section start -->
+<section class="section-b-space">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="account-sidebar" (click)="ToggleDashboard()">
+                    <a hre="javascript:void(0)" class="popup-btn">
+                        my account
+                    </a>
+                </div>
+                <div class="dashboard-left" [class.open]="openDashboard">
+                    <div class="collection-mobile-back" (click)="ToggleDashboard()">
+                        <span class="filter-back">
+                            <i class="fa fa-angle-left" aria-hidden="true"></i> back
+                        </span>
+                    </div>
+                    <div class="block-content">
+                        <ul>
+                            <li [ngClass]="ShowTabName=='AccountInfor'?'active':''"><a href="javascript:void(0)" (click)="ShowTabName='AccountInfor'">Account Info</a></li>
+                            <li [ngClass]="ShowTabName=='Address'?'active':''"><a href="javascript:void(0)" (click)="ShowTabName='Address'">Address Book</a></li>
+                            <li [ngClass]="ShowTabName=='MyOrder'?'active':''"><a href="javascript:void(0)" (click)="ShowTabName='MyOrder'">My Orders</a></li>
+                            <!-- <li><a href="javascript:void(0)" (click)="ShowTabName='MyWishList'">My Wishlist</a></li> -->
+                            <!-- <li><a href="javascript:void(0)" (click)="ShowTabName='AccountInfor'">Newsletter</a></li> -->
+                            <!-- <li><a href="javascript:void(0)" (click)="ShowTabName='AccountInfor'">My Account</a></li> -->
+                            <!-- <li [ngClass]="ShowTabName=='ChangePassword'?'active':''"><a href="javascript:void(0)" (click)="ShowTabName='ChangePassword'">Change Pwd</a></li> -->
+                            <li class="last"><a href="javascript:void(0)" (click)="Logout()">Log Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-10">
+                <div class="dashboard-right" *ngIf="ShowTabName=='AccountInfor'">
+                    <div class="dashboard">
+                        <div class="page-title">
+                            <h2>My Account</h2>
+                        </div>
+                        <div class="welcome-msg">
+                            <p>Hello, {{LoggedInUser[0].name}}!</p>
+                            <p>From your My Account Dashboard you have the ability to view a snapshot of your recent account activity and update your account information. Select a link below to view or edit information.</p>
+                        </div>
+                        <div class="box-account box-info">
+                            <div class="box-head">
+                                <h2>Account Information</h2>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="box">
+                                        <div class="box-title">
+                                            <h3>Contact Information</h3>
+                                            <!-- <a href="javascript:void(0)">Edit</a> -->
+                                        </div>
+                                        <div class="box-content">
+                                            <h6>Name : {{LoggedInUser[0].name}}</h6>
+                                            <h6>Email : {{LoggedInUser[0].email}}</h6>
+                                            <h6><a href="javascript:void(0)" (click)="ChangePassword(templateChangePwd)">Change Password</a></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="box">
+                                        <div class="box-title">
+                                            &nbsp;
+                                        </div>
+                                        <div class="box-content">
+                                            <p>
+                                                Mobile No : {{LoggedInUser[0].mobileNo}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-right" *ngIf="ShowTabName=='Address'">
+                    <div class="dashboard">
+                        <div class="page-title">
+                            <h2>My Addresses</h2>
+                        </div>
+
+                        <div class="box-account box-info">
+                            <div>
+                                <div class="box">
+                                    <div class="box-title">
+                                        <h3>Address Book</h3>
+                                        <a href="javascript:void(0)" (click)="NewBillingAddress(templateBillingAddress)"><i
+                                                class="fa fa-plus"></i> &nbsp; Add New Addresses</a>
+                                    </div>
+                                    <div *ngFor="let lstBilling of lstBillingAddress">
+                                        <!-- <h6>Default Billing Address</h6> -->
+                                        <address>
+                                            <div class="row">
+                                                <div class="col-md-11">
+
+                                                    <h4><b>{{lstBilling.fName}} {{lstBilling.lName}}</b></h4>
+                                                    <div><b>{{lstBilling.phone}} &nbsp;&nbsp;&nbsp;
+                                                            {{lstBilling.emailId}}</b></div>
+                                                    <div>{{lstBilling.companyName}}</div>
+                                                    <div>
+                                                        {{lstBilling.address}}, {{lstBilling.city}}
+                                                        {{lstBilling.state}}, {{lstBilling.zipCode}},
+                                                        {{lstBilling.country}}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <a href="javascript:void(0)"
+                                                        (click)="EditBillingAddress(templateBillingAddress,lstBilling)"><i
+                                                            class="fa fa-pencil"></i></a>
+                                                    <a href="javascript:void(0)" style="float: right;"
+                                                        (click)="DeleteBillingAddress(templateDeleteBillingAddress,lstBilling)"><i
+                                                            class="fa fa-trash-o"></i></a>
+                                                </div>
+                                            </div>
+                                        </address>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-right" *ngIf="ShowTabName=='MyOrder'">
+                    <div class="dashboard">
+                        <div class="page-title">
+                            <h2>My Order</h2>
+                        </div>
+
+                        <div *ngFor="let lst of lstOrder">
+                            <div class="myorder-minidetails">
+                                <div class="order-parts">
+                                    <span>Order #</span>
+                                    <span>{{lst.orderNumber}}</span>
+                                </div>
+                                <div class="order-parts">
+                                    <span>Order Placed</span>
+                                    <span>{{lst.orderDate | date :'MM/dd/yyyy HH:mm:ss'}}</span>
+                                </div>
+                                <div class="order-parts">
+                                    <span>Total</span>
+                                    <span>
+                                        {{lst.totalAmount | currency:productService?.Currency.currency:'symbol'}}
+                                    </span>
+                                </div>
+                                <div class="order-parts">
+                                    <span class="badge badge-success">{{lst.statusName}}</span>
+                                </div>
+                                <div class="order-parts">
+                                    <!-- <a href="{{Report_Path}}OrderId={{lst.orderId}}&ReportType=1" target="_blank">Download Invoice</a> -->
+                                    <a href="javascript:void(0)" (click)="DownloadInvoice(lst.orderId)">Download Orders</a>
+                                </div>
+                                <div class="order-parts">
+                                    <input type="button" id="btn{{lst.orderId}}" value="Show" class="btn btn-primary" (click)="ShowDiv(lst.orderId);">
+                                </div>
+                            </div>
+                            <!-- <div class="a-box a-color-offset-background order-info">
+                                        <div class="a-box-inner">
+                                            <div class="a-fixed-right-grid">
+                                                <div class="a-fixed-right-grid-inner">
+                                                    <div class="a-fixed-right-grid-col a-col-left">
+                                                        <div class="a-row">
+                                                            <div class="a-column a-span2">
+                                                                <div class="a-row a-size-mini">
+                                                                    <span class="a-color-secondary label"
+                                                                        style="font-weight: 700;">
+                                                                        Order #
+                                                                    </span>
+                                                                </div>
+                                                                <div class="a-row a-size-base">
+                                                                    <span class="a-color-secondary value">
+                                                                        {{lst.orderNumber}}
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="a-column a-span2">
+                                                                <div class="a-row a-size-mini">
+                                                                    <span class="a-color-secondary label"
+                                                                        style="font-weight: 700;">
+                                                                        Order Placed
+                                                                    </span>
+                                                                </div>
+                                                                <div class="a-row a-size-base">
+                                                                    <span class="a-color-secondary value">
+                                                                        {{lst.orderDate | date :'MM/dd/yyyy HH:mm:ss'}}
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="a-column a-span1">
+                                                                <div class="a-row a-size-mini">
+                                                                    <span class="a-color-secondary label"
+                                                                        style="font-weight: 700;">
+                                                                        Total
+                                                                    </span>
+                                                                </div>
+                                                                <div class="a-row a-size-base">
+                                                                    <span class="a-color-secondary value">
+                                                                        {{lst.totalAmount | currency:productService?.Currency.currency:'symbol'}}
+
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="a-column a-span2">
+                                                                <div class="a-row a-size-mini">
+                                                                    <span class="a-color-secondary label"
+                                                                        style="font-weight: 700;">
+                                                                        Ship To
+                                                                    </span>
+                                                                </div>
+                                                                <div class="a-row a-size-base">
+                                                                    <span class="a-color-secondary value">
+                                                                        {{lst.fName}} {{lst.lName}}
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="a-column a-span1">
+                                                                <div class="a-row a-size-mini">
+                                                                    <span class="a-color-secondary label"
+                                                                        style="font-weight: 700;">
+                                                                        Mobile No
+                                                                    </span>
+                                                                </div>
+                                                                <div class="a-row a-size-base">
+                                                                    <span class="a-color-secondary value">
+                                                                        {{lst.phone}}
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                            <div style="display: none;" id="{{lst.orderId}}">
+                                <div class="shipment-details">
+                                    <div class="shipment" *ngFor="let lstPro of OrderTrackingListByOrderId(lst.orderId)">
+                                        <div class="product-name-img">
+                                            <a class="a-link-normal">
+                                                <!-- <img src="assets/ProductImages/{{lstPro.ImagePath}}" width="150px" height="100px" alt=""> -->
+                                                <!-- <img [src]="ProductImage+lstPro?.productId+'/productColorImage/'+lstPro?.productSizeColorId+'/'+lstPro?.productImg[0]" width="150px" height="100px" alt=""> -->
+                                                <img *ngIf="lstPro?.setNo>0" [src]="ProductImage+lstPro?.productId+'/productSetImage/'+lstPro?.setNo+'/'+lstPro?.productImg[0]" alt="">
+                                                <img *ngIf="lstPro?.setNo==0" [src]="ProductImage+lstPro?.productId+'/productColorImage/'+lstPro?.productSizeColorId+'/'+lstPro?.productImg[0]" alt="">
+                                            </a>
+                                            <div>
+                                                <div>{{lstPro.productName}}</div>
+                                                <div>Quantity : {{lstPro.quantity}}</div>
+                                                <div class="total-paid">
+                                                    {{lstPro.price | currency:productService?.Currency.currency:'symbol'}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="shipping-address">
+                                            <p> <b>Shipping Address</b></p>
+                                            <div> <b>To:</b> {{lst.fName}} {{lst.lName}}</div>
+                                            {{lst.address}} {{lst.city}}, {{lst.state}}, {{lst.zipCode}}, {{lst.country}}
+                                        </div>
+                                        <ul class="steps">
+                                            <li class="{{lstPro.statusId==1?'active':''}}">
+                                                <span>New Order</span>
+                                            </li>
+                                            <li class="{{lstPro.statusId==2?'active':''}}">
+                                                <span>Processing</span>
+                                            </li>
+                                            <li class="{{lstPro.statusId==3?'active':''}}">
+                                                <span>Dispatched</span>
+                                            </li>
+
+                                            <li class="{{lstPro.statusId==4?'active':''}}">
+                                                <span>Delivered</span>
+                                            </li>
+                                            <li *ngIf="lstPro.statusId==5" class="{{lstPro.statusId==5?'active':''}}">
+                                                <span>Returned</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-right" *ngIf="ShowTabName=='ChangePassword'">
+                    <div class="dashboard">
+                        <div class="page-title">
+                            <h2>Change Password</h2>
+                        </div>
+                        <div class="box-account box-info">
+                            <div>
+                                <div class="box">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<ng-template class="theme-modal" #templateBillingAddress let-modal>
+    <div class="modal-content quick-view-modal">
+        <div class="modal-body">
+            <button type="button" class="close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="checkout-page">
+                <div class="checkout-form">
+                    <form>
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12 col-xs-12">
+                                <div class="checkout-title">
+                                    <h3>Billing Details</h3>
+                                </div>
+                                <div class="row check-out">
+                                    <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                                        <div class="field-label">First Name</div>
+                                        <input type="text" name="fName" [formControl]="checkoutForm.controls['fName']" value="" placeholder="" autocomplete="off">
+                                        <div *ngIf="(checkoutForm.controls.fName.touched || Submitted) && checkoutForm.controls.fName.errors?.required" class="text text-danger">
+                                            First Name is required.
+                                        </div>
+                                        <div *ngIf="(checkoutForm.controls.fName.touched || Submitted) && checkoutForm.controls.fName.errors?.pattern" class="text text-danger">
+                                            First Name must be an alphabates.
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                                        <div class="field-label">Last Name </div>
+                                        <input type="text" name="lName" [formControl]="checkoutForm.controls['lName']" value="" placeholder="" autocomplete="off">
+                                        <div *ngIf="(checkoutForm.controls.lName.touched || Submitted) && checkoutForm.controls.lName.errors?.required" class="text text-danger">
+                                            Last Name is required.
+                                        </div>
+                                        <div *ngIf="(checkoutForm.controls.lName.touched || Submitted) && checkoutForm.controls.lName.errors?.pattern" class="text text-danger">
+                                            Last Name must be an alphabates.
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                                        <div class="field-label">Company Name </div>
+                                        <input type="text" name="companyName" [formControl]="checkoutForm.controls['companyName']" value="" placeholder="" autocomplete="off">
+                                        <div *ngIf="(checkoutForm.controls.companyName.touched || Submitted) && checkoutForm.controls.companyName.errors?.required" class="text text-danger">
+                                            Company Name is required.
+                                        </div>
+                                        <div *ngIf="(checkoutForm.controls.companyName.touched || Submitted) && checkoutForm.controls.companyName.errors?.pattern" class="text text-danger">
+                                            Company Name must be an alphabates.
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                                        <div class="field-label">Phone</div>
+                                        <input type="text" name="phone" maxlength="10" [formControl]="checkoutForm.controls['phone']" value="" placeholder="" autocomplete="off">
+                                        <div *ngIf="(checkoutForm.controls.phone.touched || Submitted) && checkoutForm.controls.phone.errors?.required" class="text text-danger">
+                                            Phone No is required.
+                                        </div>
+                                        <div *ngIf="(checkoutForm.controls.phone.touched || Submitted) && checkoutForm.controls.phone.errors?.pattern" class="text text-danger">
+                                            Phone No is must be number.
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                                        <div class="field-label">EmailId Address</div>
+                                        <input type="text" name="emailId" [formControl]="checkoutForm.controls['emailId']" value="" placeholder="" autocomplete="off">
+                                        <div *ngIf="(checkoutForm.controls.emailId.touched || Submitted) && checkoutForm.controls.emailId.errors?.required" class="text text-danger">
+                                            EmailId is required
+                                        </div>
+                                        <div *ngIf="(checkoutForm.controls.emailId.touched || Submitted) && checkoutForm.controls.emailId.errors?.emailId" class="text text-danger">
+                                            Invalid emailId
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                                        <div class="field-label">Country</div>
+                                        <select name="country" [formControl]="checkoutForm.controls['country']">
+                                            <option value="" selected>Select Country</option>
+                                            <option value="India">India</option>
+                                            <option value="USA">USA</option>
+                                            <option value="Australia">Australia</option>
+                                        </select>
+                                        <div *ngIf="(checkoutForm.controls.country.touched || Submitted) && checkoutForm.controls.country.errors?.required" class="text text-danger">
+                                            Country is required
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                                        <div class="field-label">Address</div>
+                                        <textarea name="address" [formControl]="checkoutForm.controls['address']" style="height: 65px;" value="" placeholder="" autocomplete="off"></textarea>
+                                        <div *ngIf="(checkoutForm.controls.address.touched || Submitted) && checkoutForm.controls.address.errors?.required" class="text text-danger">
+                                            Address is required
+                                        </div>
+                                        <div *ngIf="(checkoutForm.controls.address.touched || Submitted) && checkoutForm.controls.address.errors?.maxlength" class="text text-danger">
+                                            Maximum 50 character
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                                        <div class="field-label">State</div>
+                                        <input type="text" name="state" [formControl]="checkoutForm.controls['state']" value="" placeholder="" autocomplete="off">
+                                        <div *ngIf="(checkoutForm.controls.state.touched || Submitted) && checkoutForm.controls.state.errors?.required" class="text text-danger">
+                                            State is required
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                                        <div class="field-label">city/City</div>
+                                        <input type="text" name="city" [formControl]="checkoutForm.controls['city']" value="" placeholder="" autocomplete="off">
+                                        <div *ngIf="(checkoutForm.controls.city.touched || Submitted) && checkoutForm.controls.city.errors?.required" class="text text-danger">
+                                            City is required
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                                        <div class="field-label">Postal Code</div>
+                                        <input type="text" name="zipCode" [formControl]="checkoutForm.controls['zipCode']" value="" placeholder="" autocomplete="off">
+                                        <div *ngIf="(checkoutForm.controls.zipCode.touched || Submitted) && checkoutForm.controls.zipCode.errors?.required" class="text text-danger">
+                                            zipCode is required
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                                        <div class="field-label">&nbsp;</div>
+                                        <button type="submit" class="btn-solid btn" (click)="SaveBillingAddress()">
+                                            Save
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template class="theme-modal" #templateDeleteBillingAddress let-modal>
+    <div class="modal-content quick-view-modal">
+        <div class="modal-body">
+            <button type="button" class="close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="checkout-page">
+                <div class="checkout-form">
+                    <form>
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12 col-xs-12">
+                                <div class="checkout-title">
+                                    <h3>Do you want to delete this address?</h3>
+                                </div>
+                                <div class="row check-out">
+
+                                    <div class="col-lg-6 col-sm-6 col-xs-6 text-left">
+                                        <button type="submit" class="btn-solid btn" (click)="DelBillingAddress()">
+                                            Yes
+                                        </button>
+                                    </div>
+                                    <div class="col-lg-6 col-sm-6 col-xs-6 text-right">
+                                        <button type="button" class="btn-solid btn" (click)="modal.dismiss('Cross click')">
+                                            No
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template class="theme-modal" #templateChangePwd let-modal>
+    <div class="modal-content quick-view-modal">
+        <div class="modal-body">
+            <button type="button" class="close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="checkout-page">
+                <div class="checkout-form">
+                    <form>
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12 col-xs-12">
+                                <div class="checkout-title">
+                                    <h3>Change Password</h3>
+                                </div>
+                                <div class="row check-out">
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <div class="field-label">Old Paswword</div>
+                                        <input type="password" name="password" [formControl]="ChangePwdForm.controls['password']" value="" placeholder="" autocomplete="off">
+                                        <div *ngIf="(ChangePwdForm.controls.password.touched || Submitted) && ChangePwdForm.controls.password.errors?.required" class="text text-danger">
+                                            Old Password is required.
+                                        </div>
+                                        <div *ngIf="(ChangePwdForm.controls.password.touched || Submitted) && ChangePwdForm.controls.password.errors?.minlength" class="text text-danger">
+                                            Old Password must be greater than 7 character.
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <div class="field-label">New Password </div>
+                                        <input type="password" name="NewPassword" [formControl]="ChangePwdForm.controls['NewPassword']" value="" placeholder="" autocomplete="off">
+                                        <div *ngIf="(ChangePwdForm.controls.NewPassword.touched || Submitted) && ChangePwdForm.controls.NewPassword.errors?.required" class="text text-danger">
+                                            New Password is required.
+                                        </div>
+                                        <div *ngIf="(ChangePwdForm.controls.NewPassword.touched || Submitted) && ChangePwdForm.controls.NewPassword.errors?.minlength" class="text text-danger">
+                                            New Password must be greater than 7 character.
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <div class="field-label">Confirm Password </div>
+                                        <input type="password" name="ConfirmPwd" [formControl]="ChangePwdForm.controls['ConfirmPwd']" value="" placeholder="" autocomplete="off">
+                                        <div *ngIf="(ChangePwdForm.controls.ConfirmPwd.touched || Submitted) && ChangePwdForm.controls.ConfirmPwd.errors?.required" class="text text-danger">
+                                            Confirm Password is required.
+                                        </div>
+                                        <div *ngIf="(ChangePwdForm.controls.ConfirmPwd.touched || Submitted) && ChangePwdForm.controls.ConfirmPwd.errors?.minlength" class="text text-danger">
+                                            Confirm Password must be greater than 7 character.
+                                        </div>
+                                        <div *ngIf="(ChangePwdForm.controls.ConfirmPwd.touched || Submitted) && (ChangePwdForm.controls.NewPassword.value != ChangePwdForm.controls.ConfirmPwd.value)" class="text text-danger">
+                                            New Password must be same Confirm password.
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <!-- <div class="field-label">&nbsp;</div> -->
+                                        <button type="submit" class="btn-solid btn" (click)="UpdatePassword()">
+                                            Save
+                                        </button>
+                                        <button class="btn btn-solid" style="float:right;" (click)="modal.dismiss('Cross click')">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<!-- section end -->
+<!--================End Checkout Area =================-->
+<style>
+    /* ******** */
+    
+    .a-button {
+        background: #e7e9ec;
+        border-radius: 3px;
+        border-color: #ADB1B8 #A2A6AC #8D9096;
+        border-style: solid;
+        border-width: 1px;
+        cursor: pointer;
+        display: inline-block;
+        padding: 0;
+        text-align: center;
+        text-decoration: none !important;
+        vertical-align: middle
+    }
+    
+    .a-button .a-button-inner {
+        background: #eff1f3;
+        background: -webkit-linear-gradient(top, #f7f8fa, #e7e9ec);
+        background: linear-gradient(to bottom, #f7f8fa, #e7e9ec)
+    }
+    
+    .a-button:hover .a-button-inner {
+        background: #e0e3e8;
+        background: -webkit-linear-gradient(top, #e7eaf0, #d9dce1);
+        background: linear-gradient(to bottom, #e7eaf0, #d9dce1)
+    }
+    
+    .a-button:active .a-button-inner {
+        box-shadow: 0 1px 3px rgba(0, 0, 0, .2) inset;
+        background-color: #e7e9ec;
+        background-image: none
+    }
+    
+    .a-button:active .a-button-inner {
+        background-color: #dcdfe3
+    }
+    
+    .a-button:active,
+    .a-button:active:hover {
+        border-color: #adb1b8 #a2a6ac #a2a6ac
+    }
+    
+    .a-button:hover {
+        border-color: #a2a6ac #979aa1 #82858a
+    }
+    
+    .a-button.a-button-focus,
+    .a-button:focus {
+        outline: 0;
+        border-color: #e77600;
+        box-shadow: 0 0 3px 2px rgba(228, 121, 17, .5)
+    }
+    
+    .a-button.a-button-pressed,
+    .a-button.a-button-pressed:hover {
+        border-color: #adb1b8 #a2a6ac #a2a6ac
+    }
+    
+    .a-button.a-button-pressed .a-button-inner,
+    .a-button.a-button-pressed:hover .a-button-inner {
+        background-color: #dcdfe3;
+        background-image: none;
+        box-shadow: 0 0 3px 2px rgba(228, 121, 17, .5)
+    }
+    
+    .a-button.a-button-error {
+        border-color: #d00
+    }
+    
+    .a-button .a-button-text {
+        color: #111
+    }
+    
+    .a-button-text {
+        background-color: transparent;
+        border: 0;
+        display: block;
+        font-size: 13px;
+        line-height: 29px;
+        margin: 0;
+        outline: 0;
+        padding: 0 10px 0 11px;
+        text-align: center;
+        white-space: nowrap
+    }
+    
+    .a-button-text:focus {
+        outline: 0
+    }
+    
+    a.a-button-text,
+    button.a-button-text {
+        width: 100%;
+        height: 100%
+    }
+    
+    .a-button-inner {
+        display: block;
+        position: relative;
+        overflow: hidden;
+        height: 29px;
+        box-shadow: 0 1px 0 rgba(255, 255, 255, .6) inset;
+        border-radius: 2px
+    }
+    
+    .a-button-input {
+        position: absolute;
+        background-color: transparent;
+        color: transparent;
+        border: 0;
+        cursor: pointer;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        top: 0;
+        opacity: .01;
+        outline: 0;
+        overflow: visible;
+        z-index: 20
+    }
+    
+    .a-button a,
+    .a-button:hover a {
+        color: #111;
+        text-decoration: none !important
+    }
+    
+    .a-button+.a-button {
+        margin-left: .385em
+    }
+    
+    @-moz-document url-prefix() {
+        .a-button .a-button-text {
+            line-height: 29px
+        }
+        .a-button-small .a-button-text {
+            line-height: 21px
+        }
+    }
+    
+    .a-button.a-button-small {
+        height: 22px
+    }
+    
+    .a-button.a-button-small .a-button-text {
+        font-size: 11px;
+        height: 20px;
+        line-height: 20px;
+        padding: 0 6px 0 7px
+    }
+    
+    .a-button.a-button-small .a-button-inner,
+    .a-button.a-button-small.a-button-disabled .a-button-inner,
+    .a-button.a-button-small.a-button-disabled.a-button-focus .a-button-inner,
+    .a-button.a-button-small.a-button-disabled:active .a-button-inner,
+    .a-button.a-button-small.a-button-disabled:focus .a-button-inner,
+    .a-button.a-button-small.a-button-disabled:hover .a-button-inner,
+    .a-button.a-button-small.a-button-focus .a-button-inner,
+    .a-button.a-button-small.a-button-focus:active .a-button-inner,
+    .a-button.a-button-small:active .a-button-inner,
+    .a-button.a-button-small:focus .a-button-inner,
+    .a-button.a-button-small:focus:active .a-button-inner,
+    .a-button.a-button-small:hover .a-button-inner {
+        height: 20px !important
+    }
+    
+    .a-button-dropdown .a-button-text {
+        padding-right: 26px;
+        text-align: left;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        position: relative;
+        z-index: 10
+    }
+    
+    .a-button-dropdown.a-button-small .a-button-text {
+        padding-right: 20px
+    }
+    
+    .a-button-group .a-button-dropdown,
+    .a-button-group .a-button-splitdropdown {
+        width: 26px !important;
+        min-width: 26px !important
+    }
+    
+    .a-button .a-icon-dropdown {
+        position: absolute;
+        top: 10px;
+        right: 8px
+    }
+    
+    .a-button.a-button-small .a-icon-dropdown {
+        top: 6px
+    }
+    
+    .a-button.a-button-small.a-button-dropdown .a-icon-dropdown {
+        right: 5px
+    }
+    
+    .a-button-primary {
+        background: #f0c14b;
+        border-color: #a88734 #9c7e31 #846a29;
+        color: #111
+    }
+    
+    .a-button-primary .a-button-inner {
+        background: #f4d078;
+        background: -webkit-linear-gradient(top, #f7dfa5, #f0c14b);
+        background: linear-gradient(to bottom, #f7dfa5, #f0c14b)
+    }
+    
+    .a-button-primary:hover .a-button-inner {
+        background: #f1c861;
+        background: -webkit-linear-gradient(top, #f5d78e, #eeb933);
+        background: linear-gradient(to bottom, #f5d78e, #eeb933)
+    }
+    
+    .a-button-primary:active .a-button-inner {
+        background-color: #f0c14b;
+        background-image: none
+    }
+    
+    .a-button-primary.a-button-focus,
+    .a-button-primary:focus,
+    .a-button-primary:hover,
+    .a-button-primary:hover:active {
+        border-color: #a88734 #9c7e31 #846a29
+    }
+    
+    .a-button-primary:active {
+        border-color: #a88734 #9c7e31 #9c7e31
+    }
+    
+    .a-button-primary.a-button-focus,
+    .a-button-primary:focus {
+        border-color: #e77600
+    }
+    
+    .a-button-primary.a-button-disabled {
+        background-color: #f9f3e5 !important;
+        border-color: #e8e0cd !important
+    }
+    
+    .a-button-primary.a-button-disabled .a-button-inner {
+        background-color: #f9f3e5 !important
+    }
+    
+    .a-button-primary.a-button-disabled .a-button-text {
+        color: a_nullable_with_important()
+    }
+    
+    .a-button-primary.a-button-pressed,
+    .a-button-primary.a-button-pressed:hover {
+        border-color: #a88734 #9c7e31 #9c7e31
+    }
+    
+    .a-button-primary.a-button-pressed .a-button-inner,
+    .a-button-primary.a-button-pressed:hover .a-button-inner {
+        background-image: none;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, .2) inset;
+        background-color: #f0c14b
+    }
+    
+    .a-button-primary .a-button-inner {
+        box-shadow: 0 1px 0 rgba(255, 255, 255, .4) inset
+    }
+    
+    .a-button-primary .a-button-text {
+        color: #111
+    }
+    
+    .a-button-disabled>.a-button-primary .a-button-inner {
+        background-color: #f9f3e5 !important
+    }
+    
+    .a-button-group {
+        display: table;
+        font-size: 0;
+        line-height: 0;
+        outline: 0;
+        position: relative;
+        white-space: nowrap
+    }
+    
+    .a-button-group .a-button {
+        border-radius: 0;
+        border: 1px solid;
+        border-color: #adb1b8 #a2a6ac #8d9096;
+        border-left-width: 0;
+        vertical-align: top;
+        display: table-cell;
+        width: auto
+    }
+    
+    .a-button-group .a-button:after {
+        border-radius: 0
+    }
+    
+    .a-button-group .a-button:active {
+        border-color: #adb1b8 #a2a6ac #a2a6ac
+    }
+    
+    .a-button-group .a-button.a-button-focus,
+    .a-button-group .a-button:focus {
+        box-shadow: 0 0 3px 2px rgba(228, 121, 17, .5);
+        outline: 0;
+        z-index: 1;
+        border-color: #e77600
+    }
+    
+    .a-button-group .a-button .a-button-group-last .a-button-inner,
+    .a-button-group .a-button:last-child .a-button-inner {
+        border-radius: 0 3px 3px 0
+    }
+    
+    .a-button-group .a-button:only-child {
+        border-radius: 3px
+    }
+    
+    .a-button-group .a-button:only-child .a-button-inner {
+        border-radius: 3px
+    }
+    
+    .a-button-group .a-button-selected {
+        border-color: #adb2bb #bababa #bababa;
+        position: relative;
+        overflow: visible
+    }
+    
+    .a-button-group .a-button-selected .a-button-inner {
+        background-image: none;
+        background-color: #767676;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, .2) inset
+    }
+    
+    .a-button-group .a-button-selected .a-button-inner .a-button-text {
+        color: #fff
+    }
+    
+    .a-text-center .a-button-group {
+        margin-left: auto;
+        margin-right: auto
+    }
+    
+    .a-button-stack .a-button {
+        margin-bottom: 10px;
+        display: block
+    }
+    
+    .a-button-stack .a-button:last-child {
+        margin-bottom: 0
+    }
+    
+    .a-button-stack .a-button-list .a-button {
+        display: inline-block
+    }
+    
+    .a-button-stack .a-button-group {
+        width: 100%
+    }
+    
+    .a-button-close:focus {
+        background-color: transparent;
+        border-color: #e77600;
+        box-shadow: 0 0 3px 2px rgba(228, 121, 17, .5);
+        outline: 0;
+        padding: 8px
+    }
+    
+    .a-button-close:hover {
+        cursor: pointer
+    }
+    
+    .a-button-close:hover .a-icon-close {
+        opacity: .8
+    }
+</style>

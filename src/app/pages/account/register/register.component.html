@@ -1,0 +1,282 @@
+<!-- <app-breadcrumb [title]="'Register'" [breadcrumb]="'Register'"></app-breadcrumb> -->
+<!-- section start -->
+<section class="register-page section-b-space">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 mb-5">
+                <h4 class="mb-5"><b>Let's start creating your new account.</b></h4>
+                <div class="theme-card">
+
+                    <!-- {{RegistrationForm.value|json}}  -->
+
+                    <form class="theme-form" [formGroup]="RegistrationForm">
+
+
+
+
+                        <!-- <div class="form-group "><input autocomplete="new-password" id="" type="tel"
+                                class="form-control mobileNumberInput" placeholder="" maxlength="10"><span
+                                class="placeholderAlternative mobileNumber">+91<span
+                                    style="padding: 0px 10px; position: relative; bottom: 1px;">|</span><span
+                                    class="mobileNumberPlacholder">Mobile Number<span
+                                        style="color: rgb(255, 87, 34);">*</span></span> </span><i class="bar"></i>
+                        </div> -->
+                        <div class="form-group">
+                            <label *ngIf="!mobileOTP">Mobile Number</label>
+                            <div class="input-group" *ngIf="!mobileOTP">
+                                <div class="input-group-prepend india-code">
+                                    <div class="input-group-text">+91</div>
+                                </div>
+                                <input type="text" id="MobileNumber" class="form-control" [readonly]="mobileverified"
+                                    placeholder="Mobile Number" maxlength="10" autocomplete="off"
+                                    [ngClass]="{ 'is-invalid': submitted && f.mobileNo.errors }"
+                                    formControlName="mobileNo">
+                                <div *ngIf="mobileverified" class="input-group-append">
+                                    <span class="input-group-text success-check">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+                                </div>
+
+                                <div *ngIf="!mobileverified" class="input-group-append">
+                                    <button #otp class="btn btn-sm btn-success" type="button"
+                                        (click)="validateAndCheckMobile();">Send OTP</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group text-center" *ngIf="!mobileOTP">
+                            <h6 class="mb-4"><b>Verify With OTP sent to {{f.mobileNo.value}} <span class="text-danger">
+                                    </span></b></h6>
+
+                            <!-- <input type="password" class="form-control" id="exampleInputPassword"
+                                    formControlName="mobilecode" placeholder="Enter OTP"> -->
+                            <p> <input maxlength='6' class="inputOTP" id="inputOTP" />
+                            </p>
+                            <div class="otp-number" style="display: none;">
+
+                                <div formArrayName="OTPArray" class="otpContainer"
+                                    *ngFor="let input of OTPFormArray.controls;  index as i">
+                                    <input #formRow type="text" [formControlName]="i" id={{i}} class="form-control"
+                                        maxlength="1" (keypress)="keyUpEvent($event, i)">
+                                </div>
+                            </div>
+                            <button class="btn btn-success mt-4" type="button"
+                                (click)="verifyMobileOtp();">Verify</button>
+                        </div>
+                        <div class="form-group" *ngIf="mobileOTP">
+                            <h6 class="text-center" style="color: #969696">Resend OTP in:<b> {{counter}} second(s)</b>
+                            </h6>
+                        </div>
+                        <div *ngIf="mobileverified">
+
+                            <div class="form-group">
+
+                                <label for="email">Your First and Last Name</label>
+                                <input type="text" class="form-control" id="fname" formControlName="name" maxlength="50"
+                                    autocomplete="off" placeholder="First and Last Name"
+                                    [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>Business Type</label>
+                                <select class="custom-select" formControlName="BusinessType"
+                                    [ngClass]="{ 'is-invalid': submitted && f.BusinessType.errors }">
+                                    <option value=""></option>
+                                    <option value="SoleProprietorship">Sole Proprietorship</option>
+                                    <option value="Partnership">Partnership</option>
+                                    <option value="PublicLimitedCompany">Public Limited Company</option>
+                                    <option value="PrivateLimitedCompany">Private Limited Company</option>
+                                    <option value="Other">Other</option>
+
+
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Industry</label>
+                                <select class="custom-select" formControlName="Industry"
+                                    [ngClass]="{ 'is-invalid': submitted && f.BusinessType.errors }">
+                                    <option value=""></option>
+                                    <option value="Retail"> Retail (Fashion / Accessories)</option>
+                                    <option value="Wholesale">Wholesale</option>
+                                    <option value="Other">Other</option>
+
+                                </select>
+
+                            </div>
+                            <div class="form-group">
+                                <label>Business License Type</label>
+                                <select class="custom-select" formControlName="businessLicenseType"
+                                    [ngClass]="{ 'is-invalid': submitted && f.businessLicenseType.errors }">
+                                    <option value=""></option>
+                                    <option value="GSTIN"> Goods and Services Tax Identification Number (GSTIN)</option>
+                                    <option value="BusinessPAN">Business PAN</option>
+                                    <option value="AadharCard">Aadhar Card</option>
+                                </select>
+
+                            </div>
+
+                            <div class="form-group" *ngIf="f.businessLicenseType.value=='GSTIN'">
+
+                                <label for="email">GST Number</label>
+                                <input type="text" class="form-control" id="PANNo" formControlName="GSTNo"
+                                    autocomplete="off" maxlength="15" placeholder="GST No"
+                                    [ngClass]="{ 'is-invalid': submitted && f.GSTNo.errors }">
+                            </div>
+                            <div class="form-group" *ngIf="f.businessLicenseType.value=='BusinessPAN'">
+
+                                <label for="email">PAN Number</label>
+                                <input type="text" class="form-control" id="PANNo" formControlName="PANNo"
+                                    maxlength="10" placeholder="PAN No"
+                                    [ngClass]="{ 'is-invalid': submitted && f.PANNo.errors }">
+                            </div>
+                            <div class="form-group" *ngIf="f.businessLicenseType.value=='AadharCard'">
+
+                                <label for="email">Aadhar Card</label>
+                                <input type="text" class="form-control" id="AadharCard" formControlName="AadharCard"
+                                    autocomplete="off" maxlength="12" placeholder="GST No"
+                                    [ngClass]="{ 'is-invalid': submitted && f.AadharCard.errors }">
+                            </div>
+                            <div class="form-group">
+
+                                <label for="email">Business Name</label>
+                                <input type="text" class="form-control" id="BusinessName" formControlName="BusinessName"
+                                    autocomplete="off" maxlength="100" placeholder="Business Name"
+                                    [ngClass]="{ 'is-invalid': submitted && f.BusinessName.errors }">
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="email">Business Phone</label>
+                                <input type="text" class="form-control" id="BusinessPhone" maxlength="12"
+                                    formControlName="BusinessPhone" placeholder="Business Phone"
+                                    [ngClass]="{ 'is-invalid': submitted && f.BusinessPhone.errors }">
+                            </div>
+                            <div class="form-group">
+
+                                <label for="email">Address1</label>
+                                <input type="text" class="form-control" id="Address1" formControlName="Address1"
+                                    autocomplete="off" maxlength="100" placeholder="Address1"
+                                    [ngClass]="{ 'is-invalid': submitted && f.Address1.errors }">
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="email">Address2</label>
+                                <input type="text" class="form-control" id="Address2" formControlName="Address2"
+                                    autocomplete="off" maxlength="100" placeholder="Address2">
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="email">Pin Code</label>
+                                <input type="text" class="form-control" id="PinCode" formControlName="pinCode"
+                                    autocomplete="off" maxlength="6" placeholder="PinCode"
+                                    [ngClass]="{ 'is-invalid': submitted && f.pinCode.errors }">
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="email">City</label>
+                                <input type="text" class="form-control" id="City" formControlName="city" maxlength="50"
+                                    autocomplete="off" placeholder="City"
+                                    [ngClass]="{ 'is-invalid': submitted && f.city.errors }">
+                            </div>
+
+                            <div class="form-group">
+                                <label>State</label>
+                                <select class="custom-select" formControlName="state"
+                                    [ngClass]="{ 'is-invalid': submitted && f.state.errors }">
+                                    <option value=""></option>
+                                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                    <option value="Assam">Assam</option>
+                                    <option value="Bihar">Bihar</option>
+                                    <option value="Chandigarh">Chandigarh</option>
+                                    <option value="Chhattisgarh">Chhattisgarh</option>
+                                    <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+                                    <option value="Daman and Diu">Daman and Diu</option>
+                                    <option value="Delhi">Delhi</option>
+                                    <option value="Lakshadweep">Lakshadweep</option>
+                                    <option value="Puducherry">Puducherry</option>
+                                    <option value="Goa">Goa</option>
+                                    <option value="Gujarat">Gujarat</option>
+                                    <option value="Haryana">Haryana</option>
+                                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                    <option value="Jharkhand">Jharkhand</option>
+                                    <option value="Karnataka">Karnataka</option>
+                                    <option value="Kerala">Kerala</option>
+                                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                    <option value="Maharashtra">Maharashtra</option>
+                                    <option value="Manipur">Manipur</option>
+                                    <option value="Meghalaya">Meghalaya</option>
+                                    <option value="Mizoram">Mizoram</option>
+                                    <option value="Nagaland">Nagaland</option>
+                                    <option value="Odisha">Odisha</option>
+                                    <option value="Punjab">Punjab</option>
+                                    <option value="Rajasthan">Rajasthan</option>
+                                    <option value="Sikkim">Sikkim</option>
+                                    <option value="Tamil Nadu">Tamil Nadu</option>
+                                    <option value="Telangana">Telangana</option>
+                                    <option value="Tripura">Tripura</option>
+                                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                    <option value="Uttarakhand">Uttarakhand</option>
+                                    <option value="West Bengal">West Bengal</option>
+
+                                </select>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label>Email ID</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Email ID" maxlength="50"
+                                        autocomplete="off" formControlName="email"
+                                        [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="review">Password</label>
+                                <div class="input-group">
+                                    <input type="{{inputType}}" class="form-control" id="review"
+                                        formControlName="password" autocomplete="off" maxlength="20"
+                                        [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+                                        placeholder="password" required="">
+                                    <div class="input-group-append frm-icon" (click)="hideShowPassword()">
+                                        <span class="input-group-text">
+                                            <i class="{{class}}"></i>
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="mt-3 text-center">
+                                <button class="btn btn-primary px-4" type="submit"
+                                    (click)="CreateRegistration();">CREATE
+                                    ACCOUNT</button>
+
+                            </div>
+                        </div>
+                        <div class=" text-center mt-4 font-weight-light">
+                            Already have an account? <a routerLink="/account/login" class="text-primary">Login</a>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Section ends-->

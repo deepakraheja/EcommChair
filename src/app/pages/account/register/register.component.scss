@@ -1,0 +1,33 @@
+.otpContainer input {
+    padding: 9px 0;
+    border: 1px solid #d4d5d9;
+    font-size: 14px;
+    text-align: center;
+    margin: 0 16px 0 0;
+    width: 30px; 
+    border-radius: 2px;
+} 
+.register-page .theme-card .theme-form label {
+    color: #646363;
+}
+
+$num-of-char: 6;
+$char-width: 3ch;
+$gap: .4 * $char-width;
+$in-w: $num-of-char * ($char-width + ($gap));
+
+.inputOTP {
+	display: block;
+	border: none;
+	width: $in-w;
+	background: repeating-linear-gradient(90deg, 
+		#000 0, #000 $char-width, 
+		transparent 0, transparent $char-width + $gap) 
+		0 100%/ #{$in-w - $gap} 2px no-repeat;
+	font: 5ch droid sans mono, consolas, monospace;
+	letter-spacing: $gap;
+	
+	&:focus {
+		outline: none;
+	}
+}
