@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
 
             this._SharedDataService.AssignUser(res);
             this._SharedDataService.UserCart(res);
-            this.router.navigate(['/home/fashion']);
+            //this.router.navigate(['/home/fashion']);
             //  
             // this.route.paramMap.subscribe((params: ParamMap) => {
             //   if (params.get('cart') != "" && params.get('cart') != null && params.get('cart') != undefined) {
