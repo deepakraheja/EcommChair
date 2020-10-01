@@ -45,15 +45,15 @@
 
                         </div>
 
-                        <div class="form-group text-center" *ngIf="!mobileOTP">
+                        <div class="form-group text-center" *ngIf="mobileOTP">
                             <h6 class="mb-4"><b>Verify With OTP sent to {{f.mobileNo.value}} <span class="text-danger">
                                     </span></b></h6>
 
                             <!-- <input type="password" class="form-control" id="exampleInputPassword"
                                     formControlName="mobilecode" placeholder="Enter OTP"> -->
-                            <p> <input maxlength='6' class="inputOTP" id="inputOTP" />
-                            </p>
-                            <div class="otp-number" style="display: none;">
+                            <!-- <p> <input maxlength='6' class="inputOTP" id="inputOTP" />
+                            </p> -->
+                            <div class="otp-number">
 
                                 <div formArrayName="OTPArray" class="otpContainer"
                                     *ngFor="let input of OTPFormArray.controls;  index as i">

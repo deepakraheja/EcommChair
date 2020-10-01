@@ -24,9 +24,9 @@ export const environment = {
 
   //*********************Production Server************* */
 
-  // BASE_API_URL: 'http://34.67.65.213/EcommApiV3/api/',
-  // ProductImage: 'http://34.67.65.213/EcommApiV3/ProductImage/',
-  // Report_Path: 'http://34.67.65.213/EcommApiV3/ReportGenerate/',
+  //BASE_API_URL: 'http://208.109.12.71/EcommChairApiV3/api/',
+  //ProductImage: 'http://208.109.12.71/EcommChairApiV3/ProductImage/',
+  //Report_Path: 'http://208.109.12.71/EcommChairApiV3/ReportGenerate/',
 
 
 };
