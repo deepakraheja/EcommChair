@@ -55,6 +55,7 @@
     "ng5-slider": "^1.2.4",
     "ngx-bar-rating": "^1.1.0",
     "ngx-isotope": "^0.1.7",
+    "ngx-mask": "^10.0.4",
     "ngx-masonry": "^1.1.4",
     "ngx-masonry-layout": "^2.0.6",
     "ngx-owl-carousel-o": "^2.0.3",

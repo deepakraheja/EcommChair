@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ShopComponent } from './shop/shop.component';
 import { PagesComponent } from './pages/pages.component';
+import { OrderInvoiceComponent } from './Report/order-invoice/order-invoice.component';
 //import { ElementsComponent } from './elements/elements.component';
 
 const routes: Routes = [
@@ -10,6 +11,10 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home/fashion',
     pathMatch: 'full'
+  },
+  {
+    path: 'report/orderInvoice/:id',
+    component:OrderInvoiceComponent
   },
   {
     path: 'home',

@@ -1,4 +1,4 @@
-<header class="sticky" [ngClass]="class" [class.fixed]="stick && sticky">
+<header class="fixed-top">
     <div class="mobile-fix-option"></div>
     <div class="top-header" *ngIf="topbar">
         <div class="container">
@@ -6,13 +6,16 @@
                 <div class="col-lg-7">
                     <div class="header-contact">
                         <ul>
-                            <li>ALI BABA CHAIR</li>
+                            <li>VIKRAM CREATIONS PRIVATE LIMITED</li>
                             <li><i class="fa fa-phone" aria-hidden="true"></i>Call Us: +91-98918-69911</li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-5 text-right">
-                    <ul class="header-dropdown">
+                    <span class="Logininfo" *ngIf="LoggedInUser==[] || LoggedInUser==undefined || LoggedInUser?.length==0">
+                        <a (click)="Login()" class="btn btn-solid btn-solid-small"><i
+                        class="fa fa-user" aria-hidden="true"></i>Login</a></span>
+                    <ul class="header-dropdown" *ngIf="LoggedInUser!=[] && LoggedInUser!=undefined && LoggedInUser?.length>0">
                         <!--  <li class="compare">
                            <a [routerLink]="['/shop/compare']"><i class="fa fa-random" aria-hidden="true"></i>Compare</a> 
                             &nbsp;
@@ -21,13 +24,11 @@
                          <a [routerLink]="['/shop/wishlist']"><i class="fa fa-heart" aria-hidden="true"></i>Wishlist</a>
                             &nbsp;
                         </li> -->
-                        <li class="onhover-dropdown mobile-account"
-                            *ngIf="LoggedInUser==[] || LoggedInUser==undefined || LoggedInUser?.length==0">
+                        <!-- <li class="onhover-dropdown mobile-account" *ngIf="LoggedInUser==[] || LoggedInUser==undefined || LoggedInUser?.length==0">
                             <span class="Logininfo"><a (click)="Login()" class="btn btn-solid btn-solid-small"><i
                                         class="fa fa-user" aria-hidden="true"></i>Login</a></span>
-                        </li>
-                        <li class="onhover-dropdown mobile-account"
-                            *ngIf="LoggedInUser!=[] && LoggedInUser!=undefined && LoggedInUser?.length>0">
+                        </li> -->
+                        <li class="onhover-dropdown mobile-account">
                             <i class="fa fa-user" aria-hidden="true"></i> {{LoggedInUser[0].name}}
                             <ul class="onhover-show-div">
                                 <li>
@@ -58,7 +59,7 @@
                 <app-left-menu></app-left-menu>
                 <div class="brand-logo">
                     <a routerLink="/home/fashion" id="headerlogo">
-                                <!-- <img [src]="themeLogo" class="img-fluid" alt="logo"> -->
+                        <img [src]="themeLogo" class="img-fluid logo-size" alt="logo">
                     </a>
                 </div>
             </div>

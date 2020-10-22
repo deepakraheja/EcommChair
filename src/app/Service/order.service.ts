@@ -30,15 +30,29 @@ export class OrderService {
       this._url + this._methodName, this._param
     );
   }
-  GetOrderByUserId(_Obj: any): Observable<any> {
+  GetOrderByUserId(): Observable<any> {
     this._methodName = "GetOrderByUserId";
-    this._param = _Obj;
+    this._param = {};
     return this._http.post<any>(
       this._url + this._methodName, this._param
     );
   }
   GetSuccessOrderByOrderId(_Obj: any): Observable<any> {
     this._methodName = "GetSuccessOrderByOrderId";
+    this._param = _Obj;
+    return this._http.post<any>(
+      this._url + this._methodName, this._param
+    );
+  }
+  GetSuccessPrintOrderByGUID(_Obj: any): Observable<any> {
+    this._methodName = "GetSuccessPrintOrderByGUID";
+    this._param = _Obj;
+    return this._http.post<any>(
+      this._url + this._methodName, this._param
+    );
+  }
+  GetNewOrderByGUID(_Obj: any): Observable<any> {
+    this._methodName = "GetNewOrderByGUID";
     this._param = _Obj;
     return this._http.post<any>(
       this._url + this._methodName, this._param

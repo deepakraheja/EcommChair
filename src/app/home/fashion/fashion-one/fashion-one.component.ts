@@ -72,41 +72,39 @@ export class FashionOneComponent implements OnInit {
     // title: 'welcome to fashion',
     //subTitle: ''Men fashion'',
     image: 'assets/images/slider/banner_1.jpg'
+  }, {
+    //title: 'welcome to fashion',
+    //subTitle: 'Women fashion',
+    image: 'assets/images/slider/banner_2.jpg'
+
+  },
+  {
+    image: 'assets/images/slider/banner_3.jpg'
+
+  },
+  {
+    image: 'assets/images/slider/banner_4.jpg'
+
+  },
+  {
+    image: 'assets/images/slider/banner_5.jpg'
+
+  },
+  {
+    image: 'assets/images/slider/banner_6.jpg'
+
   }
-  // , 
-  // {
-  //   //title: 'welcome to fashion',
-  //   //subTitle: 'Women fashion',
-  //   image: 'assets/images/slider/banner_2.jpg'
-
-  // },
-  // {
-  //   image: 'assets/images/slider/banner_3.jpg'
-
-  // },
-  // {
-  //   image: 'assets/images/slider/banner_4.jpg'
-
-  // },
-  // {
-  //   image: 'assets/images/slider/banner_5.jpg'
-
-  // },
-  // {
-  //   image: 'assets/images/slider/banner_6.jpg'
-
-  // }
   ]
 
   // Collection banner
   public collections = [{
     image: 'assets/images/collection/fashion/1.jpg',
     save: 'save 50%',
-    // title: 'men'
+    title: 'men'
   }, {
     image: 'assets/images/collection/fashion/2.jpg',
     save: 'save 50%',
-    // title: 'women'
+    title: 'women'
   }];
 
   // Blog

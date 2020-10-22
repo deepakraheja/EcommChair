@@ -16,6 +16,7 @@ export class SuccessComponent implements OnInit, AfterViewInit {
   public ProductImage = environment.ProductImage;
   public orderDetails: any[] = [];
   user: any[] = [];
+  public IsInvalidOrder = false;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -30,20 +31,23 @@ export class SuccessComponent implements OnInit, AfterViewInit {
     this.route.paramMap.subscribe((params: ParamMap) => {
       //  
       //this.GetOrderById(Number(params.get('orderId')));
-      var orderId = params.get('id');
-      if (Number(orderId) != NaN && orderId.length <= 9) {
+      var GUID = params.get('id');
+      //if (Number(orderId) != NaN && orderId.length <= 9) {
         let obj = {
-          OrderId: Number(orderId)
+          GUID: GUID
         };
         this.spinner.show();
-        this._OrderService.GetSuccessOrderByOrderId(obj).subscribe(res => {
+        this._OrderService.GetNewOrderByGUID(obj).subscribe(res => {
           this.spinner.hide();
-           
-          //if (res > 0)
-            this.orderDetails = res;
+
+          if (res.length == 0)
+            this.IsInvalidOrder = true;
+          else
+            this.IsInvalidOrder = false;
+          this.orderDetails = res;
           //console.log(res);
         });
-      }
+      //}
     });
     //this.orderService.checkoutItems.subscribe(response => this.orderDetails = response);
     //this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
@@ -55,10 +59,35 @@ export class SuccessComponent implements OnInit, AfterViewInit {
   }
 
   getTotal() {
-     
+
     var TotalAmount = 0;
     (this.orderDetails[0].orderDetails).forEach(element => {
-      TotalAmount += (element.price * element.quantity) + element.gstAmount
+      TotalAmount += Number(((element.salePrice * element.quantity) - element.additionalDiscountAmount + element.gstAmount).toFixed(2));
+    });
+    return TotalAmount;
+  }
+
+  getTotalQty() {
+    var TotalQty = 0;
+    (this.orderDetails[0].orderDetails).forEach(element => {
+      TotalQty += Number((element.quantity).toFixed(2));
+    });
+    return TotalQty;
+  }
+
+
+  getTotalAdditionalDiscountAmount() {
+    var TotalAdditionalDiscountAmount = 0;
+    (this.orderDetails[0].orderDetails).forEach(element => {
+      TotalAdditionalDiscountAmount += Number((element.additionalDiscountAmount).toFixed(2));
+    });
+    return TotalAdditionalDiscountAmount;
+  }
+
+  getTotalAmountWithDis(){
+    var TotalAmount = 0;
+    (this.orderDetails[0].orderDetails).forEach(element => {
+      TotalAmount += Number(((element.salePrice * element.quantity) - element.additionalDiscountAmount).toFixed(2));
     });
     return TotalAmount;
   }
@@ -66,7 +95,7 @@ export class SuccessComponent implements OnInit, AfterViewInit {
   getTotalGSTAmount() {
     var TotalGSTAmount = 0;
     (this.orderDetails[0].orderDetails).forEach(element => {
-      TotalGSTAmount += element.gstAmount
+      TotalGSTAmount += Number((element.gstAmount).toFixed(2));
     });
     return TotalGSTAmount;
   }

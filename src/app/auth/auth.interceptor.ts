@@ -14,8 +14,8 @@ export class AuthInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // 
         // add authorization header with jwt token if available      
+        //debugger
 
-       
         let Token = sessionStorage.getItem('Token');
 
         if (Token != null) {
@@ -30,17 +30,19 @@ export class AuthInterceptor implements HttpInterceptor {
                 tap(
                     succ => { },
                     err => {
+                        //debugger
                         if (err.status == 401) {
                             sessionStorage.removeItem('Token')
-                            
+
                         }
                     }
                 )
             );
         }
         else {
+            //debugger
             sessionStorage.removeItem('Token')
-           
+            //this._router.navigate(['/pages/404']);
             return next.handle(req.clone());
 
         }

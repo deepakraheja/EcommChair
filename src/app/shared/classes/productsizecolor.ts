@@ -12,7 +12,8 @@ export class productSizeColor {
     discount?: number;
     totalPieces?: number;
     price?: number;
-    setType?: number
+    setType?: number;
+    additionalDiscountAmount?: number;
 
     constructor(
         productSizeColorId?: number,
@@ -27,7 +28,8 @@ export class productSizeColor {
         gstAmount?: number,
         totalPieces?: number,
         price?: number,
-        setType?: number
+        setType?: number,
+        additionalDiscountAmount?: number
     ) {
         this.productSizeColorId = productSizeColorId;
         this.productSizeId = productSizeId;
@@ -42,6 +44,7 @@ export class productSizeColor {
         this.totalPieces = totalPieces;
         this.price = price;
         this.setType = setType;
+        this.additionalDiscountAmount = additionalDiscountAmount;
     }
 
 }

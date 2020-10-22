@@ -1,0 +1,52 @@
+/* loading state */
+.btn-loading {
+    position: relative;
+
+    /* hide button content */
+    &,
+    /* hover */
+    &:hover,
+    /* focus */
+    &.focus,
+    &:focus,
+    /* active */
+    &:not(:disabled):not(.disabled).active,
+    &:not(:disabled):not(.disabled):active,
+    /* disabled */
+    &.disabled,
+    &:disabled {
+        color: rgba(255,255,255,.3);
+        fill: rgba(255,255,255,.3);
+    }
+}
+.btn-loading::after {
+    content: "";
+    position: absolute; 
+    top: 23%; 
+    left: 59%; 
+    transform: translate(-40%, -50%); 
+    animation: effect 1s linear infinite; 
+    width: 26px; 
+    height: 26px; 
+    border-radius: 50%; 
+    border: 3px solid rgba(255, 255, 255, 0.3); 
+    border-top-color: #fff; 
+  }
+  @keyframes effect { 
+      0% { 
+          transform: rotate(0deg); 
+      } 
+  
+      100% { 
+          transform: rotate(360deg); 
+      } 
+  
+  
+  }
+
+  .Customerror {
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 80%;
+    color: #dc3545;
+}

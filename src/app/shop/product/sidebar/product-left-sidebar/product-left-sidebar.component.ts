@@ -11,8 +11,6 @@ import { productSizeColor } from 'src/app/shared/classes/productsizecolor';
 import { CartService } from 'src/app/Service/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { LoginComponent } from 'src/app/pages/account/login/login.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 declare var $;
 
@@ -61,8 +59,7 @@ export class ProductLeftSidebarComponent implements OnInit {
     private _prodService: ProductsService,
     private _CartService: CartService,
     private toastr: ToastrService,
-    private spinner: NgxSpinnerService,
-    private modalService: NgbModal,
+    private spinner: NgxSpinnerService
   ) {
     // this.route.data.subscribe(response => this.product = response.data );
   }
@@ -84,10 +81,10 @@ export class ProductLeftSidebarComponent implements OnInit {
           this.productkart = product;
 
         }
-        setTimeout(() => this.spinner.hide(), 1000);
+        setTimeout(()=> this.spinner.hide(),1000);
       });
     });
-
+ 
   }
   ngOnInit(): void {
     this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
@@ -121,7 +118,7 @@ export class ProductLeftSidebarComponent implements OnInit {
           })
         }
       }
-
+     
       //console.log(imageColor);
       return imageColor
     }
@@ -168,47 +165,35 @@ export class ProductLeftSidebarComponent implements OnInit {
     //  
     //product.quantity = this.counter || 1;
     //product.productname = productname;
-    this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
-    //  
-    if (this.user == null || this.user == undefined) {
-      //this.router.navigate(['/pages/login/cart']);
-      this.modalService.open(LoginComponent, {
-        size: 'lg',
-        ariaLabelledBy: 'Cart-Modal',
-        centered: true,
-        windowClass: 'theme-modal cart-modal CartModal'
-      });
+
+    var obj: any[] = [];
+    var array: any[] = this.productkart[0].productSizeColor;
+    (array).forEach(element => {
+
+      if (element.isSelected) {
+
+        obj.push({
+          UserID: Number(this.user[0].userID),
+          ProductSizeId: Number(element.productSizeId),
+          Quantity: Number(element.selectedQty)
+        })
+
+      }
+    });
+    //  ;
+    if (Number(obj.length) > 0) {
+      const status = await this.productService.addToCartProduct(obj);
+
+      if (status) {
+        if (type == 1)
+          this.router.navigate(['/shop/cart']);
+        else
+          this.router.navigate(['/shop/checkout']);
+      }
     }
     else {
-      var obj: any[] = [];
-      var array: any[] = this.productkart[0].productSizeColor;
-      (array).forEach(element => {
 
-        if (element.isSelected) {
-
-          obj.push({
-            UserID: Number(this.user[0].userID),
-            ProductSizeId: Number(element.productSizeId),
-            Quantity: Number(element.selectedQty)
-          })
-
-        }
-      });
-      //  ;
-      if (Number(obj.length) > 0) {
-        const status = await this.productService.addToCartProduct(obj);
-
-        if (status) {
-          if (type == 1)
-            this.router.navigate(['/shop/cart']);
-          else
-            this.router.navigate(['/shop/checkout']);
-        }
-      }
-      else {
-
-        this.toastr.error("Please select an item.");
-      }
+      this.toastr.error("Please select an item.");
     }
   }
 

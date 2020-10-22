@@ -1,33 +1,93 @@
+.otpContainer {
+    // margin-right: 10px;
+    // width: 40px;
+    border: none;
+}
+
 .otpContainer input {
     padding: 9px 0;
-    border: 1px solid #d4d5d9;
-    font-size: 14px;
-    text-align: center;
-    margin: 0 16px 0 0;
-    width: 30px; 
-    border-radius: 2px;
-} 
+    font-size: 26px;
+    text-align: left;
+    border: none;
+    //border-bottom: 1 px solid;
+    letter-spacing: 4px;
+}
+
+.otpContainer input {
+    box-shadow: none;
+    border-bottom: 1px solid var(--theme-deafult);
+}
+
 .register-page .theme-card .theme-form label {
     color: #646363;
 }
 
-$num-of-char: 6;
-$char-width: 3ch;
-$gap: .4 * $char-width;
-$in-w: $num-of-char * ($char-width + ($gap));
+.Customerror {
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 80%;
+    color: #dc3545;
+}
 
-.inputOTP {
-	display: block;
-	border: none;
-	width: $in-w;
-	background: repeating-linear-gradient(90deg, 
-		#000 0, #000 $char-width, 
-		transparent 0, transparent $char-width + $gap) 
-		0 100%/ #{$in-w - $gap} 2px no-repeat;
-	font: 5ch droid sans mono, consolas, monospace;
-	letter-spacing: $gap;
-	
-	&:focus {
-		outline: none;
-	}
+// input[type="text"]::-webkit-input-placeholder, input[type="password"]::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+//     color: transparent;
+//   }
+//   input[type="text"]::-moz-placeholder, input[type="password"]::-moz-placeholder { /* Firefox 19+ */
+//     color: transparent;
+//   }
+//   input[type="text"]:-ms-input-placeholder, input[type="password"]:-ms-input-placeholder { /* IE 10+ */
+//     color: transparent;
+//   }
+//   input[type="text"]:-moz-placeholder, input[type="password"]:-moz-placeholder { /* Firefox 18- */
+//     color: transparent;
+//   }
+// .custom-select {
+//     background-image: url(~/assets/images/icon/down-arrow.svg) ;
+//     background-repeat: no-repeat;
+//     background-position: center right 10px;
+// }
+
+/* loading state */
+
+.btn-loading {
+    position: relative;
+    /* hide button content */
+    &,
+    /* hover */
+    &:hover,
+    /* focus */
+    &.focus,
+    &:focus,
+    /* active */
+    &:not(:disabled):not(.disabled).active,
+    &:not(:disabled):not(.disabled):active,
+    /* disabled */
+    &.disabled,
+    &:disabled {
+        color: rgba(255, 255, 255, .3);
+        fill: rgba(255, 255, 255, .3);
+    }
+}
+
+.btn-loading::after {
+    content: "";
+    position: absolute;
+    top: 25%;
+    left: 40%;
+    transform: translate(-40%, -50%);
+    animation: effect 1s linear infinite;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+}
+
+@keyframes effect {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }

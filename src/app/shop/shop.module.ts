@@ -43,6 +43,7 @@ import { ProductLeftSidebarWithSetComponent } from './product/sidebar/product-le
 import { ProductLeftSidebarWithBundleComponent } from './product/sidebar/product-left-sidebar-with-bundle/product-left-sidebar-with-bundle.component';
 import { SafePipeModule } from 'safe-pipe';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgxMaskModule } from 'ngx-mask';
 //import { NgxImageZoomModule } from 'ngx-image-zoom';
 
 @NgModule({
@@ -86,6 +87,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ShopRoutingModule,
     SafePipeModule,
     //NgxImageZoomModule, // <-- Add this line
+    NgxMaskModule.forRoot(),
   ]
 })
 export class ShopModule { }

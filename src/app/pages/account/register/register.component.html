@@ -7,13 +7,9 @@
                 <h4 class="mb-5"><b>Let's start creating your new account.</b></h4>
                 <div class="theme-card">
 
-                    <!-- {{RegistrationForm.value|json}}  -->
+                    <!-- {{RegistrationForm.value|json}} -->
 
                     <form class="theme-form" [formGroup]="RegistrationForm">
-
-
-
-
                         <!-- <div class="form-group "><input autocomplete="new-password" id="" type="tel"
                                 class="form-control mobileNumberInput" placeholder="" maxlength="10"><span
                                 class="placeholderAlternative mobileNumber">+91<span
@@ -27,26 +23,37 @@
                                 <div class="input-group-prepend india-code">
                                     <div class="input-group-text">+91</div>
                                 </div>
-                                <input type="text" id="MobileNumber" class="form-control" [readonly]="mobileverified"
-                                    placeholder="Mobile Number" maxlength="10" autocomplete="off"
+                                <input autofocus type="text" id="MobileNumber" class="form-control"
+                                    [readonly]="mobileverified" (keypress)="keytab($event)" placeholder="Mobile Number"
+                                    maxlength="10" autocomplete="off" (keydown)="keydownEvent($event)"
                                     [ngClass]="{ 'is-invalid': submitted && f.mobileNo.errors }"
                                     formControlName="mobileNo">
+
+                                <!-- <div *ngIf="submitted && f.mobileNo.errors" class="invalid-feedback">
+                                    <div>
+                                        Please, Enter 10 digit Mobile Number</div>
+                                </div> -->
                                 <div *ngIf="mobileverified" class="input-group-append">
                                     <span class="input-group-text success-check">
                                         <i class="fa fa-check"></i>
                                     </span>
                                 </div>
 
-                                <div *ngIf="!mobileverified" class="input-group-append">
-                                    <button #otp class="btn btn-sm btn-success" type="button"
-                                        (click)="validateAndCheckMobile();">Send OTP</button>
-                                </div>
+                                <!-- <div *ngIf="!mobileverified" class="input-group-append"> -->
+                                <button *ngIf="!mobileverified" #otp class="btn btn-sm btn-success" type="button"
+                                    autofocus [ngClass]="{'btn-loading': loginStart}"
+                                    (click)="validateAndCheckMobile();">Send
+                                    OTP</button>
+                                <!-- </div> -->
                             </div>
 
                         </div>
 
                         <div class="form-group text-center" *ngIf="mobileOTP">
-                            <h6 class="mb-4"><b>Verify With OTP sent to {{f.mobileNo.value}} <span class="text-danger">
+                            <h6 class="mb-4">
+                                <b>Verify With OTP sent to {{f.mobileNo.value}}.
+                                    <a href="javaScript:void(0);" (click)="Change()">Change</a>
+                                    <span class="text-danger">
                                     </span></b></h6>
 
                             <!-- <input type="password" class="form-control" id="exampleInputPassword"
@@ -55,145 +62,212 @@
                             </p> -->
                             <div class="otp-number">
 
-                                <div formArrayName="OTPArray" class="otpContainer"
+                                <!-- <div formArrayName="OTPArray" class="otpContainer"
                                     *ngFor="let input of OTPFormArray.controls;  index as i">
-                                    <input #formRow type="text" [formControlName]="i" id={{i}} class="form-control"
-                                        maxlength="1" (keypress)="keyUpEvent($event, i)">
+                                    <input #formRow type="tel" autofocus [formControlName]="i" id={{i}}
+                                        class="form-control" maxlength="1" (keypress)="keypressEvent($event, i)"
+                                        (keyup)="keyupEvent($event, i)">
+
+                                </div> -->
+                                <div class="otpContainer">
+                                    <input type="text" formControlName="mobileotp" maxlength='6' #SetFocus
+                                        style="width: 112px;" id="txtverify" />
+
+                                    <!-- <input #SetFocus type="text" id="txtverify" [mask]="NumberMask" #mask=""
+                                        [dropSpecialCharacters]="false" formControlName="mobileotp"
+                                        [showMaskTyped]="showMask" floatLabelType='Always' (focus)="addMask($event);"> -->
                                 </div>
                             </div>
-                            <button class="btn btn-success mt-4" type="button"
+                            <button class=" btn btn-success mt-4" type="button" [ngClass]="{'btn-loading': VerifyStart}"
                                 (click)="verifyMobileOtp();">Verify</button>
                         </div>
                         <div class="form-group" *ngIf="mobileOTP">
-                            <h6 class="text-center" style="color: #969696">Resend OTP in:<b> {{counter}} second(s)</b>
+                            <h6 class="text-center" style="color: #969696">Resend OTP in:<b> {{counter}}
+                                    second(s)</b>
                             </h6>
                         </div>
                         <div *ngIf="mobileverified">
 
                             <div class="form-group">
 
-                                <label for="email">Your First and Last Name</label>
-                                <input type="text" class="form-control" id="fname" formControlName="name" maxlength="50"
-                                    autocomplete="off" placeholder="First and Last Name"
-                                    [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+                                <label for="email">Your First and Last Name</label><span style="color:red">*</span>
+                                <input type="text" class="form-control" id="fname" formControlName="name" maxlength="45"
+                                    autocomplete="off" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+
+                                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                                    <div>First and Last Name is required
+                                    </div>
+                                </div>
                             </div>
 
-
                             <div class="form-group">
-
-                                <label>Business Type</label>
-                                <select class="custom-select" formControlName="BusinessType"
+                                <label>Business Type</label><span style="color:red">*</span>
+                                <select id="ddlBusinessType" name="ddlBusinessType" class="custom-select"
+                                    formControlName="BusinessType"
                                     [ngClass]="{ 'is-invalid': submitted && f.BusinessType.errors }">
-                                    <option value=""></option>
+                                    <option value="">select</option>
                                     <option value="SoleProprietorship">Sole Proprietorship</option>
                                     <option value="Partnership">Partnership</option>
                                     <option value="PublicLimitedCompany">Public Limited Company</option>
                                     <option value="PrivateLimitedCompany">Private Limited Company</option>
                                     <option value="Other">Other</option>
-
-
                                 </select>
+
+                                <div *ngIf="submitted && f.BusinessType.errors" class="invalid-feedback">
+                                    <div>Business Type is required
+                                    </div>
+                                </div>
+
                             </div>
 
                             <div class="form-group">
-                                <label>Industry</label>
-                                <select class="custom-select" formControlName="Industry"
-                                    [ngClass]="{ 'is-invalid': submitted && f.BusinessType.errors }">
-                                    <option value=""></option>
+                                <label>Industry</label><span style="color:red">*</span>
+                                <select class="custom-select" formControlName="Industry" id="ddlIndustry"
+                                    [ngClass]="{ 'is-invalid': submitted && f.Industry.errors }">
+                                    <option value="">select</option>
                                     <option value="Retail"> Retail (Fashion / Accessories)</option>
                                     <option value="Wholesale">Wholesale</option>
                                     <option value="Other">Other</option>
 
                                 </select>
-
+                                <div *ngIf="submitted && f.Industry.errors" class="invalid-feedback">
+                                    <div>Industry is required
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label>Business License Type</label>
-                                <select class="custom-select" formControlName="businessLicenseType"
+                                <label>Business License Type</label><span style="color:red">*</span>
+                                <select id="ddlLicenseType" class="custom-select" formControlName="businessLicenseType"
+                                    (change)="ChangeLicenseType()"
                                     [ngClass]="{ 'is-invalid': submitted && f.businessLicenseType.errors }">
-                                    <option value=""></option>
-                                    <option value="GSTIN"> Goods and Services Tax Identification Number (GSTIN)</option>
+                                    <option value="">select</option>
+                                    <option value="GSTIN"> Goods and Services Tax Identification Number (GSTIN)
+                                    </option>
                                     <option value="BusinessPAN">Business PAN</option>
                                     <option value="AadharCard">Aadhar Card</option>
                                 </select>
-
+                                <div *ngIf="submitted && f.businessLicenseType.errors" class="invalid-feedback">
+                                    <div>Business License Type is required
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="form-group" *ngIf="f.businessLicenseType.value=='GSTIN'">
 
-                                <label for="email">GST Number</label>
-                                <input type="text" class="form-control" id="PANNo" formControlName="GSTNo"
-                                    autocomplete="off" maxlength="15" placeholder="GST No"
-                                    [ngClass]="{ 'is-invalid': submitted && f.GSTNo.errors }">
+                                <label for="email">GST Number</label><span style="color:red">*</span>
+                                <input #GSTNo type="text" class="form-control input-upper" id="txtGSTNo"
+                                    autocomplete="off" (input)="GSTNo.value = GSTNo.value.toUpperCase()"
+                                    formControlName="GSTNo" maxlength="15" placeholder="GST No">
+                                <div *ngIf="submitted && f.GSTNo.errors" class="Customerror">
+                                    <div>GST Number is required
+                                    </div>
+                                </div>
                             </div>
+
                             <div class="form-group" *ngIf="f.businessLicenseType.value=='BusinessPAN'">
 
-                                <label for="email">PAN Number</label>
-                                <input type="text" class="form-control" id="PANNo" formControlName="PANNo"
-                                    maxlength="10" placeholder="PAN No"
-                                    [ngClass]="{ 'is-invalid': submitted && f.PANNo.errors }">
+                                <label for="email">PAN Number</label><span style="color:red">*</span>
+                                <input type="text" #PANNo class="form-control" id="txtPANNo" maxlength="10"
+                                    formControlName="PANNo" (input)="PANNo.value = PANNo.value.toUpperCase()"
+                                    placeholder="PAN No">
+                                <div *ngIf="submitted && f.PANNo.errors" class="Customerror">
+                                    <div>PAN Number is required
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group" *ngIf="f.businessLicenseType.value=='AadharCard'">
 
-                                <label for="email">Aadhar Card</label>
-                                <input type="text" class="form-control" id="AadharCard" formControlName="AadharCard"
-                                    autocomplete="off" maxlength="12" placeholder="GST No"
-                                    [ngClass]="{ 'is-invalid': submitted && f.AadharCard.errors }">
+                                <label for="email">Aadhar Card</label><span style="color:red">*</span>
+                                <input type="text" class="form-control" id="txtAadharCard" autocomplete="off"
+                                    formControlName="AadharCard" maxlength="14" placeholder="Aadhar Card"
+                                    [mask]="AadharNumberMask" [showMaskTyped]="showMask"
+                                    (focus)="addAadharMask($event);" [dropSpecialCharacters]="false">
+                                <div *ngIf="submitted && f.AadharCard.errors" class="Customerror">
+                                    <div>Aadhar Card is required
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
 
-                                <label for="email">Business Name</label>
+                                <label for="email">Business Name</label><span style="color:red">*</span>
                                 <input type="text" class="form-control" id="BusinessName" formControlName="BusinessName"
-                                    autocomplete="off" maxlength="100" placeholder="Business Name"
+                                    autocomplete="off" maxlength="100"
                                     [ngClass]="{ 'is-invalid': submitted && f.BusinessName.errors }">
+                                <div *ngIf="submitted && f.BusinessName.errors" class="invalid-feedback">
+                                    <div>Business Name is required
+                                    </div>
+                                </div>
                             </div>
 
 
                             <div class="form-group">
 
-                                <label for="email">Business Phone</label>
-                                <input type="text" class="form-control" id="BusinessPhone" maxlength="12"
-                                    formControlName="BusinessPhone" placeholder="Business Phone"
+                                <label for="email">Business Phone</label><span style="color:red">*</span>
+                                <input type="text" class="form-control" id="txtBusinessPhone" maxlength="10"
+                                    formControlName="BusinessPhone" [mask]="PhoneMask" [dropSpecialCharacters]="false"
+                                    [showMaskTyped]="showMask" (focus)="addPhoneMask($event);"
                                     [ngClass]="{ 'is-invalid': submitted && f.BusinessPhone.errors }">
+
+                                <div *ngIf="submitted && f.BusinessPhone.errors" class="invalid-feedback">
+                                    <div>Business Phone is required
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
 
-                                <label for="email">Address1</label>
+                                <label for="email">Address1</label><span style="color:red">*</span>
                                 <input type="text" class="form-control" id="Address1" formControlName="Address1"
-                                    autocomplete="off" maxlength="100" placeholder="Address1"
+                                    autocomplete="off" maxlength="100"
                                     [ngClass]="{ 'is-invalid': submitted && f.Address1.errors }">
+
+                                <div *ngIf="submitted && f.Address1.errors" class="invalid-feedback">
+                                    <div>Address1 is required
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="form-group">
 
                                 <label for="email">Address2</label>
                                 <input type="text" class="form-control" id="Address2" formControlName="Address2"
-                                    autocomplete="off" maxlength="100" placeholder="Address2">
+                                    autocomplete="off" maxlength="70">
                             </div>
 
                             <div class="form-group">
 
-                                <label for="email">Pin Code</label>
-                                <input type="text" class="form-control" id="PinCode" formControlName="pinCode"
-                                    autocomplete="off" maxlength="6" placeholder="PinCode"
+                                <label for="email">Pin Code</label><span style="color:red">*</span>
+                                <input type="text" class="form-control" id="txtPinCode" formControlName="pinCode"
+                                    autocomplete="off" maxlength="6" [mask]="PinCodeMask"
+                                    [dropSpecialCharacters]="false" (focus)="addPinCodeMask($event);"
                                     [ngClass]="{ 'is-invalid': submitted && f.pinCode.errors }">
+
+                                <div *ngIf="submitted && f.pinCode.errors" class="invalid-feedback">
+                                    <div>Pin Code is required
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="form-group">
 
-                                <label for="email">City</label>
-                                <input type="text" class="form-control" id="City" formControlName="city" maxlength="50"
-                                    autocomplete="off" placeholder="City"
-                                    [ngClass]="{ 'is-invalid': submitted && f.city.errors }">
+                                <label for="email">City</label><span style="color:red">*</span>
+                                <input type="text" class="form-control" id="City" formControlName="city" maxlength="48"
+                                    autocomplete="off" [ngClass]="{ 'is-invalid': submitted && f.city.errors }">
+
+
+                                <div *ngIf="(submitted) && f.city.errors" class="invalid-feedback">
+                                    <div>City is required
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="form-group">
-                                <label>State</label>
-                                <select class="custom-select" formControlName="state"
+                                <label>State</label><span style="color:red">*</span>
+                                <select class="custom-select" formControlName="state" id="ddlState"
                                     [ngClass]="{ 'is-invalid': submitted && f.state.errors }">
-                                    <option value=""></option>
+                                    <option value="">select</option>
                                     <option value="Andhra Pradesh">Andhra Pradesh</option>
-                                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands
+                                    </option>
                                     <option value="Arunachal Pradesh">Arunachal Pradesh</option>
                                     <option value="Assam">Assam</option>
                                     <option value="Bihar">Bihar</option>
@@ -230,38 +304,51 @@
                                     <option value="West Bengal">West Bengal</option>
 
                                 </select>
-
+                                <div *ngIf="(submitted) && f.state.errors" class="invalid-feedback">
+                                    <div>State is required
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="form-group">
-                                <label>Email ID</label>
+                                <label>Email ID</label><span style="color:red">*</span>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Email ID" maxlength="50"
-                                        autocomplete="off" formControlName="email"
+                                    <input type="text" id="txtemail" class="form-control" formControlName="email"
+                                        maxlength="50" autocomplete="off"
                                         [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
 
+                                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                        <div *ngIf="f.email.errors.required">Email is required</div>
+                                        <div *ngIf="f.email.errors.email">Email ID must be a valid email address</div>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="form-group">
 
-                                <label for="review">Password</label>
+                                <label for="review">Password</label><span style="color:red">*</span>
                                 <div class="input-group">
-                                    <input type="{{inputType}}" class="form-control" id="review"
+                                    <input type="{{inputType}}" class="form-control" id="review" id="password"
                                         formControlName="password" autocomplete="off" maxlength="20"
-                                        [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
-                                        placeholder="password" required="">
+                                        [ngClass]="{ 'is-invalid': submitted && f.password.errors }" required="">
                                     <div class="input-group-append frm-icon" (click)="hideShowPassword()">
                                         <span class="input-group-text">
                                             <i class="{{class}}"></i>
                                         </span>
                                     </div>
+
+                                </div>
+
+                                <div *ngIf="submitted && f.password.errors" class="Customerror">
+                                    <div *ngIf="f.password.errors.required">Password is required</div>
+
+                                </div>
+                                <div *ngIf="(submitted) && RegistrationForm.controls.password.errors?.minlength"
+                                    class="Customerror">
+                                    Password must be at least 8 characters.
                                 </div>
 
                             </div>
-
-
-
                             <div class="mt-3 text-center">
                                 <button class="btn btn-primary px-4" type="submit"
                                     (click)="CreateRegistration();">CREATE
@@ -270,7 +357,8 @@
                             </div>
                         </div>
                         <div class=" text-center mt-4 font-weight-light">
-                            Already have an account? <a routerLink="/account/login" class="text-primary">Login</a>
+                            Already have an account? <a href="javaScript:void(0);" (click)="Login()"
+                                class="text-primary">Login</a>
                         </div>
 
                     </form>

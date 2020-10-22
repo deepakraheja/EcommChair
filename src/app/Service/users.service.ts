@@ -19,9 +19,9 @@ export class UsersService {
     this._methodName = "UserRegistration";
     this._param = _BrandObj;
     return this._http.post<any>(
-      this._url + this._methodName, this._param 
+      this._url + this._methodName, this._param
     );
-  } 
+  }
 
   ValidLogin(_BrandObj: any): Observable<any[]> {
     this._methodName = "ValidLogin";
@@ -41,7 +41,7 @@ export class UsersService {
   ValidEmail(_Obj: any): Observable<Number> {
     this._methodName = "ValidEmail";
     this._param = _Obj;
-    return this._http.post<Number>( 
+    return this._http.post<Number>(
       this._url + this._methodName, this._param
     );
   }
@@ -54,7 +54,7 @@ export class UsersService {
   }
   //***********************Mobile OTP***************************** */
   CheckMobileAllReadyRegisteredOrNot(_Obj: any): Observable<any[]> {
-     
+
     this._methodName = "CheckMobileAllReadyRegisteredOrNot";
     this._param = _Obj;
     return this._http.post<any[]>(
@@ -62,11 +62,19 @@ export class UsersService {
     );
   }
 
-  
+
   verify_mobile_otp(_Obj: any): Observable<any[]> {
-     
+
     this._methodName = "VerifyMobileOtp";
     this._param = _Obj;
+    return this._http.post<any[]>(
+      this._url + this._methodName, this._param
+    );
+  }
+
+  GetUserInfo(): Observable<any[]> {
+    this._methodName = "GetUserInfo";
+    this._param = {};
     return this._http.post<any[]>(
       this._url + this._methodName, this._param
     );

@@ -25,10 +25,11 @@ export class CartComponent implements OnInit {
   public products: Product[] = [];
   public lstCartProduct: any[] = [];
   public productSizeColor: productSizeColor[] = [];
-
+  public IsEmptyCart = false;
   public ProductImage = environment.ProductImage;
   user: any[] = null;
   public TotalAmount = 0; TotalPieces = 0; Price = 0; Discount = 0;
+  public SelectedProduct: any;
   //commented on 13 july 2020
   // constructor(public productService: ProductService) {
   //   this.productService.cartItems.subscribe(response => this.products = response);
@@ -117,12 +118,19 @@ export class CartComponent implements OnInit {
       this.spinner.show();
       this._cartService.GetCartById(obj).subscribe(response => {
         //  
+        debugger
+        if (response.length == 0)
+          this.IsEmptyCart = true;
+        else
+          this.IsEmptyCart = false;
         this.spinner.hide();
         this.productSizeColor = response;
         this.getTotal();
+
       });
     }
     else {
+      this.IsEmptyCart = true;
       this.productSizeColor = [];
       this.getTotal();
     }
@@ -137,7 +145,8 @@ export class CartComponent implements OnInit {
       UserID: Number(this.user[0].userID),
       ProductSizeId: Number(product.productSizeId),
       Quantity: qty,
-      SetNo: Number(product.setNo)
+      SetNo: Number(product.setNo),
+      ProductId: Number(product.productId)
     }];
     this.spinner.show();
     this._cartService.UpdateToCart(obj).subscribe(res => {
@@ -158,7 +167,8 @@ export class CartComponent implements OnInit {
         UserID: Number(this.user[0].userID),
         ProductSizeId: Number(product.productSizeId),
         Quantity: qty,
-        SetNo: Number(product.setNo)
+        SetNo: Number(product.setNo),
+        ProductId: Number(product.productId)
       }];
       this.spinner.show();
       this._cartService.UpdateToCart(obj).subscribe(res => {
@@ -170,8 +180,23 @@ export class CartComponent implements OnInit {
     this.productService.updateCartQuantity(product, qty);
   }
 
-  public removeItem(product: any) {
-    this.productService.removeCartItem(product);
+  deleteConfirmation(template: TemplateRef<any>, lst) {
+    this.SelectedProduct = lst;
+    this.modalService.open(template, {
+      size: 'md',
+      //ariaLabelledBy: 'Cart-Modal',
+      centered: true,
+      //windowClass: 'theme-modal cart-modal CartModal'
+    }).result.then((result) => {
+      `Result ${result}`
+    }, (reason) => {
+      this.modalService.dismissAll();
+    });
+  }
+
+  public removeItem() {
+    this.productService.removeCartItem(this.SelectedProduct);
+    this.modalService.dismissAll();
   }
 
   ProceedToCheckout() {

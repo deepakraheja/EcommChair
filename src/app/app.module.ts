@@ -20,6 +20,7 @@ import 'hammerjs';
 import 'mousetrap';
 import { DatePipe } from '@angular/common';
 import { AuthInterceptor } from './auth/auth.interceptor';
+import { OrderInvoiceComponent } from './Report/order-invoice/order-invoice.component';
 
 
 // Import the library
@@ -35,6 +36,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppComponent,
     ShopComponent,
     PagesComponent,
+    OrderInvoiceComponent,
     //ElementsComponent
   ], 
   imports: [

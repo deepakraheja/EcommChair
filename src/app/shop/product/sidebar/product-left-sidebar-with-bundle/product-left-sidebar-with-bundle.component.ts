@@ -11,8 +11,6 @@ import { productSizeColor } from 'src/app/shared/classes/productsizecolor';
 import { CartService } from 'src/app/Service/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { LoginComponent } from 'src/app/pages/account/login/login.component';
 
 declare var $;
 
@@ -62,8 +60,7 @@ export class ProductLeftSidebarWithBundleComponent implements OnInit {
     private _prodService: ProductsService,
     private _CartService: CartService,
     private toastr: ToastrService,
-    private spinner: NgxSpinnerService,
-    private modalService: NgbModal,
+    private spinner: NgxSpinnerService
   ) {
     // this.route.data.subscribe(response => this.product = response.data );
   }
@@ -170,67 +167,55 @@ export class ProductLeftSidebarWithBundleComponent implements OnInit {
     //  
     //product.quantity = this.counter || 1;
     //product.productname = productname;
-    this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
-    //  
-    if (this.user == null || this.user == undefined) {
-      //this.router.navigate(['/pages/login/cart']);
-      this.modalService.open(LoginComponent, {
-        size: 'lg',
-        ariaLabelledBy: 'Cart-Modal',
-        centered: true,
-        windowClass: 'theme-modal cart-modal CartModal'
-      });
+    this.totalqty = 0;
+    var obj: any[] = [];
+    var array: any[] = this.productkart[0].productSizeColor;
+    (array).forEach(element => {
+
+      if (element.isSelected) {
+
+        obj.push({
+          UserID: Number(this.user[0].userID),
+          ProductSizeId: Number(element.productSizeId),
+          Quantity: Number(element.selectedQty)
+        })
+
+        this.totalqty = this.totalqty + Number(element.selectedQty);
+
+      }
+    });
+    ;
+    if (Number(obj.length) == 0) {
+      this.toastr.error("Please select atleast one item");
+      return;
     }
-    else {
-      this.totalqty = 0;
-      var obj: any[] = [];
-      var array: any[] = this.productkart[0].productSizeColor;
-      (array).forEach(element => {
-
-        if (element.isSelected) {
-
-          obj.push({
-            UserID: Number(this.user[0].userID),
-            ProductSizeId: Number(element.productSizeId),
-            Quantity: Number(element.selectedQty)
-          })
-
-          this.totalqty = this.totalqty + Number(element.selectedQty);
-
-        }
-      });
-      ;
-      if (Number(obj.length) == 0) {
-        this.toastr.error("Please select atleast one item");
-        return;
-      }
-      let productObj = {
-        rowID: this.RowId,
-        UserId: this.user[0].userID
-      }
+    let productObj = {
+      rowID: this.RowId,
+      UserId: this.user[0].userID
+    }
+    debugger
+    this._prodService.GetProductCartQuantity(productObj).subscribe(res => {
       debugger
-      this._prodService.GetProductCartQuantity(productObj).subscribe(res => {
+      if (res.length > 0) {
+        this.totalqty += res[0].qty
+      } 
+      if (Number(this.totalqty) >= minimum) {
+        const status = this.productService.addToCartProduct(obj);
         debugger
-        if (res.length > 0) {
-          this.totalqty += res[0].qty
+        if (status) { 
+          if (type == 1)
+            this.router.navigate(['/shop/cart']);
+          else
+            this.router.navigate(['/shop/checkout']);
         }
-        if (Number(this.totalqty) >= minimum) {
-          const status = this.productService.addToCartProduct(obj);
-          debugger
-          if (status) {
-            if (type == 1)
-              this.router.navigate(['/shop/cart']);
-            else
-              this.router.navigate(['/shop/checkout']);
-          }
-        }
-        else {
+      }
+      else {
 
-          this.toastr.error("Please select atleast " + minimum + " pieces.");
-        }
-      });
+        this.toastr.error("Please select atleast " + minimum + " pieces.");
+      }
+    });
 
-    }
+
   }
 
   // Buy Now

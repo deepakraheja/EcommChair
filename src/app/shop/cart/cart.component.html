@@ -2,10 +2,13 @@
 <!-- section start -->
 <section class="cart-section section-b-space">
     <div class="container">
-        <div class="col-sm-12 empty-cart-cls text-center" *ngIf="!productSizeColor.length">
+        <div class="col-sm-12 empty-cart-cls text-center" *ngIf="IsEmptyCart==true">
             <img src="assets/images/icon-empty-cart.png" class="img-fluid mb-4">
-            <h3><strong>Your Cart is Empty</strong></h3>
-            <h4>Add something to make me happy :)</h4>
+            <h3><strong>Your Cart is Empty!</strong></h3>
+            <h4>Add items to it now.</h4>
+            <div class="text-center">
+                <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">continue shopping</a>
+            </div>
         </div>
         <div *ngIf="productSizeColor.length">
             <div class="row">
@@ -14,8 +17,7 @@
                         <div class="cart-product-details">
                             <div class="row">
                                 <div class="col-sm-2 text-center">
-                                    <a
-                                        (click)="GoToDetail(product.rowID,product?.productSizeId,product?.setType,product?.setNo);">
+                                    <a (click)="GoToDetail(product.rowID,product?.productSizeId,product?.setType,product?.setNo);">
                                         <img class="img-fluid" *ngIf="product?.setNo>0"
                                             [src]="ProductImage+product?.productId+'/productSetImage/'+product?.setNo+'/'+product?.productImg[0]">
                                         <img class="img-fluid" *ngIf="product?.setNo==0"
@@ -48,9 +50,7 @@
                                                     </button>
 
                                                 </span>
-                                                <input type="text" style="width: 70px;" name="quantity"
-                                                    class="form-control input-number" disabled
-                                                    [(ngModel)]="product.quantity">
+                                                <input type="text" style="width: 70px;" name="quantity" class="form-control input-number" disabled [(ngModel)]="product.quantity">
                                                 <span class="input-group-prepend">
 
                                                     <button *ngIf="product?.setType==3" type="button"
@@ -83,30 +83,44 @@
                                             </span><span>{{(product?.productName).split('|')[1]}}</span></div>
                                     </div>
 
-                                    <div class="d-flex justify-content-start final-rate-offer">
-                                        <h4 class="text-black">
-                                            {{ (product.salePrice) | currency:productService?.Currency.currency:'symbol' }}
-                                        </h4>&nbsp;
-                                        <del>{{ product.price | currency:productService?.Currency.currency:'symbol' }}</del>
-                                        &nbsp;
-                                        <h5 class="text-red">
-                                            {{ product.perDiscount/product.totalPieces | number:'1.2-2' }}%</h5>
+                                    <div class="d-flex justify-content-between final-rate-offer">
+                                        <div class="d-flex justify-content-start">
+                                            <h4 *ngIf="product?.setType==2" class="text-black">
 
-                                    </div>
-                                    <h5>
-                                        Total Pieces: {{ product.totalPieces  }}</h5>
+                                                {{ (product.salePrice*product.totalPieces).toFixed() | currency:productService?.Currency.currency:'symbol' }}
+                                            </h4>&nbsp;
+                                            <del *ngIf="product?.setType==2">{{ (product.price*product.totalPieces).toFixed() | currency:productService?.Currency.currency:'symbol' }}</del>
 
-                                    <div class="d-flex justify-content-between mt-3">
-                                        <a href="javascript:void(0)" (click)="removeItem(product)" class="icon">
+
+                                            <h4 *ngIf="product?.setType!=2" class="text-black">
+
+                                                {{ (product.salePrice) | currency:productService?.Currency.currency:'symbol' }}
+                                            </h4>&nbsp;
+                                            <del *ngIf="product?.setType!=2">{{ product.price | currency:productService?.Currency.currency:'symbol' }}</del> &nbsp;
+                                            <h5 class="text-red" *ngIf="product?.setType!=2">
+                                                {{ product.perDiscount/product.totalPieces | number:'1.2-2' }}%</h5>
+                                        </div>
+
+                                        <a href="javascript:void(0)" (click)="deleteConfirmation(templateDeleteItem,product)" class="icon">
                                             <i class="ti-trash text-red" style="font-size:1.5rem;"></i>
                                         </a>
-                                        <h3 *ngIf="product?.setType!=3">
-                                            {{ product.salePrice*product.totalPieces | currency:productService?.Currency.currency:'symbol' }}
-                                        </h3>
-                                        <h3 *ngIf="product?.setType==3">
-                                            {{ product.salePrice
-                                                 | currency:productService?.Currency.currency:'symbol' }}
-                                        </h3>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mt-3">
+                                        <h5>Total Pieces: {{ product.totalPieces }}</h5>
+                                        <div>
+
+                                            <h3 *ngIf="product?.setType==1">
+                                                {{ product.salePrice*product.totalPieces | currency:productService?.Currency.currency:'symbol' }}
+                                            </h3>
+                                            <h3 *ngIf="product?.setType==2">
+                                                {{ (product.salePrice*product.totalPieces).toFixed() | currency:productService?.Currency.currency:'symbol' }}
+                                            </h3>
+                                            <h3 *ngIf="product?.setType==3">
+                                                {{ product.salePrice | currency:productService?.Currency.currency:'symbol' }}
+                                            </h3>
+                                        </div>
+
                                     </div>
                                     <!-- <div class="qty-box">
                                         <div class="input-group">
@@ -130,7 +144,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <div class="p-4" style="border: 1px solid #dddddd;">
+                    <div class="p-4 price-details">
                         <h4 class="mb-4">Price Details</h4>
                         <p class="d-flex justify-content-between">
                             <span>Total Pieces: </span>
@@ -146,12 +160,11 @@
                         </p>
                         <hr>
                         <p class="d-flex justify-content-between">
-                            <span>Total Amount: </span>
+                            <span><b>Total Amount: </b></span>
                             <span><b>{{ Price-Discount | currency:productService?.Currency.currency:'symbol'}}</b></span>
                         </p>
                         <hr>
-                        <p class="text-green mb-4">You will save
-                            {{ Discount | currency:productService?.Currency.currency:'symbol'}} on this order</p>
+                        <p class="text-green mb-4">You will save {{ Discount | currency:productService?.Currency.currency:'symbol'}} on this order</p>
                         <div class="text-center">
                             <a class="btn btn-solid" (click)="ProceedToCheckout()">check out</a>
                         </div>
@@ -190,16 +203,14 @@
                             <div *ngIf="item?.qty > 0" class="input-group">
                                 <span class="input-group-prepend">
                                     <button type="button" class="btn quantity-left-minus" data-type="minus"
-                                    (click)="Min_decrement(item)">
+                                        (click)="Min_decrement(item)">
                                         <i class="ti-minus"></i>
                                     </button>
                                 </span>
-                                <input type="text" name="quantity" id="{{ 'txtqty' + myIndex}}"
-                                    style="width: 45px; height: 27px;" class="form-control input-number"
-                                    [value]="item.quantity" disabled />
+                                <input type="text" name="quantity" id="{{ 'txtqty' + myIndex}}" style="width: 45px; height: 27px;" class="form-control input-number" [value]="item.quantity" disabled />
                                 <span class="input-group-prepend">
                                     <button type="button" class="btn quantity-right-plus" data-type="plus"
-                                    (click)="Min_increment(item)">
+                                        (click)="Min_increment(item)">
                                         <i class="ti-plus"></i>
                                     </button>
                                 </span>
@@ -221,4 +232,40 @@
         <a class="close" (click)="close()"><img src="assets/images/icon/close.svg" alt="Close"></a>
     </div>
 
+</ng-template>
+
+<ng-template class="theme-modal" #templateDeleteItem let-modal>
+    <div class="modal-content quick-view-modal">
+        <div class="modal-body">
+            <button type="button" class="close" style="background-color: white;" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="checkout-page">
+                <div class="checkout-form">
+                    <form>
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12 col-xs-12">
+                                <div class="checkout-title">
+                                    <h3>Do you want to delete this item?</h3>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-lg-6 col-sm-6 col-xs-6 text-left">
+                                        <button type="submit" class="btn-solid btn" (click)="removeItem()">
+                                            Yes
+                                        </button>
+                                    </div>
+                                    <div class="col-lg-6 col-sm-6 col-xs-6 text-right">
+                                        <button type="button" class="btn-solid btn" (click)="modal.dismiss('Cross click')">
+                                            No
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </ng-template>

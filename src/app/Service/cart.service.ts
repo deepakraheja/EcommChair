@@ -47,9 +47,9 @@ export class CartService {
     );
   }
 
-  GetCartProcessedById(_Obj: any): Observable<any[]> {
+  GetCartProcessedById(): Observable<any[]> {
     this._methodName = "GetCartProcessedById";
-    this._param = _Obj;
+    this._param = {};
     return this._http.post<any[]>(
       this._url + this._methodName, this._param
     );

@@ -28,6 +28,7 @@ import { ErrorComponent } from './error/error.component';
 import { FaqComponent } from './faq/faq.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ThanksComponent } from './account/thanks/thanks.component';
+import { NgxMaskModule } from 'ngx-mask';
 // Blog Components
 // import { BlogLeftSidebarComponent } from './blog/blog-left-sidebar/blog-left-sidebar.component';
 // import { BlogRightSidebarComponent } from './blog/blog-right-sidebar/blog-right-sidebar.component';
@@ -83,7 +84,8 @@ import { ThanksComponent } from './account/thanks/thanks.component';
     CommonModule,
     GalleryModule.forRoot(),
     SharedModule,
-    PagesRoutingModule
+    PagesRoutingModule,
+    NgxMaskModule.forRoot(),
   ]
 })
 export class PagesModule { }

@@ -9,29 +9,45 @@
             </div>
         </div>
         <div class="col-lg-8 login-right-bg theme-card">
-                <form class="theme-form" [formGroup]="LoginForm">
-                    <div class="form-group">
-                        <label for="email">Email <span style="color: red;">*</span></label>
-                        <input type="text" class="form-control" id="email" formControlName="LoginId" placeholder="Email"
-                            required>
+            <form class="theme-form" [formGroup]="LoginForm">
+                <div class="form-group">
+                    <label for="email">Email/Mobile number <span style="color: red;">*</span></label>
+                    <input type="text" class="form-control" id="email" formControlName="LoginId" maxlength="50"
+                        [ngClass]="{ 'is-invalid': submitted && f.LoginId.errors }"
+                        placeholder="Enter Email/Mobile Number" autocomplete="off">
+                    <div *ngIf="submitted && f.LoginId.errors" class="Customerror">
+                        <div>Please enter valid Email ID/Mobile number</div>
                     </div>
-                    <div class="form-group">
-                        <label for="review">Password <span style="color: red;">*</span></label>
-                        <input type="password" class="form-control" id="review" formControlName="password"
-                            placeholder="Enter your password" required>
+                </div>
+                <div class="form-group">
+                    <label for="review">Password <span style="color: red;">*</span></label>
+                    <div class="input-group">
+                        <input type="{{inputType}}" class="form-control" id="review" formControlName="password"
+                            [ngClass]="{ 'is-invalid': f.password.errors }" maxlength="20" placeholder="Enter password">
+                        <!-- <div class="input-group-append frm-icon" (click)="hideShowPassword()">
+                            <span class="input-group-text">
+                                <i class="{{class}}"></i>
+                            </span>
+                        </div> -->
                     </div>
-                    <button class="btn btn-solid w-100" (click)="Login()">Login</button>
-                    <div class="form-group text-center mt-5">
-                        <a data-lng="en" href='pages/forget/password'>
-                            Forgot Password?
-                        </a>
+                    <div *ngIf="submitted && f.password.errors" class="Customerror">
+                        <div>Please enter Password
+                        </div>
                     </div>
-                </form>
-                <div class="authentication-right text-center mt-5">
-                    <p> <button class="btn btn-link" (click)="Register();">Create new Account</button></p>
-                </div>  
+                </div>
+                <button [ngClass]="{'btn-loading': loginStart}" class="btn btn-solid w-100"
+                    (click)="Login()">Login</button>
+                <div class="form-group text-center mt-5">
+                    <a data-lng="en" href='pages/forget/password'>
+                        Forgot Password?
+                    </a>
+                </div>
+            </form>
+            <div class="authentication-right text-center mt-5">
+                <p> <button class="btn btn-link" (click)="Register();">Create new Account</button></p>
+            </div>
         </div>
     </div>
-    <a class="close" (click)="close()"><img src="assets/images/icon/close.svg" alt="Close" ></a>
+    <a class="close" (click)="close()"><img src="assets/images/icon/close.svg" alt="Close"></a>
 </div>
 <!--Section ends-->

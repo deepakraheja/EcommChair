@@ -48,11 +48,11 @@ export class ForgetPasswordComponent implements OnInit {
         return;
       }
       if (res == 1) {
-        this.toastr.success('Password reset link has been sent on emailid.');
+        this.toastr.success('An email has been sent to your mailbox for password reset.'); 
         this.router.navigate(['/home/fashion']);
       }
       else {
-        this.toastr.error('Email does not exists.');
+        this.toastr.error('Email does not exist.');
       }
 
     });

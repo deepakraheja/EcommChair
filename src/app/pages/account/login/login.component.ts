@@ -13,8 +13,13 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
+  loginStart = false;
   LoginForm: FormGroup;
+  submitted: boolean = false;
+
+  public inputType = 'password';
+  public class = 'fa fa-eye';
+
   constructor(
     private formBuilder: FormBuilder,
     private userService: UsersService,
@@ -24,6 +29,8 @@ export class LoginComponent implements OnInit {
     private _SharedDataService: SharedDataService,
     private modalService: NgbModal,
     private spinner: NgxSpinnerService,
+
+
   ) { }
 
   ngOnInit(): void {
@@ -34,7 +41,22 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  get f1() { return this.LoginForm.controls; }
+  get f() { return this.LoginForm.controls; }
+
+
+  hideShowPassword(): void {
+
+    if (this.inputType == 'password') {
+      this.inputType = 'text';
+      this.class = 'fa fa-eye-slash';
+    }
+    else {
+      this.inputType = 'password';
+      this.class = 'fa fa-eye';
+    }
+
+  }
+
 
   Register() {
     this.router.navigate(['/pages/register']);
@@ -46,25 +68,34 @@ export class LoginComponent implements OnInit {
   }
 
   Login() {
+    debugger
+    this.submitted = true;
     if (this.LoginForm.invalid) {
       this.toastr.error('All the * marked fields are mandatory');
       return;
     }
     else {
-      this.spinner.show();
+      //this.spinner.show();
+
+      this.loginStart = true;
       this.userService.ValidLogin(this.LoginForm.value).subscribe(res => {
-        setTimeout(() => this.spinner.hide(), 500);
+        this.loginStart = false;
+        //setTimeout(() => this.spinner.hide(), 500);
         if (res.length > 0) {
           if (res[0].isAgent == 1) {
             this.toastr.error('You are an agent.');
             return;
           }
           if (res[0].statusId == 1) {
-            this.toastr.error('Your login is pending. Please wait for approval');
+            this.toastr.error('Your login is pending. Please wait for approval.');
             return;
           }
           else if (res[0].statusId == 3) {
-            this.toastr.error('Your login approval is denied');
+            this.toastr.error('Your login approval is denied.');
+            return;
+          }
+          else if (res[0].statusId == 4) {
+            this.toastr.error('Your account has been put on hold.');
             return;
           }
           else if (res[0].statusId == 2) {
@@ -88,7 +119,7 @@ export class LoginComponent implements OnInit {
           }
         }
         else {
-          this.toastr.error('Invalid email address and password');
+          this.toastr.error('Your username or password is incorrect');
           return;
         }
       });

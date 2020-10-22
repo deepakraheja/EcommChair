@@ -22,6 +22,7 @@ declare var $: any;
 export class DashboardComponent implements OnInit {
   public ProductImage = environment.ProductImage;
   public Report_Path = environment.Report_Path;
+  public WebSite_URL = environment.WebSite_URL;
   public openDashboard: boolean = false;
   public ShowTabName: string = "AccountInfor";
   public LoggedInUser: any[] = [];
@@ -32,6 +33,8 @@ export class DashboardComponent implements OnInit {
   public SelectedBillingAddressId: number = 0;
   public ChangePwdForm: FormGroup;
   public lstOrderStatus: any = [];
+  public lstUserData: any[] = [];
+  PinCodeMask: string;
   constructor(
     private _SharedDataService: SharedDataService,
     private router: Router,
@@ -50,6 +53,10 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  addPinCodeMask(obj: Object) {
+    this.PinCodeMask = "000000";
+  }
+
   ngOnInit(): void {
     this._SharedDataService.currentUser.subscribe(a => {
       this.LoggedInUser = a;
@@ -57,10 +64,10 @@ export class DashboardComponent implements OnInit {
         billingAddressId: [0],
         userID: this.LoggedInUser[0].userID,
         fName: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-        lName: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+        //lName: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
         companyName: [''],
-        phone: ['', [Validators.required, Validators.pattern('[0-9]+')]],
-        emailId: ['', [Validators.required, Validators.email]],
+        //phone: ['', [Validators.required, Validators.pattern('[0-9]+')]],
+        //emailId: ['', [Validators.required, Validators.email]],
         address: ['', [Validators.required, Validators.maxLength(200)]],
         country: ['', Validators.required],
         city: ['', Validators.required],
@@ -74,13 +81,40 @@ export class DashboardComponent implements OnInit {
         NewPassword: ['', [Validators.required, Validators.minLength(8)]],
         ConfirmPwd: ['', [Validators.required, Validators.minLength(8)]],
       });
-
+      this.LoadUserData();
       this.LoadBillingAddress();
       this.LoadAllOrder();
       this.LoadOrderStatus();
     });
   }
 
+  LoadUserData() {
+    this._userService.GetUserInfo().subscribe(res => {
+      this.lstUserData = res;
+    });
+  }
+
+  getBusineesType(val) {
+    debugger
+    if (val == 'SoleProprietorship')
+      return 'Sole Proprietorship';
+    if (val == 'PublicLimitedCompany')
+      return 'Public Limited Company';
+    if (val == 'PrivateLimitedCompany')
+      return 'Private Limited Company';
+    if (val == 'Other')
+      return 'Other';
+  }
+
+  getBusineesLicenseType(val) {
+    debugger
+    if (val == 'GSTIN')
+      return 'GSTIN';//'Goods and Services Tax Identification Number (GSTIN)';
+    if (val == 'BusinessPAN')
+      return 'Business PAN';
+    if (val == 'AadharCard')
+      return 'Aadhar Card';
+  }
   LoadOrderStatus() {
     this._lookupService.GetOrderStatus().subscribe(res => {
       this.lstOrderStatus = res;
@@ -96,11 +130,11 @@ export class DashboardComponent implements OnInit {
   }
 
   LoadAllOrder() {
-    let obj = {
-      UserID: Number(this.LoggedInUser[0].userID)
-    };
+    // let obj = {
+    //   UserID: Number(this.LoggedInUser[0].userID)
+    // };
     this.spinner.show();
-    this._OrderService.GetOrderByUserId(obj).subscribe(res => {
+    this._OrderService.GetOrderByUserId().subscribe(res => {
       this.spinner.hide();
       this.lstOrder = res;
       //console.log(res);
@@ -116,6 +150,52 @@ export class DashboardComponent implements OnInit {
     ////  
     let res = this.lstOrder[0].orderDetails;
     return res.filter(x => (x.orderId == null || x.orderId == OrderId));
+  }
+
+  getTotal(OrderId) {
+    var lst=this.OrderTrackingListByOrderId(OrderId);
+    var TotalAmount = 0;
+    lst.forEach(element => {
+      TotalAmount += Number(((element.salePrice * element.quantity) - element.additionalDiscountAmount + element.gstAmount).toFixed(2));
+    });
+    return TotalAmount;
+  }
+
+  getTotalQty(OrderId) {
+    var lst=this.OrderTrackingListByOrderId(OrderId);
+    var TotalQty = 0;
+    lst.forEach(element => {
+      TotalQty += Number((element.quantity).toFixed(2));
+    });
+    return TotalQty;
+  }
+
+  getTotalAdditionalDiscountAmount(OrderId) {
+    var lst=this.OrderTrackingListByOrderId(OrderId);
+    var TotalAdditionalDiscountAmount = 0;
+    lst.forEach(element => {
+      TotalAdditionalDiscountAmount += Number((element.additionalDiscountAmount).toFixed(2));
+    });
+    return TotalAdditionalDiscountAmount;
+  }
+
+  getTotalAmountWithDis(OrderId) {
+    var lst=this.OrderTrackingListByOrderId(OrderId);
+    var TotalAmount = 0;
+    lst.forEach(element => {
+      TotalAmount += Number(((element.salePrice * element.quantity) - element.additionalDiscountAmount).toFixed(2));
+    });
+    return TotalAmount;
+  }
+
+  getTotalGSTAmount(OrderId) {
+    var lst=this.OrderTrackingListByOrderId(OrderId);
+    var TotalGSTAmount = 0;
+    lst.forEach(element => {
+      TotalGSTAmount += Number((element.gstAmount).toFixed(2));
+    });
+    debugger
+    return TotalGSTAmount;
   }
 
   ToggleDashboard() {
@@ -136,12 +216,12 @@ export class DashboardComponent implements OnInit {
       billingAddressId: [0],
       userID: this.LoggedInUser[0].userID,
       fName: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-      lName: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+      //lName: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       companyName: [''],
-      phone: ['', [Validators.required, Validators.pattern('[0-9]+')]],
-      emailId: ['', [Validators.required, Validators.email]],
+      // phone: ['', [Validators.required, Validators.pattern('[0-9]+')]],
+      // emailId: ['', [Validators.required, Validators.email]],
       address: ['', [Validators.required, Validators.maxLength(200)]],
-      country: ['', Validators.required],
+      country: ['India', Validators.required],
       city: ['', Validators.required],
       state: ['', Validators.required],
       zipCode: ['', Validators.required],
@@ -164,10 +244,10 @@ export class DashboardComponent implements OnInit {
       billingAddressId: [lst.billingAddressId],
       userID: this.LoggedInUser[0].userID,
       fName: [lst.fName, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-      lName: [lst.lName, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+      //lName: [lst.lName, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       companyName: [lst.companyName],
-      phone: [lst.phone, [Validators.required, Validators.pattern('[0-9]+')]],
-      emailId: [lst.emailId, [Validators.required, Validators.email]],
+      // phone: [lst.phone, [Validators.required, Validators.pattern('[0-9]+')]],
+      // emailId: [lst.emailId, [Validators.required, Validators.email]],
       address: [lst.address, [Validators.required, Validators.maxLength(200)]],
       country: [lst.country, Validators.required],
       city: [lst.city, Validators.required],
@@ -219,7 +299,7 @@ export class DashboardComponent implements OnInit {
   SaveBillingAddress() {
     this.Submitted = true;
     if (this.checkoutForm.invalid) {
-      this.toastr.error("All fields are mandatory.");
+      this.toastr.error("All * fields are mandatory.");
       return;
     }
     else {
@@ -227,10 +307,10 @@ export class DashboardComponent implements OnInit {
         billingAddressId: Number(this.checkoutForm.value.billingAddressId),
         userID: Number(this.LoggedInUser[0].userID),
         fName: this.checkoutForm.value.fName,
-        lName: this.checkoutForm.value.lName,
+        //lName: this.checkoutForm.value.lName,
         companyName: this.checkoutForm.value.companyName,
-        phone: this.checkoutForm.value.phone,
-        emailId: this.checkoutForm.value.emailId,
+        // phone: this.checkoutForm.value.phone,
+        // emailId: this.checkoutForm.value.emailId,
         address: this.checkoutForm.value.address,
         country: this.checkoutForm.value.country,
         city: this.checkoutForm.value.city,
@@ -273,12 +353,12 @@ export class DashboardComponent implements OnInit {
   UpdatePassword() {
     this.Submitted = true;
     if (this.ChangePwdForm.invalid) {
-      this.toastr.error("All fields are mandatory.");
+      this.toastr.error("All * fields are mandatory.");
       return;
     }
     else {
       let obj = {
-        userID: this.LoggedInUser[0].userID,
+        //userID: this.LoggedInUser[0].userID,
         password: this.ChangePwdForm.value.password,
         NewPassword: this.ChangePwdForm.value.NewPassword
       }
@@ -290,7 +370,7 @@ export class DashboardComponent implements OnInit {
           this.modalService.dismissAll();
         }
         else
-          this.toastr.error("Old Password is invalid.");
+          this.toastr.error("Old Password is incorrect.");
       });
     }
   }
@@ -306,13 +386,14 @@ export class DashboardComponent implements OnInit {
       document.getElementById("btn" + id)['value'] = "Hide";
     }
   }
- 
+
   DownloadInvoice(orderId) {
     let obj = {
       OrderId: Number(orderId)
     }
     this.spinner.show();
     debugger;
+    //window.open(this.WebSite_URL + 'report/orderInvoice/' + orderId, "_blank");
     this._ReportService.GenerateOrderInvoice(obj).subscribe(res => {
       debugger;
       this.spinner.hide();

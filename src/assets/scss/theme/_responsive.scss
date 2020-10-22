@@ -7102,9 +7102,12 @@ Fashion-2 Demo Responsive CSS
     }
     }
 @media (max-width: 577px){
-    .main-menu .menu-right .icon-nav .mobile-setting, .main-menu .menu-right .icon-nav .mobile-cart, .main-menu .menu-right .icon-nav .mobile-search,
-    .top-header .header-dropdown .mobile-account {
+    .main-menu .menu-right .icon-nav .mobile-setting, .main-menu .menu-right .icon-nav .mobile-cart, .main-menu .menu-right .icon-nav .mobile-search {
         bottom: 5px;
+    }
+    .top-header .header-dropdown .mobile-account .Logininfo a{
+        padding: 0;
+        line-height: 0;
     }
 }
 @media (max-width: 577px){
@@ -7123,7 +7126,7 @@ Fashion-2 Demo Responsive CSS
         padding-top: 10px;
     }
 }
-@media (max-width: 767px){
+@media (max-width: 577px){
     .btn-solid.btn-solid-small {
         font-weight: normal;
         border: 1px solid var(--theme-deafult);
