@@ -11,6 +11,8 @@ import { productSizeColor } from 'src/app/shared/classes/productsizecolor';
 import { CartService } from 'src/app/Service/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { LoginComponent } from 'src/app/pages/account/login/login.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -44,6 +46,7 @@ export class ProductLeftSidebarWithSetComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router,
     public productService: ProductService,
     private _prodService: ProductsService,
+    private modalService: NgbModal,
     private _CartService: CartService,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService) {
@@ -184,36 +187,48 @@ export class ProductLeftSidebarWithSetComponent implements OnInit {
     //  
     //product.quantity = this.counter || 1;
     //product.productname = productname;
-
-    var obj: any[] = [];
-    var array: any[] = this.productkart[0].productSizeSet;
-    (array).forEach(element => {
-
-      if (element.isSelected) {
-
-        obj.push({
-          UserID: Number(this.user[0].userID),
-          SetNo: Number(element.setNo),
-          Quantity: Number(element.selectedQty),
-          RowID: this.productId
-        })
-
-      }
-    });
-    //  ;
-    if (Number(obj.length) > 0) {
-      const status = await this.productService.addToCartProduct(obj);
-
-      if (status) {
-        if (type == 1)
-          this.router.navigate(['/shop/cart']);
-        else
-          this.router.navigate(['/shop/checkout']);
-      }
+    this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
+    //  
+    if (this.user == null || this.user == undefined) {
+      //this.router.navigate(['/pages/login/cart']);
+      this.modalService.open(LoginComponent, {
+        size: 'lg',
+        ariaLabelledBy: 'Cart-Modal',
+        centered: true,
+        windowClass: 'theme-modal cart-modal CartModal'
+      });
     }
     else {
+      var obj: any[] = [];
+      var array: any[] = this.productkart[0].productSizeSet;
+      (array).forEach(element => {
 
-      this.toastr.error("Please select an item.");
+        if (element.isSelected) {
+
+          obj.push({
+            UserID: Number(this.user[0].userID),
+            SetNo: Number(element.setNo),
+            Quantity: Number(element.selectedQty),
+            RowID: this.productId
+          })
+
+        }
+      });
+      //  ;
+      if (Number(obj.length) > 0) {
+        const status = await this.productService.addToCartProduct(obj);
+
+        if (status) {
+          if (type == 1)
+            this.router.navigate(['/shop/cart']);
+          else
+            this.router.navigate(['/shop/checkout']);
+        }
+      }
+      else {
+
+        this.toastr.error("Please select an item.");
+      }
     }
   }
 }
