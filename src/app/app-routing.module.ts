@@ -9,7 +9,7 @@ import { OrderInvoiceComponent } from './Report/order-invoice/order-invoice.comp
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home/fashion',
+    redirectTo: 'home/chair',
     pathMatch: 'full'
   },
   {
