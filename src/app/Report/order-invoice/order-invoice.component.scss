@@ -1,0 +1,158 @@
+@page {
+    size: A4 portrait;
+    margin-top: 30pt;
+    margin-bottom: 30pt;
+    margin-left: 30pt;
+    margin-right: 30pt;
+}
+
+body,
+table,
+table span {
+    font-size: 14px;
+}
+
+.invoice-container {
+    padding: 20pt;
+    max-width: 900px;
+    margin: auto;
+    position: relative;
+}
+
+.invoice-container::before {
+    content: "ORDER GENERATED BUT NOT PAID";
+    font-size: 50pt;
+    position: absolute;
+    left: 50pt;
+    top: 280pt;
+    transform: rotate(-25deg);
+    transform-origin: left center;
+    z-index: 1;
+    color: #000;
+    opacity: .2;
+    font-family: sans-serif;
+}
+
+.invoice-container::after {
+    content: "ORDER GENERATED BUT NOT PAID";
+    font-size: 50pt;
+    position: absolute;
+    left: 50pt;
+    top: 700pt;
+    transform: rotate(-25deg);
+    transform-origin: left center;
+    z-index: 1;
+    color: #000;
+    opacity: .2;
+    font-family: sans-serif;
+}
+
+h5 {
+    font-size: 16px;
+}
+
+.invoice,
+.declaration,
+.company-details,
+.ammount-word,
+.round-off,
+.subheading {
+    display: flex;
+}
+
+.addresses,
+.invoice-summary,
+.declaration .left,
+.declaration .right,
+.ammount-word .left,
+.ammount-word .right {
+    flex: 1;
+}
+
+.company-details,
+.subheading {
+    justify-content: flex-start;
+}
+
+.declaration,
+.round-off {
+    justify-content: space-between;
+}
+
+.bdr-bottom {
+    border-bottom: 1px solid #000;
+}
+
+.table .p-lr-0 {
+    padding: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.p10 {
+    padding: 10px;
+}
+
+.addresses,
+.invoice-summary,
+.table-bdr {
+    border: 1px solid #000;
+}
+
+
+/* .invoice-summary {
+    border-left: 0px;
+} */
+
+.invoice-summary table td {
+    padding: 5px;
+    border-top: 0px;
+    border-bottom: 1px solid #000;
+}
+
+.invoice-summary table td:first-child,
+.subheading .left {
+    border-right: 1px solid #000;
+}
+
+.table-bdr td {
+    border-top: 0px;
+    border-bottom: 1px solid #000;
+    border-right: 1px solid #000;
+}
+
+.table-bdr thead th {
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    border-right: 1px solid #000;
+}
+
+.table-bdr tfoot td {
+    border-top: 1px solid #000;
+}
+
+.table-bdr .bdr0 td {
+    border: 0px;
+}
+
+.tax-total td {
+    font-weight: bold;
+    text-align: right;
+}
+
+.tax-rate tbody td {
+    text-align: right;
+}
+
+.tax-rate tbody td:first-child {
+    text-align: left;
+}
+
+.subheading .left {
+    padding-left: 14px;
+    padding-right: 14px;
+}
+
+.tax-rate thead th {
+    vertical-align: top;
+}
