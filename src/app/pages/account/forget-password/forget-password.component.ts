@@ -49,7 +49,7 @@ export class ForgetPasswordComponent implements OnInit {
       }
       if (res == 1) {
         this.toastr.success('An email has been sent to your mailbox for password reset.'); 
-        this.router.navigate(['/home/fashion']);
+        this.router.navigate(['/home/chair']);
       }
       else {
         this.toastr.error('Email does not exist.');

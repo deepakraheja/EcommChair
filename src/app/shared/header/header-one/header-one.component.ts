@@ -47,7 +47,7 @@ export class HeaderOneComponent implements OnInit {
     this.LoggedInUser = [];
     this._SharedDataService.AssignUser(null);
     this._SharedDataService.UserCart(null);
-    this.router.navigate(['/home/fashion']);
+    this.router.navigate(['/home/chair']);
   }
   Login() {
     this.modalService.open(LoginComponent, {

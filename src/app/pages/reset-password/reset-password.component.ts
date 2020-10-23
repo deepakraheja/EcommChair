@@ -93,7 +93,7 @@ export class ResetPasswordComponent implements OnInit {
         this.spinner.hide();
         if (Number(res) > 0) {
           this.toastr.success("Password has been saved successfully.");
-          this.router.navigate(['/home/fashion']);
+          this.router.navigate(['/home/chair']);
         }
         else {
           this.toastr.error("Something went wrong. please try again");

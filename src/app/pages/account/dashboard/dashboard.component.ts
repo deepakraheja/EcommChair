@@ -207,7 +207,7 @@ export class DashboardComponent implements OnInit {
     sessionStorage.removeItem('LoggedInUser');
     sessionStorage.removeItem('Token');
     this._SharedDataService.AssignUser(null);
-    this.router.navigate(['/home/fashion']);
+    this.router.navigate(['/home/chair']);
   }
 
   NewBillingAddress(template: TemplateRef<any>) {

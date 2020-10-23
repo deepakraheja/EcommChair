@@ -368,7 +368,7 @@ export class RegisterComponent implements OnInit {
       else if (res > 0) {
         this.mobileotpSendStart = false;
         this.showMessage('You are already registered. Please log in.');
-        this.router.navigate(['/home/fashion']);
+        this.router.navigate(['/home/chair']);
         this.modalService.open(LoginComponent, {
           size: 'lg',
           //ariaLabelledBy: 'Cart-Modal',
@@ -676,13 +676,13 @@ export class RegisterComponent implements OnInit {
           //         this.router.navigate(['/shop/cart']);
           //       }
           //       else {
-          //         this.router.navigate(['/home/fashion']);
+          //         this.router.navigate(['/home/chair']);
           //       }
           //     });
           //   }
           // });
 
-          this.router.navigate(['/home/fashion']);
+          this.router.navigate(['/home/chair']);
           this.modalService.open(ThanksComponent, {
             size: 'md',
             //ariaLabelledBy: 'Cart-Modal',
