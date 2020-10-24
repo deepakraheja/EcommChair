@@ -123,10 +123,10 @@
         <del *ngIf="productkart?.discount > 0"> <span class="money">
             {{ productkart?.price  | currency:currency?.currency:'symbol' }}</span></del>
         <br />
-        <div *ngIf="productkart?.discount > 0">{{productkart?.discount}}% off
+        <div *ngIf="productkart?.discount > 0">{{(productkart?.discount)}}% off
         </div>
 
-      </h4> 
+      </h4>
       <h4 *ngIf=" productkart?.setNo>0">
         {{ productkart?.salePrice/productkart?.piece | currency:currency?.currency:'symbol' }}
         <del *ngIf="productkart?.discount > 0"> <span class="money">
