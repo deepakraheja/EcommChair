@@ -19,7 +19,7 @@ header {
                 display: block;
                 >a {
                     display: block;
-                    padding-right: 45px;
+                    padding-right: 15px;
                     color: #222222;
                     font-size: 16px;
                     font-weight: 400;
@@ -35,6 +35,7 @@ header {
                         position: absolute;
                         top: 50%;
                         margin-top: -17px;
+                        margin-right: -19px;
                         left: auto;
                         right: 15px;
                         width: 34px;
@@ -1581,10 +1582,12 @@ header {
         }
     }
 }
+
 .toggle-nav {
     padding-top: 15px;
     padding-bottom: 15px;
 }
+
 // @media (max-width: 577px) {
 //     .top-header .header-dropdown .mobile-account {
 //         bottom: 5px;

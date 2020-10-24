@@ -20,7 +20,7 @@
           <span class="sub-arrow" *ngIf="menuItem.children"></span>
         </a>
                 <!-- Link -->
-                <a [routerLink]="menuItem.path" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link" *ngIf="menuItem.type === 'link'">
+                <a [routerLink]="menuItem.path" [queryParams]="{ category: menuItem.query}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link" *ngIf="menuItem.type === 'link'">
           {{ menuItem.title }}
           <div class="lable-nav" *ngIf="menuItem.badge">{{ menuItem.badgeText | translate }}</div>
           <span class="sub-arrow" *ngIf="menuItem.children"></span>
@@ -48,7 +48,7 @@
               <span class="sub-arrow" *ngIf="childrenItem.children"></span>
             </a>
                         <!-- Link -->
-                        <a [routerLink]="childrenItem.path" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *ngIf="childrenItem.type === 'link' ">
+                        <a [routerLink]="childrenItem.path" [queryParams]="{ category: childrenItem.query}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *ngIf="childrenItem.type === 'link' ">
               {{ childrenItem.title | translate }}
               <span class="new-tag" *ngIf="childrenItem.badge">{{ childrenItem.badgeText | translate }}</span>
               <span class="sub-arrow" *ngIf="childrenItem.children"></span>
@@ -109,7 +109,7 @@
                             <span class="new-tag" *ngIf="childrenSubItem.badge">{{ childrenSubItem.badgeText | translate }}</span>
                           </a>
                                                 <!-- Link -->
-                                                <a [routerLink]="childrenSubItem.path" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *ngIf="childrenSubItem.type === 'link' ">
+                                                <a [routerLink]="childrenSubItem.path" [queryParams]="{ category: childrenSubItem.query}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *ngIf="childrenSubItem.type === 'link' ">
                             {{ childrenSubItem.title | translate }}
                             <span class="new-tag" *ngIf="childrenSubItem.badge">{{ childrenSubItem.badgeText | translate }}</span>
                           </a>
