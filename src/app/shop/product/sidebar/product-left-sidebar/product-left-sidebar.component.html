@@ -47,26 +47,21 @@
                     <div class="row">
                         <div class="col-sm-4 col-xl-3">
                             <div class="thumbnail-imgs">
-                                <div *ngFor="let image of  productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg; index as i"
-                                    class="thumbnail-img">
+                                <div *ngFor="let image of  productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg; index as i" class="thumbnail-img">
                                     <div class="owl-thumb" [class.active]="i == activeSlide">
-                                        <img [defaultImage]="'assets/images/product/placeholder.jpg'"
-                                            [lazyLoad]="ProductImage+productkart[0]?.productID+'/productColorImage/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productSizeColorId+'/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg[i]"
-                                            [alt]="image.alt" class="img-fluid"
-                                            (click)="owlCar.to(activeSlide1 = i.toString())">
+                                        <img [defaultImage]="'assets/images/product/placeholder.jpg'" [lazyLoad]="ProductImage+productkart[0]?.productID+'/productColorImage/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productSizeColorId+'/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg[i]"
+                                            [alt]="image.alt" class="img-fluid" (click)="owlCar.to(activeSlide1 = i.toString())">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-8 col-xl-9 product-carousel">
                             <owl-carousel-o [options]="ProductDetailsMainSliderConfig" #owlCar class="product-slick">
-                                <ng-container
-                                    *ngFor="let image of productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg; index as i">
+                                <ng-container *ngFor="let image of productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg; index as i">
                                     <ng-template carouselSlide [id]="i">
                                         <div>
 
-                                            <img [defaultImage]="'assets/images/product/placeholder.jpg'"
-                                                [lazyLoad]="ProductImage+productkart[0]?.productID+'/productColorImage/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productSizeColorId+'/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg[i]"
+                                            <img [defaultImage]="'assets/images/product/placeholder.jpg'" [lazyLoad]="ProductImage+productkart[0]?.productID+'/productColorImage/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productSizeColorId+'/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg[i]"
                                                 [alt]="image.alt" class="img-fluid">
                                         </div>
                                     </ng-template>
@@ -76,12 +71,10 @@
                     </div>
                     <div class="product-buttons row mt-5">
                         <div class="col-md-6 mb-2">
-                            <a href="javascrip:void(0)" class="btn btn-solid w-100" [class.disabled]="false"
-                                (click)="addToCart(1)">add to cart</a>
+                            <a href="javascrip:void(0)" class="btn btn-solid w-100" [class.disabled]="false" (click)="addToCart(1)">add to cart</a>
                         </div>
                         <div class="col-md-6 mb-2">
-                            <a href="javascrip:void(0)" class="btn btn-solid w-100" [class.disabled]="false"
-                                (click)="addToCart(2)">buy now</a>
+                            <a href="javascrip:void(0)" class="btn btn-solid w-100" [class.disabled]="false" (click)="addToCart(2)">buy now</a>
                         </div>
                     </div>
                 </div>
@@ -105,118 +98,218 @@
 
                 <div class="col-xl-7 rtl-text">
                     <div class="product-right">
-                        <h4><b>{{ productkart[0]?.productName }}</b></h4>
-                        <h4>
-                            <del
-                                *ngIf="productkart[0]?.discount > 0">{{  productkart[0]?.price | currency: productService.Currency?.currency:'symbol' }}</del>
-                            <span *ngIf="productkart[0]?.discount > 0"> {{ productkart[0]?.discount }}%
-                                off</span>
-                        </h4>
-                        <h3>
-                            {{ productkart[0]?.salePrice | currency: productService.Currency?.currency:'symbol' }}
-                        </h3>
-                        <ul class="color-variant">
-                            <li [class]="color" [class.active]="activeSlide == color.colorindex.toString()"
-                                *ngFor="let color of Color(productkart[0]?.productSizeColor); index as i"
-                                [ngStyle]="{'background-color': color.color}"
-                                (click)="changecolor(color.colorindex.toString())">
-                            </li>
-                        </ul>
-                        <!-- <app-stock-inventory [stock]="productkart[0]?.qty"></app-stock-inventory> commented on 22 july by deepak -->
-                        <div class="product-description border-product mt-5">
-                            <h4 class="clearfix" style="color: #222222;text-transform: capitalize;">
-                                select size
-                                <a href="javascrip:void(0)" (click)="SizeChart.openModal()" class="float-right">size
-                                    chart</a>
-                            </h4>
-                            <br>
-                            <table class="table table-bordered table-hover">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th *ngFor="let column of headers" class="thead-dark">
-                                            {{column}}
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let item of productkart[0]?.productSizeColor; let myIndex  = index">
-                                        <td>
-                                            <input type="checkbox" [(ngModel)]="item.isSelected" *ngIf="item?.qty > 0"
-                                                name="checkIn" [value]="item.productSizeId" id="{{myIndex}}"
-                                                (ngModelChange)="fnCheck(item,$event,myIndex)">
-                                            {{item.color}}
-                                        </td>
-                                        <!-- <td>
-                                                {{item.color}}
-                                            </td> -->
-                                        <td>
-                                            {{item.size}}
-                                        </td>
-                                        <td>
 
-                                            <div class="qty-box" style="margin-top: 0px !important;">
-                                                <div *ngIf="item?.qty > 0" class="input-group">
-                                                    <span class="input-group-prepend">
-                                                        <button type="button" class="btn quantity-left-minus"
-                                                            data-type="minus" (click)="decrement(myIndex,item)">
-                                                            <i class="ti-minus"></i>
-                                                        </button>
-                                                    </span>
-                                                    <input type="text" name="quantity" id="{{ 'txtqty' + myIndex}}"
-                                                        style="width: 45px; height: 27px;"
-                                                        class="form-control input-number" [value]="item.selectedQty"
-                                                        disabled />
-                                                    <span class="input-group-prepend">
-                                                        <button type="button" class="btn quantity-right-plus"
-                                                            data-type="plus" (click)="increment(myIndex,item,item.qty)">
-                                                            <i class="ti-plus"></i>
-                                                        </button>
-                                                    </span>
-                                                </div>
-                                                <h5 class="avalibility" *ngIf="item?.qty==0"><span>Out
-                                                        of
-                                                        Stock</span></h5>
-                                            </div>
-                                        </td>
-                                        <!-- <td>
-                    <h5 class="avalibility" *ngIf="item.selectedQty <=item?.qty"><span>In Stock</span></h5>
-                    <h5 class="avalibility" *ngIf="item.selectedQty > item?.qty"><span>Out of Stock</span></h5>
-                </td> -->
-                                    </tr>
-                                </tbody>
+                        <div class="row">
+                            <div class="col-12 col-sm-6 col-md-6">
+                                <h4><b>{{ productkart[0]?.productName }}</b></h4>
+                                <h4>
+                                    <del *ngIf="productkart[0]?.discount > 0">{{  productkart[0]?.price | currency: productService.Currency?.currency:'symbol' }}</del>
+                                    <span *ngIf="productkart[0]?.discount > 0"> {{ productkart[0]?.discount }}%
+                                        off</span>
+                                </h4>
+                                <h3>
+                                    {{ productkart[0]?.salePrice | currency: productService.Currency?.currency:'symbol' }}
+                                </h3>
+                                <ul class="color-variant">
+                                    <li [class]="color" [class.active]="activeSlide == color.colorindex.toString()" *ngFor="let color of Color(productkart[0]?.productSizeColor); index as i" [ngStyle]="{'background-color': color.color}" (click)="changecolor(color.colorindex.toString())">
+                                    </li>
+                                </ul>
+                                <!-- <app-stock-inventory [stock]="productkart[0]?.qty"></app-stock-inventory> commented on 22 july by deepak -->
+                                <div class="product-description border-product mt-2">
+                                    <h4 class="clearfix" style="color: #222222;text-transform: capitalize;">
+                                        select color
+                                        <!-- <a href="javascrip:void(0)" (click)="SizeChart.openModal()" class="float-right">size
+                                            chart</a> -->
+                                    </h4>
+                                    <!-- <br> -->
+                                    <table class="table table-bordered table-hover">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th *ngFor="let column of headers" class="thead-dark">
+                                                    {{column}}
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item of productkart[0]?.productSizeColor; let myIndex  = index">
+                                                <td>
+                                                    <input type="checkbox" [(ngModel)]="item.isSelected" *ngIf="item?.qty > 0" name="checkIn" [value]="item.productSizeId" id="{{myIndex}}" (ngModelChange)="fnCheck(item,$event,myIndex)"> {{item.color}}
+                                                </td>
+                                                <!-- <td>
+                                                        {{item.color}}
+                                                    </td> -->
+                                                <!-- <td>
+                                                    {{item.size}}
+                                                </td> -->
+                                                <td>
 
-                            </table>
+                                                    <div class="qty-box" style="margin-top: 0px !important;">
+                                                        <div *ngIf="item?.qty > 0" class="input-group">
+                                                            <span class="input-group-prepend">
+                                                                <button type="button" class="btn quantity-left-minus"
+                                                                    data-type="minus" (click)="decrement(myIndex,item)">
+                                                                    <i class="ti-minus"></i>
+                                                                </button>
+                                                            </span>
+                                                            <input type="text" name="quantity" id="{{ 'txtqty' + myIndex}}" style="width: 45px; height: 27px;" class="form-control input-number" [value]="item.selectedQty" disabled />
+                                                            <span class="input-group-prepend">
+                                                                <button type="button" class="btn quantity-right-plus"
+                                                                    data-type="plus"
+                                                                    (click)="increment(myIndex,item,item.qty)">
+                                                                    <i class="ti-plus"></i>
+                                                                </button>
+                                                            </span>
+                                                        </div>
+                                                        <h5 class="avalibility" *ngIf="item?.qty==0"><span>Out
+                                                                of
+                                                                Stock</span></h5>
+                                                    </div>
+                                                </td>
+                                                <!-- <td>
+                            <h5 class="avalibility" *ngIf="item.selectedQty <=item?.qty"><span>In Stock</span></h5>
+                            <h5 class="avalibility" *ngIf="item.selectedQty > item?.qty"><span>Out of Stock</span></h5>
+                        </td> -->
+                                            </tr>
+                                        </tbody>
 
-                            <!-- <div class="size-box">
-            <ul>
-                <li [class.active]="selectedSize == size"
-                *ngFor="let size of Size(productkart[0]?.productSizeColor)">
-                <a href="javascript:void(0)" (click)="selectSize(size)">
-                    {{ size | titlecase }}
-                </a>
-                </li>
-            </ul>
-            </div> -->
-                            <!-- <h5 class="avalibility" *ngIf="counter <= productkart[0]?.qty"><span>In Stock</span></h5>
-            <h5 class="avalibility" *ngIf="counter > productkart[0]?.qty"><span>Out of Stock</span></h5>
-            <h6 class="product-title">quantity</h6>
-            <div class="qty-box">
-            <div class="input-group">
-                <span class="input-group-prepend">
-                <button type="button" class="btn quantity-left-minus" data-type="minus" (click)="decrement()">
-                    <i class="ti-angle-left"></i>
-                </button>
-                </span>
-                <input type="text" name="quantity" class="form-control input-number" [value]="counter"
-                disabled />
-                <span class="input-group-prepend">
-                <button type="button" class="btn quantity-right-plus" data-type="plus" (click)="increment()">
-                    <i class="ti-angle-right"></i>
-                </button>
-                </span>
-            </div>
-            </div> -->
+                                    </table>
+
+                                    <!-- <div class="size-box">
+                    <ul>
+                        <li [class.active]="selectedSize == size"
+                        *ngFor="let size of Size(productkart[0]?.productSizeColor)">
+                        <a href="javascript:void(0)" (click)="selectSize(size)">
+                            {{ size | titlecase }}
+                        </a>
+                        </li>
+                    </ul>
+                    </div> -->
+                                    <!-- <h5 class="avalibility" *ngIf="counter <= productkart[0]?.qty"><span>In Stock</span></h5>
+                    <h5 class="avalibility" *ngIf="counter > productkart[0]?.qty"><span>Out of Stock</span></h5>
+                    <h6 class="product-title">quantity</h6>
+                    <div class="qty-box">
+                    <div class="input-group">
+                        <span class="input-group-prepend">
+                        <button type="button" class="btn quantity-left-minus" data-type="minus" (click)="decrement()">
+                            <i class="ti-angle-left"></i>
+                        </button>
+                        </span>
+                        <input type="text" name="quantity" class="form-control input-number" [value]="counter"
+                        disabled />
+                        <span class="input-group-prepend">
+                        <button type="button" class="btn quantity-right-plus" data-type="plus" (click)="increment()">
+                            <i class="ti-angle-right"></i>
+                        </button>
+                        </span>
+                    </div>
+                    </div> -->
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-6">
+
+                                <table class="table table-bordered table-hover">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th class="thead-dark" colspan="2" style="text-align: center;">
+                                                ITEM SPECIFICATION
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- <tr>
+                                            <td>
+                                                Colour
+                                            </td>
+                                            <td>
+                                                {{productkart[0]?.salePrice}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Colour Option
+                                            </td>
+                                            <td>
+                                                {{productkart[0]?.salePrice}}
+                                            </td>
+                                        </tr> -->
+                                        <tr>
+                                            <td style="width: 50%;">
+                                                Seat Material
+                                            </td>
+                                            <td>
+                                                {{productkart[0]?.seatMaterial}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Back Material
+                                            </td>
+                                            <td>
+                                                {{productkart[0]?.backMaterial}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Seating Height
+                                            </td>
+                                            <td>
+                                                {{productkart[0]?.seatingHeight}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Back Size
+                                            </td>
+                                            <td>
+                                                {{productkart[0]?.backSize}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Total Height
+                                            </td>
+                                            <td>
+                                                {{productkart[0]?.totalHeight}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Width
+                                            </td>
+                                            <td>
+                                                {{productkart[0]?.width}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Depth
+                                            </td>
+                                            <td>
+                                                {{productkart[0]?.depth}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Overall Dimension
+                                            </td>
+                                            <td>
+                                                {{productkart[0]?.overallDimension}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Assembly Type
+                                            </td>
+                                            <td>
+                                                {{productkart[0]?.assemblyType}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
                         </div>
+
 
                         <div class="border-product">
                             <h6 class="product-title">product details</h6>
@@ -261,9 +354,7 @@
                                         <!-- <iframe width="560" height="315"
                                                     src="https://www.youtube.com/embed/BUWzX78Ye_8"
                                                       allow="autoplay; encrypted-media" allowfullscreen></iframe> -->
-                                        <iframe width="560" height="315"
-                                            [src]="productkart[0]?.videoURL | safe: 'resourceUrl'"
-                                            allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                        <iframe width="560" height="315" [src]="productkart[0]?.videoURL | safe: 'resourceUrl'" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                                     </div>
                                 </ng-template>
                             </ngb-tab>

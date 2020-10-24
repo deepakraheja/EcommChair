@@ -48,7 +48,17 @@ export class Productkart {
     setNo: number;
     piece: number;
     minimum: number;
-    averagePrice:number
+    averagePrice: number
+
+    seatingHeight: string;
+    backSize: string;
+    totalHeight: string;
+    width: string;
+    depth: string;
+    overallDimension: string;
+    assemblyType: string;
+    seatMaterial: string;
+    backMaterial: string;
     constructor(
         productID?: number,
         productName?: string,
@@ -97,7 +107,16 @@ export class Productkart {
         setNo?: number,
         piece?: number,
         minimum?: number,
-        averagePrice?:number,
+        averagePrice?: number,
+        seatingHeight?: string,
+        backSize?: string,
+        totalHeight?: string,
+        width?: string,
+        depth?: string,
+        overallDimension?: string,
+        assemblyType?: string,
+        seatMaterial?: string,
+        backMaterial?: string
     ) {
         this.productID = productID;
         this.productName = productName;
@@ -148,8 +167,17 @@ export class Productkart {
         this.setNo = this.setNo;
         this.piece = this.piece;
         this.minimum = this.minimum;
-        this.averagePrice=this.averagePrice;
+        this.averagePrice = this.averagePrice;
 
+        this.seatingHeight = this.seatingHeight;
+        this.backSize = this.backSize;
+        this.totalHeight = this.totalHeight;
+        this.width = this.width;
+        this.depth = this.depth;
+        this.overallDimension = this.overallDimension;
+        this.assemblyType = this.assemblyType;
+        this.seatMaterial=this.seatMaterial;
+        this.backMaterial=this.backMaterial;
     }
 
 }
