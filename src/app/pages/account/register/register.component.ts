@@ -17,6 +17,8 @@ declare var $: any;
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+  public isPersonal: boolean = true;
+
   public inputType = 'password';
   public class = 'fa fa-eye';
   public validate: boolean = false;
@@ -64,6 +66,7 @@ export class RegisterComponent implements OnInit {
   PinCodeMask: string;
   txtPinCode: any;
   AadharNumberMask: string;
+  Personal: number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -176,6 +179,7 @@ export class RegisterComponent implements OnInit {
       city: ['', Validators.required],
       state: ['', Validators.required],
       mobileotp: [''],
+      IsPersonal: ['', Validators.required],
 
       //otp1: ['',],
       //otp2: ['',],
@@ -188,12 +192,55 @@ export class RegisterComponent implements OnInit {
 
   }
 
+  onChangePersonal(type: number) {
+    this.isPersonal = type == 1;
+    const businessType = this.RegistrationForm.get('BusinessType');
+    const businessLicenseType = this.RegistrationForm.get('businessLicenseType');
+    const Industry = this.RegistrationForm.get('Industry');
+
+    const businessName = this.RegistrationForm.get('BusinessName');
+    const businessPhone = this.RegistrationForm.get('BusinessPhone');
+
+    const gstNo = this.RegistrationForm.get('GSTNo');
+    const panNo = this.RegistrationForm.get('PANNo');
+    const AadharCard = this.RegistrationForm.get('AadharCard');
+
+    if (type == 1) {
+      businessType.clearValidators();
+      businessLicenseType.clearValidators();
+      Industry.clearValidators()
+      businessName.clearValidators();
+      businessPhone.clearValidators();
+      gstNo.clearValidators();
+      panNo.clearValidators();
+      AadharCard.clearValidators();
+    }
+    else {
+      businessType.setValidators([Validators.required]);
+      businessLicenseType.setValidators([Validators.required]);
+      Industry.setValidators([Validators.required]);
+      businessName.setValidators([Validators.required]);
+      businessPhone.setValidators([Validators.required]);
+      gstNo.setValidators([Validators.required]);
+      panNo.setValidators([Validators.required]);
+      AadharCard.setValidators([Validators.required]);
+    }
+
+    businessType.updateValueAndValidity();
+    businessLicenseType.updateValueAndValidity();
+    Industry.updateValueAndValidity();
+    businessName.updateValueAndValidity();
+    businessPhone.updateValueAndValidity();
+    gstNo.updateValueAndValidity();
+    panNo.updateValueAndValidity();
+    AadharCard.updateValueAndValidity();
+  }
+
   Change() {
     this.mobileOTP = false
     //this.RegistrationForm.setValue('mobileotp') = '';
 
   }
-
 
   ChangeLicenseType() {
 
@@ -523,7 +570,23 @@ export class RegisterComponent implements OnInit {
   CreateRegistration() {
     debugger
     this.submitted = true;
-    this.formControlValueChanged();
+
+    this.Personal = Number(this.RegistrationForm.get('IsPersonal').value);
+
+    if (this.Personal == 0) {
+      this.formControlValueChanged();
+
+      const IsPersonal = this.RegistrationForm.get('IsPersonal');
+      IsPersonal.setValue(false);
+      IsPersonal.updateValueAndValidity();
+    }
+    else
+    {
+      const IsPersonal = this.RegistrationForm.get('IsPersonal');
+      IsPersonal.setValue(true);
+      IsPersonal.updateValueAndValidity();
+
+    }
 
     if (this.RegistrationForm.invalid) {
       if ($('#fname').val() == '') {
@@ -532,79 +595,81 @@ export class RegisterComponent implements OnInit {
         return;
       }
 
-      if ($('#ddlBusinessType option:selected').val() == '') {
-        this.toastr.error('Please fill in all the * required fields.');
-        $('#ddlBusinessType').focus();
+      if (this.Personal == 0) {
+        if ($('#ddlBusinessType option:selected').val() == '') {
+          this.toastr.error('Please fill in all the * required fields.');
+          $('#ddlBusinessType').focus();
 
-        return;
-      }
+          return;
+        }
 
-      if ($('#ddlIndustry option:selected').val() == '') {
-        this.toastr.error('Please fill in all the * required fields.');
-        $('#ddlIndustry').focus();
+        if ($('#ddlIndustry option:selected').val() == '') {
+          this.toastr.error('Please fill in all the * required fields.');
+          $('#ddlIndustry').focus();
 
-        return;
-      }
+          return;
+        }
 
-      if ($('#ddlLicenseType option:selected').val() == '') {
-        this.toastr.error('Please fill in all the * required fields.');
-        $('#ddlLicenseType').focus();
+        if ($('#ddlLicenseType option:selected').val() == '') {
+          this.toastr.error('Please fill in all the * required fields.');
+          $('#ddlLicenseType').focus();
 
-        return;
-      }
+          return;
+        }
 
-      if ($('#ddlLicenseType option:selected').val() == 'GSTIN') {
-        this.GSTNo = $("#txtGSTNo").val().length;//this.RegistrationForm.get('GSTNo').value
-        if (this.GSTNo < 15) {
-          this.showMessage('Please, Enter 15-digit GST number');
-          $('#txtGSTNo').focus();
+        if ($('#ddlLicenseType option:selected').val() == 'GSTIN') {
+          this.GSTNo = $("#txtGSTNo").val().length;//this.RegistrationForm.get('GSTNo').value
+          if (this.GSTNo < 15) {
+            this.showMessage('Please, Enter 15-digit GST number');
+            $('#txtGSTNo').focus();
+            return
+          }
+        }
+        else if ($('#ddlLicenseType option:selected').val() == 'BusinessPAN') {
+          this.PANNo = $("#txtPANNo").val().length;//this.RegistrationForm.get('PANNo').value
+          if (this.PANNo < 10) {
+            this.showMessage('Please, Enter 10-digit PAN number');
+            $('#txtPANNo').focus();
+            return
+          }
+        }
+        else if ($('#ddlLicenseType option:selected').val() == 'AadharCard') {
+
+          this.AadharCard = $("#txtAadharCard").val().length;//this.RegistrationForm.get('AadharCard').value
+          if (this.AadharCard < 14) {
+            this.showMessage('Please, Enter 12-digit  Aadhar Card number');
+            $('#txtAadharCard').focus();
+            return
+          }
+        }
+
+        // if (this.f.GSTNo.errors) {
+
+        //   if (this.f.GSTNo.errors.required) {
+        //     this.showMessage('Please, Enter 15-digit number GST number.');
+        //     return;
+        //   } else {
+        //     this.showMessage('Please, Enter 15-digit number GST number.');
+        //     return;
+        //   }
+        // }
+
+        if ($('#BusinessName').val() == '') {
+          $('#BusinessName').focus();
+          return;
+        }
+
+        if ($('#BusinessPhone').val() == '') {
+          $('#BusinessPhone').focus();
+          return;
+        }
+
+        this.BusinessPhone = $("#txtBusinessPhone").val().length;//this.RegistrationForm.get('GSTNo').value
+        if (this.BusinessPhone < 10) {
+          this.showMessage('Please, Enter 10-digit Business Phone');
+          $('#txtBusinessPhone').focus();
           return
         }
-      }
-      else if ($('#ddlLicenseType option:selected').val() == 'BusinessPAN') {
-        this.PANNo = $("#txtPANNo").val().length;//this.RegistrationForm.get('PANNo').value
-        if (this.PANNo < 10) {
-          this.showMessage('Please, Enter 10-digit PAN number');
-          $('#txtPANNo').focus();
-          return
-        }
-      }
-      else if ($('#ddlLicenseType option:selected').val() == 'AadharCard') {
-
-        this.AadharCard = $("#txtAadharCard").val().length;//this.RegistrationForm.get('AadharCard').value
-        if (this.AadharCard < 14) {
-          this.showMessage('Please, Enter 12-digit  Aadhar Card number');
-          $('#txtAadharCard').focus();
-          return
-        }
-      }
-
-      // if (this.f.GSTNo.errors) {
-
-      //   if (this.f.GSTNo.errors.required) {
-      //     this.showMessage('Please, Enter 15-digit number GST number.');
-      //     return;
-      //   } else {
-      //     this.showMessage('Please, Enter 15-digit number GST number.');
-      //     return;
-      //   }
-      // }
-
-      if ($('#BusinessName').val() == '') {
-        $('#BusinessName').focus();
-        return;
-      }
-
-      if ($('#BusinessPhone').val() == '') {
-        $('#BusinessPhone').focus();
-        return;
-      }
-
-      this.BusinessPhone = $("#txtBusinessPhone").val().length;//this.RegistrationForm.get('GSTNo').value
-      if (this.BusinessPhone < 10) {
-        this.showMessage('Please, Enter 10-digit Business Phone');
-        $('#txtBusinessPhone').focus();
-        return
       }
 
       if ($('#Address1').val() == '') {

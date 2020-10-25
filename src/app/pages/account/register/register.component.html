@@ -99,117 +99,141 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="form-group">
-                                <label>Business Type</label><span style="color:red">*</span>
-                                <select id="ddlBusinessType" name="ddlBusinessType" class="custom-select"
-                                    formControlName="BusinessType"
-                                    [ngClass]="{ 'is-invalid': submitted && f.BusinessType.errors }">
-                                    <option value="">select</option>
-                                    <option value="SoleProprietorship">Sole Proprietorship</option>
-                                    <option value="Partnership">Partnership</option>
-                                    <option value="PublicLimitedCompany">Public Limited Company</option>
-                                    <option value="PrivateLimitedCompany">Private Limited Company</option>
-                                    <option value="Other">Other</option>
-                                </select>
+                                <label class="col-sm-4 control-label">Please select
+                                    <!-- <span style="color:red">*</span> -->
+                                </label>
+                                <div class="col-sm-8">
 
-                                <div *ngIf="submitted && f.BusinessType.errors" class="invalid-feedback">
-                                    <div>Business Type is required
-                                    </div>
-                                </div>
+                                    <label class="rodio-inline">
+                                        <input type="radio" value="1" (change)="onChangePersonal(1)"
+                                            formControlName="IsPersonal" />&nbsp;Personal buyer &nbsp;&nbsp;
+                                    </label>
+                                    <label class="rodio-inline">
+                                        <input type="radio" value="0" (change)="onChangePersonal(0)"
+                                            formControlName="IsPersonal" />&nbsp;Business bulk buyer
+                                    </label>
 
-                            </div>
-
-                            <div class="form-group">
-                                <label>Industry</label><span style="color:red">*</span>
-                                <select class="custom-select" formControlName="Industry" id="ddlIndustry"
-                                    [ngClass]="{ 'is-invalid': submitted && f.Industry.errors }">
-                                    <option value="">select</option>
-                                    <option value="Retail"> Retail (Fashion / Accessories)</option>
-                                    <option value="Wholesale">Wholesale</option>
-                                    <option value="Other">Other</option>
-
-                                </select>
-                                <div *ngIf="submitted && f.Industry.errors" class="invalid-feedback">
-                                    <div>Industry is required
+                                    <div *ngIf="submitted && f.IsPersonal.errors" style="color:red">
+                                        <div *ngIf="f.IsPersonal.errors">
+                                            Select is required
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label>Business License Type</label><span style="color:red">*</span>
-                                <select id="ddlLicenseType" class="custom-select" formControlName="businessLicenseType"
-                                    (change)="ChangeLicenseType()"
-                                    [ngClass]="{ 'is-invalid': submitted && f.businessLicenseType.errors }">
-                                    <option value="">select</option>
-                                    <option value="GSTIN"> Goods and Services Tax Identification Number (GSTIN)
-                                    </option>
-                                    <option value="BusinessPAN">Business PAN</option>
-                                    <option value="AadharCard">Aadhar Card</option>
-                                </select>
-                                <div *ngIf="submitted && f.businessLicenseType.errors" class="invalid-feedback">
-                                    <div>Business License Type is required
+                            <div *ngIf="!isPersonal">
+                                <div class="form-group">
+                                    <label>Business Type</label><span style="color:red">*</span>
+                                    <select id="ddlBusinessType" name="ddlBusinessType" class="custom-select"
+                                        formControlName="BusinessType"
+                                        [ngClass]="{ 'is-invalid': submitted && f.BusinessType.errors }">
+                                        <option value="">select</option>
+                                        <option value="SoleProprietorship">Sole Proprietorship</option>
+                                        <option value="Partnership">Partnership</option>
+                                        <option value="PublicLimitedCompany">Public Limited Company</option>
+                                        <option value="PrivateLimitedCompany">Private Limited Company</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+
+                                    <div *ngIf="submitted && f.BusinessType.errors" class="invalid-feedback">
+                                        <div>Business Type is required
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Industry</label><span style="color:red">*</span>
+                                    <select class="custom-select" formControlName="Industry" id="ddlIndustry"
+                                        [ngClass]="{ 'is-invalid': submitted && f.Industry.errors }">
+                                        <option value="">select</option>
+                                        <option value="Retail"> Retail (Furniture / Accessories)</option>
+                                        <option value="Wholesale">Wholesale</option>
+                                        <option value="Other">Other</option>
+
+                                    </select>
+                                    <div *ngIf="submitted && f.Industry.errors" class="invalid-feedback">
+                                        <div>Industry is required
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="form-group" *ngIf="f.businessLicenseType.value=='GSTIN'">
-
-                                <label for="email">GST Number</label><span style="color:red">*</span>
-                                <input #GSTNo type="text" class="form-control input-upper" id="txtGSTNo"
-                                    autocomplete="off" (input)="GSTNo.value = GSTNo.value.toUpperCase()"
-                                    formControlName="GSTNo" maxlength="15" placeholder="GST No">
-                                <div *ngIf="submitted && f.GSTNo.errors" class="Customerror">
-                                    <div>GST Number is required
+                                <div class="form-group">
+                                    <label>Business License Type</label><span style="color:red">*</span>
+                                    <select id="ddlLicenseType" class="custom-select"
+                                        formControlName="businessLicenseType" (change)="ChangeLicenseType()"
+                                        [ngClass]="{ 'is-invalid': submitted && f.businessLicenseType.errors }">
+                                        <option value="">select</option>
+                                        <option value="GSTIN"> Goods and Services Tax Identification Number (GSTIN)
+                                        </option>
+                                        <option value="BusinessPAN">Business PAN</option>
+                                        <option value="AadharCard">Aadhar Card</option>
+                                    </select>
+                                    <div *ngIf="submitted && f.businessLicenseType.errors" class="invalid-feedback">
+                                        <div>Business License Type is required
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group" *ngIf="f.businessLicenseType.value=='BusinessPAN'">
+                                <div class="form-group" *ngIf="f.businessLicenseType.value=='GSTIN'">
 
-                                <label for="email">PAN Number</label><span style="color:red">*</span>
-                                <input type="text" #PANNo class="form-control" id="txtPANNo" maxlength="10"
-                                    formControlName="PANNo" (input)="PANNo.value = PANNo.value.toUpperCase()"
-                                    placeholder="PAN No">
-                                <div *ngIf="submitted && f.PANNo.errors" class="Customerror">
-                                    <div>PAN Number is required
+                                    <label for="email">GST Number</label><span style="color:red">*</span>
+                                    <input #GSTNo type="text" class="form-control input-upper" id="txtGSTNo"
+                                        autocomplete="off" (input)="GSTNo.value = GSTNo.value.toUpperCase()"
+                                        formControlName="GSTNo" maxlength="15" placeholder="GST No">
+                                    <div *ngIf="submitted && f.GSTNo.errors" class="Customerror">
+                                        <div>GST Number is required
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group" *ngIf="f.businessLicenseType.value=='AadharCard'">
 
-                                <label for="email">Aadhar Card</label><span style="color:red">*</span>
-                                <input type="text" class="form-control" id="txtAadharCard" autocomplete="off"
-                                    formControlName="AadharCard" maxlength="14" placeholder="Aadhar Card"
-                                    [mask]="AadharNumberMask" [showMaskTyped]="showMask"
-                                    (focus)="addAadharMask($event);" [dropSpecialCharacters]="false">
-                                <div *ngIf="submitted && f.AadharCard.errors" class="Customerror">
-                                    <div>Aadhar Card is required
+                                <div class="form-group" *ngIf="f.businessLicenseType.value=='BusinessPAN'">
+
+                                    <label for="email">PAN Number</label><span style="color:red">*</span>
+                                    <input type="text" #PANNo class="form-control" id="txtPANNo" maxlength="10"
+                                        formControlName="PANNo" (input)="PANNo.value = PANNo.value.toUpperCase()"
+                                        placeholder="PAN No">
+                                    <div *ngIf="submitted && f.PANNo.errors" class="Customerror">
+                                        <div>PAN Number is required
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
+                                <div class="form-group" *ngIf="f.businessLicenseType.value=='AadharCard'">
 
-                                <label for="email">Business Name</label><span style="color:red">*</span>
-                                <input type="text" class="form-control" id="BusinessName" formControlName="BusinessName"
-                                    autocomplete="off" maxlength="100"
-                                    [ngClass]="{ 'is-invalid': submitted && f.BusinessName.errors }">
-                                <div *ngIf="submitted && f.BusinessName.errors" class="invalid-feedback">
-                                    <div>Business Name is required
+                                    <label for="email">Aadhar Card</label><span style="color:red">*</span>
+                                    <input type="text" class="form-control" id="txtAadharCard" autocomplete="off"
+                                        formControlName="AadharCard" maxlength="14" placeholder="Aadhar Card"
+                                        [mask]="AadharNumberMask" [showMaskTyped]="showMask"
+                                        (focus)="addAadharMask($event);" [dropSpecialCharacters]="false">
+                                    <div *ngIf="submitted && f.AadharCard.errors" class="Customerror">
+                                        <div>Aadhar Card is required
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="form-group">
+
+                                    <label for="email">Business Name</label><span style="color:red">*</span>
+                                    <input type="text" class="form-control" id="BusinessName"
+                                        formControlName="BusinessName" autocomplete="off" maxlength="100"
+                                        [ngClass]="{ 'is-invalid': submitted && f.BusinessName.errors }">
+                                    <div *ngIf="submitted && f.BusinessName.errors" class="invalid-feedback">
+                                        <div>Business Name is required
+                                        </div>
+                                    </div>
+                                </div>
 
 
-                            <div class="form-group">
+                                <div class="form-group">
 
-                                <label for="email">Business Phone</label><span style="color:red">*</span>
-                                <input type="text" class="form-control" id="txtBusinessPhone" maxlength="10"
-                                    formControlName="BusinessPhone" [mask]="PhoneMask" [dropSpecialCharacters]="false"
-                                    [showMaskTyped]="showMask" (focus)="addPhoneMask($event);"
-                                    [ngClass]="{ 'is-invalid': submitted && f.BusinessPhone.errors }">
+                                    <label for="email">Business Phone</label><span style="color:red">*</span>
+                                    <input type="text" class="form-control" id="txtBusinessPhone" maxlength="10"
+                                        formControlName="BusinessPhone" [mask]="PhoneMask"
+                                        [dropSpecialCharacters]="false" [showMaskTyped]="showMask"
+                                        (focus)="addPhoneMask($event);"
+                                        [ngClass]="{ 'is-invalid': submitted && f.BusinessPhone.errors }">
 
-                                <div *ngIf="submitted && f.BusinessPhone.errors" class="invalid-feedback">
-                                    <div>Business Phone is required
+                                    <div *ngIf="submitted && f.BusinessPhone.errors" class="invalid-feedback">
+                                        <div>Business Phone is required
+                                        </div>
                                     </div>
                                 </div>
                             </div>
