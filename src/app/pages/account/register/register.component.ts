@@ -580,8 +580,7 @@ export class RegisterComponent implements OnInit {
       IsPersonal.setValue(false);
       IsPersonal.updateValueAndValidity();
     }
-    else
-    {
+    else {
       const IsPersonal = this.RegistrationForm.get('IsPersonal');
       IsPersonal.setValue(true);
       IsPersonal.updateValueAndValidity();
@@ -726,38 +725,41 @@ export class RegisterComponent implements OnInit {
         else if (res > 1) {
           setTimeout(() => this.spinner.hide(), 500);
           //this.toastr.success("Thank you for registering. We will inform you as soon as your account will be approved.");
-          // let obj = {
-          //   LoginId: this.RegistrationForm.value.email,
-          //   password: this.RegistrationForm.value.password
-          // };
-          // this.userService.ValidLogin(obj).subscribe(res => {
-          //   if (res.length > 0) {
+          if (this.RegistrationForm.value.IsPersonal == 1) {
+            let obj = {
+              LoginId: this.RegistrationForm.value.email,
+              password: this.RegistrationForm.value.password
+            };
+            this.userService.ValidLogin(obj).subscribe(res => {
+              if (res.length > 0) {
 
-          //     sessionStorage.setItem('LoggedInUser', JSON.stringify(res));
-          //     this._SharedDataService.AssignUser(res);
-          //     //  
-          //     this.route.paramMap.subscribe((params: ParamMap) => {
-          //       if (params.get('cart') != "" && params.get('cart') != null && params.get('cart') != undefined) {
-          //         this.router.navigate(['/shop/cart']);
-          //       }
-          //       else {
-          //         this.router.navigate(['/home/chair']);
-          //       }
-          //     });
-          //   }
-          // });
-
-          this.router.navigate(['/home/chair']);
-          this.modalService.open(ThanksComponent, {
-            size: 'md',
-            //ariaLabelledBy: 'Cart-Modal',
-            centered: true,
-            //windowClass: 'theme-modal cart-modal CartModal'
-          }).result.then((result) => {
-            `Result ${result}`
-          }, (reason) => {
-            this.modalService.dismissAll();
-          });
+                sessionStorage.setItem('LoggedInUser', JSON.stringify(res));
+                this._SharedDataService.AssignUser(res);
+                //  
+                this.route.paramMap.subscribe((params: ParamMap) => {
+                  if (params.get('cart') != "" && params.get('cart') != null && params.get('cart') != undefined) {
+                    this.router.navigate(['/shop/cart']);
+                  }
+                  else {
+                    this.router.navigate(['/home/chair']);
+                  }
+                });
+              }
+            });
+          }
+          if (this.RegistrationForm.value.IsPersonal == 0) {
+            this.router.navigate(['/home/chair']);
+            this.modalService.open(ThanksComponent, {
+              size: 'md',
+              //ariaLabelledBy: 'Cart-Modal',
+              centered: true,
+              //windowClass: 'theme-modal cart-modal CartModal'
+            }).result.then((result) => {
+              `Result ${result}`
+            }, (reason) => {
+              this.modalService.dismissAll();
+            });
+          }
         }
         else {
           setTimeout(() => this.spinner.hide(), 500);
