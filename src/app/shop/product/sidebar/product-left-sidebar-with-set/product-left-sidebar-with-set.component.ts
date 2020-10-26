@@ -187,18 +187,18 @@ export class ProductLeftSidebarWithSetComponent implements OnInit {
     //  
     //product.quantity = this.counter || 1;
     //product.productname = productname;
-    this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
-    //  
-    if (this.user == null || this.user == undefined) {
-      //this.router.navigate(['/pages/login/cart']);
-      this.modalService.open(LoginComponent, {
-        size: 'lg',
-        ariaLabelledBy: 'Cart-Modal',
-        centered: true,
-        windowClass: 'theme-modal cart-modal CartModal'
-      });
-    }
-    else {
+    // this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
+    // //  
+    // if (this.user == null || this.user == undefined) {
+    //   //this.router.navigate(['/pages/login/cart']);
+    //   this.modalService.open(LoginComponent, {
+    //     size: 'lg',
+    //     ariaLabelledBy: 'Cart-Modal',
+    //     centered: true,
+    //     windowClass: 'theme-modal cart-modal CartModal'
+    //   });
+    // }
+    // else {
       var obj: any[] = [];
       var array: any[] = this.productkart[0].productSizeSet;
       (array).forEach(element => {
@@ -229,6 +229,6 @@ export class ProductLeftSidebarWithSetComponent implements OnInit {
 
         this.toastr.error("Please select an item.");
       }
-    }
+    //}
   }
 }

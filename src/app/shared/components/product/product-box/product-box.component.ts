@@ -91,18 +91,18 @@ export class ProductBoxComponent implements OnInit {
   }
 
   GoToDetail(rowID, productSizeColorId, setType, setNo) {
-    // this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
-    // //  
-    // if (this.user == null || this.user == undefined) {
-    //   //this.router.navigate(['/pages/login/cart']);
-    //   this.modalService.open(LoginComponent, {
-    //     size: 'lg',
-    //     ariaLabelledBy: 'Cart-Modal',
-    //     centered: true,
-    //     windowClass: 'theme-modal cart-modal CartModal'
-    //   });
-    // }
-    // else {
+    this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
+    //  
+    if (this.user == null || this.user == undefined) {
+      //this.router.navigate(['/pages/login/cart']);
+      this.modalService.open(LoginComponent, {
+        size: 'lg',
+        ariaLabelledBy: 'Cart-Modal',
+        centered: true,
+        windowClass: 'theme-modal cart-modal CartModal'
+      });
+    }
+    else {
       this.spinner.show();
       if (setType == 1) {
         this.router.navigateByUrl('/shop/product/left/sidebar/' + rowID + '/' + productSizeColorId);
@@ -117,7 +117,7 @@ export class ProductBoxComponent implements OnInit {
         this.spinner.hide();
       }
 
-    // }
+    }
   }
   addToCart(product: any) {
     this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));

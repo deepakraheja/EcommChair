@@ -89,15 +89,14 @@
 
                                                 {{ (product.salePrice*product.totalPieces).toFixed() | currency:productService?.Currency.currency:'symbol' }}
                                             </h4>&nbsp;
-                                            <del *ngIf="product?.setType==2">{{ (product.price*product.totalPieces).toFixed() | currency:productService?.Currency.currency:'symbol' }}</del>
-
+                                            <del *ngIf="product?.setType==2 && product?.perDiscount>0">{{ (product.price*product.totalPieces).toFixed() | currency:productService?.Currency.currency:'symbol' }}</del>
 
                                             <h4 *ngIf="product?.setType!=2" class="text-black">
 
                                                 {{ (product.salePrice) | currency:productService?.Currency.currency:'symbol' }}
                                             </h4>&nbsp;
-                                            <del *ngIf="product?.setType!=2">{{ product.price | currency:productService?.Currency.currency:'symbol' }}</del> &nbsp;
-                                            <h5 class="text-red" *ngIf="product?.setType!=2">
+                                            <del *ngIf="product?.setType!=2 && product?.perDiscount>0">{{ product.price | currency:productService?.Currency.currency:'symbol' }}</del> &nbsp;
+                                            <h5 class="text-red" *ngIf="product?.setType!=2 && product?.perDiscount>0">
                                                 {{ product.perDiscount/product.totalPieces | number:'1.2-2' }}%</h5>
                                         </div>
 
