@@ -21,14 +21,21 @@
                             <a href="javaScript:void(0);">
                                 <h6>{{ product?.productName | titlecase }}</h6>
                             </a>
-                            <h4>
+                            <h4 *ngIf="user==null || user[0]?.isPersonal==true || product?.businessPrice==0">
+                                {{ (product?.salePrice+product?.shippingPrice+product?.gstAmount) | currency: productService.Currency?.currency:'symbol' }}
+                            </h4>
+                            <h4 *ngIf="user!=null && user[0]?.isPersonal==false && product?.businessPrice>0">
+                                {{ (product?.businessPrice) | currency: productService.Currency?.currency:'symbol' }}
+                            </h4>
+
+                            <!-- <h4>
                                 {{ product?.salePrice | currency:productService.Currency?.currency:'symbol' }}
                                 <del *ngIf="product?.discount">
                           <span class="money"> 
                             {{ product?.price | currency:productService.Currency?.currency:'symbol' }}
                           </span>
                         </del>
-                            </h4>
+                            </h4> -->
                         </div>
                     </div>
                 </div>

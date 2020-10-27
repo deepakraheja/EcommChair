@@ -45,6 +45,7 @@ export class ProductBoxComponent implements OnInit {
 
   ngOnInit(): void {
     //  ;
+    this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
     if (this.loader) {
       setTimeout(() => { this.loader = false; }, 2000); // Skeleton Loader
     }
@@ -91,7 +92,7 @@ export class ProductBoxComponent implements OnInit {
   }
 
   GoToDetail(rowID, productSizeColorId, setType, setNo) {
-    this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
+    
     //  
     if (this.user == null || this.user == undefined) {
       //this.router.navigate(['/pages/login/cart']);

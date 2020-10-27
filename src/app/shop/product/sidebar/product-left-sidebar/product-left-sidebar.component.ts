@@ -30,7 +30,7 @@ export class ProductLeftSidebarComponent implements OnInit {
 
 
   //public headers: any = ["", "COLOR", "SIZE", "QUANTITY", "STOCK"];
-  public headers: any = ["COLOR",  "QUANTITY"];
+  public headers: any = ["COLOR", "QUANTITY"];
   public ProductImage = environment.ProductImage;
 
   index: number;
@@ -82,7 +82,7 @@ export class ProductLeftSidebarComponent implements OnInit {
         } else {
 
           this.productkart = product;
-
+          debugger
         }
         setTimeout(() => this.spinner.hide(), 1000);
       });
@@ -180,35 +180,35 @@ export class ProductLeftSidebarComponent implements OnInit {
     //   });
     // }
     // else {
-      var obj: any[] = [];
-      var array: any[] = this.productkart[0].productSizeColor;
-      (array).forEach(element => {
+    var obj: any[] = [];
+    var array: any[] = this.productkart[0].productSizeColor;
+    (array).forEach(element => {
 
-        if (element.isSelected) {
+      if (element.isSelected) {
 
-          obj.push({
-            UserID: Number(this.user[0].userID),
-            ProductSizeId: Number(element.productSizeId),
-            Quantity: Number(element.selectedQty)
-          })
+        obj.push({
+          UserID: Number(this.user[0].userID),
+          ProductSizeId: Number(element.productSizeId),
+          Quantity: Number(element.selectedQty)
+        })
 
-        }
-      });
-      //  ;
-      if (Number(obj.length) > 0) {
-        const status = await this.productService.addToCartProduct(obj);
-
-        if (status) {
-          if (type == 1)
-            this.router.navigate(['/shop/cart']);
-          else
-            this.router.navigate(['/shop/checkout']);
-        }
       }
-      else {
+    });
+    //  ;
+    if (Number(obj.length) > 0) {
+      const status = await this.productService.addToCartProduct(obj);
 
-        this.toastr.error("Please select an item.");
+      if (status) {
+        if (type == 1)
+          this.router.navigate(['/shop/cart']);
+        else
+          this.router.navigate(['/shop/checkout']);
       }
+    }
+    else {
+
+      this.toastr.error("Please select an item.");
+    }
     //}
   }
 

@@ -107,8 +107,11 @@
                                     <span *ngIf="productkart[0]?.discount > 0"> {{ productkart[0]?.discount }}%
                                         off</span>
                                 </h4>
-                                <h3>
-                                    {{ productkart[0]?.salePrice | currency: productService.Currency?.currency:'symbol' }}
+                                <h3 *ngIf="user[0].isPersonal==true">
+                                    {{ (productkart[0]?.salePrice+productkart[0]?.shippingPrice+productkart[0]?.gstAmount) | currency: productService.Currency?.currency:'symbol' }}
+                                </h3>
+                                <h3 *ngIf="user[0].isPersonal==false">
+                                    {{ (productkart[0]?.businessPrice) | currency: productService.Currency?.currency:'symbol' }}
                                 </h3>
                                 <ul class="color-variant">
                                     <li [class]="color" [class.active]="activeSlide == color.colorindex.toString()" *ngFor="let color of Color(productkart[0]?.productSizeColor); index as i" [ngStyle]="{'background-color': color.color}" (click)="changecolor(color.colorindex.toString())">

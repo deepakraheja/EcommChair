@@ -36,6 +36,8 @@ export class ProductBoxVerticalSliderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
+    debugger
   }
 
   BindProductByCategory() {

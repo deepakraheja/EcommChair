@@ -66,33 +66,31 @@
 
 <!--Modified code-->
 <div *ngIf="!loader">
-  <div class="img-wrapper">
-    <div class="lable-block">
+    <div class="img-wrapper">
+        <div class="lable-block">
 
-      <!-- <span class="lable3" *ngIf="productkart.new">new</span>
+            <!-- <span class="lable3" *ngIf="productkart.new">new</span>
       <span class="lable4" *ngIf="productkart.sale">on sale</span> -->
-    </div>
-    <div class="front">
-      <a (click)="GoToDetail(productkart.rowID,productkart?.productSizeId,productkart?.setType,productkart?.setNo);">
-        <img [defaultImage]="ImageSrc ? ImageSrc : 'assets/images/product/placeholder.jpg'"
-          [lazyLoad]="ImageSrc ? ImageSrc : ProductImage+productkart.productID+'/frontImage/'+productkart.frontImage"
-          class="img-fluid lazy-loading" alt="" />
-      </a>
-    </div>
-    <!-- <div class="back" *ngIf="onHowerChangeImage">
+        </div>
+        <div class="front">
+            <a (click)="GoToDetail(productkart.rowID,productkart?.productSizeId,productkart?.setType,productkart?.setNo);">
+                <img [defaultImage]="ImageSrc ? ImageSrc : 'assets/images/product/placeholder.jpg'" [lazyLoad]="ImageSrc ? ImageSrc : ProductImage+productkart.productID+'/frontImage/'+productkart.frontImage" class="img-fluid lazy-loading" alt="" />
+            </a>
+        </div>
+        <!-- <div class="back" *ngIf="onHowerChangeImage">
       <a [routerLink]="['/shop/product/left/sidebar/', productkart.title.replace(' ', '-')]">
         <img [src]="ImageSrc ? ImageSrc : productkart.images[1].src" class="img-fluid lazy-loading"
           alt="{{ productkart.images[1].alt }}">
       </a>
     </div> -->
-    <!-- <ul class="product-thumb-list" *ngIf="thumbnail">
+        <!-- <ul class="product-thumb-list" *ngIf="thumbnail">
       <li class="grid_thumb_img" [class.active]="ImageSrc == image.src" *ngFor="let image of productkart.images">
         <a href="javascript:void(0)" (mouseover)="ChangeVariantsImage(image.src)">
           <img [lazyLoad]="image.src">
         </a>
       </li>
     </ul> -->
-    <!-- <div class="cart-info cart-wrap">
+        <!-- <div class="cart-info cart-wrap">
       <a href="javascript:void(0)" title="Add to cart" (click)="CartModal.openModal(productkart)" *ngIf="cartModal">
         <i class="ti-shopping-cart"></i>
       </a>
@@ -109,35 +107,42 @@
         <i class="ti-reload" aria-hidden="true"></i>
       </a>
     </div> -->
-  </div>
-  <div class="product-detail">
-    <div>
-      <bar-rating [rate]="5" [readOnly]="true"></bar-rating>
-      <!-- <a [routerLink]="['/shop/product/left/sidebar/', product?.title.replace(' ', '-')]"> -->
-      <a href="javaScript:void(0);">
-        <h6>{{ productkart?.productName | titlecase }}</h6>
-      </a>
+    </div>
+    <div class="product-detail">
+        <div>
+            <bar-rating [rate]="5" [readOnly]="true"></bar-rating>
+            <!-- <a [routerLink]="['/shop/product/left/sidebar/', product?.title.replace(' ', '-')]"> -->
+            <a href="javaScript:void(0);">
+                <h6>{{ productkart?.productName | titlecase }}</h6>
+            </a>
 
-      <h4 *ngIf="productkart?.setNo==0">
-        {{ productkart?.salePrice | currency:currency?.currency:'symbol' }}
-        <del *ngIf="productkart?.discount > 0"> <span class="money">
+            <h4 *ngIf="user==null || user[0]?.isPersonal==true || productkart?.businessPrice==0">
+                {{ (productkart?.salePrice+productkart?.shippingPrice+productkart?.gstAmount) | currency:currency?.currency:'symbol' }}
+            </h4>
+            <h4 *ngIf="user!=null && user[0]?.isPersonal==false && productkart?.businessPrice>0">
+                {{ (productkart?.businessPrice) | currency:currency?.currency:'symbol' }}
+            </h4>
+
+            <!-- <h4 *ngIf="productkart?.setNo==0">
+                {{ productkart?.salePrice | currency:currency?.currency:'symbol' }}
+                <del *ngIf="productkart?.discount > 0"> <span class="money">
             {{ productkart?.price  | currency:currency?.currency:'symbol' }}</span></del>
-        <br />
-        <div *ngIf="productkart?.discount > 0">{{(productkart?.discount)}}% off
-        </div>
+                <br />
+                <div *ngIf="productkart?.discount > 0">{{(productkart?.discount)}}% off
+                </div>
 
-      </h4>
-      <h4 *ngIf=" productkart?.setNo>0">
-        {{ productkart?.salePrice/productkart?.piece | currency:currency?.currency:'symbol' }}
-        <del *ngIf="productkart?.discount > 0"> <span class="money">
+            </h4> -->
+            <!-- <h4 *ngIf=" productkart?.setNo>0">
+                {{ productkart?.salePrice/productkart?.piece | currency:currency?.currency:'symbol' }}
+                <del *ngIf="productkart?.discount > 0"> <span class="money">
             {{ productkart?.price/productkart?.piece  | currency:currency?.currency:'symbol' }}</span></del>
-        <br />
-        <div *ngIf="productkart?.discount > 0">
-          {{(((productkart?.price-productkart?.salePrice)*100)/productkart?.price).toFixed(2)}}% off
-        </div>
+                <br />
+                <div *ngIf="productkart?.discount > 0">
+                    {{(((productkart?.price-productkart?.salePrice)*100)/productkart?.price).toFixed(2)}}% off
+                </div>
 
-      </h4>
-      <!-- <ul class="color-variant" *ngIf="Color(productkart?.productSizeColor).length">
+            </h4> -->
+            <!-- <ul class="color-variant" *ngIf="Color(productkart?.productSizeColor).length">
         <li [class]="color" *ngFor="let color of Color(productkart?.productSizeColor)"
           [ngStyle]="{'background-color': color}" (click)="ChangeVariants(color, productkart?.productSizeColor)">
 
@@ -145,7 +150,7 @@
 
       </ul> -->
 
-      <!-- <ul *ngIf="Size(productkart?.productSizeColor).length">
+            <!-- <ul *ngIf="Size(productkart?.productSizeColor).length">
         <li
           style="cursor: pointer;color: #222; font-size: 12px;padding: 4px;align-items: center; justify-content: center;height: 100%"
           *ngFor="let size of Size(productkart?.productSizeColor)"
@@ -154,8 +159,8 @@
         </li>
       </ul> -->
 
+        </div>
     </div>
-  </div>
 </div>
 <!-- <app-skeleton-product-box *ngIf="loader"></app-skeleton-product-box> -->
 <!-- <app-quick-view #quickView [product]="product" [currency]="currency"></app-quick-view> -->

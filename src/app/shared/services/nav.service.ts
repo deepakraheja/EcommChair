@@ -47,7 +47,7 @@ export class NavService {
 					});
 				}
 				if (count > 5) {
-					debugger
+					//debugger
 					(this.MENUITEMS[6].children).push({ title: element.name, type: 'link', path: '/shop/collection/left/sidebar', query: element.subCatCode });
 				}
 				count++;

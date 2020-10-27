@@ -59,6 +59,10 @@ export class Productkart {
     assemblyType: string;
     seatMaterial: string;
     backMaterial: string;
+    shippingPrice: number;
+    businessPrice: number;
+    gstAmount: number;
+    businessBuyerGSTRate: number;
     constructor(
         productID?: number,
         productName?: string,
@@ -116,7 +120,11 @@ export class Productkart {
         overallDimension?: string,
         assemblyType?: string,
         seatMaterial?: string,
-        backMaterial?: string
+        backMaterial?: string,
+        shippingPrice?: number,
+        businessPrice?: number,
+        gstAmount?: number,
+        businessBuyerGSTRate?: number
     ) {
         this.productID = productID;
         this.productName = productName;
@@ -161,23 +169,28 @@ export class Productkart {
         this.productSizeColor = productSizeColor;
         this.setType = setType;
         this.productSizeId = productSizeId;
-        this.setList = this.setList;
-        this.productSizeSet = this.productSizeSet;
-        this.videoURL = this.videoURL;
-        this.setNo = this.setNo;
-        this.piece = this.piece;
-        this.minimum = this.minimum;
-        this.averagePrice = this.averagePrice;
+        this.setList = setList;
+        this.productSizeSet = productSizeSet;
+        this.videoURL = videoURL;
+        this.setNo = setNo;
+        this.piece = piece;
+        this.minimum = minimum;
+        this.averagePrice = averagePrice;
 
-        this.seatingHeight = this.seatingHeight;
-        this.backSize = this.backSize;
-        this.totalHeight = this.totalHeight;
-        this.width = this.width;
-        this.depth = this.depth;
-        this.overallDimension = this.overallDimension;
-        this.assemblyType = this.assemblyType;
-        this.seatMaterial=this.seatMaterial;
-        this.backMaterial=this.backMaterial;
+        this.seatingHeight = seatingHeight;
+        this.backSize = backSize;
+        this.totalHeight = totalHeight;
+        this.width = width;
+        this.depth = depth;
+        this.overallDimension = overallDimension;
+        this.assemblyType = assemblyType;
+        this.seatMaterial = seatMaterial;
+        this.backMaterial = backMaterial;
+
+        this.shippingPrice = shippingPrice;
+        this.businessPrice = businessPrice;
+        this.gstAmount = gstAmount;
+        this.businessBuyerGSTRate = businessBuyerGSTRate;
     }
 
 }
