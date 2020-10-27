@@ -718,36 +718,44 @@ export class RegisterComponent implements OnInit {
     else {
       this.spinner.show();
       this.userService.UserRegistration(this.RegistrationForm.value).subscribe(res => {
+        debugger
         if (res <= 0) {
           setTimeout(() => this.spinner.hide(), 500);
           this.toastr.error("Something went wrong. please try again");
         }
         else if (res > 1) {
           setTimeout(() => this.spinner.hide(), 500);
+          debugger
           //this.toastr.success("Thank you for registering. We will inform you as soon as your account will be approved.");
-          if (this.RegistrationForm.value.IsPersonal == 1) {
+          if (this.RegistrationForm.value.IsPersonal == true) {
             let obj = {
               LoginId: this.RegistrationForm.value.email,
-              password: this.RegistrationForm.value.password
+              password: this.RegistrationForm.value.password,
+              userType: 2
             };
             this.userService.ValidLogin(obj).subscribe(res => {
               if (res.length > 0) {
+                if (res[0].statusId == 2) {
+                  sessionStorage.setItem('LoggedInUser', JSON.stringify(res));
+                  sessionStorage.setItem('Token', res[0].token);
+                  this._SharedDataService.AssignUser(res);
+                  this._SharedDataService.UserCart(res);
 
-                sessionStorage.setItem('LoggedInUser', JSON.stringify(res));
-                this._SharedDataService.AssignUser(res);
-                //  
-                this.route.paramMap.subscribe((params: ParamMap) => {
-                  if (params.get('cart') != "" && params.get('cart') != null && params.get('cart') != undefined) {
-                    this.router.navigate(['/shop/cart']);
-                  }
-                  else {
-                    this.router.navigate(['/home/chair']);
-                  }
-                });
+                  this.toastr.success("Thank you for registering. Your account has been loggedIn.");
+                  //  
+                  // this.route.paramMap.subscribe((params: ParamMap) => {
+                  //   if (params.get('cart') != "" && params.get('cart') != null && params.get('cart') != undefined) {
+                  //     this.router.navigate(['/shop/cart']);
+                  //   }
+                  //   else {
+                     this.router.navigate(['/home/chair']);
+                  //   }
+                  // });
+                }
               }
             });
           }
-          if (this.RegistrationForm.value.IsPersonal == 0) {
+          if (this.RegistrationForm.value.IsPersonal == false) {
             this.router.navigate(['/home/chair']);
             this.modalService.open(ThanksComponent, {
               size: 'md',
