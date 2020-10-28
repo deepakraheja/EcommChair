@@ -92,7 +92,7 @@ export class ProductBoxComponent implements OnInit {
   }
 
   GoToDetail(rowID, productSizeColorId, setType, setNo) {
-    
+    this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
     //  
     if (this.user == null || this.user == undefined) {
       //this.router.navigate(['/pages/login/cart']);
