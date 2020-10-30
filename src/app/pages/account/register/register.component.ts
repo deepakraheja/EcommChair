@@ -741,7 +741,7 @@ export class RegisterComponent implements OnInit {
                   this._SharedDataService.AssignUser(res);
                   this._SharedDataService.UserCart(res);
 
-                  this.toastr.success("Thank you for registering. Your account has been loggedIn.");
+                  this.toastr.success("Thank you for registering with us.");
                   //  
                   // this.route.paramMap.subscribe((params: ParamMap) => {
                   //   if (params.get('cart') != "" && params.get('cart') != null && params.get('cart') != undefined) {
