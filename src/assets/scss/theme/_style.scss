@@ -14921,3 +14921,53 @@ address p {
 .left-margin {
     padding-left: 39px;
 }
+.thumb-left-img{
+    height: 63px;
+    width: 63px;
+    /* padding-bottom: 0px; */
+    padding: 14px;
+    /* background: #ccc; */
+    border: solid 1px #ddd;
+    padding-top: 7px;
+}
+.mrg-btm-minus{
+    margin-bottom: -1px;
+}
+.border-grey{
+    border: solid 1px #ddd;
+}
+@media (max-width: 576px){
+.thumbnail-imgs {
+    display: block;
+    flex-direction: row;
+    overflow: hidden;
+    justify-content: flex-start;
+}
+
+}
+
+@media (max-width: 767px){
+.thumbnail-img {
+    margin-right: 0px;
+    margin-bottom: -1px;
+    float: left;
+    overflow: hidden;
+    max-width: 120px;
+}
+}
+.ul-list-circle ul{
+    padding: 0px;
+    margin: 0px;
+    margin-left: 15px;
+}
+.ul-list-circle ul li{
+    display: list-item;
+    text-align: left;
+}
+
+@media only screen and (max-width: 767px) and (min-width: 300px)  {
+    .responsive-lft-sidebar{
+        margin-left: 0px;
+    }
+
+}

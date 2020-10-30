@@ -44,18 +44,18 @@
                         </div>
                     </div> -->
                 <div class="col-xl-5">
-                    <div class="row">
-                        <div class="col-sm-4 col-xl-3">
+                    <div class="row responsive-lft-sidebar">
+                        <div>
                             <div class="thumbnail-imgs">
-                                <div *ngFor="let image of  productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg; index as i" class="thumbnail-img">
-                                    <div class="owl-thumb" [class.active]="i == activeSlide">
+                                <div *ngFor="let image of  productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg; index as i" class="thumbnail-img mrg-btm-minus">
+                                    <div class="owl-thumb thumb-left-img" [class.active]="i == activeSlide">
                                         <img [defaultImage]="'assets/images/product/placeholder.jpg'" [lazyLoad]="ProductImage+productkart[0]?.productID+'/productColorImage/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productSizeColorId+'/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg[i]"
                                             [alt]="image.alt" class="img-fluid" (click)="owlCar.to(activeSlide1 = i.toString())">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-8 col-xl-9 product-carousel">
+                        <div class="col-10 col-sm-10 col-xl-10 product-carousel border-grey">   
                             <owl-carousel-o [options]="ProductDetailsMainSliderConfig" #owlCar class="product-slick">
                                 <ng-container *ngFor="let image of productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg; index as i">
                                     <ng-template carouselSlide [id]="i">
@@ -69,7 +69,7 @@
                             </owl-carousel-o>
                         </div>
                     </div>
-                    <div class="product-buttons row mt-5">
+                    <div class="product-buttons row mt-4">
                         <div class="col-md-6 mb-2">
                             <a href="javascrip:void(0)" class="btn btn-solid w-100" [class.disabled]="false" (click)="addToCart(1)">add to cart</a>
                         </div>
@@ -100,8 +100,11 @@
                     <div class="product-right">
 
                         <div class="row">
-                            <div class="col-12 col-sm-6 col-md-6">
+                            <div class="col-12 col-sm-12 col-md-12">
                                 <h4><b>{{ productkart[0]?.productName }}</b></h4>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-6">
+                               <div class="border-grey p-3">
                                 <h4>
                                     <del *ngIf="productkart[0]?.discount > 0">{{  productkart[0]?.price | currency: productService.Currency?.currency:'symbol' }}</del>
                                     <span *ngIf="productkart[0]?.discount > 0"> {{ productkart[0]?.discount }}%
@@ -207,7 +210,7 @@
                     </div>
                     </div> -->
                                 </div>
-                            </div>
+                            </div></div>
                             <div class="col-12 col-sm-6 col-md-6">
 
                                 <table class="table table-bordered table-hover">
@@ -314,9 +317,9 @@
                         </div>
 
 
-                        <div class="border-product">
+                        <div class="border-product ">
                             <h6 class="product-title">product details</h6>
-                            <div class="blog-post" [innerHTML]="productkart[0]?.shortDetails | safe: 'html'"></div>
+                            <div class="blog-post ul-list-circle" [innerHTML]="productkart[0]?.shortDetails | safe: 'html'"></div>
                             <!-- <p inner>{{ productkart[0]?.shortDetails }}</p> -->
                         </div>
                         <div class="border-product">
@@ -344,7 +347,7 @@
                             <ngb-tab>
                                 <ng-template ngbTabTitle>Description</ng-template>
                                 <ng-template ngbTabContent>
-                                    <div class="blog-post" [innerHTML]="productkart[0]?.description | safe: 'html'">
+                                    <div class="blog-post ul-list-circle" [innerHTML]="productkart[0]?.description | safe: 'html'">
                                     </div>
                                     <!-- <p>{{productkart[0]?.description }}</p> -->
                                 </ng-template>
