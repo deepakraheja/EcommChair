@@ -86,7 +86,7 @@
                                     second(s)</b>
                             </h6>
                         </div>
-                        <div *ngIf="mobileverified">
+                        <div *ngIf="!mobileverified">
 
                             <div class="form-group">
 
@@ -114,7 +114,8 @@
                                             formControlName="IsPersonal" />&nbsp;Business bulk buyer
                                     </label>
 
-                                    <div *ngIf="submitted && f.IsPersonal.errors" style="color:red">
+                                    <div *ngIf="submitted && f.IsPersonal.errors" class="invalid-feedback"
+                                        style="color:red">
                                         <div *ngIf="f.IsPersonal.errors">
                                             Select is required
                                         </div>
