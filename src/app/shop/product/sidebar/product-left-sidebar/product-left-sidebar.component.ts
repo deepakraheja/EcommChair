@@ -185,7 +185,7 @@ export class ProductLeftSidebarComponent implements OnInit {
     (array).forEach(element => {
 
       if (element.isSelected) {
-
+debugger
         obj.push({
           UserID: Number(this.user[0].userID),
           ProductSizeId: Number(element.productSizeId),
@@ -195,6 +195,7 @@ export class ProductLeftSidebarComponent implements OnInit {
       }
     });
     //  ;
+    return;
     if (Number(obj.length) > 0) {
       const status = await this.productService.addToCartProduct(obj);
 

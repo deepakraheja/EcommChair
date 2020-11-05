@@ -108,10 +108,10 @@
                                     <h4>
                                         <del *ngIf="productkart[0]?.discount > 0">{{  productkart[0]?.price | currency: productService.Currency?.currency:'symbol' }}</del>
                                         <span *ngIf="productkart[0]?.discount > 0"> {{ productkart[0]?.discount }}%
-                                        off</span>
+                                            off</span>
                                     </h4>
                                     <h3 *ngIf="user[0].isPersonal==true">
-                                        {{ (productkart[0]?.salePrice+productkart[0]?.shippingPrice+productkart[0]?.gstAmount) | currency: productService.Currency?.currency:'symbol' }}
+                                        {{ (productkart[0]?.salePrice) | currency: productService.Currency?.currency:'symbol' }}
                                     </h3>
                                     <h3 *ngIf="user[0].isPersonal==false">
                                         {{ (productkart[0]?.businessPrice) | currency: productService.Currency?.currency:'symbol' }}
@@ -120,14 +120,10 @@
                                         <li [class]="color" [class.active]="activeSlide == color.colorindex.toString()" *ngFor="let color of Color(productkart[0]?.productSizeColor); index as i" [ngStyle]="{'background-color': color.color}" (click)="changecolor(color.colorindex.toString())">
                                         </li>
                                     </ul>
-                                    <!-- <app-stock-inventory [stock]="productkart[0]?.qty"></app-stock-inventory> commented on 22 july by deepak -->
                                     <div class="product-description border-product mt-2">
                                         <h4 class="clearfix" style="color: #222222;text-transform: capitalize;">
                                             select color
-                                            <!-- <a href="javascrip:void(0)" (click)="SizeChart.openModal()" class="float-right">size
-                                            chart</a> -->
                                         </h4>
-                                        <!-- <br> -->
                                         <table class="table table-bordered table-hover">
                                             <thead class="thead-dark">
                                                 <tr>
@@ -141,76 +137,108 @@
                                                     <td>
                                                         <input type="checkbox" [(ngModel)]="item.isSelected" *ngIf="item?.qty > 0" name="checkIn" [value]="item.productSizeId" id="{{myIndex}}" (ngModelChange)="fnCheck(item,$event,myIndex)"> {{item.color}}
                                                     </td>
-                                                    <!-- <td>
-                                                        {{item.color}}
-                                                    </td> -->
-                                                    <!-- <td>
-                                                    {{item.size}}
-                                                </td> -->
+
                                                     <td>
 
                                                         <div class="qty-box" style="margin-top: 0px !important;">
                                                             <div *ngIf="item?.qty > 0" class="input-group">
                                                                 <span class="input-group-prepend">
-                                                                <button type="button" class="btn quantity-left-minus"
-                                                                    data-type="minus" (click)="decrement(myIndex,item)">
-                                                                    <i class="ti-minus"></i>
-                                                                </button>
-                                                            </span>
+                                                                    <button type="button"
+                                                                        class="btn quantity-left-minus"
+                                                                        data-type="minus"
+                                                                        (click)="decrement(myIndex,item)">
+                                                                        <i class="ti-minus"></i>
+                                                                    </button>
+                                                                </span>
                                                                 <input type="text" name="quantity" id="{{ 'txtqty' + myIndex}}" style="width: 45px; height: 27px;" class="form-control input-number" [value]="item.selectedQty" disabled />
                                                                 <span class="input-group-prepend">
-                                                                <button type="button" class="btn quantity-right-plus"
-                                                                    data-type="plus"
-                                                                    (click)="increment(myIndex,item,item.qty)">
-                                                                    <i class="ti-plus"></i>
-                                                                </button>
-                                                            </span>
+                                                                    <button type="button"
+                                                                        class="btn quantity-right-plus" data-type="plus"
+                                                                        (click)="increment(myIndex,item,item.qty)">
+                                                                        <i class="ti-plus"></i>
+                                                                    </button>
+                                                                </span>
                                                             </div>
                                                             <h5 class="avalibility" *ngIf="item?.qty==0"><span>Out
-                                                                of
-                                                                Stock</span></h5>
+                                                                    of
+                                                                    Stock</span></h5>
                                                         </div>
                                                     </td>
-                                                    <!-- <td>
-                            <h5 class="avalibility" *ngIf="item.selectedQty <=item?.qty"><span>In Stock</span></h5>
-                            <h5 class="avalibility" *ngIf="item.selectedQty > item?.qty"><span>Out of Stock</span></h5>
-                        </td> -->
+
                                                 </tr>
                                             </tbody>
 
                                         </table>
 
-                                        <!-- <div class="size-box">
-                    <ul>
-                        <li [class.active]="selectedSize == size"
-                        *ngFor="let size of Size(productkart[0]?.productSizeColor)">
-                        <a href="javascript:void(0)" (click)="selectSize(size)">
-                            {{ size | titlecase }}
-                        </a>
-                        </li>
-                    </ul>
-                    </div> -->
-                                        <!-- <h5 class="avalibility" *ngIf="counter <= productkart[0]?.qty"><span>In Stock</span></h5>
-                    <h5 class="avalibility" *ngIf="counter > productkart[0]?.qty"><span>Out of Stock</span></h5>
-                    <h6 class="product-title">quantity</h6>
-                    <div class="qty-box">
-                    <div class="input-group">
-                        <span class="input-group-prepend">
-                        <button type="button" class="btn quantity-left-minus" data-type="minus" (click)="decrement()">
-                            <i class="ti-angle-left"></i>
-                        </button>
-                        </span>
-                        <input type="text" name="quantity" class="form-control input-number" [value]="counter"
-                        disabled />
-                        <span class="input-group-prepend">
-                        <button type="button" class="btn quantity-right-plus" data-type="plus" (click)="increment()">
-                            <i class="ti-angle-right"></i>
-                        </button>
-                        </span>
-                    </div>
-                    </div> -->
+
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-6">
+
+                                <table class="table table-bordered table-hover">
+
+                                    <tbody>
+                                        <tr>
+                                            <td style="width: 40%;">
+                                                Item Code
+                                            </td>
+                                            <td>
+                                                {{productkart[0]?.seatMaterial}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                List Price
+                                            </td>
+                                            <td>
+                                                {{ productkart[0]?.price | currency: productService.Currency?.currency:'symbol'}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                OUR PRICE
+                                            </td>
+                                            <td>
+                                                {{ (productkart[0]?.salePrice) | currency: productService.Currency?.currency:'symbol'}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Delivery Cost
+                                            </td>
+                                            <td>
+                                                FREE
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                GST Rate
+                                            </td>
+                                            <td>
+                                                18%
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Guarantee
+                                            </td>
+                                            <td>
+                                                2 YEARS GUARANTEE
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Delivery Time
+                                            </td>
+                                            <td>
+                                                3 to 4 Working Days
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
                             </div>
                             <div class="col-12 col-sm-6 col-md-6">
 
@@ -311,6 +339,11 @@
                                                 {{productkart[0]?.assemblyType}}
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td colspan="2" style="text-align: center; font-weight: 700; color: red;">
+                                                2 YEAR PRODUCT GUARANTEE
+                                            </td>
+                                        </tr>
                                     </tbody>
 
                                 </table>
@@ -321,23 +354,15 @@
                         <div class="border-product ">
                             <h6 class="product-title">product details</h6>
                             <div class="blog-post ul-list-circle" [innerHTML]="productkart[0]?.shortDetails | safe: 'html'"></div>
-                            <!-- <p inner>{{ productkart[0]?.shortDetails }}</p> -->
                         </div>
                         <div class="border-product">
                             <h6 class="product-title">share it</h6>
                             <div class="product-icon">
                                 <app-social></app-social>
-                                <!-- <form class="d-inline-block">
-                                        <button class="wishlist-btn" (click)="addToWishlist(productkart[0])">
-                                            <i class="fa fa-heart"></i>
-                                            <span class="title-font">Add To WishList</span>
-                                        </button>
-                                    </form> -->
+
                             </div>
                         </div>
-                        <!-- <div class="border-product">
-                                <app-countdown [date]="'july 21 2020'"></app-countdown>
-                            </div> -->
+
                     </div>
                 </div>
             </div>
@@ -345,12 +370,110 @@
                 <div class="row">
                     <div class="col-sm-12 col-lg-12">
                         <ngb-tabset [type]="'tabs'" class="nav-material">
-                            <ngb-tab>
+                            <!-- <ngb-tab>
                                 <ng-template ngbTabTitle>Description</ng-template>
                                 <ng-template ngbTabContent>
                                     <div class="blog-post ul-list-circle" [innerHTML]="productkart[0]?.description | safe: 'html'">
                                     </div>
-                                    <!-- <p>{{productkart[0]?.description }}</p> -->
+                                </ng-template>
+                            </ngb-tab> -->
+                            <ngb-tab>
+                                <ng-template ngbTabTitle>Guarantee</ng-template>
+                                <ng-template ngbTabContent>
+                                    <div class="blog-post ul-list-circle">
+                                        <ul>
+                                            <li>
+                                                The product comes with a 24 month warranty against any manufacturing defects and any other issues with the materials that have been used.
+                                            </li>
+                                            <li>
+                                                In case you face any issue with any of our product then simply call on above phone no or email us to register your complain.
+                                            </li>
+                                            <li>
+                                                We are committed to attend all complaints within two working days for Mumbai | Bangalore | Hyderabad | Pune & Delhi.
+                                            </li>
+                                            <li>
+                                                Except Fabric & Leather each and every spare parts like wheel; base ( stand) ; hydraulic gas lift; arm rest; mechanism; plywood etc are covered under free of cost replacement within guarantee period.
+                                            </li>
+                                            <li>
+                                                The warranty does not cover damages to fabric & leather beyond its intended use and wear & tear in the natural course of product usage.
+                                            </li>
+                                            <li>
+                                                We would repair fabric & leather material as well but at an extra cost what may be applicable.
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </ng-template>
+                            </ngb-tab>
+                            <ngb-tab>
+                                <ng-template ngbTabTitle>Delivery Information</ng-template>
+                                <ng-template ngbTabContent>
+                                    <div class="blog-post ul-list-circle">
+                                        <ul>
+                                            <li>
+                                                If the selected product is available then it would be delivered within 3 to 4 working days.
+                                            </li>
+                                            <li>
+                                                The delivery would be till the door of your suggested address.
+                                            </li>
+                                            <li>
+                                                No Assembly required - Product is delivered pre-assembled and does not require any assembly at the specified order destination.
+                                            </li>
+                                            <li>
+                                                All care would be taken of during transportation that the goods do not get damaged.
+                                            </li>
+                                            <li>
+                                                Product would be delivered by our company is experience logistic and transport team.
+                                            </li>
+                                            <li>
+                                                Please check the product at the time of delivery. If it is not to your liking or is damaged/defective, you can return it on the spot.
+                                            </li>
+                                            <li>
+                                                In case you have any questions or need any clarifications do not hesitate to call our Customer Support Team on above phone no.
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </ng-template>
+                            </ngb-tab>
+                            <ngb-tab>
+                                <ng-template ngbTabTitle>Suggestion</ng-template>
+                                <ng-template ngbTabContent>
+                                    <div class="blog-post ul-list-circle">
+                                        <ul>
+                                            <li>
+                                                On Average, we spend about five to six hours sitting at our desks during a typical workday.
+                                            </li>
+                                            <li>
+                                                Keep in mind that office chairs are very subjective. Everyone is a little different, and what makes one person comfortable and happy may not work for another person. With that said, there are patterns of general customer happiness when it comes to office
+                                                chairs.
+                                            </li>
+                                        </ul>
+                                        <h4 class="mt-1">Below are the suggestions based on customer satisfaction.</h4>
+                                        <ol type="1">
+                                            <li>
+                                                For Workstation/Computer/Staff it should be Medium Back Chair. Preferably Mesh Back & Cushion Seat Ergonomic Chair.
+                                            </li>
+                                            <li>
+                                                For Executive & Manager it should be High Back Chair Leather Chair.
+                                            </li>
+                                            <li>
+                                                For Visitor/ Guest it should be Fixed Four Leg Chair.
+                                            </li>
+                                            <li>
+                                                For Waiting Area it should be Fixed Two or Three Seat Steel Chair.
+                                            </li>
+                                            <li>
+                                                For Conference Room it should be Sleek Ergonomic Chair.
+                                            </li>
+                                        </ol>
+                                        <ul>
+                                            <li>
+                                                Also for any type of revolving chair insist on Base / Stand = Metal or Steel | Bolt (used below seat) : Heavy Weight | Wheels: Nylon | Gas Lift: Class 4; etc for long life of chairs.
+                                            </li>
+                                            <li>
+                                                Make it sure that all chair parts are covered under free replacement in Guarantee period.
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </ng-template>
                             </ngb-tab>
                             <ngb-tab>

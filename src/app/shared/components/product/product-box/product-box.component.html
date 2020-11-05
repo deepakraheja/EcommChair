@@ -117,7 +117,7 @@
             </a>
 
             <h4 *ngIf="user==null || user[0]?.isPersonal==true || productkart?.businessPrice==0">
-                {{ (productkart?.salePrice+productkart?.shippingPrice+productkart?.gstAmount) | currency:currency?.currency:'symbol' }}
+                {{ (productkart?.salePrice) | currency:currency?.currency:'symbol' }}
             </h4>
             <h4 *ngIf="user!=null && user[0]?.isPersonal==false && productkart?.businessPrice>0">
                 {{ (productkart?.businessPrice) | currency:currency?.currency:'symbol' }}

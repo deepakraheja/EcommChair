@@ -22,7 +22,7 @@
                                 <h6>{{ product?.productName | titlecase }}</h6>
                             </a>
                             <h4 *ngIf="user==null || user[0]?.isPersonal==true || product?.businessPrice==0">
-                                {{ (product?.salePrice+product?.shippingPrice+product?.gstAmount) | currency: productService.Currency?.currency:'symbol' }}
+                                {{ (product?.salePrice) | currency: productService.Currency?.currency:'symbol' }}
                             </h4>
                             <h4 *ngIf="user!=null && user[0]?.isPersonal==false && product?.businessPrice>0">
                                 {{ (product?.businessPrice) | currency: productService.Currency?.currency:'symbol' }}
