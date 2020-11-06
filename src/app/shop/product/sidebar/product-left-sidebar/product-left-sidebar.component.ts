@@ -195,7 +195,7 @@ debugger
       }
     });
     //  ;
-    return;
+   
     if (Number(obj.length) > 0) {
       const status = await this.productService.addToCartProduct(obj);
 

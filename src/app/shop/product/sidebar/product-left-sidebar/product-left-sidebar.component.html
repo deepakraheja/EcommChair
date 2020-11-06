@@ -103,13 +103,14 @@
                             <div class="col-12 col-sm-12 col-md-12">
                                 <h4><b>{{ productkart[0]?.productName }}</b></h4>
                             </div>
-                            <div class="col-12 col-sm-6 col-md-6">
+
+                            <div class="col-12 col-sm-6 col-md-6 mt-2">
                                 <div class="border-grey p-3">
-                                    <h4>
+                                    <!-- <h4>
                                         <del *ngIf="productkart[0]?.discount > 0">{{  productkart[0]?.price | currency: productService.Currency?.currency:'symbol' }}</del>
                                         <span *ngIf="productkart[0]?.discount > 0"> {{ productkart[0]?.discount }}%
                                             off</span>
-                                    </h4>
+                                    </h4> -->
                                     <h3 *ngIf="user[0].isPersonal==true">
                                         {{ (productkart[0]?.salePrice) | currency: productService.Currency?.currency:'symbol' }}
                                     </h3>
@@ -121,9 +122,74 @@
                                         </li>
                                     </ul>
                                     <div class="product-description border-product mt-2">
-                                        <h4 class="clearfix" style="color: #222222;text-transform: capitalize;">
+                                        <!-- <h4 class="clearfix" style="color: #222222;text-transform: capitalize;">
                                             select color
-                                        </h4>
+                                        </h4> -->
+                                        <table class="table table-bordered table-hover">
+
+                                            <tbody>
+                                                <!-- <tr>
+                                                    <td style="width: 40%;">
+                                                        Item Code
+                                                    </td>
+                                                    <td>
+                                                        {{productkart[0]?.seatMaterial}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        List Price
+                                                    </td>
+                                                    <td>
+                                                        {{ productkart[0]?.price | currency: productService.Currency?.currency:'symbol'}}
+                                                    </td>
+                                                </tr> -->
+                                                <!-- <tr>
+                                                    <td>
+                                                        OUR PRICE
+                                                    </td>
+                                                    <td>
+                                                        <h3>
+                                                            {{ (productkart[0]?.salePrice) | currency: productService.Currency?.currency:'symbol'}}
+                                                        </h3>
+                                                    </td>
+                                                </tr> -->
+                                                <tr>
+                                                    <td>
+                                                        Delivery Cost
+                                                    </td>
+                                                    <td>
+                                                        FREE
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        GST Rate
+                                                    </td>
+                                                    <td>
+                                                        18%
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Guarantee
+                                                    </td>
+                                                    <td>
+                                                        2 YEARS GUARANTEE
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Delivery Time
+                                                    </td>
+                                                    <td>
+                                                        3 to 4 Working Days
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+
+                                        </table>
                                         <table class="table table-bordered table-hover">
                                             <thead class="thead-dark">
                                                 <tr>
@@ -174,73 +240,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-sm-6 col-md-6">
 
-                                <table class="table table-bordered table-hover">
-
-                                    <tbody>
-                                        <tr>
-                                            <td style="width: 40%;">
-                                                Item Code
-                                            </td>
-                                            <td>
-                                                {{productkart[0]?.seatMaterial}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                List Price
-                                            </td>
-                                            <td>
-                                                {{ productkart[0]?.price | currency: productService.Currency?.currency:'symbol'}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                OUR PRICE
-                                            </td>
-                                            <td>
-                                                {{ (productkart[0]?.salePrice) | currency: productService.Currency?.currency:'symbol'}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Delivery Cost
-                                            </td>
-                                            <td>
-                                                FREE
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                GST Rate
-                                            </td>
-                                            <td>
-                                                18%
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Guarantee
-                                            </td>
-                                            <td>
-                                                2 YEARS GUARANTEE
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Delivery Time
-                                            </td>
-                                            <td>
-                                                3 to 4 Working Days
-                                            </td>
-                                        </tr>
-
-                                    </tbody>
-
-                                </table>
-                            </div>
-                            <div class="col-12 col-sm-6 col-md-6">
+                            <div class="col-12 col-sm-6 col-md-6 mt-2">
 
                                 <table class="table table-bordered table-hover">
                                     <thead class="thead-dark">
