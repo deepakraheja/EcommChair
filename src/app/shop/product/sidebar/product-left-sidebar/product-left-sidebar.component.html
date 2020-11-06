@@ -118,7 +118,7 @@
                                         {{ (productkart[0]?.businessPrice) | currency: productService.Currency?.currency:'symbol' }}
                                     </h3>
                                     <ul class="color-variant">
-                                        <li [class]="color" [class.active]="activeSlide == color.colorindex.toString()" *ngFor="let color of Color(productkart[0]?.productSizeColor); index as i" [ngStyle]="{'background-color': color.color}" (click)="changecolor(color.colorindex.toString())">
+                                        <li [class]="color" [class.active]="activeSlide == color.colorindex.toString()" *ngFor="let color of Color(productkart[0]?.productSizeColor); index as i" [ngStyle]="{'background-color': color.color}" (click)="changecolor(color,color.colorindex.toString())">
                                         </li>
                                     </ul>
                                     <div class="product-description border-product mt-2">

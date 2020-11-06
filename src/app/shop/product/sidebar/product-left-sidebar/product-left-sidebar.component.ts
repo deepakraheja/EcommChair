@@ -19,6 +19,7 @@ declare var $;
 export interface image {
   colorindex: number;
   color: string;
+  productSizeId: number;
 }
 
 @Component({
@@ -54,7 +55,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   public ProductDetailsMainSliderConfig: any = ProductDetailsMainSlider;
   public ProductDetailsThumbConfig: any = ProductDetailsThumbSlider;
   user: any[] = null;
-
+  SelectedColor: any[] = [];
   constructor(private route: ActivatedRoute,
     private router: Router,
     public productService: ProductService,
@@ -76,6 +77,10 @@ export class ProductLeftSidebarComponent implements OnInit {
         rowID: productid,
         productSizeId: Number(productSizeId)
       }
+      this.SelectedColor = [];
+      this.SelectedColor.push({
+        productSizeId: Number(productSizeId)
+      });
       this._prodService.GetWithoutSetProductByRowID(productObj).subscribe(product => {
         if (!product) { // When product is empty redirect 404
           this.router.navigateByUrl('/pages/404', { skipLocationChange: true });
@@ -92,32 +97,38 @@ export class ProductLeftSidebarComponent implements OnInit {
   ngOnInit(): void {
     this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
     this.BindProduct();
+    
   }
 
-  changecolor(index: string) {
+  changecolor(lst, index: string) {
     //  ;
+    debugger
     this.bigProductImageIndex = Number(index);
     this.activeSlide = Number(index);
+    this.SelectedColor = [];
+    this.SelectedColor.push({
+      productSizeId: Number(lst.productSizeId)
+    });
   }
 
 
   // Get Product Color
   Color(variants) {
-
+    //debugger
     if (variants != null) {
 
       const uniqColor = []
 
       let imageColor: image[] = []
-
+      //this.SelectedColor = [];
       for (let i = 0; i < Object.keys(variants).length; i++) {
         if (uniqColor.indexOf(variants[i].color) === -1 && variants[i].color) {
           uniqColor.push(variants[i].color)
 
           imageColor.push({
             colorindex: i,
-            color: variants[i].color
-
+            color: variants[i].color,
+            productSizeId: Number(variants[i].productSizeId)
           })
         }
       }
@@ -181,35 +192,41 @@ export class ProductLeftSidebarComponent implements OnInit {
     // }
     // else {
     var obj: any[] = [];
-    var array: any[] = this.productkart[0].productSizeColor;
-    (array).forEach(element => {
+    // var array: any[] = this.productkart[0].productSizeColor;
+    // (array).forEach(element => {
 
-      if (element.isSelected) {
-debugger
-        obj.push({
-          UserID: Number(this.user[0].userID),
-          ProductSizeId: Number(element.productSizeId),
-          Quantity: Number(element.selectedQty)
-        })
+    //   if (element.isSelected) {
+    //     debugger
+    //     obj.push({
+    //       UserID: Number(this.user[0].userID),
+    //       ProductSizeId: Number(element.productSizeId),
+    //       Quantity: Number(element.selectedQty)
+    //     })
 
-      }
-    });
+    //   }
+    // });
     //  ;
-   
-    if (Number(obj.length) > 0) {
-      const status = await this.productService.addToCartProduct(obj);
+    debugger
+    obj.push({
+      UserID: Number(this.user[0].userID),
+      ProductSizeId: Number(this.SelectedColor[0].productSizeId),
+      Quantity: 1
+    });
 
-      if (status) {
-        if (type == 1)
-          this.router.navigate(['/shop/cart']);
-        else
-          this.router.navigate(['/shop/checkout']);
-      }
-    }
-    else {
+    //if (Number(obj.length) > 0) {
+    const status = await this.productService.addToCartProduct(obj);
 
-      this.toastr.error("Please select an item.");
+    if (status) {
+      if (type == 1)
+        this.router.navigate(['/shop/cart']);
+      else
+        this.router.navigate(['/shop/checkout']);
     }
+    // }
+    // else {
+
+    //   this.toastr.error("Please select an item.");
+    // }
     //}
   }
 
