@@ -153,7 +153,7 @@
                             <span>Total Amount: </span>
                             <span><b>{{ Price | currency:productService?.Currency.currency:'symbol'}}</b></span>
                         </p>
-                        <p class="d-flex justify-content-between">
+                        <p class="d-flex justify-content-between" *ngIf="Discount>0">
                             <span>Total Discounts: </span>
                             <span><b>{{ Discount | currency:productService?.Currency.currency:'symbol'}}</b></span>
                         </p>
@@ -163,7 +163,7 @@
                             <span><b>{{ Price-Discount | currency:productService?.Currency.currency:'symbol'}}</b></span>
                         </p>
                         <hr>
-                        <p class="text-green mb-4">You will save {{ Discount | currency:productService?.Currency.currency:'symbol'}} on this order</p>
+                        <p *ngIf="Discount>0" class="text-green mb-4">You will save {{ Discount | currency:productService?.Currency.currency:'symbol'}} on this order</p>
                         <div class="text-center">
                             <a class="btn btn-solid" (click)="ProceedToCheckout()">check out</a>
                         </div>
