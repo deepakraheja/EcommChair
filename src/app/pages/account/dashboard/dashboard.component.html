@@ -335,13 +335,13 @@
                                                 <th class="thead-dark" *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.additionalDiscount>0">
                                                     Add. Discount Amount
                                                 </th>
-                                                <th class="thead-dark">
+                                                <th class="thead-dark" *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.isPersonal==false">
                                                     Total Amount
                                                 </th>
-                                                <th class="thead-dark">
+                                                <th class="thead-dark" *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.isPersonal==false">
                                                     GST Rate(%)
                                                 </th>
-                                                <th class="thead-dark">
+                                                <th class="thead-dark" *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.isPersonal==false">
                                                     GST Amount
                                                 </th>
                                                 <th class="thead-dark">
@@ -368,13 +368,13 @@
                                                 <td *ngIf="product?.additionalDiscountAmount>0" style="text-align: right;">
                                                     {{ product?.additionalDiscountAmount | currency:productService?.Currency.currency:'symbol'}}
                                                 </td>
-                                                <td style="text-align: right;">
+                                                <td style="text-align: right;" *ngIf="product?.isPersonal==false">
                                                     {{ (product?.salePrice*product?.quantity-product?.additionalDiscountAmount) | currency:productService?.Currency.currency:'symbol' }}
                                                 </td>
-                                                <td style="text-align: right;">
+                                                <td style="text-align: right;" *ngIf="product?.isPersonal==false">
                                                     {{ product?.gstRate }}%
                                                 </td>
-                                                <td style="text-align: right;">
+                                                <td style="text-align: right;" *ngIf="product?.isPersonal==false">
                                                     {{ product?.gstAmount | currency:productService?.Currency.currency:'symbol'}}
                                                 </td>
                                                 <td style="text-align: right;">
@@ -402,12 +402,12 @@
                                                 <td *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.additionalDiscount>0" style="text-align: right;">
                                                     <b>{{ getTotalAdditionalDiscountAmount(lst.orderId) | currency:productService?.Currency.currency:'symbol'}}</b>
                                                 </td>
-                                                <td style="text-align: right;">
+                                                <td style="text-align: right;" *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.isPersonal==false">
                                                     <b>
                                                         {{ getTotalAmountWithDis(lst.orderId) | currency:productService?.Currency.currency:'symbol'}}</b>
                                                 </td>
-                                                <td></td>
-                                                <td style="text-align: right;">
+                                                <td *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.isPersonal==false"></td>
+                                                <td style="text-align: right;" *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.isPersonal==false">
                                                     <b>{{ getTotalGSTAmount(lst.orderId) | currency:productService?.Currency.currency:'symbol'}}</b>
                                                 </td>
                                                 <td style="text-align: right;">
@@ -416,7 +416,7 @@
                                                 </td>
                                             </tr>
 
-                                            <tr>
+                                            <!-- <tr>
 
                                                 <td colspan="5">
                                                     <b> Packing</b>
@@ -429,15 +429,18 @@
                                                     <span style="float: right; font-size: 16px; line-height: 20px; color: var(--theme-deafult); font-weight: 400;">
                                                         <b>Free Packing</b></span>
                                                 </td>
-                                            </tr>
+                                            </tr> -->
                                             <tr class="total">
-                                                <td colspan="5">
+                                                <td colspan="2">
                                                     <b>Total</b>
                                                 </td>
                                                 <td *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.additionalDiscount>0">
                                                 </td>
                                                 <td *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.additionalDiscount>0">
                                                 </td>
+                                                <td *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.isPersonal==false"></td>
+                                                <td *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.isPersonal==false"></td>
+                                                <td *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.isPersonal==false"></td>
                                                 <td colspan="2" style="text-align: right;">
                                                     <span style="float: right; font-size: 16px; line-height: 20px; color: var(--theme-deafult); font-weight: 400;">
                                                         {{ getTotal(lst.orderId) | currency:productService?.Currency.currency:'symbol'}}</span>

@@ -27,7 +27,7 @@
             <h2>Thank you!</h2>
 
             <p class="mt-2">Payment has been received and Order Placed Successfully</p>
-            <p><b>Order ID:{{ orderDetails[0].orderNumber }}</b></p>
+            <p><b>Order Number: {{ orderDetails[0].orderNumber }}</b></p>
         </div>
 
         <div class="order-summary mb-1">
@@ -35,7 +35,7 @@
                 <div class="col-md-6 mb-2">
                     <h4>summery</h4>
                     <ul class="order-detail">
-                        <li><span>order ID:</span> {{ orderDetails[0].orderNumber }}</li>
+                        <li><span>order Number:</span> {{ orderDetails[0].orderNumber }}</li>
                         <li><span>Order Date:</span> {{ orderDetails[0].orderDate | date : 'MMM dd, yyyy'}}</li>
                         <li><span>Order Total:</span> {{ orderDetails[0].totalAmount | currency:productService?.Currency.currency:'symbol' }}
                         </li>
@@ -132,7 +132,7 @@
                             <td colspan="2">
                                 <b>Subtotal</b>
                             </td>
-                            <td style="text-align: right;">
+                            <td style="text-align: left;">
                                 <b>{{getTotalQty()}}</b>
                             </td>
                             <td *ngIf="orderDetails[0].orderDetails[0]?.additionalDiscount>0">

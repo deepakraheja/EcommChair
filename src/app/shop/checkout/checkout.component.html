@@ -508,7 +508,7 @@
                             <span>Gross Amount: </span>
                             <span><b>{{ getTotalAmountWithDis() | currency:productService?.Currency.currency:'symbol'}}</b></span>
                         </p>
-                        <p class="d-flex justify-content-between">
+                        <p class="d-flex justify-content-between" *ngIf="getTotalGSTAmount()>0">
                             <span>(+) GST Amount: </span>
                             <span><b>{{ getTotalGSTAmount() | currency:productService?.Currency.currency:'symbol'}}</b></span>
                         </p>
@@ -519,7 +519,7 @@
                         </p>
                         <hr>
 
-                        <p class="text-green mb-4">You will save {{ getTotalAdditionalDiscountAmount() | currency:productService?.Currency.currency:'symbol'}} Additional Discount on this order</p>
+                        <p class="text-green mb-4" *ngIf="getTotalAdditionalDiscountAmount()>0">You will save {{ getTotalAdditionalDiscountAmount() | currency:productService?.Currency.currency:'symbol'}} Additional Discount on this order</p>
                         <!-- <div class="text-center">
                             <a class="btn btn-solid">check out</a>
                         </div> -->
