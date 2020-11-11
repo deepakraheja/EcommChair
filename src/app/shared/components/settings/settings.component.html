@@ -41,7 +41,8 @@
                         <!-- [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]" -->
                         <a>
                             <img class="mr-3"  *ngIf="product?.setNo>0" [src]="ProductImage+product?.productId+'/productSetImage/'+product?.setNo+'/'+product?.productImg[0]">
-                            <img class="mr-3"  *ngIf="product?.setNo==0" [src]="ProductImage+product?.productId+'/productColorImage/'+product?.productSizeColorId+'/'+product?.productImg[0]">
+                            <!-- <img class="mr-3"  *ngIf="product?.setNo==0" [src]="ProductImage+product?.productId+'/productColorImage/'+product?.productSizeColorId+'/'+product?.productImg[0]"> -->
+                            <img class="mr-3"  *ngIf="product?.setNo==0" [src]="ProductImage+product?.productId+'/frontImage/'+product?.frontImage">
                         
                             <!-- <img class="mr-3" [src]="ProductImage+product?.productId+'/productColorImage/'+product?.productSizeColorId+'/'+product?.productImg[0]"> -->
                             <!-- [alt]="product?.images[0].alt" -->
@@ -66,7 +67,7 @@
                         </h5> 
                     </div>
                 </li> -->
-                <li> 
+                <li>
                     <div class="buttons">
                         <a [routerLink]="['/shop/cart']" class="view-cart">view cart</a>
                         <a class="checkout" [routerLink]="['/shop/checkout']">checkout</a>

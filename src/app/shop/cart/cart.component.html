@@ -20,8 +20,11 @@
                                     <a (click)="GoToDetail(product.rowID,product?.productSizeId,product?.setType,product?.setNo);">
                                         <img class="img-fluid" *ngIf="product?.setNo>0"
                                             [src]="ProductImage+product?.productId+'/productSetImage/'+product?.setNo+'/'+product?.productImg[0]">
+                                        <!-- <img class="img-fluid" *ngIf="product?.setNo==0"
+                                            [src]="ProductImage+product?.productId+'/productColorImage/'+product?.productSizeColorId+'/'+product?.productImg[0]"> -->
                                         <img class="img-fluid" *ngIf="product?.setNo==0"
-                                            [src]="ProductImage+product?.productId+'/productColorImage/'+product?.productSizeColorId+'/'+product?.productImg[0]">
+                                            [src]="ProductImage+product?.productId+'/frontImage/'+product?.frontImage">
+
                                     </a>
                                 </div>
                                 <div class="col-sm-10">

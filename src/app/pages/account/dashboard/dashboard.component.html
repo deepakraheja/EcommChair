@@ -354,7 +354,7 @@
                                                 <td>
                                                     <!-- <img *ngIf="product?.setNo>0" [src]="ProductImage+product?.productId+'/productSetImage/'+product?.setNo+'/'+product?.productImg[0]" alt="">
                                                     <img *ngIf="product?.setNo==0" [src]="ProductImage+product?.productId+'/productColorImage/'+product?.productSizeColorId+'/'+product?.productImg[0]" alt="">  -->
-                                                    {{ product?.productName }}
+                                                    <img [src]="ProductImage+product?.productId+'/frontImage/'+product?.frontImage" alt="Product" class="checkout-prouduct-img"> {{ product?.productName }}
                                                 </td>
                                                 <td style="text-align: right;">
                                                     {{ product?.salePrice | currency:productService?.Currency.currency:'symbol'}}

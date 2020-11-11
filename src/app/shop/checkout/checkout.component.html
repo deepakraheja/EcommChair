@@ -293,7 +293,7 @@
                                             <tbody>
                                                 <tr *ngFor="let product of productSizeColor">
                                                     <td>
-                                                        <img src="assets/images/product/fashion/19.jpg" alt="Product" style="display:none" class="checkout-prouduct-img"> {{ product?.productName }}
+                                                        <img [src]="ProductImage+product?.productId+'/frontImage/'+product?.frontImage" alt="Product" class="checkout-prouduct-img"> {{ product?.productName }}
 
                                                     </td>
                                                     <td style="text-align: right;">

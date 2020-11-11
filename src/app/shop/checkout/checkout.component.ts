@@ -25,7 +25,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class CheckoutComponent implements OnInit {
 
   public productSizeColor: any[] = [];
-
+  public ProductImage = environment.ProductImage;
   public checkoutForm: FormGroup;
   public products: Product[] = [];
   public payPalConfig?: IPayPalConfig;
