@@ -56,7 +56,7 @@
                             </div>
                         </div>
                         <div class="col-10 col-sm-10 col-xl-10 product-carousel border-grey">
-                            <owl-carousel-o [options]="ProductDetailsMainSliderConfig" #owlCar class="product-slick">
+                            <owl-carousel-o [options]="ProductDetailsMainSliderConfig" #owlCar class="product-slick" class="p-1">
                                 <ng-container *ngFor="let image of productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg; index as i">
                                     <ng-template carouselSlide [id]="i">
                                         <div>
@@ -105,7 +105,7 @@
                             </div>
 
                             <div class="col-12 col-sm-6 col-md-6 mt-2">
-                                <div class="border-grey p-3">
+                                <div class="border-grey p-3 min-height-rgt">
                                     <!-- <h4>
                                         <del *ngIf="productkart[0]?.discount > 0">{{  productkart[0]?.price | currency: productService.Currency?.currency:'symbol' }}</del>
                                         <span *ngIf="productkart[0]?.discount > 0"> {{ productkart[0]?.discount }}%
@@ -439,7 +439,7 @@
                             <ngb-tab>
                                 <ng-template ngbTabTitle>Suggestion</ng-template>
                                 <ng-template ngbTabContent>
-                                    <div class="blog-post ul-list-circle">
+                                    <div class="blog-post ul-list-circle order-list">
                                         <ul>
                                             <li>
                                                 On Average, we spend about five to six hours sitting at our desks during a typical workday.

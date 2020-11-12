@@ -14925,7 +14925,7 @@ address p {
     height: 63px;
     width: 63px;
     /* padding-bottom: 0px; */
-    padding: 14px;
+    padding: 10px;
     /* background: #ccc; */
     border: solid 1px #ddd;
     padding-top: 7px;
@@ -14970,4 +14970,57 @@ address p {
         margin-left: 0px;
     }
 
+}
+
+.chair-navbar{
+    background: #ff4c3b;
+    color: white !important;
+}
+.chair-navbar li{
+    border-right: solid white 2px;
+}
+.chair-navbar li a{
+    color: white !important;
+ line-height: 20px !important;
+    padding: 15px !important;
+    font-size: 15px !important;
+ }
+ .chair-navbar li a:hover{
+text-decoration: underline !important; 
+}
+ .chair-navbar li:last-child{
+    border-right: solid white 0px;
+
+ }
+ header .main-navbar .chair-navbar > li .nav-submenu {
+    width: 200px;
+    display: none;
+    background: black !important;
+}
+.logo-size-chair{
+    width: 160px;
+}
+header .main-navbar .nav-menu {
+
+    background: #ff4c3b !important;
+}
+.box-design{
+    border: solid 1px #f4f3f3;
+padding: 0px 10px 14px;
+line-height: 50px;
+}
+.order-list ol li{
+    display: list-item;
+}
+.min-height-rgt{
+    min-height: 302px;
+}
+.product-carousel .owl-carousel .owl-item img {
+    max-width: 100% !important;
+    max-height: 416px;
+       object-fit: initial !important;
+ 
+}
+.thumbnail-imgs {
+    overflow: initial;
 }
