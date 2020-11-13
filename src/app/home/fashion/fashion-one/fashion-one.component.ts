@@ -16,7 +16,7 @@ export class FashionOneComponent implements OnInit {
   public products: Product[] = [];
   public productCollections: any[] = [
     { name: "new products" },
-    { name: "Refilling" },
+    // { name: "Refilling" },
     { name: "On Sale" },
 
   ];
@@ -156,9 +156,10 @@ export class FashionOneComponent implements OnInit {
   getCollectionProducts(collection) {
 
     //  ;
-    if (collection.name == "Refilling")
-      return this.productskart.filter(item => item.featured == true)
-    else if (collection.name == "new products")
+    // if (collection.name == "Refilling")
+    //   return this.productskart.filter(item => item.featured == true)
+    // else 
+    if (collection.name == "new products")
       return this.productskart.filter(item => item.latest == true)
 
     else if (collection.name == "On Sale")
