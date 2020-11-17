@@ -39,7 +39,7 @@ export class ProductLeftSidebarComponent implements OnInit {
 
   public product: Product = {};
 
-  public productkart: Productkart[] = [];
+  public productkart: any[] = [];
 
   public productSizeColor: productSizeColor[] = [];
 
