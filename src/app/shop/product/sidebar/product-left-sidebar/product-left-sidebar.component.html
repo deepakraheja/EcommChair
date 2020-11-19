@@ -43,39 +43,51 @@
                             </owl-carousel-o>
                         </div>
                     </div> -->
-                <div class="col-xl-5">
-                    <div class="row responsive-lft-sidebar">
-                        <div>
-                            <div class="thumbnail-imgs">
-                                <div *ngFor="let image of  productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg; index as i" class="thumbnail-img mrg-btm-minus">
-                                    <div class="owl-thumb thumb-left-img" [class.active]="i == activeSlide">
-                                        <img [defaultImage]="'assets/images/product/placeholder.jpg'" [lazyLoad]="ProductImage+productkart[0]?.productID+'/productColorImage/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productSizeColorId+'/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg[i]"
-                                            [alt]="image.alt" class="img-fluid" (click)="owlCar.to(activeSlide1 = i.toString())" (mouseover)="owlCar.to(activeSlide1 = i.toString())">
+
+                <div class="col-lg-5">
+                    <div class="sticky-scroll">
+                        <div class="row">
+                            <div>
+                                <div class="thumbnail-imgs">
+                                    <div *ngFor="let image of  productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg; index as i"
+                                        class="thumbnail-img mrg-btm-minus">
+                                        <div class="owl-thumb thumb-left-img" [class.active]="i == activeSlide">
+                                            <img [defaultImage]="'assets/images/product/placeholder.jpg'"
+                                                [lazyLoad]="ProductImage+productkart[0]?.productID+'/productColorImage/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productSizeColorId+'/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg[i]"
+                                                [alt]="image.alt" class="img-fluid"
+                                                (click)="owlCar.to(activeSlide1 = i.toString())"
+                                                (mouseover)="owlCar.to(activeSlide1 = i.toString())">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-10 col-sm-10 col-xl-10 product-carousel border-grey">
-                            <owl-carousel-o [options]="ProductDetailsMainSliderConfig" #owlCar class="product-slick" class="p-1">
-                                <ng-container *ngFor="let image of productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg; index as i">
-                                    <ng-template carouselSlide [id]="i">
-                                        <div>
+                            <div class="col-10 col-sm-10 col-xl-10 product-carousel border-grey">
+                                <owl-carousel-o [options]="ProductDetailsMainSliderConfig" #owlCar class="product-slick"
+                                    class="p-1">
+                                    <ng-container
+                                        *ngFor="let image of productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg; index as i">
+                                        <ng-template carouselSlide [id]="i">
+                                            <div>
 
-                                            <img [defaultImage]="'assets/images/product/placeholder.jpg'" [lazyLoad]="ProductImage+productkart[0]?.productID+'/productColorImage/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productSizeColorId+'/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg[i]"
-                                                [alt]="image.alt" class="img-fluid">
-                                        </div>
-                                    </ng-template>
-                                </ng-container>
-                            </owl-carousel-o>
+                                                <img [defaultImage]="'assets/images/product/placeholder.jpg'"
+                                                    [lazyLoad]="ProductImage+productkart[0]?.productID+'/productColorImage/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productSizeColorId+'/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg[i]"
+                                                    [alt]="image.alt" class="img-fluid">
+                                            </div>
+                                        </ng-template>
+                                    </ng-container>
+                                </owl-carousel-o>
+                            </div>
                         </div>
-                    </div>
-                    <div class="product-buttons row mt-4">
-                        <div class="col-md-6 mb-2">
-                            <a href="javascrip:void(0)" class="btn btn-solid w-100" [class.disabled]="false" (click)="addToCart(1)"><i class="fa fa-shopping-cart"></i> add to cart</a>
-                        </div>
-                        <div class="col-md-6 mb-2">
-                            <a href="javascrip:void(0)" class="btn btn-solid w-100" [class.disabled]="false" (click)="addToCart(2)"><i class="fa fa-bolt"></i>
-                                Buy now</a>
+                        <div class="product-buttons row mt-2">
+                            <div class="col-md-6 mb-2">
+                                <a href="javascrip:void(0)" class="btn btn-solid w-100" [class.disabled]="false"
+                                    (click)="addToCart(1)"><i class="fa fa-shopping-cart"></i> add to cart</a>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <a href="javascrip:void(0)" class="btn btn-solid w-100" [class.disabled]="false"
+                                    (click)="addToCart(2)"><i class="fa fa-bolt"></i>
+                                    Buy now</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -119,7 +131,10 @@
                                         {{ (productkart[0]?.businessPrice) | currency: productService.Currency?.currency:'symbol' }}
                                     </h3>
                                     <ul class="color-variant">
-                                        <li [class]="color" [class.active]="activeSlide == color.colorindex.toString()" *ngFor="let color of Color(productkart[0]?.productSizeColor); index as i" [ngStyle]="{'background-color': color.color}" (click)="changecolor(color,color.colorindex.toString())">
+                                        <li [class]="color" [class.active]="activeSlide == color.colorindex.toString()"
+                                            *ngFor="let color of Color(productkart[0]?.productSizeColor); index as i"
+                                            [ngStyle]="{'background-color': color.color}"
+                                            (click)="changecolor(color,color.colorindex.toString())">
                                         </li>
                                     </ul>
                                     <div class="product-description border-product mt-2">
@@ -188,7 +203,8 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="2" style="text-align: center; font-weight: 700; color: red;">
+                                                    <td colspan="2"
+                                                        style="text-align: center; font-weight: 700; color: red;">
                                                         2 YEAR PRODUCT GUARANTEE
                                                     </td>
                                                 </tr>
@@ -356,7 +372,8 @@
 
                         <div class="border-product ">
                             <h6 class="product-title">product details</h6>
-                            <div class="blog-post ul-list-circle product-dtl-img" [innerHTML]="productkart[0]?.shortDetails | safe: 'html'"></div>
+                            <div class="blog-post ul-list-circle product-dtl-img"
+                                [innerHTML]="productkart[0]?.shortDetails | safe: 'html'"></div>
                         </div>
                         <!-- <div class="border-product">
                             <h6 class="product-title">share it</h6>
@@ -368,8 +385,9 @@
 
                     </div>
                 </div>
+
             </div>
-            <section class="tab-product m-0">
+            <section class="tab-product m-0 unsticky">
                 <div class="row">
                     <div class="col-sm-12 col-lg-12">
                         <ngb-tabset [type]="'tabs'" class="nav-material">
@@ -386,22 +404,29 @@
                                     <div class="blog-post ul-list-circle">
                                         <ul>
                                             <li>
-                                                The product comes with a 24 month warranty against any manufacturing defects and any other issues with the materials that have been used.
+                                                The product comes with a 24 month warranty against any manufacturing
+                                                defects and any other issues with the materials that have been used.
                                             </li>
                                             <li>
-                                                In case you face any issue with any of our product then simply call on above phone no or email us to register your complain.
+                                                In case you face any issue with any of our product then simply call on
+                                                above phone no or email us to register your complain.
                                             </li>
                                             <li>
-                                                We are committed to attend all complaints within two working days for Mumbai | Bangalore | Hyderabad | Pune & Delhi.
+                                                We are committed to attend all complaints within two working days for
+                                                Mumbai | Bangalore | Hyderabad | Pune & Delhi.
                                             </li>
                                             <li>
-                                                Except Fabric & Leather each and every spare parts like wheel; base ( stand) ; hydraulic gas lift; arm rest; mechanism; plywood etc are covered under free of cost replacement within guarantee period.
+                                                Except Fabric & Leather each and every spare parts like wheel; base (
+                                                stand) ; hydraulic gas lift; arm rest; mechanism; plywood etc are
+                                                covered under free of cost replacement within guarantee period.
                                             </li>
                                             <li>
-                                                The warranty does not cover damages to fabric & leather beyond its intended use and wear & tear in the natural course of product usage.
+                                                The warranty does not cover damages to fabric & leather beyond its
+                                                intended use and wear & tear in the natural course of product usage.
                                             </li>
                                             <li>
-                                                We would repair fabric & leather material as well but at an extra cost what may be applicable.
+                                                We would repair fabric & leather material as well but at an extra cost
+                                                what may be applicable.
                                             </li>
                                         </ul>
                                     </div>
@@ -413,25 +438,31 @@
                                     <div class="blog-post ul-list-circle">
                                         <ul>
                                             <li>
-                                                If the selected product is available then it would be delivered within 3 to 4 working days.
+                                                If the selected product is available then it would be delivered within 3
+                                                to 4 working days.
                                             </li>
                                             <li>
                                                 The delivery would be till the door of your suggested address.
                                             </li>
                                             <li>
-                                                No Assembly required - Product is delivered pre-assembled and does not require any assembly at the specified order destination.
+                                                No Assembly required - Product is delivered pre-assembled and does not
+                                                require any assembly at the specified order destination.
                                             </li>
                                             <li>
-                                                All care would be taken of during transportation that the goods do not get damaged.
+                                                All care would be taken of during transportation that the goods do not
+                                                get damaged.
                                             </li>
                                             <li>
-                                                Product would be delivered by our company is experience logistic and transport team.
+                                                Product would be delivered by our company is experience logistic and
+                                                transport team.
                                             </li>
                                             <li>
-                                                Please check the product at the time of delivery. If it is not to your liking or is damaged/defective, you can return it on the spot.
+                                                Please check the product at the time of delivery. If it is not to your
+                                                liking or is damaged/defective, you can return it on the spot.
                                             </li>
                                             <li>
-                                                In case you have any questions or need any clarifications do not hesitate to call our Customer Support Team on above phone no.
+                                                In case you have any questions or need any clarifications do not
+                                                hesitate to call our Customer Support Team on above phone no.
                                             </li>
                                         </ul>
                                     </div>
@@ -443,17 +474,22 @@
                                     <div class="blog-post ul-list-circle order-list">
                                         <ul>
                                             <li>
-                                                On Average, we spend about five to six hours sitting at our desks during a typical workday.
+                                                On Average, we spend about five to six hours sitting at our desks during
+                                                a typical workday.
                                             </li>
                                             <li>
-                                                Keep in mind that office chairs are very subjective. Everyone is a little different, and what makes one person comfortable and happy may not work for another person. With that said, there are patterns of general customer happiness when it comes to office
+                                                Keep in mind that office chairs are very subjective. Everyone is a
+                                                little different, and what makes one person comfortable and happy may
+                                                not work for another person. With that said, there are patterns of
+                                                general customer happiness when it comes to office
                                                 chairs.
                                             </li>
                                         </ul>
                                         <h4 class="mt-1">Below are the suggestions based on customer satisfaction.</h4>
                                         <ol type="1">
                                             <li>
-                                                For Workstation/Computer/Staff it should be Medium Back Chair. Preferably Mesh Back & Cushion Seat Ergonomic Chair.
+                                                For Workstation/Computer/Staff it should be Medium Back Chair.
+                                                Preferably Mesh Back & Cushion Seat Ergonomic Chair.
                                             </li>
                                             <li>
                                                 For Executive & Manager it should be High Back Chair Leather Chair.
@@ -470,10 +506,13 @@
                                         </ol>
                                         <ul>
                                             <li>
-                                                Also for any type of revolving chair insist on Base / Stand = Metal or Steel | Bolt (used below seat) : Heavy Weight | Wheels: Nylon | Gas Lift: Class 4; etc for long life of chairs.
+                                                Also for any type of revolving chair insist on Base / Stand = Metal or
+                                                Steel | Bolt (used below seat) : Heavy Weight | Wheels: Nylon | Gas
+                                                Lift: Class 4; etc for long life of chairs.
                                             </li>
                                             <li>
-                                                Make it sure that all chair parts are covered under free replacement in Guarantee period.
+                                                Make it sure that all chair parts are covered under free replacement in
+                                                Guarantee period.
                                             </li>
                                         </ul>
                                     </div>
@@ -487,7 +526,9 @@
                                         <!-- <iframe width="560" height="315"
                                                     src="https://www.youtube.com/embed/BUWzX78Ye_8"
                                                       allow="autoplay; encrypted-media" allowfullscreen></iframe> -->
-                                        <iframe width="560" height="315" [src]="productkart[0]?.videoURL | safe: 'resourceUrl'" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                        <iframe width="560" height="315"
+                                            [src]="productkart[0]?.videoURL | safe: 'resourceUrl'"
+                                            allow="autoplay; encrypted-media" allowfullscreen></iframe>
                                     </div>
                                 </ng-template>
                             </ngb-tab>

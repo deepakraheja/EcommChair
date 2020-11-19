@@ -4,3 +4,21 @@
     vertical-align: top;
     border-top: 1px solid #dee2e6;
 }
+
+@media (min-width:1024px) {
+    .sticky-scroll.fixed-section {
+        width: 36%;
+    }
+}
+
+@media (min-width:1300px) {
+    .sticky-scroll.fixed-section {
+        width: 36.5%;
+    }
+}
+
+@media (min-width:1900px) {
+    .sticky-scroll.fixed-section {
+        width: 36.5%;
+    }
+}
