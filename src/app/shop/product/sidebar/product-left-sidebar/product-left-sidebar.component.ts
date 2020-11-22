@@ -73,7 +73,7 @@ export class ProductLeftSidebarComponent implements OnInit {
 
       function scrollSticky() {
         if ($('.sticky-scroll').length) {
-          
+
           var el = $('.sticky-scroll');
           var stickyTop = el.offset().top - 142;
 
@@ -102,7 +102,7 @@ export class ProductLeftSidebarComponent implements OnInit {
           });
         }
       }
-      if($(window).width() >= 1024) {
+      if ($(window).width() >= 1024) {
         scrollSticky();
       }
     });
@@ -137,7 +137,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   ngOnInit(): void {
     this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
     this.BindProduct();
-    
+
   }
 
   changecolor(lst, index: string) {
@@ -250,7 +250,7 @@ export class ProductLeftSidebarComponent implements OnInit {
     obj.push({
       UserID: Number(this.user[0].userID),
       ProductSizeId: Number(this.SelectedColor[0].productSizeId),
-      Quantity: 1
+      Quantity: this.user[0].isPersonal == false ? (this.productkart[0].moq == 0 ? 1 : Number(this.productkart[0].moq)) : 1
     });
 
     //if (Number(obj.length) > 0) {
