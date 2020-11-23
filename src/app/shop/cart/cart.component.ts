@@ -162,7 +162,7 @@ export class CartComponent implements OnInit {
   decrement(product, qty = -1) {
     //  
     debugger
-    if (product.quantity > 1) {
+    if (product.quantity > (product.isPersonal == true ? 1 : (product.moq == 0 ? 1 : product.moq))) {
       let obj = [{
         UserID: Number(this.user[0].userID),
         ProductSizeId: Number(product.productSizeId),
