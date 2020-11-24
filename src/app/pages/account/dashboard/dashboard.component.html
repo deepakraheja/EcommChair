@@ -120,11 +120,12 @@
                                             <div class="row">
                                                 <div class="col-md-11">
 
-                                                    <h4><b>Full Name : {{lstBilling.fName}} {{lstBilling.lName}}</b></h4>
+                                                    <h4><b>Full Name : {{lstBilling.fName}} {{lstBilling.lName}}</b>
+                                                    </h4>
                                                     <!-- <div><b>{{lstBilling.phone}} &nbsp;&nbsp;&nbsp;
                                                             {{lstBilling.emailId}}</b></div> -->
                                                     <div><b>Company Name : </b>{{lstBilling.companyName}}</div>
-                                                    <div><b>Address : </b> 
+                                                    <div><b>Address : </b>
                                                         {{lstBilling.address}}, {{lstBilling.city}}
                                                         {{lstBilling.state}}, {{lstBilling.zipCode}},
                                                         {{lstBilling.country}}
@@ -188,8 +189,9 @@
                                 </div>
                                 <div class="order-parts">
                                     <!-- <span> -->
-                                    <a href="{{WebSite_URL}}report/orderInvoice/{{lst.guid}}" target="_blank">Print
-                                        Order</a>
+                                    <!-- <a href="{{WebSite_URL}}report/orderInvoice/{{lst.guid}}" target="_blank">Print
+                                        Order</a> -->
+                                    <a href="javaScript:void(0);" (click)="DownloadInvoice(lst)">Print Order</a>
                                     <!-- </span> -->
 
                                     <!-- <span class="badge badge-success">{{lst.statusName}}</span> -->
@@ -406,7 +408,8 @@
                                                     <b>
                                                         {{ getTotalAmountWithDis(lst.orderId) | currency:productService?.Currency.currency:'symbol'}}</b>
                                                 </td>
-                                                <td *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.isPersonal==false"></td>
+                                                <td *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.isPersonal==false">
+                                                </td>
                                                 <td style="text-align: right;" *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.isPersonal==false">
                                                     <b>{{ getTotalGSTAmount(lst.orderId) | currency:productService?.Currency.currency:'symbol'}}</b>
                                                 </td>
@@ -438,9 +441,12 @@
                                                 </td>
                                                 <td *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.additionalDiscount>0">
                                                 </td>
-                                                <td *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.isPersonal==false"></td>
-                                                <td *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.isPersonal==false"></td>
-                                                <td *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.isPersonal==false"></td>
+                                                <td *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.isPersonal==false">
+                                                </td>
+                                                <td *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.isPersonal==false">
+                                                </td>
+                                                <td *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.isPersonal==false">
+                                                </td>
                                                 <td colspan="2" style="text-align: right;">
                                                     <span style="float: right; font-size: 16px; line-height: 20px; color: var(--theme-deafult); font-weight: 400;">
                                                         {{ getTotal(lst.orderId) | currency:productService?.Currency.currency:'symbol'}}</span>

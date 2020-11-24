@@ -12,6 +12,7 @@ import { UsersService } from 'src/app/Service/users.service';
 import { LookupService } from 'src/app/Service/lookup.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ReportService } from 'src/app/Service/report.service';
+import { InvoiceService } from 'src/app/Service/invoice.service';
 declare var $: any;
 
 @Component({
@@ -22,6 +23,7 @@ declare var $: any;
 export class DashboardComponent implements OnInit {
   public ProductImage = environment.ProductImage;
   public Report_Path = environment.Report_Path;
+  public Invoice_URL = environment.Invoice_URL;
   public WebSite_URL = environment.WebSite_URL;
   public openDashboard: boolean = false;
   public ShowTabName: string = "AccountInfor";
@@ -48,7 +50,8 @@ export class DashboardComponent implements OnInit {
     private _userService: UsersService,
     public _lookupService: LookupService,
     private spinner: NgxSpinnerService,
-    private _ReportService: ReportService
+    //private _ReportService: ReportService,
+    private _InvoiceService: InvoiceService
   ) {
 
   }
@@ -153,7 +156,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getTotal(OrderId) {
-    var lst=this.OrderTrackingListByOrderId(OrderId);
+    var lst = this.OrderTrackingListByOrderId(OrderId);
     var TotalAmount = 0;
     lst.forEach(element => {
       TotalAmount += Number(((element.salePrice * element.quantity) - element.additionalDiscountAmount + element.gstAmount).toFixed(2));
@@ -162,7 +165,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getTotalQty(OrderId) {
-    var lst=this.OrderTrackingListByOrderId(OrderId);
+    var lst = this.OrderTrackingListByOrderId(OrderId);
     var TotalQty = 0;
     lst.forEach(element => {
       TotalQty += Number((element.quantity).toFixed(2));
@@ -171,7 +174,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getTotalAdditionalDiscountAmount(OrderId) {
-    var lst=this.OrderTrackingListByOrderId(OrderId);
+    var lst = this.OrderTrackingListByOrderId(OrderId);
     var TotalAdditionalDiscountAmount = 0;
     lst.forEach(element => {
       TotalAdditionalDiscountAmount += Number((element.additionalDiscountAmount).toFixed(2));
@@ -180,7 +183,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getTotalAmountWithDis(OrderId) {
-    var lst=this.OrderTrackingListByOrderId(OrderId);
+    var lst = this.OrderTrackingListByOrderId(OrderId);
     var TotalAmount = 0;
     lst.forEach(element => {
       TotalAmount += Number(((element.salePrice * element.quantity) - element.additionalDiscountAmount).toFixed(2));
@@ -189,7 +192,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getTotalGSTAmount(OrderId) {
-    var lst=this.OrderTrackingListByOrderId(OrderId);
+    var lst = this.OrderTrackingListByOrderId(OrderId);
     var TotalGSTAmount = 0;
     lst.forEach(element => {
       TotalGSTAmount += Number((element.gstAmount).toFixed(2));
@@ -387,17 +390,17 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  DownloadInvoice(orderId) {
+  DownloadInvoice(lst) {
     let obj = {
-      OrderId: Number(orderId)
+      GUID: lst.guid
     }
     this.spinner.show();
     debugger;
     //window.open(this.WebSite_URL + 'report/orderInvoice/' + orderId, "_blank");
-    this._ReportService.GenerateOrderInvoice(obj).subscribe(res => {
+    this._InvoiceService.OrderInvoiceByGUID(obj).subscribe(res => {
       debugger;
       this.spinner.hide();
-      window.open(this.Report_Path + res, "_blank");
+      window.open(this.Invoice_URL + res, "_blank");
       this.toastr.success("The invoice has been downloaded successfully.");
     });
   }
