@@ -57,3 +57,17 @@
 .steps .active~li::before {
     background: #cccccc;
 }
+
+.mrg-btm-minus .active{
+    border: solid 2px #ff4c3b;
+    margin-bottom: 1px;
+}
+.main-menu .menu-right .icon-nav li {
+    padding-left: 10px;
+}
+
+@media (max-width: 991px){
+.product-right {
+    text-align: left;
+}
+}

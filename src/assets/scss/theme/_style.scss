@@ -14374,6 +14374,7 @@ header a {
 .product-wrapper-grid .col-grid-box:hover,
 .no-slider .product-box:hover {
     box-shadow: 4px 4px 10px rgba(0, 0, 0, .2);
+    padding: 15px;
 }
 
 .product-pagination .pagination .page-item a {
@@ -14988,8 +14989,10 @@ address p {
 .chair-navbar li a {
     color: white !important;
     line-height: 20px !important;
-    padding: 15px !important;
-    font-size: 15px !important;
+    padding: 0.6em !important;
+        padding-top: 0.6em;
+        padding-bottom: 0.6em;
+    font-size: 1em !important;
 }
 
 .chair-navbar li a:hover {
@@ -14999,7 +15002,9 @@ address p {
 .chair-navbar li:last-child {
     border-right: solid white 0px;
 }
-
+.chair-navbar > li .nav-submenu li a:hover{
+    text-decoration: initial !important;
+}
 header .main-navbar .chair-navbar>li .nav-submenu {
     width: 200px;
     display: none;
@@ -15053,4 +15058,35 @@ header .main-navbar .nav-menu {
 }
 .rating-view p{
     line-height: 22px;
+}
+
+.fixed-section{
+    width: 29% !important;
+}
+.review-box{
+    line-height: normal;
+display: inline-block;
+color: #fff;
+padding: 2px 4px 2px 6px;
+border-radius: 3px;
+font-weight: 500;
+font-size: 12px;
+vertical-align: middle;
+background-color: #388e3c;
+}
+.review-point{
+    padding-left: 12px;
+padding-top: 3px;
+font-size: 14px;
+color: #212121;
+font-weight: 600;
+}
+
+@media only screen and (min-width: 300px) and (max-width: 1200px) {
+    .fixed-section {
+       position: initial !important;
+       width: 100%;
+       -moz-position: initial !important;
+       -moz-width: 100%;
+    }
 }
