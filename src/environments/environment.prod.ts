@@ -10,5 +10,6 @@ export const environment = {
   BASE_API_URL: 'http://208.109.12.71/EcommChairApiV3/api/',
   ProductImage: 'http://208.109.12.71/EcommChairApiV3/ProductImage/',
   Report_Path: 'http://208.109.12.71/EcommChairApiV3/ReportGenerate/',
-  WebSite_URL: 'http://208.109.12.71/EcommChair/'
+  WebSite_URL: 'http://208.109.12.71/EcommChair/',
+  Invoice_URL:'http://208.109.12.71/EcommChairApiV3/TempPDF/',
 };
