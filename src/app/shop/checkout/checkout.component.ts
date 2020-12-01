@@ -81,7 +81,7 @@ export class CheckoutComponent implements OnInit {
       address: ['', [Validators.required, Validators.maxLength(200)]],
       country: ['India', Validators.required],
       city: ['', Validators.required],
-      state: ['', Validators.required],
+      state: [''],
       zipCode: ['', [Validators.required, Validators.pattern('[0-9]+')]],
       orderNumber: this._datePipe.transform(new Date().toString(), 'yyyyMMddHHmmss'),
       orderDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
@@ -114,7 +114,7 @@ export class CheckoutComponent implements OnInit {
       address: [lst.address, [Validators.required, Validators.maxLength(200)]],
       country: [lst.country, Validators.required],
       city: [lst.city, Validators.required],
-      state: [lst.state, Validators.required],
+      state: [lst.state],
       zipCode: [lst.zipCode, Validators.required],
     });
     this.modalService.open(template, {
