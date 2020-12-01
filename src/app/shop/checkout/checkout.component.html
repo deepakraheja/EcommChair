@@ -479,7 +479,7 @@
                                             <span><b>{{ (getTotalAmountWithDis()+ getTotalGSTAmount()) | currency:productService?.Currency.currency:'symbol'}}</b></span>
                                         </p>
                                         <hr>
-                
+
                                         <p class="text-green mb-4" *ngIf="getTotalAdditionalDiscountAmount()>0">You will save {{ getTotalAdditionalDiscountAmount() | currency:productService?.Currency.currency:'symbol'}} Additional Discount on this order</p>
                                         <!-- <div class="text-center">
                                             <a class="btn btn-solid">check out</a>
@@ -672,9 +672,17 @@
                                     </div>
 
                                     <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                                        <div class="field-label">Pin Code <span style="color:red">*</span></div>
+                                        <input type="text" id="dest_addr_pin" name="zipCode" [formControl]="checkoutForm.controls['zipCode']" value="" placeholder="" autocomplete="off" maxlength="6" [mask]="PinCodeMask" [dropSpecialCharacters]="false" (focus)="addPinCodeMask($event);" onchange="getPostOffice()">
+                                        <div *ngIf="(checkoutForm.controls.zipCode.touched || Submitted) && checkoutForm.controls.zipCode.errors?.required" class="text text-danger">
+                                            Pin Code is required
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                         <div class="field-label">State <span style="color:red">*</span></div>
-                                        <!-- <input type="text" name="state" [formControl]="checkoutForm.controls['state']" value="" placeholder="" autocomplete="off"> -->
-                                        <select name="country" [formControl]="checkoutForm.controls['state']">
+                                        <input type="text" name="state" [formControl]="checkoutForm.controls['state']" id="dest_addr_state" placeholder="State" autocomplete="off">
+                                        <!-- <select name="country" [formControl]="checkoutForm.controls['state']">
                                             <option value="">Select State</option>
                                             <option value="Andhra Pradesh">Andhra Pradesh</option>
                                             <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands
@@ -713,7 +721,7 @@
                                             <option value="Uttar Pradesh">Uttar Pradesh</option>
                                             <option value="Uttarakhand">Uttarakhand</option>
                                             <option value="West Bengal">West Bengal</option>
-                                        </select>
+                                        </select> -->
                                         <div *ngIf="(checkoutForm.controls.state.touched || Submitted) && checkoutForm.controls.state.errors?.required" class="text text-danger">
                                             State is required
                                         </div>
@@ -721,19 +729,15 @@
 
                                     <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                         <div class="field-label">City <span style="color:red">*</span></div>
-                                        <input type="text" name="city" [formControl]="checkoutForm.controls['city']" value="" placeholder="" autocomplete="off">
+                                        <input type="text" name="city" [formControl]="checkoutForm.controls['city']" list="cityLst" placeholder="City" id="dest_addr_city" autocomplete="off">
+                                        <datalist id="cityLst">
+                                        </datalist>
                                         <div *ngIf="(checkoutForm.controls.city.touched || Submitted) && checkoutForm.controls.city.errors?.required" class="text text-danger">
                                             City is required
                                         </div>
                                     </div>
 
-                                    <div class="form-group col-md-4 col-sm-4 col-xs-4">
-                                        <div class="field-label">Pin Code <span style="color:red">*</span></div>
-                                        <input type="text" name="zipCode" [formControl]="checkoutForm.controls['zipCode']" value="" placeholder="" autocomplete="off" maxlength="6" [mask]="PinCodeMask" [dropSpecialCharacters]="false" (focus)="addPinCodeMask($event);">
-                                        <div *ngIf="(checkoutForm.controls.zipCode.touched || Submitted) && checkoutForm.controls.zipCode.errors?.required" class="text text-danger">
-                                            Pin Code is required
-                                        </div>
-                                    </div>
+
                                     <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                         <div class="field-label">&nbsp;</div>
                                         <button type="submit" class="btn-solid btn" (click)="SaveBillingAddress()">
