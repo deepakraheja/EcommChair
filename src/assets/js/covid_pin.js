@@ -26,9 +26,9 @@ function load_data(pin) {
             debugger
             if (data[0].PostOffice != "") {
                 $('#dest_addr_state')[0].value = (data[0].PostOffice[0].State).toUpperCase();
-
-                //len = data.length;
-                city_code = '';
+                document.querySelector('#dest_addr_state').dispatchEvent(new Event('input')),
+                    //len = data.length;
+                    city_code = '';
                 var cname;
                 debugger
                 let array = data[0].PostOffice;
