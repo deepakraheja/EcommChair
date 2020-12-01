@@ -14990,8 +14990,8 @@ address p {
     color: white !important;
     line-height: 20px !important;
     padding: 0.6em !important;
-        padding-top: 0.6em;
-        padding-bottom: 0.6em;
+    padding-top: 0.6em;
+    padding-bottom: 0.6em;
     font-size: 1em !important;
 }
 
@@ -15002,9 +15002,11 @@ address p {
 .chair-navbar li:last-child {
     border-right: solid white 0px;
 }
-.chair-navbar > li .nav-submenu li a:hover{
+
+.chair-navbar>li .nav-submenu li a:hover {
     text-decoration: initial !important;
 }
+
 header .main-navbar .chair-navbar>li .nav-submenu {
     width: 200px;
     display: none;
@@ -15042,51 +15044,72 @@ header .main-navbar .nav-menu {
 .thumbnail-imgs {
     overflow: initial;
 }
-.product-dtl-img img{
+
+.product-dtl-img img {
     width: 150px;
 }
+
 .progress {
     height: 0.3rem !important;
 }
-.txt-color h6, .txt-color i{
-    color:#000;
+
+.txt-color h6,
+.txt-color i {
+    color: #000;
 }
-.rating-view h1{
+
+.rating-view h1 {
     color: #000;
     font-weight: lighter;
     font-size: 32px;
 }
-.rating-view p{
+
+.rating-view p {
     line-height: 22px;
 }
 
-.fixed-section{
+.fixed-section {
     width: 36.5% !important;
 }
-.review-box{
+
+.review-box {
     line-height: normal;
-display: inline-block;
-color: #fff;
-padding: 2px 4px 2px 6px;
-border-radius: 3px;
-font-weight: 500;
-font-size: 12px;
-vertical-align: middle;
-background-color: #388e3c;
+    display: inline-block;
+    color: #fff;
+    padding: 2px 4px 2px 6px;
+    border-radius: 3px;
+    font-weight: 500;
+    font-size: 12px;
+    vertical-align: middle;
+    background-color: #388e3c;
 }
-.review-point{
+
+.review-point {
     padding-left: 12px;
-padding-top: 3px;
-font-size: 14px;
-color: #212121;
-font-weight: 600;
+    padding-top: 3px;
+    font-size: 14px;
+    color: #212121;
+    font-weight: 600;
 }
 
 @media only screen and (min-width: 300px) and (max-width: 1200px) {
     .fixed-section {
-       position: initial !important;
-       width: 100%;
-       -moz-position: initial !important;
-       -moz-width: 100%;
+        position: initial !important;
+        width: 100%;
+        -moz-position: initial !important;
+        -moz-width: 100%;
     }
+}
+@media only screen and (min-width: 300px) and (max-width: 991px) {
+    .display-block-mobile-size{
+        display: block !important;
+        }
+        .display-none-mobile-size{
+            display: none !important;
+            }
+        
+}
+
+.d-n{
+    display: none;
 }

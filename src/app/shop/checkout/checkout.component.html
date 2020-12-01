@@ -444,6 +444,54 @@
                                     <span class="Sequence">3</span> <span>Payment Options</span>
                                 </h5>
                                 <div class="payment-box" *ngIf='productSizeColor?.length'>
+
+                                    <div class="p-4 price-details d-n display-block-mobile-size">
+                                        <h5 class="mb-4">Price Details</h5>
+                                        <!-- <p class="d-flex justify-content-between">
+                                            <span>Total Pieces: </span>
+                                            <span><b>{{TotalPieces}}</b></span>
+                                        </p> -->
+                                        <p class="d-flex justify-content-between">
+                                            <span>Total Pieces:
+                                            </span>
+                                            <span><b>{{getTotalQty()}}</b></span>
+                                        </p>
+                                        <p class="d-flex justify-content-between">
+                                            <span>Total Amount: </span>
+                                            <span><b>
+                                                    {{ (getTotalAmountWithDis() + getTotalAdditionalDiscountAmount()) | currency:productService?.Currency.currency:'symbol'}}</b></span>
+                                        </p>
+                                        <p *ngIf="productSizeColor[0]?.additionalDiscount>0" class="d-flex justify-content-between">
+                                            <span>(-) Additional Discount: </span>
+                                            <span><b>{{ getTotalAdditionalDiscountAmount() | currency:productService?.Currency.currency:'symbol'}}</b></span>
+                                        </p>
+                                        <p *ngIf="productSizeColor[0]?.additionalDiscount>0" class="d-flex justify-content-between">
+                                            <span>Gross Amount: </span>
+                                            <span><b>{{ getTotalAmountWithDis() | currency:productService?.Currency.currency:'symbol'}}</b></span>
+                                        </p>
+                                        <p class="d-flex justify-content-between" *ngIf="getTotalGSTAmount()>0">
+                                            <span>(+) GST Amount: </span>
+                                            <span><b>{{ getTotalGSTAmount() | currency:productService?.Currency.currency:'symbol'}}</b></span>
+                                        </p>
+                                        <hr>
+                                        <p class="d-flex justify-content-between">
+                                            <span><b>Total Net Amount:</b> </span>
+                                            <span><b>{{ (getTotalAmountWithDis()+ getTotalGSTAmount()) | currency:productService?.Currency.currency:'symbol'}}</b></span>
+                                        </p>
+                                        <hr>
+                
+                                        <p class="text-green mb-4" *ngIf="getTotalAdditionalDiscountAmount()>0">You will save {{ getTotalAdditionalDiscountAmount() | currency:productService?.Currency.currency:'symbol'}} Additional Discount on this order</p>
+                                        <!-- <div class="text-center">
+                                            <a class="btn btn-solid">check out</a>
+                                        </div> -->
+                                        <div class="mt-3 secure-msg">
+                                            <img src="assets/images/icon/shield-fill.svg" alt="Secure">
+                                            <div>Safe and Secure Payments. Authentic products. Easy buying options.</div>
+                                        </div>
+                                    </div>
+
+
+
                                     <div class="upper-box">
                                         <div class="payment-options">
                                             <ul>
@@ -484,7 +532,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <div class="p-4 price-details">
+                    <div class="p-4 price-details display-none-mobile-size">
                         <h5 class="mb-4">Price Details</h5>
                         <!-- <p class="d-flex justify-content-between">
                             <span>Total Pieces: </span>
