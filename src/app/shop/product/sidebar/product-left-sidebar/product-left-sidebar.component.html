@@ -370,7 +370,7 @@
 
                             </div>
                         </div> -->
-                        <div class="col-md-12 border-grey">
+                        <div class="col-md-12 border-grey" *ngIf="(productkart[0]?.productTotalReview).length>0">
                             <h3 class="product-title p-3 mt-3 text-black">Review & Rating</h3>
                             <div class="row">
 
@@ -513,8 +513,8 @@
                                     <div class="row">
 
                                         <div class="col-md-12 pl-4 pt-4 pb-3">
-                                            <p> <span class="review-box "> {{review.rating}} ★</span> <b> 
-                                                           <span class="review-point">{{review.titles}}</span> </b></p>
+                                            <p> <span class="review-box "> {{review.rating}} ★</span> <b>
+                                                    <span class="review-point">{{review.titles}}</span> </b></p>
                                             <p class="text-black mb-0" [innerHTML]="review.notes | safe: 'html'"></p>
 
                                         </div>
