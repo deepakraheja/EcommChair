@@ -15100,16 +15100,16 @@ header .main-navbar .nav-menu {
         -moz-width: 100%;
     }
 }
+
 @media only screen and (min-width: 300px) and (max-width: 991px) {
-    .display-block-mobile-size{
+    .display-block-mobile-size {
         display: block !important;
-        }
-        .display-none-mobile-size{
-            display: none !important;
-            }
-        
+    }
+    .display-none-mobile-size {
+        display: none !important;
+    }
 }
 
-.d-n{
+.d-n {
     display: none;
 }

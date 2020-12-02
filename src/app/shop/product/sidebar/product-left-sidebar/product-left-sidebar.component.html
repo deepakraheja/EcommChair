@@ -376,9 +376,9 @@
 
                                 <div class="text-center">
                                     <div class="card-body rating-view">
-                                        <h1>4.3 ★</h1>
-
-                                        <p>1,37,396 Ratings <br>&<br> 14,525 Reviews</p>
+                                        <h1>{{productkart[0]?.productTotalReview[0]?.averageRating}} ★</h1>
+                                        <p>{{productkart[0]?.productTotalReview[0]?.totalRating}} Ratings <br> &
+                                            <br> {{productkart[0]?.productTotalReview[0]?.totalReview}} Reviews</p>
                                     </div>
                                 </div>
                                 <div class="col-md-5">
@@ -393,7 +393,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
-                                                <h6>85,798</h6>
+                                                <h6>{{productkart[0]?.productTotalReview[0]?.totalFiveRating}}</h6>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -406,7 +406,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
-                                                <h6>31,238</h6>
+                                                <h6>{{productkart[0]?.productTotalReview[0]?.totalFourRating}}</h6>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -419,7 +419,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
-                                                <h6>8,752</h6>
+                                                <h6>{{productkart[0]?.productTotalReview[0]?.totalThreeRating}}</h6>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -432,7 +432,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
-                                                <h6>3,143</h6>
+                                                <h6>{{productkart[0]?.productTotalReview[0]?.totalTwoRating}}</h6>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -445,7 +445,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
-                                                <h6>8,425</h6>
+                                                <h6>{{productkart[0]?.productTotalReview[0]?.totalOneRating}}</h6>
                                             </div>
                                         </div>
                                     </div>
