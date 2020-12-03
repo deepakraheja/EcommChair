@@ -16,7 +16,7 @@
                         </a>
 
                         <div class="media-body align-self-center">
-                            <bar-rating [rate]="5" [readOnly]="true"></bar-rating>
+                            <bar-rating [rate]="product?.averageRating" theme="fontawesome-o" [readOnly]="true"></bar-rating>
                             <!-- <a [routerLink]="['/shop/product/left/sidebar/', product?.title?.replace(' ', '-')]"> -->
                             <a href="javaScript:void(0);">
                                 <h6>{{ product?.productName | titlecase }}</h6>
@@ -50,7 +50,7 @@
                             <img [defaultImage]="ImageSrc ? ImageSrc : 'assets/images/product/placeholder.jpg'" [lazyLoad]="ImageSrc ? ImageSrc : ProductImage+product.productID+'/frontImage/'+product.frontImage" class="img-fluid w-auto" alt="" />
                         </a>
                         <div class="media-body align-self-center">
-                            <bar-rating [rate]="5" [readOnly]="true"></bar-rating>
+                            <bar-rating [rate]="product?.averageRating" theme="fontawesome-o" [readOnly]="true"></bar-rating>
                             <!-- <a [routerLink]="['/shop/product/left/sidebar/', product?.title?.replace(' ', '-')]"> -->
                             <a href="javaScript:void(0);">
                                 <h6>{{ product?.productName | titlecase }}</h6>
