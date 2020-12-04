@@ -64,6 +64,7 @@ export class Productkart {
     gstAmount: number;
     businessBuyerGSTRate: number;
     averageRating: number;
+    totalRating: number;
     constructor(
         productID?: number,
         productName?: string,
@@ -126,7 +127,8 @@ export class Productkart {
         businessPrice?: number,
         gstAmount?: number,
         businessBuyerGSTRate?: number,
-        averageRating?: number
+        averageRating?: number,
+        totalRating?: number
     ) {
         this.productID = productID;
         this.productName = productName;
@@ -194,6 +196,7 @@ export class Productkart {
         this.gstAmount = gstAmount;
         this.businessBuyerGSTRate = businessBuyerGSTRate;
         this.averageRating = averageRating;
+        this.totalRating = totalRating;
     }
 
 }

@@ -110,7 +110,8 @@
     </div>
     <div class="product-detail">
         <div class="box-design">
-            <bar-rating [rate]="productkart?.averageRating" theme="fontawesome-o" [readOnly]="true"></bar-rating>
+            <!-- <bar-rating [rate]="productkart?.averageRating" theme="fontawesome-o" [readOnly]="true"></bar-rating> -->
+            {{productkart?.averageRating}} ★ ({{productkart?.totalRating}})
             <!-- <a [routerLink]="['/shop/product/left/sidebar/', product?.title.replace(' ', '-')]"> -->
             <a href="javaScript:void(0);">
                 <h6>{{ productkart?.productName | titlecase }}</h6>
