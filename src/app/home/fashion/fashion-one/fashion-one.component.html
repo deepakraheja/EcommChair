@@ -108,7 +108,7 @@
                         <ng-template ngbTabTitle>{{collection.name}}</ng-template>
                         <ng-template ngbTabContent>
                             <div class="no-slider row">
-                                <ng-container *ngFor="let product of getCollectionProducts(collection) | slice:0:8">
+                                <ng-container *ngFor="let product of getCollectionProducts(collection) | slice:0:500">
                                     <div class="product-box">
                                         <app-product-box [productkart]="product" [currency]="productService?.Currency">
                                         </app-product-box>
