@@ -65,6 +65,9 @@ export class Productkart {
     businessBuyerGSTRate: number;
     averageRating: number;
     totalRating: number;
+    guaranteeNotes: string;
+    deliveryInformationNotes: string;
+    suggestionNotes: string;
     constructor(
         productID?: number,
         productName?: string,
@@ -128,7 +131,10 @@ export class Productkart {
         gstAmount?: number,
         businessBuyerGSTRate?: number,
         averageRating?: number,
-        totalRating?: number
+        totalRating?: number,
+        guaranteeNotes?: string,
+        deliveryInformationNotes?: string,
+        suggestionNotes?: string
     ) {
         this.productID = productID;
         this.productName = productName;
@@ -197,6 +203,9 @@ export class Productkart {
         this.businessBuyerGSTRate = businessBuyerGSTRate;
         this.averageRating = averageRating;
         this.totalRating = totalRating;
+        this.guaranteeNotes = guaranteeNotes;
+        this.deliveryInformationNotes = deliveryInformationNotes;
+        this.suggestionNotes = suggestionNotes;
     }
 
 }

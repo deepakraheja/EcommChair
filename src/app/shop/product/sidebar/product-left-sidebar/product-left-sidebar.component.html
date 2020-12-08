@@ -554,10 +554,12 @@
                                     </div>
                                 </ng-template>
                             </ngb-tab> -->
-                            <ngb-tab>
+                            <ngb-tab *ngIf="productkart[0]?.guaranteeNotes!=''">
                                 <ng-template ngbTabTitle>Guarantee</ng-template>
                                 <ng-template ngbTabContent>
-                                    <div class="blog-post ul-list-circle">
+                                    <div class="blog-post ul-list-circle" [innerHTML]="productkart[0]?.guaranteeNotes | safe: 'html'">
+                                    </div>
+                                    <!-- <div class="blog-post ul-list-circle">
                                         <ul>
                                             <li>
                                                 The product comes with a 24 month warranty against any manufacturing defects and any other issues with the materials that have been used.
@@ -578,13 +580,15 @@
                                                 We would repair fabric & leather material as well but at an extra cost what may be applicable.
                                             </li>
                                         </ul>
-                                    </div>
+                                    </div> -->
                                 </ng-template>
                             </ngb-tab>
-                            <ngb-tab>
+                            <ngb-tab *ngIf="productkart[0]?.deliveryInformationNotes!=''">
                                 <ng-template ngbTabTitle>Delivery Information</ng-template>
                                 <ng-template ngbTabContent>
-                                    <div class="blog-post ul-list-circle">
+                                    <div class="blog-post ul-list-circle" [innerHTML]="productkart[0]?.deliveryInformationNotes | safe: 'html'">
+                                    </div>
+                                    <!-- <div class="blog-post ul-list-circle">
                                         <ul>
                                             <li>
                                                 If the selected product is available then it would be delivered within 3 to 4 working days.
@@ -608,13 +612,15 @@
                                                 In case you have any questions or need any clarifications do not hesitate to call our Customer Support Team on above phone no.
                                             </li>
                                         </ul>
-                                    </div>
+                                    </div> -->
                                 </ng-template>
                             </ngb-tab>
-                            <ngb-tab>
+                            <ngb-tab *ngIf="productkart[0]?.suggestionNotes!=''">
                                 <ng-template ngbTabTitle>Suggestion</ng-template>
                                 <ng-template ngbTabContent>
-                                    <div class="blog-post ul-list-circle order-list">
+                                    <div class="blog-post ul-list-circle" [innerHTML]="productkart[0]?.suggestionNotes | safe: 'html'">
+                                    </div>
+                                    <!-- <div class="blog-post ul-list-circle order-list">
                                         <ul>
                                             <li>
                                                 On Average, we spend about five to six hours sitting at our desks during a typical workday.
@@ -650,7 +656,7 @@
                                                 Make it sure that all chair parts are covered under free replacement in Guarantee period.
                                             </li>
                                         </ul>
-                                    </div>
+                                    </div> -->
                                 </ng-template>
                             </ngb-tab>
                             <ngb-tab>
