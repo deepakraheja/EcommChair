@@ -5,6 +5,7 @@ import { ProductService } from '../../../shared/services/product.service';
 import { Productkart } from 'src/app/shared/classes/productkart';
 import { ProductsService } from 'src/app/Service/Products.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { CategoryService } from 'src/app/Service/category.service';
 
 @Component({
   selector: 'app-fashion-one',
@@ -23,10 +24,13 @@ export class FashionOneComponent implements OnInit {
 
   public productskart: Productkart[] = [];
   public productskartselling: Productkart[] = [];
+  
+  public bannerItems: any[];
 
   constructor(public productService: ProductService,
     private _prodService: ProductsService,
     private spinner: NgxSpinnerService,
+    public _categoryService: CategoryService,
   ) {
 
     // this.productService.getProducts.subscribe(response => {
@@ -68,33 +72,41 @@ export class FashionOneComponent implements OnInit {
 
   public ProductSliderConfig: any = ProductSlider;
 
-  public sliders = [{
-    // title: 'welcome to fashion',
-    //subTitle: ''Men fashion'',
-    image: 'assets/images/slider/banner_1.jpg'
-  }, {
-    //title: 'welcome to fashion',
-    //subTitle: 'Women fashion',
-    image: 'assets/images/slider/banner_2.jpg'
+  // public sliders = [{
+  //   title: 'welcome to fashion',
+  //   subTitle: 'Men fashion',
+  //   image: 'assets/images/slider/banner_1.jpg'
+  // }, {
+  //   title: 'welcome to fashion',
+  //   subTitle: 'Women fashion',
+  //   image: 'assets/images/slider/banner_2.jpg'
 
-  },
-  {
-    image: 'assets/images/slider/banner_3.jpg'
+  // },
+  // {
+  //   title: 'welcome to fashion',
+  //   subTitle: 'Women fashion',
+  //   image: 'assets/images/slider/banner_3.jpg'
 
-  },
-  {
-    image: 'assets/images/slider/banner_4.jpg'
+  // },
+  // {
+  //   title: 'welcome to fashion',
+  //   subTitle: 'Women fashion',
+  //   image: 'assets/images/slider/banner_4.jpg'
 
-  },
-  {
-    image: 'assets/images/slider/banner_5.jpg'
+  // },
+  // {
+  //   title: 'welcome to fashion',
+  //   subTitle: 'Women fashion',
+  //   image: 'assets/images/slider/banner_5.jpg'
 
-  },
-  {
-    image: 'assets/images/slider/banner_6.jpg'
+  // },
+  // {
+  //   title: 'welcome to fashion',
+  //   subTitle: 'Women fashion',
+  //   image: 'assets/images/slider/banner_6.jpg'
 
-  }
-  ]
+  // }
+  // ]
 
   // Collection banner
   public collections = [{
@@ -149,7 +161,22 @@ export class FashionOneComponent implements OnInit {
     image: 'assets/images/logos/8.png',
   }];
 
+
+
+  BindBanner(): void {
+   
+    this._categoryService.GetBannerJson().subscribe(bannerItems => {
+      
+      this.bannerItems = bannerItems;
+       //sliders = this.bannerItems
+    });
+    
+  }
+
+
+
   ngOnInit(): void {
+    this.BindBanner();
   }
 
   // Product Tab collection

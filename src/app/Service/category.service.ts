@@ -22,15 +22,28 @@ export class CategoryService {
   }
 
 
+  GetBannerJson(): Observable<any> {
+
+    this._methodName = "GetBannerJson";
+
+    return this.dataService.get(this._controllerName + this._methodName).pipe(map((data: any) => {
+
+      return data;
+    }));
+  }
+
 
   GetCategoryJson(): Observable<any> {
-  
+
     this._methodName = "GetCategoryJson";
 
     return this.dataService.get(this._controllerName + this._methodName).pipe(map((data: any) => {
-    
+
       return data;
     }));
+
+
+
 
 
     // constructor(private _http: HttpClient) { }
