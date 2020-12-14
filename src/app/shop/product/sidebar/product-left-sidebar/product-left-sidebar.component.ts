@@ -22,11 +22,36 @@ export interface image {
   productSizeId: number;
 }
 
+// Product Slider
+export let ProductSlider: any = {
+  loop: false,
+  dots: false,
+  navSpeed: 300,
+  navText: [ '<i class="fa-chevron-left"></i>', '<i class="fa-chevron-right></i>"' ],
+  responsive: {
+      991: {
+          items: 8
+      },
+      767: {
+          items: 8
+      },
+      420: {
+          items: 8
+      }, 
+      0: {
+          items: 8
+      }
+  }
+}
+
+
 @Component({
   selector: 'app-product-left-sidebar',
   templateUrl: './product-left-sidebar.component.html',
   styleUrls: ['./product-left-sidebar.component.scss']
 })
+
+
 export class ProductLeftSidebarComponent implements OnInit {
 
 
@@ -49,7 +74,8 @@ export class ProductLeftSidebarComponent implements OnInit {
   activeSlide1: any = 0;
   public selectedSize: any;
   public mobileSidebar: boolean = false;
-
+  public ProductSliderConfig: any = ProductSlider;
+  public recentlyProduct: any[] = [];
   @ViewChild("sizeChart") SizeChart: SizeModalComponent;
 
   public ProductDetailsMainSliderConfig: any = ProductDetailsMainSlider;
@@ -134,9 +160,22 @@ export class ProductLeftSidebarComponent implements OnInit {
     });
 
   }
+
+  //Added on 08/07/2020
+  BindRecentlyProduct() {
+    this.spinner.show();
+    this._prodService.GetUserRecentlyProduct().subscribe(res => {
+      this.spinner.hide();
+      this.recentlyProduct = res;
+    });
+
+  }
+
+
   ngOnInit(): void {
     this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
     this.BindProduct();
+    this.BindRecentlyProduct();
 
   }
 

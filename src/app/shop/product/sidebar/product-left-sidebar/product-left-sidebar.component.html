@@ -378,7 +378,8 @@
                                     <div class="card-body rating-view">
                                         <h1>{{productkart[0]?.productTotalReview[0]?.averageRating}} ★</h1>
                                         <p>{{productkart[0]?.productTotalReview[0]?.totalRating}} Ratings <br> &
-                                            <br> {{productkart[0]?.productTotalReview[0]?.totalReview}} Reviews</p>
+                                            <br> {{productkart[0]?.productTotalReview[0]?.totalReview}} Reviews
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="col-md-5">
@@ -726,6 +727,35 @@
         </div>
     </div>
     <!-- <app-related-product [type]="product?.type"></app-related-product> -->
+    <!-- product section start -->
+    <section class="section-b-space" *ngIf="recentlyProduct.length>0">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 product-related">
+                    <h2 style="font-size: 20px !important;">Recently View</h2>
+                </div>
+            </div>
+            <!-- <div class="row search-product"> -->
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <owl-carousel-o class="product-m no-arrow" [options]="ProductSliderConfig">
+                            <ng-container *ngFor="let product of recentlyProduct">
+                                <ng-template carouselSlide>
+                                    <div class="product-box">
+                                        <app-product-box [productkart]="product" [currency]="productService?.Currency" [thumbnail]="true">
+                                        </app-product-box>
+                                    </div>
+                                </ng-template>
+                            </ng-container>
+                        </owl-carousel-o>
+                    </div>
+                </div>
+            </div>
+            <!-- </div> -->
+        </div>
+    </section>
+    <!-- product section end -->
 </section>
 <app-size-modal #sizeChart [product]="product"></app-size-modal>
 <!-- Section ends -->

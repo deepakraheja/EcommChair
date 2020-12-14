@@ -76,4 +76,12 @@ export class ProductsService {
       this._url + this._methodName, this._param
     );
   }
+
+  GetUserRecentlyProduct(): Observable<any[]> {
+    this._methodName = "GetUserRecentlyProduct";
+    this._param = {};
+    return this._http.post<any[]>(
+      this._url + this._methodName, this._param
+    );
+  }
 }
