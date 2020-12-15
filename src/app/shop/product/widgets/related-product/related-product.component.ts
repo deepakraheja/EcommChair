@@ -20,11 +20,7 @@ export class RelatedProductComponent implements OnInit {
     public productService: ProductService,
     private _prodService: ProductsService,
     private spinner: NgxSpinnerService,
-    //public _categoryService: CategoryService,
     ) { 
-    // this.productService.getProducts.subscribe(response => 
-    //   this.products = response.filter(item => item.type == this.type)
-    // );
     this.BindProductByCategory();
   }
 
