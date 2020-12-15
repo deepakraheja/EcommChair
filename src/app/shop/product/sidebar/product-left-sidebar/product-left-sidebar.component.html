@@ -726,9 +726,9 @@
             </div>
         </div>
     </div>
-    <!-- <app-related-product [type]="product?.type"></app-related-product> -->
+    <app-related-product [productkart]="recentlyProduct"></app-related-product>
     <!-- product section start -->
-    <section class="section-b-space" *ngIf="recentlyProduct.length>0" style="margin-top: 0px !important;">
+    <section class="section-b-space" *ngIf="recentlyProduct.length>0" style="margin-top: 0px !important; margin-bottom: 0px !important;">
         <div class="container">
             <div class="row">
                 <div class="col-12 product-related">
