@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { HomeSlider } from '../../../shared/data/slider';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-slider',
@@ -8,6 +9,8 @@ import { HomeSlider } from '../../../shared/data/slider';
 })
 export class SliderComponent implements OnInit {
   
+  public ProductImage = environment.ProductImage;
+
   @Input() sliders: any[];
   @Input() class: string;
   @Input() textClass: string;
