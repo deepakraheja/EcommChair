@@ -165,19 +165,19 @@ export class RegisterComponent implements OnInit {
       //mobilecode: ['', [Validators.required]],
       //OTPArray: new FormArray([]),
 
-      BusinessType: ['', Validators.required],
-      Industry: ['', Validators.required],
-      businessLicenseType: ['', Validators.required],
-      GSTNo: ['', Validators.required],
-      PANNo: ['', Validators.required],
-      AadharCard: ['', Validators.required],
-      BusinessName: ['', Validators.required],
-      BusinessPhone: ['', Validators.required],
-      Address1: ['', Validators.required],
+      BusinessType: [''],
+      Industry: [''],
+      businessLicenseType: [''],
+      GSTNo: [''],
+      PANNo: [''],
+      AadharCard: [''],
+      BusinessName: [''],
+      BusinessPhone: [''],
+      Address1: [''],
       Address2: [''],
-      pinCode: ['', Validators.required],
-      city: ['', Validators.required],
-      state: ['', Validators.required],
+      pinCode: [''],
+      city: [''],
+      state: [''],
       mobileotp: [''],
       IsPersonal: ['', Validators.required],
 
@@ -571,21 +571,21 @@ export class RegisterComponent implements OnInit {
     debugger
     this.submitted = true;
 
-    this.Personal = Number(this.RegistrationForm.get('IsPersonal').value);
+    // this.Personal = Number(this.RegistrationForm.get('IsPersonal').value);
 
-    if (this.Personal == 0) {
-      this.formControlValueChanged();
+    // if (this.Personal == 0) {
+    //   this.formControlValueChanged();
 
-      const IsPersonal = this.RegistrationForm.get('IsPersonal');
-      IsPersonal.setValue(false);
-      IsPersonal.updateValueAndValidity();
-    }
-    else {
-      const IsPersonal = this.RegistrationForm.get('IsPersonal');
-      IsPersonal.setValue(true);
-      IsPersonal.updateValueAndValidity();
+    //   const IsPersonal = this.RegistrationForm.get('IsPersonal');
+    //   IsPersonal.setValue(false);
+    //   IsPersonal.updateValueAndValidity();
+    // }
+    // else {
+    //   const IsPersonal = this.RegistrationForm.get('IsPersonal');
+    //   IsPersonal.setValue(true);
+    //   IsPersonal.updateValueAndValidity();
 
-    }
+    // }
 
     if (this.RegistrationForm.invalid) {
       if ($('#fname').val() == '') {
@@ -594,112 +594,112 @@ export class RegisterComponent implements OnInit {
         return;
       }
 
-      if (this.Personal == 0) {
-        if ($('#ddlBusinessType option:selected').val() == '') {
-          this.toastr.error('Please fill in all the * required fields.');
-          $('#ddlBusinessType').focus();
+      // if (this.Personal == 0) {
+      //   if ($('#ddlBusinessType option:selected').val() == '') {
+      //     this.toastr.error('Please fill in all the * required fields.');
+      //     $('#ddlBusinessType').focus();
 
-          return;
-        }
+      //     return;
+      //   }
 
-        if ($('#ddlIndustry option:selected').val() == '') {
-          this.toastr.error('Please fill in all the * required fields.');
-          $('#ddlIndustry').focus();
+      //   if ($('#ddlIndustry option:selected').val() == '') {
+      //     this.toastr.error('Please fill in all the * required fields.');
+      //     $('#ddlIndustry').focus();
 
-          return;
-        }
+      //     return;
+      //   }
 
-        if ($('#ddlLicenseType option:selected').val() == '') {
-          this.toastr.error('Please fill in all the * required fields.');
-          $('#ddlLicenseType').focus();
+      //   if ($('#ddlLicenseType option:selected').val() == '') {
+      //     this.toastr.error('Please fill in all the * required fields.');
+      //     $('#ddlLicenseType').focus();
 
-          return;
-        }
+      //     return;
+      //   }
 
-        if ($('#ddlLicenseType option:selected').val() == 'GSTIN') {
-          this.GSTNo = $("#txtGSTNo").val().length;//this.RegistrationForm.get('GSTNo').value
-          if (this.GSTNo < 15) {
-            this.showMessage('Please, Enter 15-digit GST number');
-            $('#txtGSTNo').focus();
-            return
-          }
-        }
-        else if ($('#ddlLicenseType option:selected').val() == 'BusinessPAN') {
-          this.PANNo = $("#txtPANNo").val().length;//this.RegistrationForm.get('PANNo').value
-          if (this.PANNo < 10) {
-            this.showMessage('Please, Enter 10-digit PAN number');
-            $('#txtPANNo').focus();
-            return
-          }
-        }
-        else if ($('#ddlLicenseType option:selected').val() == 'AadharCard') {
+      //   if ($('#ddlLicenseType option:selected').val() == 'GSTIN') {
+      //     this.GSTNo = $("#txtGSTNo").val().length;//this.RegistrationForm.get('GSTNo').value
+      //     if (this.GSTNo < 15) {
+      //       this.showMessage('Please, Enter 15-digit GST number');
+      //       $('#txtGSTNo').focus();
+      //       return
+      //     }
+      //   }
+      //   else if ($('#ddlLicenseType option:selected').val() == 'BusinessPAN') {
+      //     this.PANNo = $("#txtPANNo").val().length;//this.RegistrationForm.get('PANNo').value
+      //     if (this.PANNo < 10) {
+      //       this.showMessage('Please, Enter 10-digit PAN number');
+      //       $('#txtPANNo').focus();
+      //       return
+      //     }
+      //   }
+      //   else if ($('#ddlLicenseType option:selected').val() == 'AadharCard') {
 
-          this.AadharCard = $("#txtAadharCard").val().length;//this.RegistrationForm.get('AadharCard').value
-          if (this.AadharCard < 14) {
-            this.showMessage('Please, Enter 12-digit  Aadhar Card number');
-            $('#txtAadharCard').focus();
-            return
-          }
-        }
+      //     this.AadharCard = $("#txtAadharCard").val().length;//this.RegistrationForm.get('AadharCard').value
+      //     if (this.AadharCard < 14) {
+      //       this.showMessage('Please, Enter 12-digit  Aadhar Card number');
+      //       $('#txtAadharCard').focus();
+      //       return
+      //     }
+      //   }
 
-        // if (this.f.GSTNo.errors) {
+      //   // if (this.f.GSTNo.errors) {
 
-        //   if (this.f.GSTNo.errors.required) {
-        //     this.showMessage('Please, Enter 15-digit number GST number.');
-        //     return;
-        //   } else {
-        //     this.showMessage('Please, Enter 15-digit number GST number.');
-        //     return;
-        //   }
-        // }
+      //   //   if (this.f.GSTNo.errors.required) {
+      //   //     this.showMessage('Please, Enter 15-digit number GST number.');
+      //   //     return;
+      //   //   } else {
+      //   //     this.showMessage('Please, Enter 15-digit number GST number.');
+      //   //     return;
+      //   //   }
+      //   // }
 
-        if ($('#BusinessName').val() == '') {
-          $('#BusinessName').focus();
-          return;
-        }
+      //   if ($('#BusinessName').val() == '') {
+      //     $('#BusinessName').focus();
+      //     return;
+      //   }
 
-        if ($('#BusinessPhone').val() == '') {
-          $('#BusinessPhone').focus();
-          return;
-        }
+      //   if ($('#BusinessPhone').val() == '') {
+      //     $('#BusinessPhone').focus();
+      //     return;
+      //   }
 
-        this.BusinessPhone = $("#txtBusinessPhone").val().length;//this.RegistrationForm.get('GSTNo').value
-        if (this.BusinessPhone < 10) {
-          this.showMessage('Please, Enter 10-digit Business Phone');
-          $('#txtBusinessPhone').focus();
-          return
-        }
-      }
+      //   this.BusinessPhone = $("#txtBusinessPhone").val().length;//this.RegistrationForm.get('GSTNo').value
+      //   if (this.BusinessPhone < 10) {
+      //     this.showMessage('Please, Enter 10-digit Business Phone');
+      //     $('#txtBusinessPhone').focus();
+      //     return
+      //   }
+      // }
 
-      if ($('#Address1').val() == '') {
-        $('#Address1').focus();
-        return;
-      }
-      if ($('#PinCode').val() == '') {
-        $('#PinCode').focus();
-        return;
-      }
-
-
-      this.txtPinCode = $("#txtPinCode").val().length;//this.RegistrationForm.get('GSTNo').value
-      if (this.txtPinCode < 6) {
-        this.showMessage('Please, Enter 6-digit Pin Code');
-        $('#txtPinCode').focus();
-        return
-      }
+      // if ($('#Address1').val() == '') {
+      //   $('#Address1').focus();
+      //   return;
+      // }
+      // if ($('#PinCode').val() == '') {
+      //   $('#PinCode').focus();
+      //   return;
+      // }
 
 
-      if ($('#City').val() == '') {
-        $('#City').focus();
-        return;
-      }
+      // this.txtPinCode = $("#txtPinCode").val().length;//this.RegistrationForm.get('GSTNo').value
+      // if (this.txtPinCode < 6) {
+      //   this.showMessage('Please, Enter 6-digit Pin Code');
+      //   $('#txtPinCode').focus();
+      //   return
+      // }
 
-      if ($('#ddlState option:selected').val() == '') {
-        this.toastr.error('Please fill in all the * required fields.');
-        $('#ddlState').focus();
 
-        return;
-      }
+      // if ($('#City').val() == '') {
+      //   $('#City').focus();
+      //   return;
+      // }
+
+      // if ($('#ddlState option:selected').val() == '') {
+      //   this.toastr.error('Please fill in all the * required fields.');
+      //   $('#ddlState').focus();
+
+      //   return;
+      // }
 
       if ($('#txtemail').val() == '') {
         $('#txtemail').focus();
@@ -716,7 +716,11 @@ export class RegisterComponent implements OnInit {
 
     }
     else {
+      debugger
       this.spinner.show();
+      const IsPersonal = this.RegistrationForm.get('IsPersonal');
+      IsPersonal.setValue(IsPersonal.value == "1" ? true : false);
+      IsPersonal.updateValueAndValidity();
       this.userService.UserRegistration(this.RegistrationForm.value).subscribe(res => {
         debugger
         if (res <= 0) {
@@ -727,47 +731,47 @@ export class RegisterComponent implements OnInit {
           setTimeout(() => this.spinner.hide(), 500);
           debugger
           //this.toastr.success("Thank you for registering. We will inform you as soon as your account will be approved.");
-          if (this.RegistrationForm.value.IsPersonal == true) {
-            let obj = {
-              LoginId: this.RegistrationForm.value.email,
-              password: this.RegistrationForm.value.password,
-              userType: 2
-            };
-            this.userService.ValidLogin(obj).subscribe(res => {
-              if (res.length > 0) {
-                if (res[0].statusId == 2) {
-                  sessionStorage.setItem('LoggedInUser', JSON.stringify(res));
-                  sessionStorage.setItem('Token', res[0].token);
-                  this._SharedDataService.AssignUser(res);
-                  this._SharedDataService.UserCart(res);
+          //if (this.RegistrationForm.value.IsPersonal == true) {
+          let obj = {
+            LoginId: this.RegistrationForm.value.email,
+            password: this.RegistrationForm.value.password,
+            userType: 2
+          };
+          this.userService.ValidLogin(obj).subscribe(res => {
+            if (res.length > 0) {
+              if (res[0].statusId == 2) {
+                sessionStorage.setItem('LoggedInUser', JSON.stringify(res));
+                sessionStorage.setItem('Token', res[0].token);
+                this._SharedDataService.AssignUser(res);
+                this._SharedDataService.UserCart(res);
 
-                  this.toastr.success("Thank you for registering with us.");
-                  //  
-                  // this.route.paramMap.subscribe((params: ParamMap) => {
-                  //   if (params.get('cart') != "" && params.get('cart') != null && params.get('cart') != undefined) {
-                  //     this.router.navigate(['/shop/cart']);
-                  //   }
-                  //   else {
-                     this.router.navigate(['/home/chair']);
-                  //   }
-                  // });
-                }
+                this.toastr.success("Thank you for registering with us.");
+                //  
+                // this.route.paramMap.subscribe((params: ParamMap) => {
+                //   if (params.get('cart') != "" && params.get('cart') != null && params.get('cart') != undefined) {
+                //     this.router.navigate(['/shop/cart']);
+                //   }
+                //   else {
+                this.router.navigate(['/home/chair']);
+                //   }
+                // });
               }
-            });
-          }
-          if (this.RegistrationForm.value.IsPersonal == false) {
-            this.router.navigate(['/home/chair']);
-            this.modalService.open(ThanksComponent, {
-              size: 'md',
-              //ariaLabelledBy: 'Cart-Modal',
-              centered: true,
-              //windowClass: 'theme-modal cart-modal CartModal'
-            }).result.then((result) => {
-              `Result ${result}`
-            }, (reason) => {
-              this.modalService.dismissAll();
-            });
-          }
+            }
+          });
+          //}
+          // if (this.RegistrationForm.value.IsPersonal == false) {
+          //   this.router.navigate(['/home/chair']);
+          //   this.modalService.open(ThanksComponent, {
+          //     size: 'md',
+          //     //ariaLabelledBy: 'Cart-Modal',
+          //     centered: true,
+          //     //windowClass: 'theme-modal cart-modal CartModal'
+          //   }).result.then((result) => {
+          //     `Result ${result}`
+          //   }, (reason) => {
+          //     this.modalService.dismissAll();
+          //   });
+          // }
         }
         else {
           setTimeout(() => this.spinner.hide(), 500);

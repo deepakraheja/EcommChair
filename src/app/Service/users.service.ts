@@ -23,6 +23,14 @@ export class UsersService {
     );
   }
 
+  UpdateUserBusinessDetail(_BrandObj: any): Observable<any> {
+    this._methodName = "UpdateUserBusinessDetail";
+    this._param = _BrandObj;
+    return this._http.post<any>(
+      this._url + this._methodName, this._param
+    );
+  }
+
   ValidLogin(_BrandObj: any): Observable<any[]> {
     this._methodName = "ValidLogin";
     this._param = _BrandObj;

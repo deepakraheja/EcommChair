@@ -16,6 +16,7 @@ import { OrderService } from 'src/app/Service/order.service';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UsersService } from 'src/app/Service/users.service';
 
 @Component({
   selector: 'app-checkout',
@@ -27,6 +28,7 @@ export class CheckoutComponent implements OnInit {
   public productSizeColor: any[] = [];
   public ProductImage = environment.ProductImage;
   public checkoutForm: FormGroup;
+  public businessForm: FormGroup;
   public products: Product[] = [];
   public payPalConfig?: IPayPalConfig;
   public payment: string = 'OnlinePayment';
@@ -55,7 +57,10 @@ export class CheckoutComponent implements OnInit {
   addaddress: boolean = false;
   email: any;
   PinCodeMask: string;
-  IsEmptyCart:boolean=false;
+  IsEmptyCart: boolean = false;
+  AadharNumberMask: string;
+  PhoneMask = null;
+  showMask: boolean = false;
   constructor(private fb: FormBuilder,
     public productService: ProductService,
     //private orderService: OrderService,
@@ -68,6 +73,7 @@ export class CheckoutComponent implements OnInit {
     private router: Router,
     private spinner: NgxSpinnerService,
     private modalService: NgbModal,
+    private _userService: UsersService
   ) {
     this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
     this.checkoutForm = this.fb.group({
@@ -92,7 +98,18 @@ export class CheckoutComponent implements OnInit {
       totalAmount: [0],
       notes: [''],
       statusId: [0]
-    })
+    });
+    this.businessForm = this.fb.group({
+      BusinessType: ['', Validators.required],
+      Industry: ['', Validators.required],
+      businessLicenseType: ['', Validators.required],
+      GSTNo: ['', Validators.required],
+      PANNo: ['', Validators.required],
+      AadharCard: ['', Validators.required],
+      BusinessName: ['', Validators.required],
+      BusinessPhone: ['', Validators.required]
+    });
+
   }
 
   // ngOnInit(): void {
@@ -162,7 +179,7 @@ export class CheckoutComponent implements OnInit {
       });
     }
   }
-  
+
   addPinCodeMask(obj: Object) {
     this.PinCodeMask = "000000";
   }
@@ -262,12 +279,12 @@ export class CheckoutComponent implements OnInit {
       this._cartService.GetCartProcessedById().subscribe(response => {
         //  
         if (response.length > 0) {
-          this.IsEmptyCart=false;
+          this.IsEmptyCart = false;
           this.spinner.hide();
           this.productSizeColor = response;
         }
-        else{
-          this.IsEmptyCart=true;
+        else {
+          this.IsEmptyCart = true;
           this.productSizeColor = [];
         }
       });
@@ -319,25 +336,91 @@ export class CheckoutComponent implements OnInit {
     this.btnContinue = false;
 
   }
-  SelectdeliverAddress(lst) {
+
+  addAadharMask(obj: object) {
+    this.AadharNumberMask = "0000 0000 0000";
+    this.showMask = false;
+  }
+
+  
+  addPhoneMask(obj: Object) {
+    this.PhoneMask = "0000000000";
+    this.showMask = false;
+  }
+
+  ChangeLicenseType() {
+    const gstNo = this.businessForm.get('GSTNo');
+    const panNo = this.businessForm.get('PANNo');
+    const AadharCard = this.businessForm.get('AadharCard');
+
+    gstNo.reset();
+    panNo.reset();
+    AadharCard.reset();
+  }
+
+  get f() { return this.businessForm.controls; }
+
+  SelectdeliverAddress(template: TemplateRef<any>, lst) {
     debugger
-    this.Address1 = false;
-    this.Address2 = true;
+    if (this.user[0].isPersonal == false) {
+      this._userService.GetUserInfo().subscribe(res => {
+        if (res[0].isPersonal == false && (res[0].businessLicenseType == '' || res[0].businessLicenseType == null)) {
+          this.Submitted = false;
+          this.businessForm = this.fb.group({
+            BusinessType: ['', Validators.required],
+            Industry: ['', Validators.required],
+            businessLicenseType: ['', Validators.required],
+            GSTNo: ['', Validators.required],
+            PANNo: ['', Validators.required],
+            AadharCard: ['', Validators.required],
+            BusinessName: ['', Validators.required],
+            BusinessPhone: ['', Validators.required]
+          });
 
-    this.addnewaddress = false;
-    this.addaddress = false;
+          this.modalService.open(template, {
+            size: 'lg',
+            //ariaLabelledBy: 'Cart-Modal',
+            centered: true,
+            //windowClass: 'theme-modal cart-modal CartModal'
+          }).result.then((result) => {
+            `Result ${result}`
+          }, (reason) => {
+            this.modalService.dismissAll();
+          });
+          return;
+        }
+        else {
+          this.Address1 = false;
+          this.Address2 = true;
+          this.addnewaddress = false;
+          this.addaddress = false;
+          this.Submitted = false;
+          this.OrderSummary1 = false;
+          this.OrderSummary2 = true;
+          this.btnContinue = true;
 
-    this.Submitted = false;
+          const billingAddressId = this.checkoutForm.get('billingAddressId');
+          billingAddressId.setValue(lst.billingAddressId);
+          billingAddressId.updateValueAndValidity();
+        }
+      });
+    }
+    else {
+      this.Address1 = false;
+      this.Address2 = true;
+      this.addnewaddress = false;
+      this.addaddress = false;
+      this.Submitted = false;
+      this.OrderSummary1 = false;
+      this.OrderSummary2 = true;
+      this.btnContinue = true;
+
+      const billingAddressId = this.checkoutForm.get('billingAddressId');
+      billingAddressId.setValue(lst.billingAddressId);
+      billingAddressId.updateValueAndValidity();
+    }
 
 
-    this.OrderSummary1 = false;
-    this.OrderSummary2 = true;
-
-    this.btnContinue = true;
-
-    const billingAddressId = this.checkoutForm.get('billingAddressId');
-    billingAddressId.setValue(lst.billingAddressId);
-    billingAddressId.updateValueAndValidity();
 
     /* this.checkoutForm = this.fb.group({
        billingAddressId: [lst.billingAddressId],
@@ -432,6 +515,66 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
+  formControlValueChanged() {
+
+    const businessLicenseType = this.businessForm.get('businessLicenseType');
+    const gstNo = this.businessForm.get('GSTNo');
+    const panNo = this.businessForm.get('PANNo');
+    const AadharCard = this.businessForm.get('AadharCard');
+
+    if (businessLicenseType.value == 'GSTIN') {
+      gstNo.setValidators([Validators.required]);
+
+      panNo.clearValidators();
+      AadharCard.clearValidators();
+
+      gstNo.updateValueAndValidity();
+      panNo.updateValueAndValidity();
+      AadharCard.updateValueAndValidity();
+    }
+    else if (businessLicenseType.value == 'BusinessPAN') {
+
+      panNo.setValidators([Validators.required]);
+
+      gstNo.clearValidators();
+      AadharCard.clearValidators();
+
+      gstNo.updateValueAndValidity();
+      panNo.updateValueAndValidity();
+      AadharCard.updateValueAndValidity();
+    }
+    else if (businessLicenseType.value == 'AadharCard') {
+
+      AadharCard.setValidators([Validators.required]);
+
+      panNo.clearValidators();
+      gstNo.clearValidators();
+
+      AadharCard.updateValueAndValidity();
+      gstNo.updateValueAndValidity();
+      panNo.updateValueAndValidity();
+    }
+  }
+
+  SaveBusinessDetail() {
+    this.formControlValueChanged();
+    this.Submitted = true;
+    if (this.businessForm.invalid) {
+      this.toastr.error("All * fields are mandatory.");
+      return;
+    }
+    else {
+      this.spinner.show();
+      this._userService.UpdateUserBusinessDetail(this.businessForm.value).subscribe(res => {
+        this.spinner.hide();
+        //this.lstBillingAddress = res;
+        this.toastr.success("Business detail has been saved successfully!");
+        this.modalService.dismissAll();
+        debugger
+        //this.AddressId = this.lstBillingAddress[this.lstBillingAddress.length - 1].billingAddressId;
+      });
+    }
+  }
 
   ProcessCheckOut() {
     // this.Submitted = true;
@@ -471,7 +614,7 @@ export class CheckoutComponent implements OnInit {
       this.spinner.hide();
       this._SharedDataService.UserCart([]);
       this.router.navigate(['/shop/checkout/success/' + res]);
-      
+
     });
     //}
   }

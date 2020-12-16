@@ -101,6 +101,8 @@ export class DashboardComponent implements OnInit {
     debugger
     if (val == 'SoleProprietorship')
       return 'Sole Proprietorship';
+    if (val == 'Partnership')
+      return 'Partnership';
     if (val == 'PublicLimitedCompany')
       return 'Public Limited Company';
     if (val == 'PrivateLimitedCompany')

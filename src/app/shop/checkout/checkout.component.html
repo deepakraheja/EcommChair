@@ -42,13 +42,15 @@
                                                                 Address</a> -->
                                                         <button type="submit" class="btn-solid btn mt-3" [id]="idx"
                                                             *ngIf="lstBilling.billingAddressId==AddressId"
-                                                            (click)="SelectdeliverAddress(lstBilling)">
+                                                            (click)="SelectdeliverAddress(templateBusinessDetails,lstBilling)">
                                                             Deliver to this address
                                                         </button>
                                                     </div>
                                                 </div>
                                                 <div class="text-right">
-                                                    <button class="btn btn-link" (click)="EditBillingAddress(templateBillingAddress,lstBilling)"> Edit</button>
+                                                    <button class="btn btn-link"
+                                                        (click)="EditBillingAddress(templateBillingAddress,lstBilling)">
+                                                        Edit</button>
                                                 </div>
                                             </div>
 
@@ -321,7 +323,10 @@
                                                     </td>
                                                     <td style="text-align: right;">
                                                         <span style="float: right; font-size: 16px; line-height: 20px;  font-weight: 400;">
-                                                            {{ (product?.salePrice*product?.quantity-product?.additionalDiscountAmount+product?.gstAmount) | currency:productService?.Currency.currency:'symbol' }}</span>
+                                                            {{
+                                                            (product?.salePrice*product?.quantity-product?.additionalDiscountAmount+product?.gstAmount)
+                                                            | currency:productService?.Currency.currency:'symbol'
+                                                            }}</span>
                                                     </td>
                                                 </tr>
                                                 <tr *ngIf='!productSizeColor.length'>
@@ -338,18 +343,22 @@
                                                     </td>
                                                     <td *ngIf="productSizeColor[0]?.additionalDiscount>0"></td>
                                                     <td *ngIf="productSizeColor[0]?.additionalDiscount>0" style="text-align: right;">
-                                                        <b>{{ getTotalAdditionalDiscountAmount() | currency:productService?.Currency.currency:'symbol'}}</b>
+                                                        <b>{{ getTotalAdditionalDiscountAmount() |
+                                                            currency:productService?.Currency.currency:'symbol'}}</b>
                                                     </td>
                                                     <td style="text-align: right;" *ngIf="productSizeColor[0]?.isPersonal==0">
-                                                        <b>{{ getTotalAmountWithDis() | currency:productService?.Currency.currency:'symbol'}}</b>
+                                                        <b>{{ getTotalAmountWithDis() |
+                                                            currency:productService?.Currency.currency:'symbol'}}</b>
                                                     </td>
                                                     <td *ngIf="productSizeColor[0]?.isPersonal==0"></td>
                                                     <td style="text-align: right;" *ngIf="productSizeColor[0]?.isPersonal==0">
-                                                        <b>{{ getTotalGSTAmount() | currency:productService?.Currency.currency:'symbol'}}</b>
+                                                        <b>{{ getTotalGSTAmount() |
+                                                            currency:productService?.Currency.currency:'symbol'}}</b>
                                                     </td>
                                                     <td style="text-align: right;">
                                                         <span style="float: right; font-size: 16px; line-height: 20px; color: var(--theme-deafult); font-weight: 400;">
-                                                            {{ getTotal() | currency:productService?.Currency.currency:'symbol'}}</span>
+                                                            {{ getTotal() |
+                                                            currency:productService?.Currency.currency:'symbol'}}</span>
                                                     </td>
                                                 </tr>
                                                 <!-- <tr>
@@ -383,7 +392,8 @@
                                                     <td *ngIf="productSizeColor[0]?.additionalDiscount>0"></td>
                                                     <td colspan="2" style="text-align: right;">
                                                         <span style="float: right; font-size: 16px; line-height: 20px; color: var(--theme-deafult); font-weight: 400;">
-                                                            {{ getTotal() | currency:productService?.Currency.currency:'symbol'}}</span>
+                                                            {{ getTotal() |
+                                                            currency:productService?.Currency.currency:'symbol'}}</span>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -429,7 +439,8 @@
                             <div class="checkout-steps" *ngIf="btnContinue">
                                 <div class="p-4 d-flex justify-content-between align-items-start align-items-lg-center row-column">
                                     <div>Order confirmation email will be sent to
-                                        <b>{{email}}</b> </div>
+                                        <b>{{email}}</b>
+                                    </div>
                                     <button class="btn btn-solid" (click)="Continue()">Continue</button>
                                 </div>
                             </div>
@@ -461,24 +472,29 @@
                                         <p class="d-flex justify-content-between">
                                             <span>Total Amount: </span>
                                             <span><b>
-                                                    {{ (getTotalAmountWithDis() + getTotalAdditionalDiscountAmount()) | currency:productService?.Currency.currency:'symbol'}}</b></span>
+                                                    {{ (getTotalAmountWithDis() + getTotalAdditionalDiscountAmount()) |
+                                                    currency:productService?.Currency.currency:'symbol'}}</b></span>
                                         </p>
                                         <p *ngIf="productSizeColor[0]?.additionalDiscount>0" class="d-flex justify-content-between">
                                             <span>(-) Additional Discount: </span>
-                                            <span><b>{{ getTotalAdditionalDiscountAmount() | currency:productService?.Currency.currency:'symbol'}}</b></span>
+                                            <span><b>{{ getTotalAdditionalDiscountAmount() |
+                                                    currency:productService?.Currency.currency:'symbol'}}</b></span>
                                         </p>
                                         <p *ngIf="productSizeColor[0]?.additionalDiscount>0" class="d-flex justify-content-between">
                                             <span>Gross Amount: </span>
-                                            <span><b>{{ getTotalAmountWithDis() | currency:productService?.Currency.currency:'symbol'}}</b></span>
+                                            <span><b>{{ getTotalAmountWithDis() |
+                                                    currency:productService?.Currency.currency:'symbol'}}</b></span>
                                         </p>
                                         <p class="d-flex justify-content-between" *ngIf="getTotalGSTAmount()>0">
                                             <span>(+) GST Amount: </span>
-                                            <span><b>{{ getTotalGSTAmount() | currency:productService?.Currency.currency:'symbol'}}</b></span>
+                                            <span><b>{{ getTotalGSTAmount() |
+                                                    currency:productService?.Currency.currency:'symbol'}}</b></span>
                                         </p>
                                         <hr>
                                         <p class="d-flex justify-content-between">
                                             <span><b>Total Net Amount:</b> </span>
-                                            <span><b>{{ (getTotalAmountWithDis()+ getTotalGSTAmount()) | currency:productService?.Currency.currency:'symbol'}}</b></span>
+                                            <span><b>{{ (getTotalAmountWithDis()+ getTotalGSTAmount()) |
+                                                    currency:productService?.Currency.currency:'symbol'}}</b></span>
                                         </p>
                                         <hr>
 
@@ -488,7 +504,8 @@
                                         </div> -->
                                         <div class="mt-3 secure-msg">
                                             <img src="assets/images/icon/shield-fill.svg" alt="Secure">
-                                            <div>Safe and Secure Payments. Authentic products. Easy buying options.</div>
+                                            <div>Safe and Secure Payments. Authentic products. Easy buying options.
+                                            </div>
                                         </div>
                                     </div>
 
@@ -548,24 +565,29 @@
                         <p class="d-flex justify-content-between">
                             <span>Total Amount: </span>
                             <span><b>
-                                    {{ (getTotalAmountWithDis() + getTotalAdditionalDiscountAmount()) | currency:productService?.Currency.currency:'symbol'}}</b></span>
+                                    {{ (getTotalAmountWithDis() + getTotalAdditionalDiscountAmount()) |
+                                    currency:productService?.Currency.currency:'symbol'}}</b></span>
                         </p>
                         <p *ngIf="productSizeColor[0]?.additionalDiscount>0" class="d-flex justify-content-between">
                             <span>(-) Additional Discount: </span>
-                            <span><b>{{ getTotalAdditionalDiscountAmount() | currency:productService?.Currency.currency:'symbol'}}</b></span>
+                            <span><b>{{ getTotalAdditionalDiscountAmount() |
+                                    currency:productService?.Currency.currency:'symbol'}}</b></span>
                         </p>
                         <p *ngIf="productSizeColor[0]?.additionalDiscount>0" class="d-flex justify-content-between">
                             <span>Gross Amount: </span>
-                            <span><b>{{ getTotalAmountWithDis() | currency:productService?.Currency.currency:'symbol'}}</b></span>
+                            <span><b>{{ getTotalAmountWithDis() |
+                                    currency:productService?.Currency.currency:'symbol'}}</b></span>
                         </p>
                         <p class="d-flex justify-content-between" *ngIf="getTotalGSTAmount()>0">
                             <span>(+) GST Amount: </span>
-                            <span><b>{{ getTotalGSTAmount() | currency:productService?.Currency.currency:'symbol'}}</b></span>
+                            <span><b>{{ getTotalGSTAmount() |
+                                    currency:productService?.Currency.currency:'symbol'}}</b></span>
                         </p>
                         <hr>
                         <p class="d-flex justify-content-between">
                             <span><b>Total Net Amount:</b> </span>
-                            <span><b>{{ (getTotalAmountWithDis()+ getTotalGSTAmount()) | currency:productService?.Currency.currency:'symbol'}}</b></span>
+                            <span><b>{{ (getTotalAmountWithDis()+ getTotalGSTAmount()) |
+                                    currency:productService?.Currency.currency:'symbol'}}</b></span>
                         </p>
                         <hr>
 
@@ -743,6 +765,135 @@
                                     <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                         <div class="field-label">&nbsp;</div>
                                         <button type="submit" class="btn-solid btn" (click)="SaveBillingAddress()">
+                                            Save
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template class="theme-modal" #templateBusinessDetails let-modal>
+    <div class="modal-content quick-view-modal">
+        <div class="modal-body">
+            <button type="button" class="close" style="background-color: white;" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="checkout-page">
+                <div class="checkout-form">
+                    <form [formGroup]="businessForm">
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12 col-xs-12">
+                                <div class="checkout-title">
+                                    <h3>Business Details</h3>
+                                </div>
+                                <div class="row check-out">
+
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                        <label>Business Type</label><span style="color:red">*</span>
+                                        <select id="ddlBusinessType" name="ddlBusinessType" class="custom-select" formControlName="BusinessType" [ngClass]="{ 'is-invalid': Submitted && f.BusinessType.errors }">
+                                            <option value="">select</option>
+                                            <option value="SoleProprietorship">Sole Proprietorship</option>
+                                            <option value="Partnership">Partnership</option>
+                                            <option value="PublicLimitedCompany">Public Limited Company</option>
+                                            <option value="PrivateLimitedCompany">Private Limited Company</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+
+                                        <div *ngIf="Submitted && f.BusinessType.errors" class="text text-danger">
+                                            <div>Business Type is required
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                        <label>Industry</label><span style="color:red">*</span>
+                                        <select class="custom-select" formControlName="Industry" id="ddlIndustry" [ngClass]="{ 'is-invalid': Submitted && f.Industry.errors }">
+                                            <option value="">select</option>
+                                            <option value="Retail"> Retail (Furniture / Accessories)</option>
+                                            <option value="Wholesale">Wholesale</option>
+                                            <option value="Other">Other</option>
+
+                                        </select>
+                                        <div *ngIf="Submitted && f.Industry.errors" class="text text-danger">
+                                            <div>Industry is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                        <label>Business License Type</label><span style="color:red">*</span>
+                                        <select id="ddlLicenseType" class="custom-select" formControlName="businessLicenseType" (change)="ChangeLicenseType()" [ngClass]="{ 'is-invalid': Submitted && f.businessLicenseType.errors }">
+                                            <option value="">select</option>
+                                            <option value="GSTIN"> Goods and Services Tax Identification Number (GSTIN)
+                                            </option>
+                                            <option value="BusinessPAN">Business PAN</option>
+                                            <option value="AadharCard">Aadhar Card</option>
+                                        </select>
+                                        <div *ngIf="Submitted && f.businessLicenseType.errors" class="text text-danger">
+                                            <div>Business License Type is required
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-6" *ngIf="f.businessLicenseType.value=='GSTIN'">
+
+                                        <label for="email">GST Number</label><span style="color:red">*</span>
+                                        <input #GSTNo type="text" class="form-control input-upper" id="txtGSTNo" autocomplete="off" (input)="GSTNo.value = GSTNo.value.toUpperCase()" formControlName="GSTNo" maxlength="15" placeholder="GST No">
+                                        <div *ngIf="Submitted && f.GSTNo.errors" class="text text-danger">
+                                            <div>GST Number is required
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-6" *ngIf="f.businessLicenseType.value=='BusinessPAN'">
+
+                                        <label for="email">PAN Number</label><span style="color:red">*</span>
+                                        <input type="text" #PANNo class="form-control" id="txtPANNo" maxlength="10" formControlName="PANNo" (input)="PANNo.value = PANNo.value.toUpperCase()" placeholder="PAN No">
+                                        <div *ngIf="Submitted && f.PANNo.errors" class="text text-danger">
+                                            <div>PAN Number is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-6" *ngIf="f.businessLicenseType.value=='AadharCard'">
+
+                                        <label for="email">Aadhar Card</label><span style="color:red">*</span>
+                                        <input type="text" class="form-control" id="txtAadharCard" autocomplete="off" formControlName="AadharCard" maxlength="14" placeholder="Aadhar Card" [mask]="AadharNumberMask" [showMaskTyped]="showMask" (focus)="addAadharMask($event);" [dropSpecialCharacters]="false">
+                                        <div *ngIf="Submitted && f.AadharCard.errors" class="text text-danger">
+                                            <div>Aadhar Card is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
+
+                                        <label for="email">Business Name</label><span style="color:red">*</span>
+                                        <input type="text" class="form-control" id="BusinessName" formControlName="BusinessName" autocomplete="off" maxlength="100" [ngClass]="{ 'is-invalid': Submitted && f.BusinessName.errors }">
+                                        <div *ngIf="Submitted && f.BusinessName.errors" class="text text-danger">
+                                            <div>Business Name is required
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
+
+                                        <label for="email">Business Phone</label><span style="color:red">*</span>
+                                        <input type="text" class="form-control" id="txtBusinessPhone" maxlength="10" formControlName="BusinessPhone" [mask]="PhoneMask" [dropSpecialCharacters]="false" [showMaskTyped]="showMask" (focus)="addPhoneMask($event);" [ngClass]="{ 'is-invalid': Submitted && f.BusinessPhone.errors }">
+
+                                        <div *ngIf="Submitted && f.BusinessPhone.errors" class="text text-danger">
+                                            <div>Business Phone is required
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                                        <div class="field-label">&nbsp;</div>
+                                        <button type="submit" class="btn-solid btn" (click)="SaveBusinessDetail()">
                                             Save
                                         </button>
                                     </div>
