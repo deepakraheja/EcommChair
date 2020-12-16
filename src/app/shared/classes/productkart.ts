@@ -68,6 +68,8 @@ export class Productkart {
     guaranteeNotes: string;
     deliveryInformationNotes: string;
     suggestionNotes: string;
+    userRecentlyProduct: any[];
+    relatedProduct: any[];
     constructor(
         productID?: number,
         productName?: string,
@@ -134,7 +136,9 @@ export class Productkart {
         totalRating?: number,
         guaranteeNotes?: string,
         deliveryInformationNotes?: string,
-        suggestionNotes?: string
+        suggestionNotes?: string,
+        userRecentlyProduct?: any[],
+        relatedProduct?: any[]
     ) {
         this.productID = productID;
         this.productName = productName;
@@ -206,6 +210,8 @@ export class Productkart {
         this.guaranteeNotes = guaranteeNotes;
         this.deliveryInformationNotes = deliveryInformationNotes;
         this.suggestionNotes = suggestionNotes;
+        this.userRecentlyProduct = userRecentlyProduct;
+        this.relatedProduct = relatedProduct;
     }
 
 }
