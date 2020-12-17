@@ -130,6 +130,12 @@
                                                         {{lstBilling.state}}, {{lstBilling.zipCode}},
                                                         {{lstBilling.country}}
                                                     </div>
+                                                    <div *ngIf="lstUserData[0].isPersonal==false">
+                                                        <b *ngIf="lstBilling.businessLicenseType=='GSTIN'">GST Number : </b> 
+                                                        <b *ngIf="lstBilling.businessLicenseType=='BusinessPAN'">Business PAN : </b> 
+                                                        <b *ngIf="lstBilling.businessLicenseType=='AadharCard'">Aadhar Card : </b> 
+                                                        {{lstBilling.businessLicenseNo}}
+                                                    </div>
                                                 </div>
                                                 <div class="col-md-1">
                                                     <a href="javascript:void(0)"
@@ -523,7 +529,7 @@
                                         </div>
                                     </div> -->
                                     <div class="form-group col-md-4 col-sm-4 col-xs-4">
-                                        <div class="field-label">Company Name </div>
+                                        <div class="field-label">Company Name <span *ngIf="lstUserData[0].isPersonal==false" style="color:red">*</span></div>
                                         <input type="text" name="companyName" [formControl]="checkoutForm.controls['companyName']" value="" placeholder="" autocomplete="off">
                                         <div *ngIf="(checkoutForm.controls.companyName.touched || Submitted) && checkoutForm.controls.companyName.errors?.required" class="text text-danger">
                                             Company Name is required.
@@ -564,7 +570,7 @@
                                             Country is required
                                         </div>
                                     </div>
-                                    <div class="form-group col-md-8 col-sm-8 col-xs-8">
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <div class="field-label">Address <span style="color:red">*</span></div>
                                         <input type="text" name="address" [formControl]="checkoutForm.controls['address']" value="" placeholder="Address" autocomplete="off">
                                         <div *ngIf="(checkoutForm.controls.address.touched || Submitted) && checkoutForm.controls.address.errors?.required" class="text text-danger">
@@ -640,7 +646,32 @@
                                             City is required
                                         </div>
                                     </div>
+                                    <div class="form-group col-md-4 col-sm-4 col-xs-4" *ngIf="lstUserData[0].isPersonal==false">
+                                        <div class="field-label">Business License Type <span style="color:red">*</span></div>
+                                        <select id="ddlLicenseType" name="businessLicenseType" [formControl]="checkoutForm.controls['businessLicenseType']">
+                                            <option value="">select</option>
+                                            <option value="GSTIN"> Goods and Services Tax Identification Number (GSTIN)
+                                            </option>
+                                            <option value="BusinessPAN">Business PAN</option>
+                                            <option value="AadharCard">Aadhar Card</option>
+                                        </select>
+                                        <div *ngIf="Submitted && checkoutForm.controls.businessLicenseType.errors" class="text text-danger">
+                                            <div>Business License Type is required
+                                            </div>
+                                        </div>
+                                    </div>
 
+                                    <div class="form-group col-md-4 col-sm-4 col-xs-4" *ngIf="lstUserData[0].isPersonal==false">
+
+                                        <div class="field-label">Business License No
+                                            <span style="color:red">*</span></div>
+                                        <input #businessLicenseNo type="text" id="txtbusinessLicenseNo" autocomplete="off" (input)="businessLicenseNo.value = checkoutForm.controls['businessLicenseNo'].value.toUpperCase()" name="businessLicenseNo" [formControl]="checkoutForm.controls['businessLicenseNo']"
+                                            maxlength="15" placeholder="Business License No">
+                                        <div *ngIf="Submitted && checkoutForm.controls.businessLicenseNo.errors" class="text text-danger">
+                                            <div>Business License No is required
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                         <div class="field-label">&nbsp;</div>

@@ -97,7 +97,9 @@ export class CheckoutComponent implements OnInit {
       shippingCharge: [0],
       totalAmount: [0],
       notes: [''],
-      statusId: [0]
+      statusId: [0],
+      businessLicenseType: [''],
+      businessLicenseNo: [''],
     });
     this.businessForm = this.fb.group({
       BusinessType: ['', Validators.required],
@@ -133,6 +135,8 @@ export class CheckoutComponent implements OnInit {
       city: [lst.city, Validators.required],
       state: [lst.state],
       zipCode: [lst.zipCode, Validators.required],
+      businessLicenseType: [lst.businessLicenseType],
+      businessLicenseNo: [lst.businessLicenseNo],
     });
     this.modalService.open(template, {
       size: 'lg',
@@ -147,6 +151,9 @@ export class CheckoutComponent implements OnInit {
   }
 
   SaveBillingAddress() {
+    if (this.user[0].isPersonal == false) {
+      this.BusinessLicenseValidation();
+    }
     this.Submitted = true;
     if (this.checkoutForm.invalid) {
       this.toastr.error("All * fields are mandatory.");
@@ -166,6 +173,8 @@ export class CheckoutComponent implements OnInit {
         city: this.checkoutForm.value.city,
         state: this.checkoutForm.value.state,
         zipCode: this.checkoutForm.value.zipCode,
+        businessLicenseType: this.checkoutForm.value.businessLicenseType,
+        businessLicenseNo: this.checkoutForm.value.businessLicenseNo,
       }
       //  
       this.spinner.show();
@@ -334,6 +343,31 @@ export class CheckoutComponent implements OnInit {
     this.addaddress = true;
 
     this.btnContinue = false;
+    this.checkoutForm = this.fb.group({
+      billingAddressId: [0],
+      userID: this.user[0].userID,
+      fName: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+      //lName: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+      companyName: [''],
+      //phone: ['', [Validators.required, Validators.pattern('[0-9]+')]],
+      //emailId: ['', [Validators.required, Validators.email]],
+      address: ['', [Validators.required, Validators.maxLength(200)]],
+      country: ['India', Validators.required],
+      city: ['', Validators.required],
+      state: [''],
+      zipCode: ['', [Validators.required, Validators.pattern('[0-9]+')]],
+      orderNumber: this._datePipe.transform(new Date().toString(), 'yyyyMMddHHmmss'),
+      orderDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
+      paymentTypeId: [this.user[0].isVIPMember == true ? 3 : 1],
+      subTotal: [0],
+      tax: [18],
+      shippingCharge: [0],
+      totalAmount: [0],
+      notes: [''],
+      statusId: [0],
+      businessLicenseType: [''],
+      businessLicenseNo: [''],
+    });
 
   }
 
@@ -342,83 +376,96 @@ export class CheckoutComponent implements OnInit {
     this.showMask = false;
   }
 
-  
+
   addPhoneMask(obj: Object) {
     this.PhoneMask = "0000000000";
     this.showMask = false;
   }
 
   ChangeLicenseType() {
-    const gstNo = this.businessForm.get('GSTNo');
-    const panNo = this.businessForm.get('PANNo');
-    const AadharCard = this.businessForm.get('AadharCard');
+    const gstNo = this.checkoutForm.get('GSTNo');
+    const panNo = this.checkoutForm.get('PANNo');
+    const AadharCard = this.checkoutForm.get('AadharCard');
 
     gstNo.reset();
     panNo.reset();
     AadharCard.reset();
   }
 
+  BusinessLicenseValidation() {
+    const businessLicenseType = this.checkoutForm.get('businessLicenseType');
+    const businessLicenseNo = this.checkoutForm.get('businessLicenseNo');
+    const companyName = this.checkoutForm.get('companyName');
+
+    businessLicenseType.setValidators([Validators.required]);
+    businessLicenseNo.setValidators([Validators.required]);
+    companyName.setValidators([Validators.required]);
+    businessLicenseType.updateValueAndValidity();
+    businessLicenseNo.updateValueAndValidity();
+    companyName.updateValueAndValidity();
+  }
+
   get f() { return this.businessForm.controls; }
 
   SelectdeliverAddress(template: TemplateRef<any>, lst) {
     debugger
-    if (this.user[0].isPersonal == false) {
-      this._userService.GetUserInfo().subscribe(res => {
-        if (res[0].isPersonal == false && (res[0].businessLicenseType == '' || res[0].businessLicenseType == null)) {
-          this.Submitted = false;
-          this.businessForm = this.fb.group({
-            BusinessType: ['', Validators.required],
-            Industry: ['', Validators.required],
-            businessLicenseType: ['', Validators.required],
-            GSTNo: ['', Validators.required],
-            PANNo: ['', Validators.required],
-            AadharCard: ['', Validators.required],
-            BusinessName: ['', Validators.required],
-            BusinessPhone: ['', Validators.required]
-          });
+    // if (this.user[0].isPersonal == false) {
+    //   this._userService.GetUserInfo().subscribe(res => {
+    //     if (res[0].isPersonal == false && (res[0].businessLicenseType == '' || res[0].businessLicenseType == null)) {
+    //       this.Submitted = false;
+    //       this.businessForm = this.fb.group({
+    //         BusinessType: ['', Validators.required],
+    //         Industry: ['', Validators.required],
+    //         businessLicenseType: ['', Validators.required],
+    //         GSTNo: ['', Validators.required],
+    //         PANNo: ['', Validators.required],
+    //         AadharCard: ['', Validators.required],
+    //         BusinessName: ['', Validators.required],
+    //         BusinessPhone: ['', Validators.required]
+    //       });
 
-          this.modalService.open(template, {
-            size: 'lg',
-            //ariaLabelledBy: 'Cart-Modal',
-            centered: true,
-            //windowClass: 'theme-modal cart-modal CartModal'
-          }).result.then((result) => {
-            `Result ${result}`
-          }, (reason) => {
-            this.modalService.dismissAll();
-          });
-          return;
-        }
-        else {
-          this.Address1 = false;
-          this.Address2 = true;
-          this.addnewaddress = false;
-          this.addaddress = false;
-          this.Submitted = false;
-          this.OrderSummary1 = false;
-          this.OrderSummary2 = true;
-          this.btnContinue = true;
+    //       this.modalService.open(template, {
+    //         size: 'lg',
+    //         //ariaLabelledBy: 'Cart-Modal',
+    //         centered: true,
+    //         //windowClass: 'theme-modal cart-modal CartModal'
+    //       }).result.then((result) => {
+    //         `Result ${result}`
+    //       }, (reason) => {
+    //         this.modalService.dismissAll();
+    //       });
+    //       return;
+    //     }
+    //     else {
+    //       this.Address1 = false;
+    //       this.Address2 = true;
+    //       this.addnewaddress = false;
+    //       this.addaddress = false;
+    //       this.Submitted = false;
+    //       this.OrderSummary1 = false;
+    //       this.OrderSummary2 = true;
+    //       this.btnContinue = true;
 
-          const billingAddressId = this.checkoutForm.get('billingAddressId');
-          billingAddressId.setValue(lst.billingAddressId);
-          billingAddressId.updateValueAndValidity();
-        }
-      });
-    }
-    else {
-      this.Address1 = false;
-      this.Address2 = true;
-      this.addnewaddress = false;
-      this.addaddress = false;
-      this.Submitted = false;
-      this.OrderSummary1 = false;
-      this.OrderSummary2 = true;
-      this.btnContinue = true;
+    //       const billingAddressId = this.checkoutForm.get('billingAddressId');
+    //       billingAddressId.setValue(lst.billingAddressId);
+    //       billingAddressId.updateValueAndValidity();
+    //     }
+    //   });
+    // }
+    // else {
+    this.Address1 = false;
+    this.Address2 = true;
+    this.addnewaddress = false;
+    this.addaddress = false;
+    this.Submitted = false;
+    this.OrderSummary1 = false;
+    this.OrderSummary2 = true;
+    this.btnContinue = true;
 
-      const billingAddressId = this.checkoutForm.get('billingAddressId');
-      billingAddressId.setValue(lst.billingAddressId);
-      billingAddressId.updateValueAndValidity();
-    }
+    const billingAddressId = this.checkoutForm.get('billingAddressId');
+    billingAddressId.setValue(lst.billingAddressId);
+    billingAddressId.updateValueAndValidity();
+    //}
 
 
 
@@ -463,6 +510,9 @@ export class CheckoutComponent implements OnInit {
 
 
   SaveAddress() {
+    if (this.user[0].isPersonal == false) {
+      this.BusinessLicenseValidation();
+    }
     this.Submitted = true;
     if (this.checkoutForm.invalid) {
       this.toastr.error("All * fields are mandatory.");
@@ -483,6 +533,8 @@ export class CheckoutComponent implements OnInit {
         city: this.checkoutForm.value.city,
         state: this.checkoutForm.value.state,
         zipCode: this.checkoutForm.value.zipCode,
+        businessLicenseType: this.checkoutForm.value.businessLicenseType,
+        businessLicenseNo: this.checkoutForm.value.businessLicenseNo,
         //orderNumber: this._datePipe.transform(new Date().toString(), 'yyyyMMddHHmmss'),
         //orderDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
         //paymentTypeId: Number(this.checkoutForm.value.paymentTypeId),

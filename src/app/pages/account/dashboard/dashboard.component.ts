@@ -59,6 +59,18 @@ export class DashboardComponent implements OnInit {
   addPinCodeMask(obj: Object) {
     this.PinCodeMask = "000000";
   }
+  BusinessLicenseValidation() {
+    const businessLicenseType = this.checkoutForm.get('businessLicenseType');
+    const businessLicenseNo = this.checkoutForm.get('businessLicenseNo');
+    const companyName = this.checkoutForm.get('companyName');
+
+    businessLicenseType.setValidators([Validators.required]);
+    businessLicenseNo.setValidators([Validators.required]);
+    companyName.setValidators([Validators.required]);
+    businessLicenseType.updateValueAndValidity();
+    businessLicenseNo.updateValueAndValidity();
+    companyName.updateValueAndValidity();
+  }
 
   ngOnInit(): void {
     this._SharedDataService.currentUser.subscribe(a => {
@@ -76,6 +88,8 @@ export class DashboardComponent implements OnInit {
         city: ['', Validators.required],
         state: ['', Validators.required],
         zipCode: ['', Validators.required],
+        businessLicenseType: [''],
+        businessLicenseNo: [''],
       });
 
       this.ChangePwdForm = this.fb.group({
@@ -230,6 +244,8 @@ export class DashboardComponent implements OnInit {
       city: ['', Validators.required],
       state: ['', Validators.required],
       zipCode: ['', Validators.required],
+      businessLicenseType: [''],
+      businessLicenseNo: [''],
     });
     this.modalService.open(template, {
       size: 'lg',
@@ -258,6 +274,8 @@ export class DashboardComponent implements OnInit {
       city: [lst.city, Validators.required],
       state: [lst.state, Validators.required],
       zipCode: [lst.zipCode, Validators.required],
+      businessLicenseType: [lst.businessLicenseType],
+      businessLicenseNo: [lst.businessLicenseNo],
     });
     this.modalService.open(template, {
       size: 'lg',
@@ -302,6 +320,9 @@ export class DashboardComponent implements OnInit {
   }
 
   SaveBillingAddress() {
+    if (this.lstUserData[0].isPersonal == false) {
+      this.BusinessLicenseValidation();
+    }
     this.Submitted = true;
     if (this.checkoutForm.invalid) {
       this.toastr.error("All * fields are mandatory.");
@@ -321,6 +342,8 @@ export class DashboardComponent implements OnInit {
         city: this.checkoutForm.value.city,
         state: this.checkoutForm.value.state,
         zipCode: this.checkoutForm.value.zipCode,
+        businessLicenseType: this.checkoutForm.value.businessLicenseType,
+        businessLicenseNo: this.checkoutForm.value.businessLicenseNo,
       }
       //  
       this.spinner.show();
