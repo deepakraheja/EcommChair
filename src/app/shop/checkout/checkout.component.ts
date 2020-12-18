@@ -98,13 +98,13 @@ export class CheckoutComponent implements OnInit {
       totalAmount: [0],
       notes: [''],
       statusId: [0],
-      businessLicenseType: [''],
+      businessLicenseType: ['GSTIN'],
       businessLicenseNo: [''],
     });
     this.businessForm = this.fb.group({
       BusinessType: ['', Validators.required],
       Industry: ['', Validators.required],
-      businessLicenseType: ['', Validators.required],
+      businessLicenseType: ['GSTIN', Validators.required],
       GSTNo: ['', Validators.required],
       PANNo: ['', Validators.required],
       AadharCard: ['', Validators.required],
@@ -368,7 +368,7 @@ export class CheckoutComponent implements OnInit {
       totalAmount: [0],
       notes: [''],
       statusId: [0],
-      businessLicenseType: [''],
+      businessLicenseType: ['GSTIN'],
       businessLicenseNo: [''],
     });
 

@@ -538,6 +538,17 @@
                                             Company Name must be an alphabates.
                                         </div>
                                     </div>
+                                    <div class="form-group col-md-4 col-sm-4 col-xs-4" *ngIf="lstUserData[0].isPersonal==false">
+
+                                        <div class="field-label">Goods and Services Tax Identification Number (GSTIN)
+                                            <span style="color:red">*</span></div>
+                                        <input #businessLicenseNo type="text" id="txtbusinessLicenseNo" autocomplete="off" (input)="businessLicenseNo.value = checkoutForm.controls['businessLicenseNo'].value.toUpperCase()" name="businessLicenseNo" [formControl]="checkoutForm.controls['businessLicenseNo']"
+                                            maxlength="15" placeholder="Goods and Services Tax Identification Number (GSTIN)">
+                                        <div *ngIf="Submitted && checkoutForm.controls.businessLicenseNo.errors" class="text text-danger">
+                                            <div>Goods and Services Tax Identification Number (GSTIN) is required
+                                            </div>
+                                        </div>
+                                    </div>
                                     <!-- <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                         <div class="field-label">Phone <span style="color:red">*</span></div>
                                         <input type="text" name="phone" maxlength="10" [formControl]="checkoutForm.controls['phone']" value="" placeholder="" autocomplete="off">
@@ -558,18 +569,7 @@
                                             Invalid Email Address
                                         </div>
                                     </div> -->
-                                    <div class="form-group col-md-4 col-sm-4 col-xs-4">
-                                        <div class="field-label">Country <span style="color:red">*</span></div>
-                                        <select name="country" [formControl]="checkoutForm.controls['country']">
-                                            <!-- <option value="" selected>Select Country</option> -->
-                                            <option value="India">India</option>
-                                            <!-- <option value="USA">USA</option>
-                                            <option value="Australia">Australia</option> -->
-                                        </select>
-                                        <div *ngIf="(checkoutForm.controls.country.touched || Submitted) && checkoutForm.controls.country.errors?.required" class="text text-danger">
-                                            Country is required
-                                        </div>
-                                    </div>
+
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <div class="field-label">Address <span style="color:red">*</span></div>
                                         <input type="text" name="address" [formControl]="checkoutForm.controls['address']" value="" placeholder="Address" autocomplete="off">
@@ -646,7 +646,19 @@
                                             City is required
                                         </div>
                                     </div>
-                                    <div class="form-group col-md-4 col-sm-4 col-xs-4" *ngIf="lstUserData[0].isPersonal==false">
+                                    <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                                        <div class="field-label">Country <span style="color:red">*</span></div>
+                                        <select name="country" [formControl]="checkoutForm.controls['country']">
+                                            <!-- <option value="" selected>Select Country</option> -->
+                                            <option value="India">India</option>
+                                            <!-- <option value="USA">USA</option>
+                                            <option value="Australia">Australia</option> -->
+                                        </select>
+                                        <div *ngIf="(checkoutForm.controls.country.touched || Submitted) && checkoutForm.controls.country.errors?.required" class="text text-danger">
+                                            Country is required
+                                        </div>
+                                    </div>
+                                    <!-- <div class="form-group col-md-4 col-sm-4 col-xs-4" *ngIf="lstUserData[0].isPersonal==false">
                                         <div class="field-label">Business License Type <span style="color:red">*</span></div>
                                         <select id="ddlLicenseType" name="businessLicenseType" [formControl]="checkoutForm.controls['businessLicenseType']">
                                             <option value="">select</option>
@@ -659,19 +671,9 @@
                                             <div>Business License Type is required
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
 
-                                    <div class="form-group col-md-4 col-sm-4 col-xs-4" *ngIf="lstUserData[0].isPersonal==false">
 
-                                        <div class="field-label">Business License No
-                                            <span style="color:red">*</span></div>
-                                        <input #businessLicenseNo type="text" id="txtbusinessLicenseNo" autocomplete="off" (input)="businessLicenseNo.value = checkoutForm.controls['businessLicenseNo'].value.toUpperCase()" name="businessLicenseNo" [formControl]="checkoutForm.controls['businessLicenseNo']"
-                                            maxlength="15" placeholder="Business License No">
-                                        <div *ngIf="Submitted && checkoutForm.controls.businessLicenseNo.errors" class="text text-danger">
-                                            <div>Business License No is required
-                                            </div>
-                                        </div>
-                                    </div>
 
                                     <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                         <div class="field-label">&nbsp;</div>

@@ -88,7 +88,7 @@ export class DashboardComponent implements OnInit {
         city: ['', Validators.required],
         state: ['', Validators.required],
         zipCode: ['', Validators.required],
-        businessLicenseType: [''],
+        businessLicenseType: ['GSTIN'],
         businessLicenseNo: [''],
       });
 
@@ -244,7 +244,7 @@ export class DashboardComponent implements OnInit {
       city: ['', Validators.required],
       state: ['', Validators.required],
       zipCode: ['', Validators.required],
-      businessLicenseType: [''],
+      businessLicenseType: ['GSTIN'],
       businessLicenseNo: [''],
     });
     this.modalService.open(template, {
