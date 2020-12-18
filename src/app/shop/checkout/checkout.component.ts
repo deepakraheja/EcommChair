@@ -226,6 +226,9 @@ export class CheckoutComponent implements OnInit {
       };
       this._billingAddressService.GetBillingAddress(obj).subscribe(res => {
         this.lstBillingAddress = res;
+        if(this.lstBillingAddress.length==0){
+          this.AddNewAddress();
+        }
         this.AddressId = res[0].billingAddressId;
         this.email = res[0].emailId;
         this.SelectedAddress = res[0].address + ' ' + res[0].city + ' ' + res[0].state + ' ' + res[0].zipCode + ' ' + res[0].country
