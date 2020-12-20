@@ -7,9 +7,16 @@ export const environment = {
   //*********************Production Server************* */
  
 
-  BASE_API_URL: 'http://208.109.12.71/EcommChairApiV3/api/',
-  ProductImage: 'http://208.109.12.71/EcommChairApiV3/ProductImage/',
-  Report_Path: 'http://208.109.12.71/EcommChairApiV3/ReportGenerate/',
-  WebSite_URL: 'http://208.109.12.71/EcommChair/',
-  Invoice_URL:'http://208.109.12.71/EcommChairApiV3/TempPDF/',
+  // BASE_API_URL: 'http://208.109.12.71/EcommChairApiV3/api/',
+  // ProductImage: 'http://208.109.12.71/EcommChairApiV3/ProductImage/',
+  // Report_Path: 'http://208.109.12.71/EcommChairApiV3/ReportGenerate/',
+  // WebSite_URL: 'http://208.109.12.71/EcommChair/',
+  // Invoice_URL:'http://208.109.12.71/EcommChairApiV3/TempPDF/',
+
+  BASE_API_URL: 'http://apiservice.alibabachair.com/api/',
+  ProductImage: 'http://apiservice.alibabachair.com/ProductImage/',
+  Report_Path: 'http://apiservice.alibabachair.com/ReportGenerate/',
+  WebSite_URL: 'www.alibabachair.com',
+  Invoice_URL:'http://apiservice.alibabachair.com/TempPDF/',
+
 };
