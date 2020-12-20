@@ -17,19 +17,19 @@ export const environment = {
 
   //*********************Local Server************* */
 
-  ProductImage: 'http://localhost:56283/ProductImage/',
-  BASE_API_URL: 'http://localhost:56283/api/',
-  Report_Path: 'http://localhost:56283/ReportGenerate/',
-  WebSite_URL: 'http://localhost:4200/',
-  Invoice_URL:'http://localhost:56283/TempPDF/',
+  // ProductImage: 'http://localhost:56283/ProductImage/',
+  // BASE_API_URL: 'http://localhost:56283/api/',
+  // Report_Path: 'http://localhost:56283/ReportGenerate/',
+  // WebSite_URL: 'http://localhost:4200/',
+  // Invoice_URL:'http://localhost:56283/TempPDF/',
 
   //*********************Production Server************* */
 
-  // BASE_API_URL: 'http://apiservice.alibabachair.com/api/',
-  // ProductImage: 'http://apiservice.alibabachair.com/ProductImage/',
-  // Report_Path: 'http://apiservice.alibabachair.com/ReportGenerate/',
-  // WebSite_URL: 'www.alibabachair.com',
-  // Invoice_URL:'http://apiservice.alibabachair.com/TempPDF/',
+  BASE_API_URL: 'http://apiservice.alibabachair.com/api/',
+  ProductImage: 'http://apiservice.alibabachair.com/ProductImage/',
+  Report_Path: 'http://apiservice.alibabachair.com/ReportGenerate/',
+  WebSite_URL: 'www.alibabachair.com',
+  Invoice_URL:'http://apiservice.alibabachair.com/TempPDF/',
 
 };
 
