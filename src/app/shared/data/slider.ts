@@ -204,10 +204,10 @@ export let ProductSlider: any = {
             items: 7
         },
         420: {
-            items: 7
+            items: 4
         }, 
         0: {
-            items: 7
+            items: 4
         }
     }
 }
