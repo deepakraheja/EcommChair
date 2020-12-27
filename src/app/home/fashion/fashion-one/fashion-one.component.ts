@@ -13,7 +13,7 @@ import { CategoryService } from 'src/app/Service/category.service';
   styleUrls: ['./fashion-one.component.scss']
 })
 export class FashionOneComponent implements OnInit {
-
+  public counter = 43808;
   public products: Product[] = [];
   public productCollections: any[] = [
     { name: "new products" },
@@ -24,7 +24,7 @@ export class FashionOneComponent implements OnInit {
 
   public productskart: Productkart[] = [];
   public productskartselling: Productkart[] = [];
-  
+
   public bannerItems: any[];
 
   constructor(public productService: ProductService,
@@ -46,6 +46,42 @@ export class FashionOneComponent implements OnInit {
 
 
     this.BindProductByCategory();
+
+    var seconds = new Date().getSeconds()
+    var today = new Date().getDate()
+
+    //var hms = '02:04:33';   // your input string
+    //var a = hms.split(':'); // split it at the colons
+
+    // minutes are worth 60 seconds. Hours are worth 60 minutes.
+    //var seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
+
+    this.counter = 2020 + today + seconds;
+    //console.log(seconds);
+    this.Set_Time();
+  }
+
+  Set_Time() {
+    debugger
+    if (this.counter != 0) {
+      this.counter++;
+
+    }
+    else {
+      clearTimeout();
+    }
+
+    setTimeout(() => {
+      debugger
+      if (this.counter > 0) {
+        this.Set_Time();
+      }
+      if (this.counter == 0) {
+        //this.router.navigate(['/Profile']);
+      }
+
+    }, 5000);
+
   }
 
 
@@ -164,13 +200,13 @@ export class FashionOneComponent implements OnInit {
 
 
   BindBanner(): void {
-   
+
     this._categoryService.GetBannerJson().subscribe(bannerItems => {
-      
+
       this.bannerItems = bannerItems;
-       //sliders = this.bannerItems
+      //sliders = this.bannerItems
     });
-    
+
   }
 
 
