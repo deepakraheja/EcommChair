@@ -49,6 +49,9 @@ export class FashionOneComponent implements OnInit {
 
     var seconds = new Date().getSeconds()
     var today = new Date().getDate()
+    var year = new Date().getFullYear()
+    var min = new Date().getMinutes()
+    var hour = new Date().getHours()
 
     //var hms = '02:04:33';   // your input string
     //var a = hms.split(':'); // split it at the colons
@@ -56,7 +59,7 @@ export class FashionOneComponent implements OnInit {
     // minutes are worth 60 seconds. Hours are worth 60 minutes.
     //var seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
 
-    this.counter = 2020 + today + seconds;
+    this.counter = year + today + hour + min + seconds;
     //console.log(seconds);
     this.Set_Time();
   }
