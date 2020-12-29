@@ -25,11 +25,18 @@ export const environment = {
 
   //*********************Production Server************* */
 
-  BASE_API_URL: 'http://apiservice.alibabachair.com/api/',
-  ProductImage: 'http://apiservice.alibabachair.com/ProductImage/',
-  Report_Path: 'http://apiservice.alibabachair.com/ReportGenerate/',
+  // BASE_API_URL: 'http://apiservice.alibabachair.com/api/',
+  // ProductImage: 'http://apiservice.alibabachair.com/ProductImage/',
+  // Report_Path: 'http://apiservice.alibabachair.com/ReportGenerate/',
+  // WebSite_URL: 'www.alibabachair.com',
+  // Invoice_URL:'http://apiservice.alibabachair.com/TempPDF/',
+
+  BASE_API_URL: 'https://store.alibabachair.com/api/',
+  ProductImage: 'https://store.alibabachair.com/ProductImage/',
+  Report_Path: 'https://store.alibabachair.com/ReportGenerate/',
   WebSite_URL: 'www.alibabachair.com',
-  Invoice_URL:'http://apiservice.alibabachair.com/TempPDF/',
+  Invoice_URL: 'https://store.alibabachair.com/TempPDF/',
+
 
 };
 
