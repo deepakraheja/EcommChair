@@ -65,7 +65,7 @@ export class FashionOneComponent implements OnInit {
   }
 
   Set_Time() {
-    debugger
+    // debugger
     if (this.counter != 0) {
       this.counter++;
 
@@ -75,7 +75,7 @@ export class FashionOneComponent implements OnInit {
     }
 
     setTimeout(() => {
-      debugger
+      // debugger
       if (this.counter > 0) {
         this.Set_Time();
       }
