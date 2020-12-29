@@ -14259,8 +14259,8 @@ header .main-navbar .nav-menu>li>a {
 }
 
 .no-slider .product-box {
-    flex: 0 0 20%;
-    max-width: calc(20% - 30px);
+    flex: 0 0 22%;
+    max-width: calc(30% - 40px);
 }
 
 .collection-banner .contain-banner h2 {
@@ -15113,8 +15113,9 @@ header .main-navbar .nav-menu {
 .d-n {
     display: none;
 }
-.text-grey{
+
+.text-grey {
     font-weight: 500;
-color: #878787;
-font-size: 14px;
+    color: #878787;
+    font-size: 14px;
 }
