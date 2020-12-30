@@ -61,8 +61,7 @@
                     <ng-container *ngFor="let product of productskartselling | slice:0:500">
                         <ng-template carouselSlide>
                             <div class="product-box">
-                                <app-product-box [productkart]="product" [currency]="productService?.Currency"
-                                    [thumbnail]="true">
+                                <app-product-box [productkart]="product" [currency]="productService?.Currency" [thumbnail]="true">
                                 </app-product-box>
                             </div>
                         </ng-template>
@@ -80,10 +79,8 @@
             <div class="wrapper clearfix">
                 <div class="col-sm-12 shipping-count">
                     <h2 class="white-color nomargin" style="color: white;
-                    text-align: right;"><span style="font-family: Roboto,sans-serif;font-weight: 700;font-size: .5em;"
-                            class="vertically-center">CURRENTLY DELIVERING PACKAGE
-                            NUMBER:</span> <span id="curr_delivered_packts"
-                            style="display: inline-block; vertical-align: middle;">{{counter}}</span></h2>
+                    text-align: right;"><span style="font-family: Roboto,sans-serif;font-weight: 700;font-size: .5em;" class="vertically-center">CURRENTLY DELIVERING PACKAGE
+                            NUMBER:</span> <span id="curr_delivered_packts" style="display: inline-block; vertical-align: middle;">{{counter}}</span></h2>
                 </div>
             </div>
         </div>
@@ -91,8 +88,7 @@
 </section>
 <!-- Parallax banner start-->
 <section>
-    <div class="full-banner parallax-banner1 parallax text-center p-left"
-        [ngStyle]="{'background-image': 'url(assets/images/parallax/1.jpg)'}">
+    <div class="full-banner parallax-banner1 parallax text-center p-left" [ngStyle]="{'background-image': 'url(assets/images/parallax/1.jpg)'}">
         <!-- commented on 2 nov by deepak-->
         <div class="container">
             <div class="row">
@@ -168,16 +164,34 @@
 <!-- blog section End -->
 
 <!-- Instagram section -->
-<!-- <section class="instagram">
-  <div class="container-fluid ">
-    <div class="row">
-      <div class="col-md-12 p-0">
-        <h2 class="title-borderless"># instagram</h2>
-        <app-instagram></app-instagram>
-      </div>
+<section class="instagram">
+    <div class="container-fluid ">
+        <div class="row">
+            <div class="col-md-12 p-0">
+                <h2 class="title-borderless">Our Courier Partners</h2>
+                <!-- <app-instagram></app-instagram> -->
+
+                <owl-carousel-o [options]="InstaSliderConfig" class="no-arrow instagram">
+                    <ng-container *ngFor="let img of Courier">
+                        <ng-template carouselSlide>
+                            <div>
+                                <!-- <a [href]="insta.link"> -->
+                                <div class="instagram-box">
+                                    <img [src]="img.CourierImage" alt="Avatar" style="width:100%">
+                                    <div class="overlay">
+                                        <!-- <i class="fa fa-instagram" aria-hidden="true"></i> -->
+                                    </div>
+                                </div>
+                                <!-- </a> -->
+                            </div>
+                        </ng-template>
+                    </ng-container>
+                </owl-carousel-o>
+
+            </div>
+        </div>
     </div>
-  </div>
-</section> -->
+</section>
 <!-- Instagram section End -->
 
 <!--  logo section start-->

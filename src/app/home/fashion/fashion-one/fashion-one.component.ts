@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductSlider } from '../../../shared/data/slider';
+import { InstaSlider, ProductSlider } from '../../../shared/data/slider';
 import { Product } from '../../../shared/classes/product';
 import { ProductService } from '../../../shared/services/product.service';
 import { Productkart } from 'src/app/shared/classes/productkart';
@@ -15,6 +15,32 @@ import { CategoryService } from 'src/app/Service/category.service';
 export class FashionOneComponent implements OnInit {
   public counter = 43808;
   public products: Product[] = [];
+  public InstaSliderConfig: any = {
+    loop: true,
+    dots: false,
+    navSpeed: 300,
+    responsive: {
+      740: {
+        items: 6
+      },
+      940: {
+        items: 12
+      },
+      1200: {
+        items: 12
+      }
+    }
+  };
+  public Courier: any[] = [
+    { CourierImage: "assets/images/Courier/Blue_Dart.jpg" },
+    { CourierImage: "assets/images/Courier/Delhivery.jpg" },
+    { CourierImage: "assets/images/Courier/DHL.jpg" },
+    { CourierImage: "assets/images/Courier/Ecom_Express.jpg" },
+    { CourierImage: "assets/images/Courier/Ekart_Logistics.jpg" },
+    { CourierImage: "assets/images/Courier/FedEx.jpg" },
+    { CourierImage: "assets/images/Courier/GATI.jpg" },
+    { CourierImage: "assets/images/Courier/Xpressbees.jpg" }
+  ];
   public productCollections: any[] = [
     { name: "new products" },
     // { name: "Refilling" },

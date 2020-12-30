@@ -52,7 +52,7 @@
                                     <div *ngFor="let image of  productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg; index as i" class="thumbnail-img mrg-btm-minus">
                                         <div class="owl-thumb thumb-left-img" [class.active]="i == activeSlide">
                                             <img [defaultImage]="'assets/images/product/placeholder.jpg'" [lazyLoad]="ProductImage+productkart[0]?.productID+'/productColorImage/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productSizeColorId+'/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg[i]"
-                                                [alt]="image.alt" class="img-fluid" (click)="owlCar.to(activeSlide1 = i.toString())" (mouseover)="owlCar.to(activeSlide1 = i.toString())">
+                                                [alt]="image.alt" class="img-fluid" (click)="owlCar.to(activeSlide = i.toString())" (mouseover)="owlCar.to(activeSlide = i.toString())">
                                         </div>
                                     </div>
                                 </div>

@@ -88,7 +88,7 @@ export class CheckoutComponent implements OnInit {
       country: ['India', Validators.required],
       city: ['', Validators.required],
       state: [''],
-      zipCode: ['', [Validators.required, Validators.pattern('[0-9]+')]],
+      zipCode: ['', [Validators.required, Validators.pattern('[0-9]+'), Validators.minLength(6)]],
       orderNumber: this._datePipe.transform(new Date().toString(), 'yyyyMMddHHmmss'),
       orderDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
       paymentTypeId: [this.user[0].isVIPMember == true ? 3 : 1],
@@ -134,7 +134,7 @@ export class CheckoutComponent implements OnInit {
       country: [lst.country, Validators.required],
       city: [lst.city, Validators.required],
       state: [lst.state],
-      zipCode: [lst.zipCode, Validators.required],
+      zipCode: [lst.zipCode, Validators.required, Validators.minLength(6)],
       businessLicenseType: [lst.businessLicenseType],
       businessLicenseNo: [lst.businessLicenseNo],
     });
@@ -226,7 +226,7 @@ export class CheckoutComponent implements OnInit {
       };
       this._billingAddressService.GetBillingAddress(obj).subscribe(res => {
         this.lstBillingAddress = res;
-        if(this.lstBillingAddress.length==0){
+        if (this.lstBillingAddress.length == 0) {
           this.AddNewAddress();
         }
         this.AddressId = res[0].billingAddressId;
@@ -358,7 +358,7 @@ export class CheckoutComponent implements OnInit {
       country: ['India', Validators.required],
       city: ['', Validators.required],
       state: [''],
-      zipCode: ['', [Validators.required, Validators.pattern('[0-9]+')]],
+      zipCode: ['', [Validators.required, Validators.pattern('[0-9]+'), Validators.minLength(6)]],
       orderNumber: this._datePipe.transform(new Date().toString(), 'yyyyMMddHHmmss'),
       orderDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
       paymentTypeId: [this.user[0].isVIPMember == true ? 3 : 1],
@@ -401,7 +401,7 @@ export class CheckoutComponent implements OnInit {
     const companyName = this.checkoutForm.get('companyName');
 
     businessLicenseType.setValidators([Validators.required]);
-    businessLicenseNo.setValidators([Validators.required]);
+    businessLicenseNo.setValidators([Validators.required, Validators.minLength(12)]);
     companyName.setValidators([Validators.required]);
     businessLicenseType.updateValueAndValidity();
     businessLicenseNo.updateValueAndValidity();

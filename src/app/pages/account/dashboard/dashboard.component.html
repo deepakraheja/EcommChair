@@ -65,9 +65,9 @@
                                         </div>
                                         <div class="box-content">
                                             <h6><b>Business Name : </b>{{lstUserData[0].businessName}}</h6>
-                                            <h6><b>Business Type : </b>{{getBusineesType(lstUserData[0].businessType)}}
+                                            <!-- <h6><b>Business Type : </b>{{getBusineesType(lstUserData[0].businessType)}}
                                             </h6>
-                                            <h6><b>Industry : </b>{{lstUserData[0].industry}}</h6>
+                                            <h6><b>Industry : </b>{{lstUserData[0].industry}}</h6> -->
                                             <h6>
                                                 <b>Business LicenseType :
                                                 </b>{{ getBusineesLicenseType(lstUserData[0].businessLicenseType)}}
@@ -81,7 +81,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <!-- <div class="col-sm-6">
                                     <div class="box">
                                         <div class="box-title">
                                             Business Address Detail
@@ -94,7 +94,7 @@
                                             <h6><b>PinCode : </b>{{lstUserData[0].pinCode}}</h6>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
 
                         </div>
@@ -367,9 +367,14 @@
                                                     <br>
                                                     <span style="color: red;" *ngIf="lst.statusId>=3">
                                                         Dispatched By : {{product?.transportName}}, Tracking Id :
-                                                        {{product?.bilty}} &nbsp; <a href="{{product?.trackingURL}}" target="_blank"
+                                                        {{product?.bilty}}
+                                                    </span>
+                                                    <br>
+                                                    <span style="color: red;" *ngIf="lst.statusId>=3">
+                                                        Tracking URL : <a href="{{product?.trackingURL}}" target="_blank"
                                                             *ngIf="product?.trackingURL!=''">
-                                                            Click here for Tracking URL
+                                                            <!-- Click here for Tracking URL -->
+                                                            {{product?.trackingURL}}
                                                         </a>
                                                     </span>
                                                 </td>
