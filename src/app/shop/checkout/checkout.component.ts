@@ -76,6 +76,7 @@ export class CheckoutComponent implements OnInit {
     private _userService: UsersService
   ) {
     this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
+    this.email = this.user[0].email;
     this.checkoutForm = this.fb.group({
       billingAddressId: [0],
       userID: this.user[0].userID,
