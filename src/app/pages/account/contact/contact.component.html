@@ -55,30 +55,52 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <form class="theme-form">
+                <form class="theme-form" [formGroup]="ContactUsForm">
                     <div class="form-row">
                         <div class="col-md-6">
-                            <label for="name">First Name</label>
-                            <input type="text" class="form-control" id="name" placeholder="Enter Your name" required="">
+                            <label for="name">First Name</label><span style="color:red">*</span>
+                            <input type="text" class="form-control" id="name" placeholder="Enter Your First Name" formControlName="firstName">
+                            <div *ngIf="submitted && f.firstName.errors" class="Customerror">
+                                <div>First Name is required
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-6">
-                            <label for="email">Last Name</label>
-                            <input type="text" class="form-control" id="last-name" placeholder="Email" required="">
+                            <label for="email">Last Name</label><span style="color:red">*</span>
+                            <input type="text" class="form-control" id="last-name" placeholder="Enter Your Last Name" formControlName="lastName">
+                            <div *ngIf="submitted && f.lastName.errors" class="Customerror">
+                                <div>Last Name is required
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-6">
-                            <label for="review">Phone number</label>
-                            <input type="text" class="form-control" id="review" placeholder="Enter your number" required="">
+                            <label for="review">Phone number</label><span style="color:red">*</span>
+                            <input type="text" class="form-control" id="review" placeholder="Enter your Phone number" formControlName="phoneNo" maxlength="10" [mask]="PhoneMask" [dropSpecialCharacters]="false" [showMaskTyped]="showMask" (focus)="addPhoneMask($event);">
+                            <div *ngIf="submitted && f.phoneNo.errors" class="Customerror">
+                                <div *ngIf="f.phoneNo.errors.required">Phone number is required
+                                </div>
+                                <div *ngIf="f.phoneNo.value?.length>0 && f.phoneNo.value?.length<10">Phone number must be 10 digit
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-6">
-                            <label for="email">Email</label>
-                            <input type="text" class="form-control" id="email" placeholder="Email" required="">
+                            <label for="email">Email</label><span style="color:red">*</span>
+                            <input type="text" class="form-control" id="email" placeholder="Email" formControlName="email">
+                            <div *ngIf="submitted && f.email.errors" class="Customerror">
+                                <div *ngIf="f.email.errors.required">Email is required</div>
+                                <div *ngIf="f.email.errors.email">Email ID must be a valid email address</div>
+                            </div>
                         </div>
                         <div class="col-md-12">
-                            <label for="review">Write Your Message</label>
-                            <textarea class="form-control" placeholder="Write Your Message" id="exampleFormControlTextarea1" rows="6"></textarea>
+                            <label for="review">Write Your Message</label><span style="color:red">*</span>
+                            <textarea class="form-control" placeholder="Write Your Message" id="exampleFormControlTextarea1" rows="6" formControlName="message"></textarea>
+                            <div *ngIf="submitted && f.message.errors" class="Customerror">
+                                <div>Message is required
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-12">
-                            <button class="btn btn-solid" type="submit">Send Your Message</button>
+                            <button class="btn btn-solid" type="submit" (click)="Save()">Send Your Message</button>
                         </div>
                     </div>
                 </form>
