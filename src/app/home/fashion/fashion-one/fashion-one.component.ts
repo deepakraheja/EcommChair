@@ -6,6 +6,8 @@ import { Productkart } from 'src/app/shared/classes/productkart';
 import { ProductsService } from 'src/app/Service/Products.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CategoryService } from 'src/app/Service/category.service';
+import { CustomerStoryService } from 'src/app/Service/customer-story.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-fashion-one',
@@ -14,6 +16,8 @@ import { CategoryService } from 'src/app/Service/category.service';
 })
 export class FashionOneComponent implements OnInit {
   public counter = 43808;
+  APIURL=environment.APIURL;
+  public ImageSrc: string
   public products: Product[] = [];
   public InstaSliderConfig: any = {
     loop: true,
@@ -31,6 +35,7 @@ export class FashionOneComponent implements OnInit {
       }
     }
   };
+  public lstData: any[] = [];
   public Courier: any[] = [
     { CourierImage: "assets/images/Courier/Blue_Dart.jpg" },
     { CourierImage: "assets/images/Courier/Delhivery.jpg" },
@@ -57,6 +62,7 @@ export class FashionOneComponent implements OnInit {
     private _prodService: ProductsService,
     private spinner: NgxSpinnerService,
     public _categoryService: CategoryService,
+    public _customerStory: CustomerStoryService
   ) {
 
     // this.productService.getProducts.subscribe(response => {
@@ -70,7 +76,7 @@ export class FashionOneComponent implements OnInit {
     //   })
     // });
 
-
+    this.LoadData();
     this.BindProductByCategory();
 
     var seconds = new Date().getSeconds()
@@ -88,6 +94,14 @@ export class FashionOneComponent implements OnInit {
     this.counter = year + today + hour + min + seconds;
     //console.log(seconds);
     this.Set_Time();
+  }
+
+  LoadData() {
+    //this.spinner.show();
+    this._customerStory.GetCustomerStories().subscribe(res => {
+      this.lstData = res;
+      //this.spinner.hide();
+    });
   }
 
   Set_Time() {

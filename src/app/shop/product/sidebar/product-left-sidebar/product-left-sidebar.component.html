@@ -49,21 +49,18 @@
                         <div class="row">
                             <div>
                                 <div class="thumbnail-imgs">
-                                    <div *ngFor="let image of  productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg; index as i"
-                                        class="thumbnail-img mrg-btm-minus">
+                                    <div *ngFor="let image of  productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg; index as i" class="thumbnail-img mrg-btm-minus">
                                         <div class="owl-thumb thumb-left-img" [class.active]="i == activeSlide">
-                                            <img [defaultImage]="'assets/images/product/placeholder.jpg'"
-                                                [lazyLoad]="ProductImage+productkart[0]?.productID+'/productColorImage/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productSizeColorId+'/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg[i]"
-                                                [alt]="image.alt" class="img-fluid" (click)="activeSlide = i.toString();ChangeImage();"
-                                                (mouseover)="activeSlide = i.toString();ChangeImage();">
+                                            <img [defaultImage]="'assets/images/product/placeholder.jpg'" [lazyLoad]="ProductImage+productkart[0]?.productID+'/productColorImage/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productSizeColorId+'/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg[i]"
+                                                [alt]="image.alt" class="img-fluid" (click)="activeSlide = i.toString();ChangeImage();" (mouseover)="activeSlide = i.toString();ChangeImage();">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-10 col-sm-10 col-xl-10 product-carousel border-grey">
                                 <div class="img-zoom-container">
-                                    <img id="zoom_01" class="img-fluid" data-zoom-image="{{ProductImage+productkart[0]?.productID+'/productColorImage/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productSizeColorId+'/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg[activeSlide]}}"
-                                        src="{{ProductImage+productkart[0]?.productID+'/productColorImage/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productSizeColorId+'/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg[activeSlide]}}" />
+                                    <img id="zoom_01" class="img-fluid" src="{{ProductImage+productkart[0]?.productID+'/productColorImage/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productSizeColorId+'/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg[activeSlide]}}"
+                                    />
                                     <!-- <owl-carousel-o [options]="ProductDetailsMainSliderConfig" #owlCar class="product-slick" class="p-1">
                                     <ng-container *ngFor="let image of productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg; index as i">
                                         <ng-template carouselSlide [id]="i">
@@ -81,12 +78,10 @@
                         </div>
                         <div class="product-buttons row mt-2">
                             <div class="col-md-6 mb-2">
-                                <a href="javascrip:void(0)" class="btn btn-solid w-100" [class.disabled]="false"
-                                    (click)="addToCart(1)"><i class="fa fa-shopping-cart"></i> add to cart</a>
+                                <a href="javascrip:void(0)" class="btn btn-solid w-100" [class.disabled]="false" (click)="addToCart(1)"><i class="fa fa-shopping-cart"></i> add to cart</a>
                             </div>
                             <div class="col-md-6 mb-2">
-                                <a href="javascrip:void(0)" class="btn btn-solid w-100" [class.disabled]="false"
-                                    (click)="addToCart(2)"><i class="fa fa-bolt"></i>
+                                <a href="javascrip:void(0)" class="btn btn-solid w-100" [class.disabled]="false" (click)="addToCart(2)"><i class="fa fa-bolt"></i>
                                     Buy now</a>
                             </div>
                         </div>
@@ -132,10 +127,7 @@
                                         {{ (productkart[0]?.businessPrice) | currency: productService.Currency?.currency:'symbol' }}
                                     </h3>
                                     <ul class="color-variant">
-                                        <li [class]="color" [class.active]="activeSlide == color.colorindex.toString()"
-                                            *ngFor="let color of Color(productkart[0]?.productSizeColor); index as i"
-                                            [ngStyle]="{'background-color': color.color}"
-                                            (click)="changecolor(color,color.colorindex.toString())">
+                                        <li [class]="color" [class.active]="activeSlide == color.colorindex.toString()" *ngFor="let color of Color(productkart[0]?.productSizeColor); index as i" [ngStyle]="{'background-color': color.color}" (click)="changecolor(color,color.colorindex.toString())">
                                         </li>
                                     </ul>
                                     <div class="product-description border-product mt-2">
@@ -387,8 +379,7 @@
 
                         <div class="border-product ">
                             <h6 class="product-title">product details</h6>
-                            <div class="blog-post ul-list-circle product-dtl-img"
-                                [innerHTML]="productkart[0]?.shortDetails | safe: 'html'"></div>
+                            <div class="blog-post ul-list-circle product-dtl-img" [innerHTML]="productkart[0]?.shortDetails | safe: 'html'"></div>
                         </div>
                         <!-- <div class="border-product">
                             <h6 class="product-title">share it</h6>
@@ -535,8 +526,7 @@
                                 </div>
                             </div> -->
 
-                            <div class="row border-top"
-                                *ngFor="let review of  productkart[0]?.productReview; index as i">
+                            <div class="row border-top" *ngFor="let review of  productkart[0]?.productReview; index as i">
 
                                 <div class="col-md-12">
                                     <div class="row">
@@ -548,8 +538,7 @@
 
                                         </div>
                                         <div class="col-md-12 pt-0 pl-4 pb-3">
-                                            <p>{{review.name}} <i class="fa fa-check-circle"></i> Certified Buyer,
-                                                {{review.city}} {{review.createdDate | date : 'dd/MM/yyyy'}}</p>
+                                            <p>{{review.name}} <i class="fa fa-check-circle"></i> Certified Buyer, {{review.city}} {{review.createdDate | date : 'dd/MM/yyyy'}}</p>
                                         </div>
                                         <!-- <div class="col-md-6 text-right">
                                         </div> -->
@@ -587,8 +576,7 @@
                             <ngb-tab *ngIf="productkart[0]?.guaranteeNotes!=''">
                                 <ng-template ngbTabTitle>Guarantee</ng-template>
                                 <ng-template ngbTabContent>
-                                    <div class="blog-post ul-list-circle"
-                                        [innerHTML]="productkart[0]?.guaranteeNotes | safe: 'html'">
+                                    <div class="blog-post ul-list-circle" [innerHTML]="productkart[0]?.guaranteeNotes | safe: 'html'">
                                     </div>
                                     <!-- <div class="blog-post ul-list-circle">
                                         <ul>
@@ -617,8 +605,7 @@
                             <ngb-tab *ngIf="productkart[0]?.deliveryInformationNotes!=''">
                                 <ng-template ngbTabTitle>Delivery Information</ng-template>
                                 <ng-template ngbTabContent>
-                                    <div class="blog-post ul-list-circle"
-                                        [innerHTML]="productkart[0]?.deliveryInformationNotes | safe: 'html'">
+                                    <div class="blog-post ul-list-circle" [innerHTML]="productkart[0]?.deliveryInformationNotes | safe: 'html'">
                                     </div>
                                     <!-- <div class="blog-post ul-list-circle">
                                         <ul>
@@ -650,8 +637,7 @@
                             <ngb-tab *ngIf="productkart[0]?.suggestionNotes!=''">
                                 <ng-template ngbTabTitle>Suggestion</ng-template>
                                 <ng-template ngbTabContent>
-                                    <div class="blog-post ul-list-circle"
-                                        [innerHTML]="productkart[0]?.suggestionNotes | safe: 'html'">
+                                    <div class="blog-post ul-list-circle" [innerHTML]="productkart[0]?.suggestionNotes | safe: 'html'">
                                     </div>
                                     <!-- <div class="blog-post ul-list-circle order-list">
                                         <ul>
@@ -700,9 +686,7 @@
                                         <!-- <iframe width="560" height="315"
                                                     src="https://www.youtube.com/embed/BUWzX78Ye_8"
                                                       allow="autoplay; encrypted-media" allowfullscreen></iframe> -->
-                                        <iframe width="560" height="315"
-                                            [src]="productkart[0]?.videoURL | safe: 'resourceUrl'"
-                                            allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                        <iframe width="560" height="315" [src]="productkart[0]?.videoURL | safe: 'resourceUrl'" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                                     </div>
                                 </ng-template>
                             </ngb-tab>
@@ -763,8 +747,7 @@
     <!-- <app-related-product></app-related-product> -->
 
     <!-- product section start -->
-    <section class="section-b-space" *ngIf="recentlyProduct.length>0"
-        style="margin-top: 0px !important; margin-bottom: 0px !important;">
+    <section class="section-b-space" *ngIf="recentlyProduct.length>0" style="margin-top: 0px !important; margin-bottom: 0px !important;">
         <div class="container">
             <div class="row">
                 <div class="col-12 product-related">
@@ -778,8 +761,7 @@
                             <ng-container *ngFor="let product of RelatedProducts">
                                 <ng-template carouselSlide>
                                     <div class="product-box">
-                                        <app-product-box [productkart]="product" [currency]="productService?.Currency"
-                                            [thumbnail]="true">
+                                        <app-product-box [productkart]="product" [currency]="productService?.Currency" [thumbnail]="true">
                                         </app-product-box>
                                     </div>
                                 </ng-template>
@@ -793,8 +775,7 @@
     <!-- product section end -->
 
     <!-- product section start -->
-    <section class="section-b-space" *ngIf="recentlyProduct.length>0"
-        style="margin-top: 0px !important; margin-bottom: 0px !important;">
+    <section class="section-b-space" *ngIf="recentlyProduct.length>0" style="margin-top: 0px !important; margin-bottom: 0px !important;">
         <div class="container">
             <div class="row">
                 <div class="col-12 product-related">
@@ -809,8 +790,7 @@
                             <ng-container *ngFor="let product of recentlyProduct">
                                 <ng-template carouselSlide>
                                     <div class="product-box">
-                                        <app-product-box [productkart]="product" [currency]="productService?.Currency"
-                                            [thumbnail]="true">
+                                        <app-product-box [productkart]="product" [currency]="productService?.Currency" [thumbnail]="true">
                                         </app-product-box>
                                     </div>
                                 </ng-template>

@@ -44,6 +44,7 @@ import { ProductLeftSidebarWithBundleComponent } from './product/sidebar/product
 import { SafePipeModule } from 'safe-pipe';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { NgxMaskModule } from 'ngx-mask';
+import { CustomerStoriesComponent } from './customer-stories/customer-stories.component';
 //import { NgxImageZoomModule } from 'ngx-image-zoom';
 
 @NgModule({
@@ -76,7 +77,8 @@ import { NgxMaskModule } from 'ngx-mask';
     CheckoutComponent,
     SuccessComponent,
     ProductLeftSidebarWithSetComponent,
-    ProductLeftSidebarWithBundleComponent
+    ProductLeftSidebarWithBundleComponent,
+    CustomerStoriesComponent
   ],
   imports: [
     NgxSpinnerModule,

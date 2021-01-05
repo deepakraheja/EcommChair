@@ -22,6 +22,7 @@ import { SuccessComponent } from './checkout/success/success.component';
 import { Resolver } from '../shared/services/resolver.service';
 import { ProductLeftSidebarWithSetComponent } from './product/sidebar/product-left-sidebar-with-set/product-left-sidebar-with-set.component';
 import { ProductLeftSidebarWithBundleComponent } from './product/sidebar/product-left-sidebar-with-bundle/product-left-sidebar-with-bundle.component';
+import { CustomerStoriesComponent } from './customer-stories/customer-stories.component';
 
 const routes: Routes = [
   {
@@ -122,6 +123,10 @@ const routes: Routes = [
   {
     path: 'checkout/success/:id',
     component: SuccessComponent
+  },
+  {
+    path: 'customerStories',
+    component: CustomerStoriesComponent
   }
 ];
 

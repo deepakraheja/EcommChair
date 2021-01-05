@@ -162,6 +162,46 @@
   </div>
 </section> -->
 <!-- blog section End -->
+<!-- Cusotmer Story -->
+
+<section class="instagram" *ngIf="lstData.length>0">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 p-0">
+                <h2 class="title-borderless">Customer Stories</h2>
+
+                <owl-carousel-o [options]="InstaSliderConfig" class="no-arrow instagram">
+                    <ng-container *ngFor="let lst of lstData">
+                        <ng-template carouselSlide>
+                            <div>
+                                <div class="instagram-box">
+                                    <!-- <img [src]="img.CourierImage" alt="Avatar" style="width:100%"> -->
+                                    <img [defaultImage]="ImageSrc ? ImageSrc : 'assets/images/product/placeholder.jpg'" [lazyLoad]="ImageSrc ? ImageSrc : APIURL+'/CustomerStoryImages/'+lst.customerStoryId+'/'+lst.imagePath" class="img-fluid lazy-loading" alt="Avatar" />
+                                    <div class="overlay">
+                                        <i class="fa fa-instagram" aria-hidden="true">{{lst?.notes}}</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+                </owl-carousel-o>
+
+            </div>
+        </div>
+    </div>
+</section>
+<section class="instagram" *ngIf="lstData.length>0">
+    <div class="container-fluid">
+        <div class="col-sm-12 empty-cart-cls text-center">
+            <!-- <a style="text-align: center;" [routerLink]="['/shop/customerStories']">View More Customer Stories</a> -->
+            <div class="text-center">
+                <a [routerLink]="['/shop/customerStories']" class="btn btn-solid">View More Customer Stories</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Customer Story -->
 
 <!-- Instagram section -->
 <section class="instagram">
