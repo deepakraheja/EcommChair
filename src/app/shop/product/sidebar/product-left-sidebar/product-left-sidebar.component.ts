@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Renderer2, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductDetailsMainSlider, ProductDetailsThumbSlider, ProductSlider } from '../../../../shared/data/slider';
 import { Product } from '../../../../shared/classes/product';
@@ -13,8 +13,10 @@ import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from 'src/app/pages/account/login/login.component';
+import { DOCUMENT } from '@angular/common';
 
 declare var $;
+declare function imageZoom(a, b): any; // just change here from arun answer.
 
 export interface image {
   colorindex: number;
@@ -91,12 +93,21 @@ export class ProductLeftSidebarComponent implements OnInit {
     private toastr: ToastrService,
     private spinner: NgxSpinnerService,
     private modalService: NgbModal,
+    private renderer2: Renderer2,
+    @Inject(DOCUMENT) private _document
   ) {
+    this.activeSlide = 0;
     // this.route.data.subscribe(response => this.product = response.data );
   }
 
   ngAfterViewInit() {
+    //setTimeout(() => imageZoom('zoom_01', 'myresult'), 2000);
     $(document).ready(function () {
+      setTimeout(() => $("#zoom_01").ezPlus({
+        zoomWindowWidth: 700,
+        zoomWindowHeight: 700
+      }), 3000);
+
 
       function scrollSticky() {
         if ($('.sticky-scroll').length) {
@@ -193,8 +204,35 @@ export class ProductLeftSidebarComponent implements OnInit {
     //this.BindRecentlyProduct();
     this.BindProduct();
 
-
+    const s = this.renderer2.createElement('script');
+    s.type = 'text/javascript';
+    s.src = 'https://cdn.rawgit.com/igorlino/elevatezoom-plus/1.1.6/src/jquery.ez-plus.js';
+    //s.text = `imageZoom("zoom_01", "myresult");`;
+    this.renderer2.appendChild(this._document.body, s);
   }
+
+  ChangeImage() {
+    debugger;
+    //this.activeSlide = index;
+    setTimeout(() => $("#zoom_01").ezPlus(
+
+      {
+
+        zoomWindowWidth: 700,
+        zoomWindowHeight: 700
+      }
+    ), 500);
+
+    //  ;
+    debugger
+    // this.bigProductImageIndex = Number(index);
+    // this.activeSlide = Number(index);
+    // this.SelectedColor = [];
+    // this.SelectedColor.push({
+    //   productSizeId: Number(lst.productSizeId)
+    // });
+  }
+
 
   changecolor(lst, index: string) {
     //  ;
@@ -206,7 +244,6 @@ export class ProductLeftSidebarComponent implements OnInit {
       productSizeId: Number(lst.productSizeId)
     });
   }
-
 
   // Get Product Color
   Color(variants) {
