@@ -78,10 +78,10 @@
                         </div>
                         <div class="product-buttons row mt-2">
                             <div class="col-md-6 mb-2">
-                                <a href="javascrip:void(0)" class="btn btn-solid w-100" [class.disabled]="false" (click)="addToCart(1)"><i class="fa fa-shopping-cart"></i> add to cart</a>
+                                <a href="javascrip:void(0)" class="btn btn-solid w-100" [class.disabled]="productkart[0]?.qty==0" (click)="addToCart(1)"><i class="fa fa-shopping-cart"></i> add to cart</a>
                             </div>
                             <div class="col-md-6 mb-2">
-                                <a href="javascrip:void(0)" class="btn btn-solid w-100" [class.disabled]="false" (click)="addToCart(2)"><i class="fa fa-bolt"></i>
+                                <a href="javascrip:void(0)" class="btn btn-solid w-100" [class.disabled]="productkart[0]?.qty==0" (click)="addToCart(2)"><i class="fa fa-bolt"></i>
                                     Buy now</a>
                             </div>
                         </div>
@@ -137,6 +137,13 @@
                                         <table class="table table-bordered table-hover">
 
                                             <tbody>
+                                                <tr *ngIf="productkart[0]?.qty==0" style="text-align: center;">
+                                                    <td colspan="2">
+                                                        <h5 class="avalibility"><span>Out
+                                                            of
+                                                            Stock</span></h5>
+                                                    </td>
+                                                </tr>
                                                 <tr style="color: red;" *ngIf="user[0].isPersonal==false">
                                                     <td style="width: 50%;">
                                                         Minimun Order Quantity
