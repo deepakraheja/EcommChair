@@ -25,6 +25,6 @@ export const environment = {
   WebSite_URL: 'www.alibabachair.com',
   Invoice_URL: 'https://store.alibabachair.com/TempPDF/',
 
-
+  APIURL:'https://store.alibabachair.com/'
 
 };

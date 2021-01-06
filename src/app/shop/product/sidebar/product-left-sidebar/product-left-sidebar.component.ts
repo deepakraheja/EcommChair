@@ -104,8 +104,8 @@ export class ProductLeftSidebarComponent implements OnInit {
     //setTimeout(() => imageZoom('zoom_01', 'myresult'), 2000);
     $(document).ready(function () {
       setTimeout(() => $("#zoom_01").ezPlus({
-        zoomWindowWidth: 700,
-        zoomWindowHeight: 700
+        zoomWindowWidth: 500,
+        zoomWindowHeight: 500
       }), 3000);
 
 
@@ -218,8 +218,8 @@ export class ProductLeftSidebarComponent implements OnInit {
 
       {
 
-        zoomWindowWidth: 700,
-        zoomWindowHeight: 700
+        zoomWindowWidth: 500,
+        zoomWindowHeight: 500
       }
     ), 500);
 

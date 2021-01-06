@@ -22,10 +22,10 @@ export class CustomerStoriesComponent implements OnInit {
   }
 
   LoadData() {
-    this.spinner.show();
+    //this.spinner.show();
     this._customerStory.GetCustomerStories().subscribe(res => {
       this.lstData = res;
-      this.spinner.hide();
+      //this.spinner.hide();
     });
   }
 

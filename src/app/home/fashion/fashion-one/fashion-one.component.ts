@@ -139,10 +139,10 @@ export class FashionOneComponent implements OnInit {
       Subcatecode: ''
 
     }
-    this.spinner.show();
+    //this.spinner.show();
     this._prodService.getProductByCategory(productObj).subscribe(products => {
       //  ;
-      this.spinner.hide();
+      //this.spinner.hide();
       this.productskart = products;
       this.productskartselling = products.filter(item => item.topSelling == true);
 
