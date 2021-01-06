@@ -132,7 +132,7 @@ export class FashionOneComponent implements OnInit {
 
 
   //Added on 08/07/2020
-  BindProductByCategory() {
+  BindProductByCategory() { 
 
     let productObj = {
       Active: true,

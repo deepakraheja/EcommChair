@@ -15,12 +15,12 @@ import { BrandService } from 'src/app/Service/Brand.service';
 })
 export class CollectionLeftSidebarComponent implements OnInit {
 
-  public grid: string = 'col-xl-3 col-md-6';
+  public grid: string = 'col-xl-3 col-md-6';  
   public layoutView: string = 'grid-view';
   public products: Product[] = [];
 
   public productskart: Productkart[] = [];
-  public Allproductskart: Productkart[] = [];
+  public Allproductskart: Productkart[] = []; 
   public brands: any[] = [];
   public colors: any[] = [];
   public size: any[] = [];

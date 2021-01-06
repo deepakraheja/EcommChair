@@ -9,7 +9,7 @@ import { ProductsService } from 'src/app/Service/Products.service';
 import { environment } from 'src/environments/environment';
 import { productSizeColor } from 'src/app/shared/classes/productsizecolor';
 import { CartService } from 'src/app/Service/cart.service';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr'; 
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from 'src/app/pages/account/login/login.component';
@@ -33,7 +33,7 @@ export interface image {
 //   responsive: {
 //       991: {
 //           items: 8
-//       },
+//       }, 
 //       767: {
 //           items: 8
 //       },

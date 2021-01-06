@@ -26,7 +26,7 @@ export class CustomerStoriesComponent implements OnInit {
     this._customerStory.GetCustomerStories().subscribe(res => {
       this.lstData = res;
       //this.spinner.hide();
-    });
+    }); 
   }
 
 }

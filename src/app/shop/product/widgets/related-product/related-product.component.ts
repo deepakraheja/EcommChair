@@ -30,7 +30,7 @@ export class RelatedProductComponent implements OnInit {
 
     let productObj = {
       Active: true,
-      Subcatecode: ''
+      Subcatecode: '' 
 
     }
     this.spinner.show();

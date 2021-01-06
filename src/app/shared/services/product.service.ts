@@ -403,8 +403,8 @@ export class ProductService {
         return 0;
       })
     }
-  }
-
+  } 
+ 
   /*
     ---------------------------------------------
     ------------- Product Pagination  -----------

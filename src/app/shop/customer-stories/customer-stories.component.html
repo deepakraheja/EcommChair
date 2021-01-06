@@ -1,7 +1,7 @@
 <section class="cart-section section-b-space">
     <h2 style="text-align: center;">Customer Stories</h2>
     <div class="container">
-        <div class="row">
+        <div class="row"> 
             <div class="col-grid-box" class="col-xl-3 col-md-6" *ngFor="let lst of lstData">
                 <div class="product-box" style="border: solid 1px; padding: 6px;">
                     <div class="img-wrapper">
@@ -9,7 +9,7 @@
                         <div class="front">
                             <img [defaultImage]="ImageSrc ? ImageSrc : 'assets/images/product/placeholder.jpg'" [lazyLoad]="ImageSrc ? ImageSrc : APIURL+'/CustomerStoryImages/'+lst.customerStoryId+'/'+lst.imagePath" class="img-fluid lazy-loading" alt="" />
                         </div>
-                        <br>
+                        <br> 
                         <h5>
                             <span class="text-grey">{{lst?.notes}}</span>
                         </h5>
