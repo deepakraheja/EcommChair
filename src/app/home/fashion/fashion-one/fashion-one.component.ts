@@ -19,6 +19,7 @@ export class FashionOneComponent implements OnInit {
   APIURL=environment.APIURL;
   public ImageSrc: string
   public products: Product[] = [];
+  public TodayCounter=new Date();
   public InstaSliderConfig: any = {
     loop: true,
     dots: false,
@@ -108,7 +109,7 @@ export class FashionOneComponent implements OnInit {
     // debugger
     if (this.counter != 0) {
       this.counter++;
-
+      this.TodayCounter=new Date();
     }
     else {
       clearTimeout();

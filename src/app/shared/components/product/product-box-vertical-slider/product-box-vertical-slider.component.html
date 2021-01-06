@@ -5,7 +5,7 @@
         <ng-container *ngFor="let product of productskart | slice:0:3 ">
             <ng-template carouselSlide>
                 <div>
-                    <div class="media" *ngFor="let product of productskart | slice:0:3 ">
+                    <div class="media" *ngFor="let product of productskart | slice:0:6 ">
                         <!-- <a [routerLink]="['/shop/product/left/sidebar/', product?.title.replace(' ', '-')]">
                             <img class="img-fluid w-auto" [defaultImage]="'assets/images/product/placeholder.jpg'" [lazyLoad]="product.images[0].src" alt="">
                         </a> -->
@@ -15,12 +15,16 @@
                             <img [defaultImage]="ImageSrc ? ImageSrc : 'assets/images/product/placeholder.jpg'" [lazyLoad]="ImageSrc ? ImageSrc : ProductImage+product.productID+'/frontImage/'+product.frontImage" class="img-fluid w-auto" alt="" />
                         </a>
 
-                        <div class="media-body align-self-center">
+                        <div class="media-body align-self-center" (click)="GoToDetail(product.rowID,product?.productSizeId,product?.setType);">
                             <!-- <bar-rating [rate]="product?.averageRating" theme="fontawesome-o" [readOnly]="true"></bar-rating> -->
-                            {{product?.averageRating}} ★ ({{product?.totalRating}})
+                            <h5 class="mb-2">
+                                <span class="review-box" *ngIf="product?.totalRating>0"> {{product?.averageRating}} ★</span>&nbsp;
+                                <span class="text-grey" *ngIf="product?.totalRating>0">({{product?.totalRating}})</span>
+                            </h5>
+                            <!-- {{product?.averageRating}} ★ ({{product?.totalRating}}) -->
                             <!-- <a [routerLink]="['/shop/product/left/sidebar/', product?.title?.replace(' ', '-')]"> -->
                             <a href="javaScript:void(0);">
-                                <h6>{{ product?.productName | titlecase }}</h6>
+                                <h6 style="width: 100% !important;" title="{{product?.productName}}">{{ (product?.productName).substr(0, 30) | titlecase }}...</h6>
                             </a>
                             <h4 *ngIf="user==null || user[0]?.isPersonal==true || product?.businessPrice==0">
                                 {{ (product?.salePrice) | currency: productService.Currency?.currency:'symbol' }}
@@ -43,28 +47,31 @@
             </ng-template>
             <ng-template carouselSlide>
                 <div>
-                    <div class="media" *ngFor="let product of productskart | slice:3:6 ">
+                    <div class="media" *ngFor="let product of productskart | slice:6:12 ">
                         <!-- <a [routerLink]="['/shop/product/left/sidebar/', product?.title.replace(' ', '-')]">
                             <img class="img-fluid w-auto" [defaultImage]="'assets/images/product/placeholder.jpg'" [lazyLoad]="product.images[0].src" alt="">
                         </a> -->
                         <a (click)="GoToDetail(product.rowID,product?.productSizeId,product?.setType);">
                             <img [defaultImage]="ImageSrc ? ImageSrc : 'assets/images/product/placeholder.jpg'" [lazyLoad]="ImageSrc ? ImageSrc : ProductImage+product.productID+'/frontImage/'+product.frontImage" class="img-fluid w-auto" alt="" />
                         </a>
-                        <div class="media-body align-self-center">
+                        <div class="media-body align-self-center" (click)="GoToDetail(product.rowID,product?.productSizeId,product?.setType);">
                             <!-- <bar-rating [rate]="product?.averageRating" theme="fontawesome-o" [readOnly]="true"></bar-rating> -->
-                            {{product?.averageRating}} ★ ({{product?.totalRating}})
+                            <h5 class="mb-2">
+                                <span class="review-box" *ngIf="product?.totalRating>0"> {{product?.averageRating}} ★</span>&nbsp;
+                                <span class="text-grey" *ngIf="product?.totalRating>0">({{product?.totalRating}})</span>
+                            </h5>
+                            <!-- {{product?.averageRating}} ★ ({{product?.totalRating}}) -->
                             <!-- <a [routerLink]="['/shop/product/left/sidebar/', product?.title?.replace(' ', '-')]"> -->
                             <a href="javaScript:void(0);">
-                                <h6>{{ product?.productName | titlecase }}</h6>
+                                <h6 style="width: 100% !important;" title="{{product?.productName}}">{{ (product?.productName).substr(0, 30) | titlecase }}...</h6>
                             </a>
-                            <h4>
-                                {{ product?.salePrice | currency:productService.Currency?.currency:'symbol' }}
-                                <del *ngIf="product?.discount">
-                          <span class="money"> 
-                            {{ product?.price | currency:productService.Currency?.currency:'symbol' }}
-                          </span>
-                        </del>
+                            <h4 *ngIf="user==null || user[0]?.isPersonal==true || product?.businessPrice==0">
+                                {{ (product?.salePrice) | currency: productService.Currency?.currency:'symbol' }}
                             </h4>
+                            <h4 *ngIf="user!=null && user[0]?.isPersonal==false && product?.businessPrice>0">
+                                {{ (product?.businessPrice) | currency: productService.Currency?.currency:'symbol' }}
+                            </h4>
+
                         </div>
                     </div>
                 </div>
