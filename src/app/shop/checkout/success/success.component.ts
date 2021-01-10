@@ -36,7 +36,7 @@ export class SuccessComponent implements OnInit, AfterViewInit {
         let obj = {
           GUID: GUID
         };
-        this.spinner.show();
+        //this.spinner.show();
         this._OrderService.GetNewOrderByGUID(obj).subscribe(res => {
           this.spinner.hide();
 

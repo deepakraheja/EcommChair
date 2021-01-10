@@ -115,7 +115,7 @@ export class CartComponent implements OnInit {
       let obj = {
         UserID: this.user[0].userID
       };
-      this.spinner.show();
+      //this.spinner.show();
       this._cartService.GetCartById(obj).subscribe(response => {
         //  
         debugger
@@ -148,7 +148,7 @@ export class CartComponent implements OnInit {
       SetNo: Number(product.setNo),
       ProductId: Number(product.productId)
     }];
-    this.spinner.show();
+    //this.spinner.show();
     this._cartService.UpdateToCart(obj).subscribe(res => {
       this.toastrService.success("Product quantity has been successfully updated in cart.");
 
@@ -170,7 +170,7 @@ export class CartComponent implements OnInit {
         SetNo: Number(product.setNo),
         ProductId: Number(product.productId)
       }];
-      this.spinner.show();
+      //this.spinner.show();
       this._cartService.UpdateToCart(obj).subscribe(res => {
         this.toastrService.success("Product quantity has been successfully updated in cart.");
         this.LoadCart();
@@ -222,7 +222,7 @@ export class CartComponent implements OnInit {
   GoToDetail(rowID, productSizeColorId, setType, setNo) {
     this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
     //  
-    this.spinner.show();
+    //this.spinner.show();
     if (setType == 1) {
       this.router.navigateByUrl('/shop/product/left/sidebar/' + rowID + '/' + productSizeColorId);
       this.spinner.hide();
@@ -281,7 +281,7 @@ export class CartComponent implements OnInit {
       Quantity: qty,
       SetNo: Number(product.setNo)
     }];
-    this.spinner.show();
+    //this.spinner.show();
     this._cartService.UpdateToCart(obj).subscribe(res => {
       this.toastrService.success("Product quantity has been successfully updated in cart.");
       debugger
@@ -304,7 +304,7 @@ export class CartComponent implements OnInit {
         Quantity: qty,
         SetNo: Number(product.setNo)
       }];
-      this.spinner.show();
+      //this.spinner.show();
       this._cartService.UpdateToCart(obj).subscribe(res => {
         this.toastrService.success("Product quantity has been successfully updated in the cart.");
         this.LoadCartProductData(product.productID);
