@@ -37,7 +37,8 @@
                     <ul class="order-detail">
                         <li><span>order Number:</span> {{ orderDetails[0].orderNumber }}</li>
                         <li><span>Order Date:</span> {{ orderDetails[0].orderDate | date : 'MMM dd, yyyy'}}</li>
-                        <li><span>Order Total:</span> {{ orderDetails[0].totalAmount | currency:productService?.Currency.currency:'symbol' }}
+                        <li><span>Order Total:</span>
+                            {{ orderDetails[0].totalAmount | currency:productService?.Currency.currency:'symbol' }}
                         </li>
                         <!-- <li><span>Payment Method:</span> Credit Card (**3569)</li> -->
                     </ul>
@@ -69,19 +70,21 @@
                             <th class="thead-dark">
                                 Qty
                             </th>
-                            <th class="thead-dark" *ngIf="orderDetails[0].orderDetails[0]?.additionalDiscount>0">
+                            <th style="text-align: right;" class="thead-dark"
+                                *ngIf="orderDetails[0].orderDetails[0]?.additionalDiscount>0">
                                 Add. Discount (%)
                             </th>
-                            <th class="thead-dark" *ngIf="orderDetails[0].orderDetails[0]?.additionalDiscount>0">
+                            <th style="text-align: right;" class="thead-dark"
+                                *ngIf="orderDetails[0].orderDetails[0]?.additionalDiscount>0">
                                 Add. Discount Amount
                             </th>
-                            <th class="thead-dark" *ngIf="orderDetails[0]?.isPersonal==0">
+                            <th style="text-align: right;" class="thead-dark" *ngIf="orderDetails[0]?.isPersonal==0">
                                 Total Amount
                             </th>
-                            <th class="thead-dark" *ngIf="orderDetails[0]?.isPersonal==0">
+                            <th style="text-align: right;" class="thead-dark" *ngIf="orderDetails[0]?.isPersonal==0">
                                 GST Rate(%)
                             </th>
-                            <th class="thead-dark" *ngIf="orderDetails[0]?.isPersonal==0">
+                            <th style="text-align: right;" class="thead-dark" *ngIf="orderDetails[0]?.isPersonal==0">
                                 GST Amount
                             </th>
                             <th class="thead-dark">
@@ -92,7 +95,8 @@
                     <tbody>
                         <tr *ngFor="let product of orderDetails[0].orderDetails">
                             <td>
-                                <img [src]="ProductImage+product?.productId+'/frontImage/'+product?.frontImage" alt="Product" class="checkout-prouduct-img"> {{ product?.productName }}
+                                <img [src]="ProductImage+product?.productId+'/frontImage/'+product?.frontImage"
+                                    alt="Product" class="checkout-prouduct-img"> {{ product?.productName }}
                             </td>
                             <td style="text-align: right;">
                                 {{ product?.salePrice | currency:productService?.Currency.currency:'symbol'}}
@@ -137,7 +141,8 @@
                             </td>
                             <td *ngIf="orderDetails[0].orderDetails[0]?.additionalDiscount>0">
                             </td>
-                            <td *ngIf="orderDetails[0].orderDetails[0]?.additionalDiscount>0" style="text-align: right;">
+                            <td *ngIf="orderDetails[0].orderDetails[0]?.additionalDiscount>0"
+                                style="text-align: right;">
                                 <b>{{ getTotalAdditionalDiscountAmount() | currency:productService?.Currency.currency:'symbol'}}</b>
                             </td>
                             <td style="text-align: right;" *ngIf="orderDetails[0]?.isPersonal==0">
@@ -148,7 +153,8 @@
                                 <b>{{ getTotalGSTAmount() | currency:productService?.Currency.currency:'symbol'}}</b>
                             </td>
                             <td style="text-align: right;">
-                                <span style="float: right; font-size: 16px; line-height: 20px; color: var(--theme-deafult); font-weight: 400;">
+                                <span
+                                    style="float: right; font-size: 16px; line-height: 20px; color: var(--theme-deafult); font-weight: 400;">
                                     {{ getTotal() | currency:productService?.Currency.currency:'symbol'}}</span>
                             </td>
                         </tr>
@@ -178,7 +184,8 @@
                             <td *ngIf="orderDetails[0].orderDetails[0]?.additionalDiscount>0"></td>
                             <td *ngIf="orderDetails[0].orderDetails[0]?.additionalDiscount>0"></td>
                             <td colspan="2" style="text-align: right;">
-                                <span style="float: right; font-size: 16px; line-height: 20px; color: var(--theme-deafult); font-weight: 400;">
+                                <span
+                                    style="float: right; font-size: 16px; line-height: 20px; color: var(--theme-deafult); font-weight: 400;">
                                     {{ getTotal() | currency:productService?.Currency.currency:'symbol'}}</span>
                             </td>
                         </tr>
