@@ -152,7 +152,7 @@ export class DashboardComponent implements OnInit {
     // let obj = {
     //   UserID: Number(this.LoggedInUser[0].userID)
     // };
-    this.spinner.show();
+    //this.spinner.show();
     this._OrderService.GetOrderByUserId().subscribe(res => {
       this.spinner.hide();
       this.lstOrder = res;
@@ -309,7 +309,7 @@ export class DashboardComponent implements OnInit {
       userID: Number(this.LoggedInUser[0].userID),
     }
     //  
-    this.spinner.show();
+    //this.spinner.show();
     this._BillingAddressService.DeleteBillingAddress(obj).subscribe(res => {
       //  
       this.spinner.hide();
@@ -346,7 +346,7 @@ export class DashboardComponent implements OnInit {
         businessLicenseNo: this.checkoutForm.value.businessLicenseNo,
       }
       //  
-      this.spinner.show();
+      ///this.spinner.show();
       this._BillingAddressService.SaveBillingAddress(obj).subscribe(res => {
         //  
         this.spinner.hide();
@@ -390,7 +390,7 @@ export class DashboardComponent implements OnInit {
         password: this.ChangePwdForm.value.password,
         NewPassword: this.ChangePwdForm.value.NewPassword
       }
-      this.spinner.show();
+     // this.spinner.show();
       this._userService.UpdatePwd(obj).subscribe(res => {
         this.spinner.hide();
         if (Number(res) > 0) {
@@ -419,7 +419,7 @@ export class DashboardComponent implements OnInit {
     let obj = {
       GUID: lst.guid
     }
-    this.spinner.show();
+    //this.spinner.show();
     debugger;
     //window.open(this.WebSite_URL + 'report/orderInvoice/' + orderId, "_blank");
     this._InvoiceService.OrderInvoiceByGUID(obj).subscribe(res => {

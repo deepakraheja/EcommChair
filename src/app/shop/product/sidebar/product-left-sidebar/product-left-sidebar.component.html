@@ -51,9 +51,11 @@
                                 <div class="thumbnail-imgs">
                                     <div *ngFor="let image of  productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg; index as i"
                                         class="thumbnail-img mrg-btm-minus">
+
+                                      
                                         <div class="owl-thumb thumb-left-img" [class.active]="i == activeSlide">
                                             <img [defaultImage]="'assets/images/product/placeholder.jpg'"
-                                                [lazyLoad]="ProductImage+productkart[0]?.productID+'/productColorImage/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productSizeColorId+'/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg[i]"
+                                                [lazyLoad]="i==0?ProductImage+productkart[0]?.productID+'/frontImage/'+productkart[0]?.frontImage:ProductImage+productkart[0]?.productID+'/productColorImage/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productSizeColorId+'/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg[i]"
                                                 [alt]="image.alt" class="img-fluid"
                                                 (click)="activeSlide = i.toString();ChangeImage();"
                                                 (mouseover)="activeSlide = i.toString();ChangeImage();">
@@ -61,10 +63,10 @@
                                     </div>
                                 </div>
                             </div>
-                             <div class="col-10 col-sm-10 col-xl-10 product-carousel border-grey">
+                            <div class="col-10 col-sm-10 col-xl-10 product-carousel border-grey">
                                 <div class="img-zoom-container">
                                     <img id="zoom_01" class="img-fluid"
-                                        src="{{ProductImage+productkart[0]?.productID+'/productColorImage/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productSizeColorId+'/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg[activeSlide]}}" />
+                                        [src]="activeSlide==0?ProductImage+productkart[0]?.productID+'/frontImage/'+productkart[0]?.frontImage:ProductImage+productkart[0]?.productID+'/productColorImage/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productSizeColorId+'/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg[activeSlide]" />
                                     <!-- <owl-carousel-o [options]="ProductDetailsMainSliderConfig" #owlCar class="product-slick" class="p-1">
                                     <ng-container *ngFor="let image of productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg; index as i">
                                         <ng-template carouselSlide [id]="i">

@@ -9,7 +9,7 @@ import { ProductsService } from 'src/app/Service/Products.service';
 import { environment } from 'src/environments/environment';
 import { productSizeColor } from 'src/app/shared/classes/productsizecolor';
 import { CartService } from 'src/app/Service/cart.service';
-import { ToastrService } from 'ngx-toastr'; 
+import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from 'src/app/pages/account/login/login.component';
@@ -33,7 +33,7 @@ export interface image {
 //   responsive: {
 //       991: {
 //           items: 8
-//       }, 
+//       },
 //       767: {
 //           items: 8
 //       },
@@ -104,8 +104,8 @@ export class ProductLeftSidebarComponent implements OnInit {
     //setTimeout(() => imageZoom('zoom_01', 'myresult'), 2000);
     $(document).ready(function () {
       setTimeout(() => $("#zoom_01").ezPlus({
-        zoomWindowWidth: 500,
-        zoomWindowHeight: 500
+        zoomWindowWidth: 700,
+        zoomWindowHeight: 700
       }), 3000);
 
 
@@ -218,8 +218,8 @@ export class ProductLeftSidebarComponent implements OnInit {
 
       {
 
-        zoomWindowWidth: 500,
-        zoomWindowHeight: 500
+        zoomWindowWidth: 700,
+        zoomWindowHeight: 700
       }
     ), 500);
 
