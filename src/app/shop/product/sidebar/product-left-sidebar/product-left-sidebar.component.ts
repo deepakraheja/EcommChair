@@ -309,6 +309,14 @@ export class ProductLeftSidebarComponent implements OnInit {
 
   // Add to cart
   async addToCart(type: Number) {
+
+    debugger;
+
+    setTimeout(function(){ 
+      $("#zoom_01").css("display", "none");
+    }, 1000);
+  
+    
     //  
     //product.quantity = this.counter || 1;
     //product.productname = productname;

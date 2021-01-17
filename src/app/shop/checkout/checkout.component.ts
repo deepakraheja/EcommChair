@@ -331,6 +331,8 @@ export class CheckoutComponent implements OnInit {
   }
 
   Continue() {
+    debugger
+
     this.OrderSummary1 = true;
     this.OrderSummary2 = false;
     this.fafaCheck = true;
@@ -339,6 +341,14 @@ export class CheckoutComponent implements OnInit {
 
     this.PaymentOption1 = false;
     this.PaymentOption2 = true;
+    
+
+    // Hack: Scrolls to top of Page after page view initialized
+    let top = document.getElementById('top');
+    if (top !== null) {
+      top.scrollIntoView();
+      top = null;
+    }
 
   }
 
