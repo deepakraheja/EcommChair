@@ -103,11 +103,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   ngAfterViewInit() {
     //setTimeout(() => imageZoom('zoom_01', 'myresult'), 2000);
     $(document).ready(function () {
-      setTimeout(() => $("#zoom_01").ezPlus({
-        zoomWindowWidth: 700,
-        zoomWindowHeight: 700
-      }), 3000);
-
+     
 
       function scrollSticky() {
         if ($('.sticky-scroll').length) {
@@ -118,7 +114,7 @@ export class ProductLeftSidebarComponent implements OnInit {
           $(window).scroll(function () {
 
             var footerPosition = $('.unsticky').offset().top;
-            var limit = footerPosition - 700 - 20;
+            var limit = footerPosition - 680 - 20;
             var windowTop = $(window).scrollTop();
 
             if (stickyTop < windowTop) {
@@ -143,6 +139,12 @@ export class ProductLeftSidebarComponent implements OnInit {
       if ($(window).width() >= 1024) {
         scrollSticky();
       }
+
+      setTimeout(() => $("#zoom_01").ezPlus({
+        zoomWindowWidth: 500,
+        zoomWindowHeight: 500
+      }), 3000);
+
     });
   }
   BindProduct(): void {
@@ -215,11 +217,10 @@ export class ProductLeftSidebarComponent implements OnInit {
     debugger;
     //this.activeSlide = index;
     setTimeout(() => $("#zoom_01").ezPlus(
-
       {
 
-        zoomWindowWidth: 700,
-        zoomWindowHeight: 700
+        zoomWindowWidth: 500,
+        zoomWindowHeight: 500
       }
     ), 500);
 
@@ -312,9 +313,9 @@ export class ProductLeftSidebarComponent implements OnInit {
 
     debugger;
 
-    setTimeout(function(){ 
-      $("#zoom_01").css("display", "none");
-    }, 1000);
+    // setTimeout(function(){ 
+    //   $("#zoom_01").css("display", "none");
+    // }, 1000);
   
     
     //  

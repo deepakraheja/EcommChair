@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UsersService } from 'src/app/Service/users.service';
+declare var $;
 
 @Component({
   selector: 'app-checkout',
@@ -195,6 +196,11 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    setTimeout(function () {
+      $.removeData($('img'), 'elevateZoom');
+      $('.zoomContainer').remove();
+    }, 200);
+
     this.spinner.show();
     this._SharedDataService.lstCart.subscribe(res => {
       this.LoadCart();
