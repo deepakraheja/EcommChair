@@ -46,6 +46,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { NgxMaskModule } from 'ngx-mask';
 import { CustomerStoriesComponent } from './customer-stories/customer-stories.component';
 //import { NgxImageZoomModule } from 'ngx-image-zoom';
+import { YouTubePlayerModule } from "@angular/youtube-player";
 
 @NgModule({
   declarations: [
@@ -90,6 +91,7 @@ import { CustomerStoriesComponent } from './customer-stories/customer-stories.co
     SafePipeModule,
     //NgxImageZoomModule, // <-- Add this line
     NgxMaskModule.forRoot(),
+    YouTubePlayerModule
   ]
 })
 export class ShopModule { }
