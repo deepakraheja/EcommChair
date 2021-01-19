@@ -76,44 +76,46 @@ export class CheckoutComponent implements OnInit {
     private modalService: NgbModal,
     private _userService: UsersService
   ) {
-    this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
-    this.email = this.user[0].email;
-    this.checkoutForm = this.fb.group({
-      billingAddressId: [0],
-      userID: this.user[0].userID,
-      fName: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-      //lName: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-      companyName: [''],
-      //phone: ['', [Validators.required, Validators.pattern('[0-9]+')]],
-      //emailId: ['', [Validators.required, Validators.email]],
-      address: ['', [Validators.required, Validators.maxLength(200)]],
-      country: ['India', Validators.required],
-      city: ['', Validators.required],
-      state: [''],
-      zipCode: ['', [Validators.required, Validators.pattern('[0-9]+'), Validators.minLength(6)]],
-      orderNumber: this._datePipe.transform(new Date().toString(), 'yyyyMMddHHmmss'),
-      orderDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
-      paymentTypeId: [this.user[0].isVIPMember == true ? 3 : 1],
-      subTotal: [0],
-      tax: [18],
-      shippingCharge: [0],
-      totalAmount: [0],
-      notes: [''],
-      statusId: [0],
-      businessLicenseType: ['GSTIN'],
-      businessLicenseNo: [''],
+    this._SharedDataService.currentUser.subscribe(a => {
+      this.user = a;
+      //this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
+      this.email = this.user[0].email;
+      this.checkoutForm = this.fb.group({
+        billingAddressId: [0],
+        userID: this.user[0].userID,
+        fName: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+        //lName: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+        companyName: [''],
+        //phone: ['', [Validators.required, Validators.pattern('[0-9]+')]],
+        //emailId: ['', [Validators.required, Validators.email]],
+        address: ['', [Validators.required, Validators.maxLength(200)]],
+        country: ['India', Validators.required],
+        city: ['', Validators.required],
+        state: [''],
+        zipCode: ['', [Validators.required, Validators.pattern('[0-9]+'), Validators.minLength(6)]],
+        orderNumber: this._datePipe.transform(new Date().toString(), 'yyyyMMddHHmmss'),
+        orderDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
+        paymentTypeId: [this.user[0].isVIPMember == true ? 3 : 1],
+        subTotal: [0],
+        tax: [18],
+        shippingCharge: [0],
+        totalAmount: [0],
+        notes: [''],
+        statusId: [0],
+        businessLicenseType: ['GSTIN'],
+        businessLicenseNo: [''],
+      });
+      this.businessForm = this.fb.group({
+        BusinessType: ['', Validators.required],
+        Industry: ['', Validators.required],
+        businessLicenseType: ['GSTIN', Validators.required],
+        GSTNo: ['', Validators.required],
+        PANNo: ['', Validators.required],
+        AadharCard: ['', Validators.required],
+        BusinessName: ['', Validators.required],
+        BusinessPhone: ['', Validators.required]
+      });
     });
-    this.businessForm = this.fb.group({
-      BusinessType: ['', Validators.required],
-      Industry: ['', Validators.required],
-      businessLicenseType: ['GSTIN', Validators.required],
-      GSTNo: ['', Validators.required],
-      PANNo: ['', Validators.required],
-      AadharCard: ['', Validators.required],
-      BusinessName: ['', Validators.required],
-      BusinessPhone: ['', Validators.required]
-    });
-
   }
 
   // ngOnInit(): void {
@@ -136,7 +138,7 @@ export class CheckoutComponent implements OnInit {
       country: [lst.country, Validators.required],
       city: [lst.city, Validators.required],
       state: [lst.state],
-      zipCode: [lst.zipCode, Validators.required, Validators.minLength(6)],
+      zipCode: [lst.zipCode, [Validators.required, Validators.minLength(6)]],
       businessLicenseType: [lst.businessLicenseType],
       businessLicenseNo: [lst.businessLicenseNo],
     });
@@ -347,7 +349,7 @@ export class CheckoutComponent implements OnInit {
 
     this.PaymentOption1 = false;
     this.PaymentOption2 = true;
-    
+
 
     // Hack: Scrolls to top of Page after page view initialized
     let top = document.getElementById('top');
