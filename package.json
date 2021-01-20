@@ -26,6 +26,7 @@
     "@angular/platform-browser-dynamic": "~9.0.0",
     "@angular/platform-server": "~9.0.0",
     "@angular/router": "~9.0.0",
+    "@angular/youtube-player": "^11.0.4",
     "@ks89/angular-modal-gallery": "^7.2.5",
     "@ng-bootstrap/ng-bootstrap": "^6.0.0",
     "@ngneat/content-loader": "^4.1.0",
