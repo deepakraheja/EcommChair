@@ -15,12 +15,12 @@ import { BrandService } from 'src/app/Service/Brand.service';
 })
 export class CollectionLeftSidebarComponent implements OnInit {
 
-  public grid: string = 'col-xl-3 col-md-6';  
+  public grid: string = 'col-xl-3 col-md-6';
   public layoutView: string = 'grid-view';
   public products: Product[] = [];
 
   public productskart: Productkart[] = [];
-  public Allproductskart: Productkart[] = []; 
+  public Allproductskart: Productkart[] = [];
   public brands: any[] = [];
   public colors: any[] = [];
   public size: any[] = [];
@@ -28,6 +28,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
   public maxPrice: number = 100000;
   public tags: any[] = [];
   public category: string;
+  public searchQuery: string = '';
   public pageNo: number = 1;
   public paginate: any = {}; // Pagination use only
   public sortBy: string; // Sorting Order
@@ -55,7 +56,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
       this.category = params.category ? params.category : null;
       this.sortBy = params.sortBy ? params.sortBy : 'ascending';
       this.pageNo = params.page ? params.page : this.pageNo;
-
+      this.searchQuery = params.searchQuery ? params.searchQuery : null;
       // Get Filtered Products..
       //this.productService.filterProducts(this.tags).subscribe(response => {
 
@@ -98,11 +99,11 @@ export class CollectionLeftSidebarComponent implements OnInit {
   BindProductByCategory() {
     this.spinner.show();
     this.route.queryParams.subscribe((params: Params) => {
-       
+
       const category = params['category'];
       let productObj = {
         Active: true,
-        Subcatecode: category == 'fashion' ? '' : category
+        Subcatecode: category == 'chair' ? '' : category
 
       }
       debugger
@@ -110,7 +111,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
         let FilteredProduct = products;
         this.Allproductskart = products;
         this.route.paramMap.subscribe((params: ParamMap) => {
-           
+
           let type = params.get('type');
           if (type == 'Refilling') {
             FilteredProduct = products.filter(a => a.featured == true);
@@ -120,7 +121,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
           }
           else
             this.productskart = products;
-           
+
           let BrandFilter: any[] = [];
           if (this.brands.length > 0) {
             (this.brands).forEach(element => {
@@ -132,12 +133,19 @@ export class CollectionLeftSidebarComponent implements OnInit {
             });
             FilteredProduct = BrandFilter;
           }
+          debugger
+          if (this.searchQuery != '' && this.searchQuery != null)
+            // searchQuery Filter
+            this.productskart = this.productskart.filter(item => (item.productName).toLowerCase().indexOf((this.searchQuery).toLowerCase()) >= 0)
           // Brand Filter
           //this.productskart = this.productService.filter(FilteredProduct, this.sortBy);
           // Sorting Filter
           this.productskart = this.productService.sortProducts(FilteredProduct, this.sortBy);
           // Price Filter
           this.productskart = this.productskart.filter(item => item.price >= this.minPrice && item.price <= this.maxPrice)
+          if (this.searchQuery != '' && this.searchQuery != null)
+            // searchQuery Filter
+            this.productskart = this.productskart.filter(item => (item.productName).toLowerCase().indexOf((this.searchQuery).toLowerCase()) >= 0)
           ////  
           // Paginate Products
           this.paginate = this.productService.getPager(this.productskart.length, +this.pageNo);     // get paginate object from service
@@ -156,7 +164,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
 
   // Append filter value to Url
   updateFilter(tags: any) {
-     
+
     tags.page = null; // Reset Pagination
     this.router.navigate([], {
       relativeTo: this.route,
@@ -220,14 +228,14 @@ export class CollectionLeftSidebarComponent implements OnInit {
 
   // product Pagination
   setPage(page: number) {
-     
+
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { page: page },
       queryParamsHandling: 'merge', // preserve the existing query params in the route
       skipLocationChange: false  // do trigger navigation
     }).finally(() => {
-       
+
       this.viewScroller.setOffset([220, 220]);
       this.viewScroller.scrollToAnchor('productskart'); // Anchore Link
     });

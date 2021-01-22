@@ -3,7 +3,7 @@
     <div class="top-header" *ngIf="topbar">
         <div class="container">
             <div class="row">
-                <div class="col-lg-7">
+                <div class="col-lg-4">
                     <div class="header-contact">
                         <ul>
                             <!-- <li>ALI BABA CHAIR</li> -->
@@ -11,10 +11,20 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-5 text-right">
+                <div class="col-lg-4">
+                    <div class="search-container">
+
+                        <input type="text" placeholder="Search.." name="search" [(ngModel)]="searchQuery">
+                        <a href='/shop/collection/left/sidebar?category=chair&searchQuery={{searchQuery}}'>
+                            <i class="fa fa-search"></i>
+                        </a>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 text-right">
                     <span class="Logininfo" *ngIf="LoggedInUser==[] || LoggedInUser==undefined || LoggedInUser?.length==0">
-                        <a (click)="Login()" class="btn btn-solid btn-solid-small"><i
-                        class="fa fa-user" aria-hidden="true"></i>Login</a></span>
+                        <a (click)="Login()" class="btn btn-solid btn-solid-small"><i class="fa fa-user"
+                                aria-hidden="true"></i>Login</a></span>
                     <ul class="header-dropdown" *ngIf="LoggedInUser!=[] && LoggedInUser!=undefined && LoggedInUser?.length>0">
                         <!--  <li class="compare">
                            <a [routerLink]="['/shop/compare']"><i class="fa fa-random" aria-hidden="true"></i>Compare</a> 
