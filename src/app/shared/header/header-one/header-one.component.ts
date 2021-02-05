@@ -43,8 +43,8 @@ export class HeaderOneComponent implements OnInit {
   }
 
   Logout() {
-    sessionStorage.removeItem('LoggedInUser');
-    sessionStorage.removeItem('Token');
+    localStorage.removeItem('LoggedInUser');
+    localStorage.removeItem('Token');
     this.LoggedInUser = [];
     this._SharedDataService.AssignUser(null);
     this._SharedDataService.UserCart(null);

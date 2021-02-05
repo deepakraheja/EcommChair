@@ -16,7 +16,7 @@ export class AuthInterceptor implements HttpInterceptor {
         // add authorization header with jwt token if available      
         //debugger
 
-        let Token = sessionStorage.getItem('Token');
+        let Token = localStorage.getItem('Token');
 
         if (Token != null) {
             const clonedReq = req.clone({
@@ -32,7 +32,7 @@ export class AuthInterceptor implements HttpInterceptor {
                     err => {
                         //debugger
                         if (err.status == 401) {
-                            sessionStorage.removeItem('Token')
+                            localStorage.removeItem('Token')
 
                         }
                     }
@@ -41,7 +41,7 @@ export class AuthInterceptor implements HttpInterceptor {
         }
         else {
             //debugger
-            sessionStorage.removeItem('Token')
+            localStorage.removeItem('Token')
             //this._router.navigate(['/pages/404']);
             return next.handle(req.clone());
 

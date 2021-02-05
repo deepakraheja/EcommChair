@@ -92,7 +92,7 @@ export class ProductLeftSidebarWithBundleComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
+    this.user = JSON.parse(localStorage.getItem('LoggedInUser'));
     this.BindProduct();
   }
 
@@ -170,7 +170,7 @@ export class ProductLeftSidebarWithBundleComponent implements OnInit {
     //  
     //product.quantity = this.counter || 1;
     //product.productname = productname;
-    // this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
+    // this.user = JSON.parse(localStorage.getItem('LoggedInUser'));
     // //  
     // if (this.user == null || this.user == undefined) {
     //   //this.router.navigate(['/pages/login/cart']);

@@ -83,7 +83,7 @@ export class CheckoutComponent implements OnInit {
   ) {
     this._SharedDataService.currentUser.subscribe(a => {
       this.user = a;
-      //this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
+      //this.user = JSON.parse(localStorage.getItem('LoggedInUser'));
       this.email = this.user[0].email;
       this.checkoutForm = this.fb.group({
         billingAddressId: [0],
@@ -302,7 +302,7 @@ export class CheckoutComponent implements OnInit {
   // }
 
   LoadCart() {
-    this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
+    this.user = JSON.parse(localStorage.getItem('LoggedInUser'));
     if (this.user != null) {
       // let obj = {
       //   UserID: this.user[0].userID

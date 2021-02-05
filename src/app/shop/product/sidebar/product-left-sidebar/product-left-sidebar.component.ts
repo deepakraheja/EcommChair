@@ -202,7 +202,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
+    this.user = JSON.parse(localStorage.getItem('LoggedInUser'));
     //this.BindRecentlyProduct();
     this.BindProduct();
 
@@ -321,7 +321,7 @@ export class ProductLeftSidebarComponent implements OnInit {
     //  
     //product.quantity = this.counter || 1;
     //product.productname = productname;
-    this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
+    this.user = JSON.parse(localStorage.getItem('LoggedInUser'));
     // //  
     if (this.user == null || this.user == undefined) {
       //this.router.navigate(['/pages/login/cart']);

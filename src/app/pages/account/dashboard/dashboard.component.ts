@@ -223,8 +223,8 @@ export class DashboardComponent implements OnInit {
 
   Logout() {
 
-    sessionStorage.removeItem('LoggedInUser');
-    sessionStorage.removeItem('Token');
+    localStorage.removeItem('LoggedInUser');
+    localStorage.removeItem('Token');
     this._SharedDataService.AssignUser(null);
     this.router.navigate(['/home/chair']);
   }

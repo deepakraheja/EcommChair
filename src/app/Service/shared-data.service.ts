@@ -9,7 +9,7 @@ export class SharedDataService {
   // private LoggedInUser = new BehaviorSubject(Users);
   // currentUser = this.LoggedInUser.asObservable();
 
-  public user: any[] = JSON.parse(sessionStorage.getItem('LoggedInUser'));
+  public user: any[] = JSON.parse(localStorage.getItem('LoggedInUser'));
   private LoggedInUser = new BehaviorSubject(this.user);
   currentUser = this.LoggedInUser.asObservable();
 

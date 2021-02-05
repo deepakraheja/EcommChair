@@ -166,7 +166,7 @@ export class ProductService {
   public addToCartProduct(product: any[]): any {
     //  ;
     //console.log(product);
-    this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
+    this.user = JSON.parse(localStorage.getItem('LoggedInUser'));
     //  
     if (this.user == null || this.user == undefined) {
       //this.router.navigate(['/pages/login/cart']);
@@ -219,7 +219,7 @@ export class ProductService {
   public addToCart(product): any {
     //  
 
-    this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
+    this.user = JSON.parse(localStorage.getItem('LoggedInUser'));
     //  
     if (this.user == null || this.user == undefined) {
       //this.router.navigate(['/pages/login/cart']);
@@ -282,7 +282,7 @@ export class ProductService {
 
   // Remove Cart items
   public removeCartItem(product: any): any {
-    this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
+    this.user = JSON.parse(localStorage.getItem('LoggedInUser'));
     //  
     let obj = {
       CartId: product.cartId,

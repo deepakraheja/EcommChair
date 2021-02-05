@@ -20,7 +20,7 @@ export class ProductBoxVerticalSliderComponent implements OnInit {
   @Input() type: string = 'fashion'; // Default Fashion
   public ImageSrc: string
   //public products : Product[] = [];
-  public user: any[] = JSON.parse(sessionStorage.getItem('LoggedInUser'));
+  public user: any[] = JSON.parse(localStorage.getItem('LoggedInUser'));
   public NewProductSliderConfig: any = NewProductSlider;
   public productskart: Productkart[] = [];
   constructor(
@@ -36,7 +36,7 @@ export class ProductBoxVerticalSliderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
+    this.user = JSON.parse(localStorage.getItem('LoggedInUser'));
     debugger
   }
 
@@ -54,7 +54,7 @@ export class ProductBoxVerticalSliderComponent implements OnInit {
   }
 
   GoToDetail(rowID, productSizeColorId, setType) {
-    this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
+    this.user = JSON.parse(localStorage.getItem('LoggedInUser'));
     //  
     if (this.user == null || this.user == undefined) {
       //this.router.navigate(['/pages/login/cart']);

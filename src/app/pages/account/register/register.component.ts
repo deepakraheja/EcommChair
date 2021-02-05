@@ -756,8 +756,8 @@ export class RegisterComponent implements OnInit {
           this.userService.ValidLogin(obj).subscribe(res => {
             if (res.length > 0) {
               if (res[0].statusId == 2) {
-                sessionStorage.setItem('LoggedInUser', JSON.stringify(res));
-                sessionStorage.setItem('Token', res[0].token);
+                localStorage.setItem('LoggedInUser', JSON.stringify(res));
+                localStorage.setItem('Token', res[0].token);
                 this._SharedDataService.AssignUser(res);
                 this._SharedDataService.UserCart(res);
 

@@ -116,7 +116,7 @@ export class CartComponent implements OnInit {
   // }
 
   LoadCart() {
-    this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
+    this.user = JSON.parse(localStorage.getItem('LoggedInUser'));
     if (this.user != null) {
       let obj = {
         UserID: this.user[0].userID
@@ -226,7 +226,7 @@ export class CartComponent implements OnInit {
   }
 
   GoToDetail(rowID, productSizeColorId, setType, setNo) {
-    this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
+    this.user = JSON.parse(localStorage.getItem('LoggedInUser'));
     //  
     //this.spinner.show();
     if (setType == 1) {

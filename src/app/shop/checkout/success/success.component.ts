@@ -50,7 +50,7 @@ export class SuccessComponent implements OnInit, AfterViewInit {
       //}
     });
     //this.orderService.checkoutItems.subscribe(response => this.orderDetails = response);
-    //this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
+    //this.user = JSON.parse(localStorage.getItem('LoggedInUser'));
 
   }
 
