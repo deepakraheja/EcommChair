@@ -92,33 +92,48 @@ export class ProductBoxComponent implements OnInit {
   }
 
   GoToDetail(rowID, productSizeColorId, setType, setNo) {
-    this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
-    //  
-    if (this.user == null || this.user == undefined) {
-      //this.router.navigate(['/pages/login/cart']);
-      this.modalService.open(LoginComponent, {
-        size: 'lg',
-        ariaLabelledBy: 'Cart-Modal',
-        centered: true,
-        windowClass: 'theme-modal cart-modal CartModal'
-      });
-    }
-    else {
-      this.spinner.show();
-      if (setType == 1) {
-        this.router.navigateByUrl('/shop/product/left/sidebar/' + rowID + '/' + productSizeColorId);
-        this.spinner.hide();
-      }
-      else if (setType == 2) {
-        this.router.navigateByUrl('/shop/product/left/sidebarwithset/' + rowID + '/' + setNo);
-        this.spinner.hide();
-      }
-      if (setType == 3) {
-        this.router.navigateByUrl('/shop/product/left/sidebarwithbundle/' + rowID + '/' + productSizeColorId);
-        this.spinner.hide();
-      }
+    // this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
+    // //  
+    // if (this.user == null || this.user == undefined) {
+    //   //this.router.navigate(['/pages/login/cart']);
+    //   this.modalService.open(LoginComponent, {
+    //     size: 'lg',
+    //     ariaLabelledBy: 'Cart-Modal',
+    //     centered: true,
+    //     windowClass: 'theme-modal cart-modal CartModal'
+    //   });
+    // }
+    // else {
+    //   this.spinner.show();
+    //   if (setType == 1) {
+    //     this.router.navigateByUrl('/shop/product/left/sidebar/' + rowID + '/' + productSizeColorId);
+    //     this.spinner.hide();
+    //   }
+    //   else if (setType == 2) {
+    //     this.router.navigateByUrl('/shop/product/left/sidebarwithset/' + rowID + '/' + setNo);
+    //     this.spinner.hide();
+    //   }
+    //   if (setType == 3) {
+    //     this.router.navigateByUrl('/shop/product/left/sidebarwithbundle/' + rowID + '/' + productSizeColorId);
+    //     this.spinner.hide();
+    //   }
 
+    // } commented on 28 Jan 2021
+
+    this.spinner.show();
+    if (setType == 1) {
+      this.router.navigateByUrl('/shop/product/left/sidebar/' + rowID + '/' + productSizeColorId);
+      this.spinner.hide();
     }
+    else if (setType == 2) {
+      this.router.navigateByUrl('/shop/product/left/sidebarwithset/' + rowID + '/' + setNo);
+      this.spinner.hide();
+    }
+    if (setType == 3) {
+      this.router.navigateByUrl('/shop/product/left/sidebarwithbundle/' + rowID + '/' + productSizeColorId);
+      this.spinner.hide();
+    }
+
   }
   addToCart(product: any) {
     this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));

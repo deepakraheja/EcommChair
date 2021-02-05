@@ -103,7 +103,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   ngAfterViewInit() {
     //setTimeout(() => imageZoom('zoom_01', 'myresult'), 2000);
     $(document).ready(function () {
-     
+
 
       function scrollSticky() {
         if ($('.sticky-scroll').length) {
@@ -316,60 +316,61 @@ export class ProductLeftSidebarComponent implements OnInit {
     // setTimeout(function(){ 
     //   $("#zoom_01").css("display", "none");
     // }, 1000);
-  
-    
+
+
     //  
     //product.quantity = this.counter || 1;
     //product.productname = productname;
-    // this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
+    this.user = JSON.parse(sessionStorage.getItem('LoggedInUser'));
     // //  
-    // if (this.user == null || this.user == undefined) {
-    //   //this.router.navigate(['/pages/login/cart']);
-    //   this.modalService.open(LoginComponent, {
-    //     size: 'lg',
-    //     ariaLabelledBy: 'Cart-Modal',
-    //     centered: true,
-    //     windowClass: 'theme-modal cart-modal CartModal'
-    //   });
-    // }
-    // else {
-    var obj: any[] = [];
-    // var array: any[] = this.productkart[0].productSizeColor;
-    // (array).forEach(element => {
-
-    //   if (element.isSelected) {
-    //     debugger
-    //     obj.push({
-    //       UserID: Number(this.user[0].userID),
-    //       ProductSizeId: Number(element.productSizeId),
-    //       Quantity: Number(element.selectedQty)
-    //     })
-
-    //   }
-    // });
-    //  ;
-    debugger
-    obj.push({
-      UserID: Number(this.user[0].userID),
-      ProductSizeId: Number(this.SelectedColor[0].productSizeId),
-      Quantity: this.user[0].isPersonal == false ? (this.productkart[0].moq == 0 ? 1 : Number(this.productkart[0].moq)) : 1
-    });
-
-    //if (Number(obj.length) > 0) {
-    const status = await this.productService.addToCartProduct(obj);
-
-    if (status) {
-      if (type == 1)
-        this.router.navigate(['/shop/cart']);
-      else
-        this.router.navigate(['/shop/checkout']);
+    if (this.user == null || this.user == undefined) {
+      //this.router.navigate(['/pages/login/cart']);
+      this.modalService.open(LoginComponent, {
+        size: 'lg',
+        ariaLabelledBy: 'Cart-Modal',
+        centered: true,
+        windowClass: 'theme-modal cart-modal CartModal'
+      });
     }
-    // }
-    // else {
+    else {
+      var obj: any[] = [];
+      // var array: any[] = this.productkart[0].productSizeColor;
+      // (array).forEach(element => {
 
-    //   this.toastr.error("Please select an item.");
-    // }
-    //}
+      //   if (element.isSelected) {
+      //     debugger
+      //     obj.push({
+      //       UserID: Number(this.user[0].userID),
+      //       ProductSizeId: Number(element.productSizeId),
+      //       Quantity: Number(element.selectedQty)
+      //     })
+
+      //   }
+      // });
+      //  ;
+      debugger
+      obj.push({
+        UserID: Number(this.user[0].userID),
+        ProductSizeId: Number(this.SelectedColor[0].productSizeId),
+        Quantity: this.user[0].isPersonal == false ? (this.productkart[0].moq == 0 ? 1 : Number(this.productkart[0].moq)) : 1
+      });
+
+      //if (Number(obj.length) > 0) {
+      const status = await this.productService.addToCartProduct(obj);
+
+      if (status) {
+        if (type == 1)
+          this.router.navigate(['/shop/cart']);
+        else
+          this.router.navigate(['/shop/checkout']);
+      }
+      // }
+      // else {
+
+      //   this.toastr.error("Please select an item.");
+      // }
+      //}
+    }
   }
 
   // Buy Now

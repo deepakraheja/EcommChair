@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
   public inputType = 'password';
   public class = 'fa fa-eye';
   public validate: boolean = false;
-
+  public verifyMOtp: boolean = false;
   //showMask = false;
   NumberMask = null;
 
@@ -159,8 +159,9 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.RegistrationForm = this.formBuilder.group({
       password: ['', [Validators.required, Validators.minLength(8)]],
-      email: ['', [Validators.required, Validators.email]],
-      name: ['', Validators.required],
+      email: [''],
+      //email: ['', [Validators.required, Validators.email]],
+      name: [''],
       mobileNo: ['', [Validators.required, Validators.minLength(10), Validators.pattern("^[0-9]*$")]],
       //mobilecode: ['', [Validators.required]],
       //OTPArray: new FormArray([]),
@@ -179,7 +180,8 @@ export class RegisterComponent implements OnInit {
       city: [''],
       state: [''],
       mobileotp: [''],
-      IsPersonal: ['', Validators.required],
+      //IsPersonal: ['', Validators.required],
+      IsPersonal: [false],
 
       //otp1: ['',],
       //otp2: ['',],
@@ -264,7 +266,7 @@ export class RegisterComponent implements OnInit {
 
   keydownEvent(event) {
     debugger
-    if (this.mobileverified) {
+    if (this.mobileOTP) {
 
       event.preventDefault();
       event.stopPropagation();
@@ -483,7 +485,7 @@ export class RegisterComponent implements OnInit {
 
   }
   /*****************************verify mobile OTP*********************/
-  verifyMobileOtp() {
+  verifyMobileOtp(): boolean {
 
     debugger;
     // //this.submitted = true;
@@ -514,7 +516,7 @@ export class RegisterComponent implements OnInit {
       this.showMessage('mobile otp required');
       //$('#txtverify').focus();
       this.setFocus();
-      return
+      return false;
     }
     else {
 
@@ -523,7 +525,7 @@ export class RegisterComponent implements OnInit {
         this.showMessage('please enter 6 digit OTP');
         // $('#txtverify').focus();
         this.setFocus();
-        return
+        return false;
       }
       //this.spinner.show();
       this.VerifyStart = true;
@@ -541,22 +543,29 @@ export class RegisterComponent implements OnInit {
         if (res == 1) {
           this.mobileverified = true;
           //this.validate = true;
-          this.mobileOTP = false;
+          //this.mobileOTP = false;
           this.mvaldate = false;
+          return true;
         } else if (res == 0) {
           this.toastr.error('Invalid OTP');
+          return false;
 
         } else if (res == 2) {
 
           this.toastr.error('Invalid OTP');
+          return false;
         } else {
           this.toastr.error('Exception Error');
+          return false;
         }
+        return true;
+
       }, (err) => {
         this.toastr.error(err.error);
+        return false;
       });
     }
-
+  
 
   }
 
@@ -569,6 +578,11 @@ export class RegisterComponent implements OnInit {
   //****************************** Create Registration into database*************//
   CreateRegistration() {
     debugger
+    this.verifyMOtp = this.verifyMobileOtp();
+
+    if (this.verifyMOtp == false)
+      return;
+      debugger
     this.submitted = true;
 
     // this.Personal = Number(this.RegistrationForm.get('IsPersonal').value);
@@ -588,11 +602,11 @@ export class RegisterComponent implements OnInit {
     // }
 
     if (this.RegistrationForm.invalid) {
-      if ($('#fname').val() == '') {
-        this.toastr.error('Please fill in all the * required fields.');
-        $('#fname').focus();
-        return;
-      }
+      // if ($('#fname').val() == '') {
+      //   this.toastr.error('Please fill in all the * required fields.');
+      //   $('#fname').focus();
+      //   return;
+      // }
 
       // if (this.Personal == 0) {
       //   if ($('#ddlBusinessType option:selected').val() == '') {
@@ -701,10 +715,10 @@ export class RegisterComponent implements OnInit {
       //   return;
       // }
 
-      if ($('#txtemail').val() == '') {
-        $('#txtemail').focus();
-        return;
-      }
+      // if ($('#txtemail').val() == '') {
+      //   $('#txtemail').focus();
+      //   return;
+      // }
 
       if ($('#password').val() == '') {
         $('#password').focus();
@@ -718,9 +732,11 @@ export class RegisterComponent implements OnInit {
     else {
       debugger
       this.spinner.show();
-      const IsPersonal = this.RegistrationForm.get('IsPersonal');
-      IsPersonal.setValue(IsPersonal.value == "1" ? true : false);
-      IsPersonal.updateValueAndValidity();
+      
+      //const IsPersonal = this.RegistrationForm.get('IsPersonal');
+      ////IsPersonal.setValue(IsPersonal.value == "1" ? true : false);
+      //IsPersonal.updateValueAndValidity();
+      
       this.userService.UserRegistration(this.RegistrationForm.value).subscribe(res => {
         debugger
         if (res <= 0) {
@@ -733,7 +749,7 @@ export class RegisterComponent implements OnInit {
           //this.toastr.success("Thank you for registering. We will inform you as soon as your account will be approved.");
           //if (this.RegistrationForm.value.IsPersonal == true) {
           let obj = {
-            LoginId: this.RegistrationForm.value.email,
+            LoginId: this.RegistrationForm.value.mobileNo,
             password: this.RegistrationForm.value.password,
             userType: 2
           };
@@ -745,7 +761,7 @@ export class RegisterComponent implements OnInit {
                 this._SharedDataService.AssignUser(res);
                 this._SharedDataService.UserCart(res);
 
-                this.toastr.success("Thank you for registering with us. You should receive a confirmation email shortly with your user name and password reminder.");
+                this.toastr.success("Thank you for registering with us. You should receive a confirmation text message(SMS) shortly with your user name and password reminder.");
                 //  
                 // this.route.paramMap.subscribe((params: ParamMap) => {
                 //   if (params.get('cart') != "" && params.get('cart') != null && params.get('cart') != undefined) {

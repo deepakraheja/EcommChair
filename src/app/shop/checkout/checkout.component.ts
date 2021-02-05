@@ -28,6 +28,9 @@ export class CheckoutComponent implements OnInit {
 
   public productSizeColor: any[] = [];
   public ProductImage = environment.ProductImage;
+
+  public CCAvenue = environment.CCAvenue;
+
   public checkoutForm: FormGroup;
   public businessForm: FormGroup;
   public products: Product[] = [];
@@ -62,6 +65,8 @@ export class CheckoutComponent implements OnInit {
   AadharNumberMask: string;
   PhoneMask = null;
   showMask: boolean = false;
+  ROWID: any;
+
   constructor(private fb: FormBuilder,
     public productService: ProductService,
     //private orderService: OrderService,
@@ -87,7 +92,7 @@ export class CheckoutComponent implements OnInit {
         //lName: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
         companyName: [''],
         //phone: ['', [Validators.required, Validators.pattern('[0-9]+')]],
-        //emailId: ['', [Validators.required, Validators.email]],
+        emailId: ['', [Validators.required, Validators.email]],
         address: ['', [Validators.required, Validators.maxLength(200)]],
         country: ['India', Validators.required],
         city: ['', Validators.required],
@@ -173,7 +178,7 @@ export class CheckoutComponent implements OnInit {
         //lName: this.checkoutForm.value.lName,
         companyName: this.checkoutForm.value.companyName,
         // phone: this.checkoutForm.value.phone,
-        // emailId: this.checkoutForm.value.emailId,
+        emailId: this.checkoutForm.value.emailId,
         address: this.checkoutForm.value.address,
         country: this.checkoutForm.value.country,
         city: this.checkoutForm.value.city,
@@ -221,10 +226,12 @@ export class CheckoutComponent implements OnInit {
     // });
     //this.initConfig();
   }
+
+  get form() { return this.checkoutForm.controls; }
   onItemChange(item) {
     debugger
     //alert(item.billingAddressId)
-
+    this.ROWID = item.rowID;
     this.AddressId = item.billingAddressId
     this.SelectedAddress = item.address + ' ' + item.city + ' ' + item.state + ' ' + item.zipCode + ' ' + item.country
 
@@ -240,6 +247,7 @@ export class CheckoutComponent implements OnInit {
         if (this.lstBillingAddress.length == 0) {
           this.AddNewAddress();
         }
+        this.ROWID = res[0].rowID;
         this.AddressId = res[0].billingAddressId;
         this.email = res[0].emailId;
         this.SelectedAddress = res[0].address + ' ' + res[0].city + ' ' + res[0].state + ' ' + res[0].zipCode + ' ' + res[0].country
@@ -374,7 +382,7 @@ export class CheckoutComponent implements OnInit {
       //lName: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       companyName: [''],
       //phone: ['', [Validators.required, Validators.pattern('[0-9]+')]],
-      //emailId: ['', [Validators.required, Validators.email]],
+      emailId: ['', [Validators.required, Validators.email]],
       address: ['', [Validators.required, Validators.maxLength(200)]],
       country: ['India', Validators.required],
       city: ['', Validators.required],
@@ -432,6 +440,15 @@ export class CheckoutComponent implements OnInit {
   get f() { return this.businessForm.controls; }
 
   SelectdeliverAddress(template: TemplateRef<any>, lst) {
+    // Hack: Scrolls to top of Page after page view initialized
+    let top = document.getElementById('divContinue');
+    if (top !== null) {
+      top.scrollIntoView();
+      top = null;
+    }
+
+
+
     debugger
     // if (this.user[0].isPersonal == false) {
     //   this._userService.GetUserInfo().subscribe(res => {
@@ -536,9 +553,9 @@ export class CheckoutComponent implements OnInit {
   SaveAddress() {
     debugger
     this.AddressValueChanged();
-    if (this.user[0].isPersonal == false) {
-      this.BusinessLicenseValidation();
-    }
+    // if (this.user[0].isPersonal == false) {
+    //   this.BusinessLicenseValidation();
+    // }
     this.Submitted = true;
     if (this.checkoutForm.invalid) {
       this.toastr.error("All * fields are mandatory.");
@@ -553,7 +570,7 @@ export class CheckoutComponent implements OnInit {
         //lName: this.checkoutForm.value.lName,
         companyName: this.checkoutForm.value.companyName,
         //phone: this.checkoutForm.value.phone,
-        //emailId: this.checkoutForm.value.emailId,
+        emailId: this.checkoutForm.value.emailId,
         address: this.checkoutForm.value.address,
         country: this.checkoutForm.value.country,
         city: this.checkoutForm.value.city,
@@ -580,7 +597,7 @@ export class CheckoutComponent implements OnInit {
         this.cancel();
         debugger
         this.AddressId = this.lstBillingAddress[this.lstBillingAddress.length - 1].billingAddressId;
-
+        this.ROWID = this.lstBillingAddress[this.lstBillingAddress.length - 1].rowID;;
         //this.LoadBillingAddress();
       });
       //  
@@ -603,6 +620,7 @@ export class CheckoutComponent implements OnInit {
       state.setValidators([Validators.required]);
     if (city.value == '')
       city.setValidators([Validators.required]);
+
     zipCode.updateValueAndValidity();
     state.updateValueAndValidity();
     city.updateValueAndValidity();
@@ -670,46 +688,79 @@ export class CheckoutComponent implements OnInit {
   }
 
   ProcessCheckOut() {
-    // this.Submitted = true;
-    // if (this.checkoutForm.invalid) {
-    //   this.toastr.error("All * fields are mandatory.");
-    //   return;
-    // }
-    // else {
-    this.spinner.show();
-    debugger
-    let obj = {
-      billingAddressId: Number(this.checkoutForm.value.billingAddressId),
-      //userID: Number(this.user[0].userID),
-      //fName: this.checkoutForm.value.fName,
-      //lName: this.checkoutForm.value.lName,
-      //companyName: this.checkoutForm.value.companyName,
-      //phone: this.checkoutForm.value.phone,
-      //emailId: this.checkoutForm.value.emailId,
-      //address: this.checkoutForm.value.address,
-      //country: this.checkoutForm.value.country,
-      //city: this.checkoutForm.value.city,
-      //state: this.checkoutForm.value.state,
-      //zipCode: this.checkoutForm.value.zipCode,
-      orderNumber: this._datePipe.transform(new Date().toString(), 'yyyyMMddHHmmss'),
-      orderDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
-      paymentTypeId: Number(this.checkoutForm.value.paymentTypeId),
-      subTotal: Number(this.getTotal()),
-      tax: 0,
-      shippingCharge: 0,
-      totalAmount: Number(this.getTotal()) + Number(this.checkoutForm.value.shippingCharge),
-      notes: '',
-      statusId: 1
-    }
-    //  
-    this._orderService.SaveOrder(obj).subscribe(res => {
-      //  
-      this.spinner.hide();
-      this._SharedDataService.UserCart([]);
-      this.router.navigate(['/shop/checkout/success/' + res]);
 
-    });
-    //}
+    debugger;
+    if (Number(this.checkoutForm.value.paymentTypeId) == 1) {
+      this.spinner.show();
+
+      let obj = {
+        BillingAddressId: Number(this.checkoutForm.value.billingAddressId),
+        OrderNumber: this._datePipe.transform(new Date().toString(), 'yyyyMMddHHmmss'),
+        OrderDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
+        TotalAmount: Number(this.getTotal()) + Number(this.checkoutForm.value.shippingCharge),
+      }
+
+      this._orderService.SaveCcavenueRequest(obj).subscribe(res => {
+        //  
+        debugger;
+        if (res != null && res > 0) {
+          debugger;
+
+          window.location.href = "ccavRequestHandler.aspx?BillingSession_Id=" + this.ROWID;
+
+          // setTimeout(function () {CCAvenue
+          //window.location.href = "http://localhost:61970/ccavRequestHandler.aspx?BillingSession_Id=" + this.ROWID;
+          //window.location.href = "https://www.alibabachair.com/ccavRequestHandler.aspx?BillingSession_Id=" + this.ROWID;
+          // }, 2000);
+          this.spinner.hide();
+        }
+
+
+      });
+
+    }
+    else if (Number(this.checkoutForm.value.paymentTypeId) == 2) {
+      // this.Submitted = true;
+      // if (this.checkoutForm.invalid) {
+      //   this.toastr.error("All * fields are mandatory.");
+      //   return;
+      // }
+      // else {
+      this.spinner.show();
+      debugger
+      let obj = {
+        billingAddressId: Number(this.checkoutForm.value.billingAddressId),
+        //userID: Number(this.user[0].userID),
+        //fName: this.checkoutForm.value.fName,
+        //lName: this.checkoutForm.value.lName,
+        //companyName: this.checkoutForm.value.companyName,
+        //phone: this.checkoutForm.value.phone,
+        //emailId: this.checkoutForm.value.emailId,
+        //address: this.checkoutForm.value.address,
+        //country: this.checkoutForm.value.country,
+        //city: this.checkoutForm.value.city,
+        //state: this.checkoutForm.value.state,
+        //zipCode: this.checkoutForm.value.zipCode,
+        orderNumber: this._datePipe.transform(new Date().toString(), 'yyyyMMddHHmmss'),
+        orderDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
+        paymentTypeId: Number(this.checkoutForm.value.paymentTypeId),
+        subTotal: Number(this.getTotal()),
+        tax: 0,
+        shippingCharge: 0,
+        totalAmount: Number(this.getTotal()) + Number(this.checkoutForm.value.shippingCharge),
+        notes: '',
+        statusId: 1
+      }
+      //  
+      this._orderService.SaveOrder(obj).subscribe(res => {
+        //  
+        this.spinner.hide();
+        this._SharedDataService.UserCart([]);
+        this.router.navigate(['/shop/checkout/success/' + res]);
+
+      });
+      //}
+    }
   }
 
 }

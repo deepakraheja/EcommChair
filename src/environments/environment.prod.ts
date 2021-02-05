@@ -24,7 +24,6 @@ export const environment = {
   Report_Path: 'https://store.alibabachair.com/ReportGenerate/',
   WebSite_URL: 'www.alibabachair.com',
   Invoice_URL: 'https://store.alibabachair.com/TempPDF/',
-
-  APIURL:'https://store.alibabachair.com/'
-
+  APIURL:'https://store.alibabachair.com/',
+  CCAvenue: 'www.alibabachair.com/',
 };

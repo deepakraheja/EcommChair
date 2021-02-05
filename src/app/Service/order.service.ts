@@ -23,6 +23,14 @@ export class OrderService {
     );
   }
 
+  SaveCcavenueRequest(_Obj: any): Observable<any> {
+    this._methodName = "SaveCcavenueRequest";
+    this._param = _Obj;
+    return this._http.post<any>(
+      this._url + this._methodName, this._param
+    );
+  }
+
   GetOrderByOrderId(_Obj: any): Observable<any> {
     this._methodName = "GetOrderByOrderId";
     this._param = _Obj;

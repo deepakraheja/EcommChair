@@ -2,6 +2,34 @@
 <!-- section start -->
 <section class="cart-section section-b-space">
     <div class="container">
+
+        <!-- <div class="breadcrum">
+            <ul class="progress-steps" id="checkout-step-address">
+                <li class="completed-first"><a class="row Cart" href="/checkout/cart">
+                        <div class="text"><span>1. Cart</span></div>
+                        <div class="arrow icofont-arrow_right_slim"></div>
+                    </a></li>
+                <li class="current">
+                    <div class="row Address">
+                        <div class="text"><span>2. Address</span></div>
+                        <div class="arrow icofont-arrow_right_slim"></div>
+                    </div>
+                </li>
+
+                <li class="">
+                    <div class="row Payment">
+                        <div class="text"><span>3. Payment</span></div>
+                        <div class="arrow icofont-arrow_right_slim"></div>
+                    </div>
+                </li>
+                <li class="last">
+                    <div class="row Complete">
+                        <div class="text"><span>5. Complete</span></div>
+                        <div class="arrow icofont-arrow_right_slim"></div>
+                    </div>
+                </li>
+            </ul>
+        </div> -->
         <div class="col-sm-12 empty-cart-cls text-center" *ngIf="IsEmptyCart==true">
             <img src="assets/images/icon-empty-cart.png" class="img-fluid mb-4">
             <h3><strong>Your Cart is Empty!</strong></h3>
@@ -17,7 +45,8 @@
                         <div class="cart-product-details">
                             <div class="row">
                                 <div class="col-sm-2 text-center">
-                                    <a (click)="GoToDetail(product.rowID,product?.productSizeId,product?.setType,product?.setNo);">
+                                    <a
+                                        (click)="GoToDetail(product.rowID,product?.productSizeId,product?.setType,product?.setNo);">
                                         <img class="img-fluid" *ngIf="product?.setNo>0"
                                             [src]="ProductImage+product?.productId+'/productSetImage/'+product?.setNo+'/'+product?.productImg[0]">
                                         <!-- <img class="img-fluid" *ngIf="product?.setNo==0"
@@ -53,7 +82,9 @@
                                                     </button>
 
                                                 </span>
-                                                <input type="text" style="width: 70px;" name="quantity" class="form-control input-number" disabled [(ngModel)]="product.quantity">
+                                                <input type="text" style="width: 70px;" name="quantity"
+                                                    class="form-control input-number" disabled
+                                                    [(ngModel)]="product.quantity">
                                                 <span class="input-group-prepend">
 
                                                     <button *ngIf="product?.setType==3" type="button"
@@ -82,7 +113,8 @@
                                         </div>
                                         <!-- <div *ngIf="product?.setType==1"><span>Size:
                                             </span><span>{{(product?.productName).split('|')[2]}}</span></div> -->
-                                        <div *ngIf="user[0].isPersonal==false" style="color: red;"><span>Minimun Order Quantity:
+                                        <div *ngIf="user[0].isPersonal==false" style="color: red;"><span>Minimun Order
+                                                Quantity:
                                             </span><span>{{product?.moq}}</span></div>
                                         <div *ngIf="product?.setType==1"><span>Color:
                                             </span><span>{{(product?.productName).split('|')[1]}}</span></div>
@@ -94,18 +126,22 @@
 
                                                 {{ (product.salePrice*product.totalPieces).toFixed() | currency:productService?.Currency.currency:'symbol' }}
                                             </h4>&nbsp;
-                                            <del *ngIf="product?.setType==2 && product?.perDiscount>0">{{ (product.price*product.totalPieces).toFixed() | currency:productService?.Currency.currency:'symbol' }}</del>
+                                            <del
+                                                *ngIf="product?.setType==2 && product?.perDiscount>0">{{ (product.price*product.totalPieces).toFixed() | currency:productService?.Currency.currency:'symbol' }}</del>
 
                                             <h4 *ngIf="product?.setType!=2" class="text-black">
 
                                                 {{ (product.salePrice) | currency:productService?.Currency.currency:'symbol' }}
                                             </h4>&nbsp;
-                                            <del *ngIf="product?.setType!=2 && product?.perDiscount>0">{{ product.price | currency:productService?.Currency.currency:'symbol' }}</del> &nbsp;
+                                            <del
+                                                *ngIf="product?.setType!=2 && product?.perDiscount>0">{{ product.price | currency:productService?.Currency.currency:'symbol' }}</del>
+                                            &nbsp;
                                             <h5 class="text-red" *ngIf="product?.setType!=2 && product?.perDiscount>0">
                                                 {{ product.perDiscount/product.totalPieces | number:'1.2-2' }}%</h5>
                                         </div>
 
-                                        <a href="javascript:void(0)" (click)="deleteConfirmation(templateDeleteItem,product)" class="icon">
+                                        <a href="javascript:void(0)"
+                                            (click)="deleteConfirmation(templateDeleteItem,product)" class="icon">
                                             <i class="ti-trash text-red" style="font-size:1.5rem;"></i>
                                         </a>
                                     </div>
@@ -149,26 +185,30 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="p-4 price-details">
-                        <h4 class="mb-4">Price Details</h4>
+                        <h4 class="mb-4" style="font-size: 22px;">Price Details</h4>
                         <p class="d-flex justify-content-between">
-                            <span>Total Pieces: </span>
-                            <span><b>{{TotalPieces}}</b></span>
+                            <span style="font-size: 16px;">Total Pieces: </span>
+                            <span style="font-size: 16px;"><b>{{TotalPieces}}</b></span>
                         </p>
                         <p class="d-flex justify-content-between">
-                            <span>Total Amount: </span>
-                            <span><b>{{ Price | currency:productService?.Currency.currency:'symbol'}}</b></span>
+                            <span style="font-size: 16px;">Total Amount: </span>
+                            <span
+                                style="font-size: 16px;"><b>{{ Price | currency:productService?.Currency.currency:'symbol'}}</b></span>
                         </p>
                         <p class="d-flex justify-content-between" *ngIf="Discount>0">
-                            <span>Total Discounts: </span>
-                            <span><b>{{ Discount | currency:productService?.Currency.currency:'symbol'}}</b></span>
+                            <span style="font-size: 16px;">Total Discounts: </span>
+                            <span
+                                style="font-size: 16px;"><b>{{ Discount | currency:productService?.Currency.currency:'symbol'}}</b></span>
                         </p>
                         <hr>
                         <p class="d-flex justify-content-between">
-                            <span><b>Total Amount: </b></span>
-                            <span><b>{{ Price-Discount | currency:productService?.Currency.currency:'symbol'}}</b></span>
+                            <span style="font-size: 16px;"><b>Total Amount: </b></span>
+                            <span
+                                style="font-size: 16px;"><b>{{ Price-Discount | currency:productService?.Currency.currency:'symbol'}}</b></span>
                         </p>
                         <hr>
-                        <p *ngIf="Discount>0" class="text-green mb-4">You will save {{ Discount | currency:productService?.Currency.currency:'symbol'}} on this order</p>
+                        <p *ngIf="Discount>0" class="text-green mb-4">You will save
+                            {{ Discount | currency:productService?.Currency.currency:'symbol'}} on this order</p>
                         <div class="text-center">
                             <a class="btn btn-solid" (click)="ProceedToCheckout()">check out</a>
                         </div>
@@ -211,7 +251,9 @@
                                         <i class="ti-minus"></i>
                                     </button>
                                 </span>
-                                <input type="text" name="quantity" id="{{ 'txtqty' + myIndex}}" style="width: 45px; height: 27px;" class="form-control input-number" [value]="item.quantity" disabled />
+                                <input type="text" name="quantity" id="{{ 'txtqty' + myIndex}}"
+                                    style="width: 45px; height: 27px;" class="form-control input-number"
+                                    [value]="item.quantity" disabled />
                                 <span class="input-group-prepend">
                                     <button type="button" class="btn quantity-right-plus" data-type="plus"
                                         (click)="Min_increment(item)">
@@ -260,7 +302,8 @@
                                         </button>
                                     </div>
                                     <div class="col-lg-6 col-sm-6 col-xs-6 text-right">
-                                        <button type="button" class="btn-solid btn" (click)="modal.dismiss('Cross click')">
+                                        <button type="button" class="btn-solid btn"
+                                            (click)="modal.dismiss('Cross click')">
                                             No
                                         </button>
                                     </div>
