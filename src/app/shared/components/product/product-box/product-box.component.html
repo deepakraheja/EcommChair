@@ -115,7 +115,8 @@
     <div class="box-design">
       <!-- <bar-rating [rate]="productkart?.averageRating" theme="fontawesome-o" [readOnly]="true"></bar-rating> -->
       <h5 class="mb-4">
-        <span class="review-box" *ngIf="productkart?.totalRating>0"> {{productkart?.averageRating}} ★</span>&nbsp;
+        <span class="review-box" *ngIf="productkart?.totalRating>0"> {{(productkart?.averageRating)}}
+          ★</span>&nbsp;
         <span class="text-grey" *ngIf="productkart?.totalRating>0">({{productkart?.totalRating}})</span>
       </h5>
       <!-- <a [routerLink]="['/shop/product/left/sidebar/', product?.title.replace(' ', '-')]"> -->

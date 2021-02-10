@@ -70,35 +70,35 @@ export class ForgetPasswordComponent implements OnInit {
 
   }
 
-  ResetPassword() {
-    if (this.ResetPasswordForm.value.mobileNo == "") {
-      this.toastr.error('Please, Enter 10 digit Mobile Number.');
-      return;
-    }
-    if (this.ResetPasswordForm.invalid) {
-      this.toastr.error('Please, Enter 10 digit Mobile Number.');
-      return;
-    }
-    this.spinner.show();
+  // ResetPassword() {
+  //   if (this.ResetPasswordForm.value.mobileNo == "") {
+  //     this.toastr.error('Please, Enter 10 digit Mobile Number.');
+  //     return;
+  //   }
+  //   if (this.ResetPasswordForm.invalid) {
+  //     this.toastr.error('Please, Enter 10 digit Mobile Number.');
+  //     return;
+  //   }
+  //   this.spinner.show();
 
 
-    // this.userService.ValidEmail(this.ResetPasswordForm.value).subscribe(res => {
-    //   this.spinner.hide();
-    //   if (res < 0) {
-    //     //setTimeout(() => this.spinner.hide(), 500);
-    //     this.toastr.error("Something went wrong. please try again");
-    //     return;
-    //   }
-    //   if (res == 1) {
-    //     this.toastr.success('An email has been sent to your mailbox for password reset.'); 
-    //     this.router.navigate(['/home/chair']);
-    //   }
-    //   else {
-    //     this.toastr.error('Email does not exist.');
-    //   }
+  // this.userService.ValidEmail(this.ResetPasswordForm.value).subscribe(res => {
+  //   this.spinner.hide();
+  //   if (res < 0) {
+  //     //setTimeout(() => this.spinner.hide(), 500);
+  //     this.toastr.error("Something went wrong. please try again");
+  //     return;
+  //   }
+  //   if (res == 1) {
+  //     this.toastr.success('An email has been sent to your mailbox for password reset.'); 
+  //     this.router.navigate(['/home/chair']);
+  //   }
+  //   else {
+  //     this.toastr.error('Email does not exist.');
+  //   }
 
-    // });
-  }
+  // });
+  //}
 
   keytab(event) {
     debugger
@@ -122,7 +122,7 @@ export class ForgetPasswordComponent implements OnInit {
 
   SendOtp() {
     debugger;
-    this.loginStart = true;
+
     if (this.ResetPasswordForm.value.mobileNo == "") {
       this.toastr.error('Please, Enter 10 digit Mobile Number.');
       return;
@@ -131,7 +131,7 @@ export class ForgetPasswordComponent implements OnInit {
       this.toastr.error('Please, Enter 10 digit Mobile Number.');
       return;
     }
-    //this.spinner.show();
+    this.loginStart = true;
 
     let obj = {
       "MobileNo": this.ResetPasswordForm.get('mobileNo').value
@@ -151,7 +151,7 @@ export class ForgetPasswordComponent implements OnInit {
       }
 
       else {
-        //this.showMessage('OTP sending to this number is denied - Contact customer care');
+        this.showMessage('OTP sending to this number is denie. Contact customer care at alibabachair.Com');
       }
     }, error => {
 
@@ -169,7 +169,7 @@ export class ForgetPasswordComponent implements OnInit {
 
     this.toastr.success('OTP has been sent.');
 
-    this.counter = 60;// for OTP time
+    this.counter = 120;// for OTP time
     this.mobileOTP = true;
     this.Set_Time();
     setTimeout(() => {
@@ -235,13 +235,14 @@ export class ForgetPasswordComponent implements OnInit {
 
 
       this.userService.verify_mobile_otp(d).subscribe((res: any) => {
-        //setTimeout(() => this.spinner.hide(), 200);
+        debugger;
         this.VerifyStart = false;
-        if (res == 1) {
+        if (res != "-1" && res != "0") {
           this.mobileverified = true;
-         
+
+          this.router.navigate(['/pages/ResetPassword/' + res]);
           return true;
-        } else if (res == 0) {
+        } else if (res == "0") {
           this.toastr.error('Invalid OTP');
           return false;
 

@@ -431,7 +431,7 @@ export class RegisterComponent implements OnInit {
 
       }
       else {
-        this.showMessage('OTP sending to this number is denied - Contact customer care');
+        this.showMessage('OTP sending to this number is denied. Contact customer care at alibabachair.Com');
       }
     }, error => {
       this.mobileotpSendStart = false;
