@@ -3,6 +3,7 @@ import { SharedDataService } from 'src/app/Service/shared-data.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { LoginComponent } from 'src/app/pages/account/login/login.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-header-one',
@@ -19,15 +20,21 @@ export class HeaderOneComponent implements OnInit {
   public stick: boolean = false;
   public LoggedInUser: any[] = [];
   public searchQuery: string;
+  public CompareCount;
   constructor(
     private router: Router,
     private _SharedDataService: SharedDataService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    public productService: ProductService,
   ) { }
 
   ngOnInit(): void {
     this._SharedDataService.currentUser.subscribe(a => {
       this.LoggedInUser = a;
+    });
+    this._SharedDataService.lstcompare.subscribe(response => {
+      debugger
+      this.CompareCount = response.length;
     });
   }
 

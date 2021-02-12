@@ -107,17 +107,19 @@ export class ProductService {
   */
 
   // Get Compare Items
-  public get compareItems(): Observable<Product[]> {
+  public get compareItems(): Observable<Productkart[]> {
     const itemsStream = new Observable(observer => {
       observer.next(state.compare);
       observer.complete();
+      localStorage.setItem("compareItems", JSON.stringify(state.compare));
+      this._SharedDataService.Usercompare(state.compare);
     });
-    return <Observable<Product[]>>itemsStream;
+    return <Observable<Productkart[]>>itemsStream;
   }
 
   // Add to Compare
   public addToCompare(product): any {
-    const compareItem = state.compare.find(item => item.id === product.id)
+    const compareItem = state.compare.find(item => item.rowID === product.rowID)
     if (!compareItem) {
       state.compare.push({
         ...product
@@ -125,14 +127,17 @@ export class ProductService {
     }
     this.toastrService.success('Product has been added in compare.');
     localStorage.setItem("compareItems", JSON.stringify(state.compare));
+    this._SharedDataService.Usercompare(state.compare);
     return true
   }
 
   // Remove Compare items
-  public removeCompareItem(product: Product): any {
+  public removeCompareItem(product: any): any {
     const index = state.compare.indexOf(product);
     state.compare.splice(index, 1);
+    this.toastrService.success('Product has been removed in compare.');
     localStorage.setItem("compareItems", JSON.stringify(state.compare));
+    this._SharedDataService.Usercompare(state.compare);
     return true
   }
 
@@ -403,8 +408,8 @@ export class ProductService {
         return 0;
       })
     }
-  } 
- 
+  }
+
   /*
     ---------------------------------------------
     ------------- Product Pagination  -----------
