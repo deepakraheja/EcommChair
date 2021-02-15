@@ -17,7 +17,11 @@ export class SharedDataService {
   private GetCart = new BehaviorSubject(this.cart);
   lstCart = this.GetCart.asObservable();
 
-  public compare: any[] = [];
+  public wishList: any[] = [];
+  private GetwishList = new BehaviorSubject(this.wishList);
+  lstwishList = this.GetwishList.asObservable();
+
+  public compare: any[] = JSON.parse(localStorage.getItem('compareItems'));
   private Getcompare = new BehaviorSubject(this.compare);
   lstcompare = this.Getcompare.asObservable();
   constructor() { }
@@ -30,6 +34,10 @@ export class SharedDataService {
 
   UserCart(_cart: any[]) {
     this.GetCart.next(_cart);
+  }
+
+  UserwishList(_wishList: any[]) {
+    this.GetwishList.next(_wishList);
   }
 
   Usercompare(_compare: any[]) {

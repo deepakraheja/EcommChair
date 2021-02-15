@@ -159,8 +159,29 @@ export class ProductBoxComponent implements OnInit {
     }
   }
 
-  addToWishlist(product: any) {
-    this.productService.addToWishlist(product);
+  async addToWishlist(product: any) {
+    //this.productService.addToWishlist(product);
+
+    this.user = JSON.parse(localStorage.getItem('LoggedInUser'));
+    if (this.user == null || this.user == undefined) {
+      this.modalService.open(LoginComponent, {
+        size: 'lg',
+        ariaLabelledBy: 'Cart-Modal',
+        centered: true,
+        windowClass: 'theme-modal cart-modal CartModal'
+      });
+    }
+    else {
+      debugger
+      let obj={
+        ProductSizeId: Number(product.productSizeId)
+      };
+      const status = await this.productService.addToWishListProduct(obj);
+      // if (status) {
+      //     this.router.navigate(['/shop/wishlist']);
+      // }
+    }
+
   }
 
   addToCompare(product: any) {

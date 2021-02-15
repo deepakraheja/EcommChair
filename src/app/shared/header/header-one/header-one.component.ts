@@ -4,6 +4,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { LoginComponent } from 'src/app/pages/account/login/login.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductService } from '../../services/product.service';
+import { WishListService } from 'src/app/Service/wish-list.service';
 
 @Component({
   selector: 'app-header-one',
@@ -21,11 +22,13 @@ export class HeaderOneComponent implements OnInit {
   public LoggedInUser: any[] = [];
   public searchQuery: string;
   public CompareCount;
+  public WishListCount;
   constructor(
     private router: Router,
     private _SharedDataService: SharedDataService,
     private modalService: NgbModal,
     public productService: ProductService,
+    public _wishListService: WishListService
   ) { }
 
   ngOnInit(): void {
@@ -36,6 +39,23 @@ export class HeaderOneComponent implements OnInit {
       debugger
       this.CompareCount = response.length;
     });
+    this._SharedDataService.lstwishList.subscribe(response => {
+      debugger
+      this.WishListCount = response.length;
+      this.LoadWishList();
+    });
+  }
+
+  LoadWishList() {
+    this.LoggedInUser = JSON.parse(localStorage.getItem('LoggedInUser'));
+    if (this.LoggedInUser != null) {
+      this._wishListService.GetWishListById().subscribe(response => {
+        this.WishListCount = response.length;
+      });
+    }
+    else {
+      this.WishListCount = 0;
+    }
   }
 
   // @HostListener Decorator

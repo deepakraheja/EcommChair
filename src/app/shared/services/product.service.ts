@@ -11,6 +11,7 @@ import { SharedDataService } from 'src/app/Service/shared-data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CartService } from 'src/app/Service/cart.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { WishListService } from 'src/app/Service/wish-list.service';
 
 const state = {
   products: JSON.parse(localStorage['products'] || '[]'),
@@ -34,6 +35,7 @@ export class ProductService {
     private modalService: NgbModal,
     private _cartService: CartService,
     private spinner: NgxSpinnerService,
+    private _wishListService: WishListService,
   ) { }
 
   /*
@@ -93,10 +95,23 @@ export class ProductService {
   }
 
   // Remove Wishlist items
-  public removeWishlistItem(product: Product): any {
-    const index = state.wishlist.indexOf(product);
-    state.wishlist.splice(index, 1);
-    localStorage.setItem("wishlistItems", JSON.stringify(state.wishlist));
+  public removeWishlistItem(product: any): any {
+    // const index = state.wishlist.indexOf(product);
+    // state.wishlist.splice(index, 1);
+    // localStorage.setItem("wishlistItems", JSON.stringify(state.wishlist));
+    // return true
+
+    this.user = JSON.parse(localStorage.getItem('LoggedInUser'));
+    //  
+    let obj = {
+      WishListId: product.wishListId
+    };
+    this.spinner.show();
+    this._wishListService.DelWishListById(obj).subscribe(res => {
+      this.spinner.hide();
+      this.toastrService.success('Product has been removed successfully from your Wishlist.');
+      this._SharedDataService.UserwishList([]);
+    });
     return true
   }
 
@@ -462,5 +477,65 @@ export class ProductService {
       pages: pages
     };
   }
+
+   // added on 13 july 2020 by deepak
+  //Add to Cart 
+  public addToWishListProduct(product: any): any {
+    //  ;
+    //console.log(product);
+    this.user = JSON.parse(localStorage.getItem('LoggedInUser'));
+    //  
+    if (this.user == null || this.user == undefined) {
+      //this.router.navigate(['/pages/login/cart']);
+      this.modalService.open(LoginComponent, {
+        size: 'lg',
+        ariaLabelledBy: 'Cart-Modal',
+        centered: true,
+        windowClass: 'theme-modal cart-modal CartModal'
+      });
+    }
+    else {
+      this.spinner.show();
+      this._wishListService.AddToWishList(product).subscribe(res => {
+        this.spinner.hide();
+        this.toastrService.success("Product has been successfully added in WishList.");
+        this._SharedDataService.UserwishList([]);
+      });
+    }
+    return true;
+  }
+
+  public addToWishToCartProduct(product: any): any {
+    //  ;
+    //console.log(product);
+    this.user = JSON.parse(localStorage.getItem('LoggedInUser'));
+    //  
+    if (this.user == null || this.user == undefined) {
+      //this.router.navigate(['/pages/login/cart']);
+      this.modalService.open(LoginComponent, {
+        size: 'lg',
+        ariaLabelledBy: 'Cart-Modal',
+        centered: true,
+        windowClass: 'theme-modal cart-modal CartModal'
+      });
+    }
+    else {
+      var obj: any[] = [];
+      debugger
+      obj.push({
+        ProductSizeId: Number(product.productSizeId),
+        Quantity: this.user[0].isPersonal == false ? (product.moq == 0 ? 1 : Number(product.moq)) : 1
+      });
+      this.spinner.show();
+      this._cartService.AddToCart(obj).subscribe(res => {
+        this.spinner.hide();
+        this.toastrService.success("Product has been successfully added in cart.");
+        this._SharedDataService.UserwishList([]);
+        this._SharedDataService.UserCart([]);
+      });
+    }
+    return true;
+  }
+
 
 }
