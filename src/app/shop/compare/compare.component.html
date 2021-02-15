@@ -44,7 +44,7 @@
                                             width="185" class="featured-image" alt="" />
 
                                         <div class="product-price product_price">
-                                            <!-- <strong>On Sale: </strong> -->
+                                            <!-- <strong>On Sale: </strong> --> 
                                             <!-- <span>
                                                 {{ (product.price | discount:product) * productService?.Currency.price |
                                                 currency:productService?.Currency.currency:'symbol' }}
@@ -53,7 +53,7 @@
                                                 *ngIf="user==null || user[0]?.isPersonal==true || productkart?.businessPrice==0">
                                                 <h4> <b>
                                                         {{ (productkart?.businessPrice) | currency:currency?.currency:'symbol' }}</b>
-                                                </h4>
+                                                </h4> 
                                             </span>
                                             <span
                                                 *ngIf="user!=null && user[0]?.isPersonal==false && productkart?.businessPrice>0">
