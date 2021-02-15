@@ -30,7 +30,8 @@
                                 <!-- Product Name -->
                                 <tr>
                                     <th class="product-name">Product Name</th>
-                                    <td class="grid-link__title" *ngFor="let product of products">{{ product.productName | titlecase }}</td>
+                                    <td class="grid-link__title" *ngFor="let product of products">
+                                        {{ product.productName | titlecase }}</td>
                                 </tr>
                                 <!-- Product Image -->
                                 <tr>
@@ -38,23 +39,31 @@
                                     <td class="item-row" *ngFor="let productkart of products">
                                         <!-- <img [src]="productkart.images[0].src" [alt]="productkart.images[0].alt" width="185" class="featured-image"> -->
 
-                                        <img [defaultImage]="ImageSrc ? ImageSrc : 'assets/images/product/placeholder.jpg'" [lazyLoad]="ImageSrc ? ImageSrc : ProductImage+productkart.productID+'/frontImage/'+productkart.frontImage" width="185" class="featured-image" alt="" />
+                                        <img [defaultImage]="ImageSrc ? ImageSrc : 'assets/images/product/placeholder.jpg'"
+                                            [lazyLoad]="ImageSrc ? ImageSrc : ProductImage+productkart.productID+'/frontImage/'+productkart.frontImage"
+                                            width="185" class="featured-image" alt="" />
 
                                         <div class="product-price product_price">
-                                            <strong>On Sale: </strong>
+                                            <!-- <strong>On Sale: </strong> -->
                                             <!-- <span>
                                                 {{ (product.price | discount:product) * productService?.Currency.price |
                                                 currency:productService?.Currency.currency:'symbol' }}
                                             </span> -->
-                                            <span *ngIf="user==null || user[0]?.isPersonal==true || productkart?.businessPrice==0">
-                                                {{ (productkart?.businessPrice) | currency:currency?.currency:'symbol' }}
+                                            <span
+                                                *ngIf="user==null || user[0]?.isPersonal==true || productkart?.businessPrice==0">
+                                                <h4> <b>
+                                                        {{ (productkart?.businessPrice) | currency:currency?.currency:'symbol' }}</b>
+                                                </h4>
                                             </span>
-                                            <span *ngIf="user!=null && user[0]?.isPersonal==false && productkart?.businessPrice>0">
-                                                {{ (productkart?.businessPrice) | currency:currency?.currency:'symbol' }}
+                                            <span
+                                                *ngIf="user!=null && user[0]?.isPersonal==false && productkart?.businessPrice>0">
+                                                <h4> {{ (productkart?.businessPrice) | currency:currency?.currency:'symbol' }}
+                                                </h4>
                                             </span>
                                         </div>
                                         <form class="variants clearfix">
-                                            <button title="Add to Cart" (click)="addToCart(productkart)" class="add-to-cart btn btn-solid">Add to Cart</button>
+                                            <button title="Add to Cart" (click)="addToCart(productkart)"
+                                                class="add-to-cart btn btn-solid">Add to Cart</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -64,7 +73,8 @@
                                     <td class="item-row" *ngFor="let product of products">
                                         <!-- <p class="description-compare">{{ product.shortDetails.substring(0, 200)+'...' }}
                                         </p> -->
-                                        <div class="blog-post ul-list-circle product-dtl-img" [innerHTML]="product?.shortDetails | safe: 'html'"></div>
+                                        <div class="blog-post ul-list-circle product-dtl-img"
+                                            [innerHTML]="product?.shortDetails | safe: 'html'"></div>
                                     </td>
                                 </tr>
                                 <!-- Product Availability -->
