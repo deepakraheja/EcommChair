@@ -23,7 +23,6 @@
                         <tr>
                             <td>
                                 <a (click)="GoToDetail(productkart.rowID,productkart?.productSizeId,productkart?.setType,productkart?.setNo);">
-                                    <!-- <img [src]="product.images[0].src" [alt]="product.images[0].alt"> -->
                                     <img [defaultImage]="ImageSrc ? ImageSrc : 'assets/images/product/placeholder.jpg'" [lazyLoad]="ImageSrc ? ImageSrc : ProductImage+productkart.productId+'/frontImage/'+productkart.frontImage" class="img-fluid lazy-loading" alt="" />
                                 </a>
                             </td>
