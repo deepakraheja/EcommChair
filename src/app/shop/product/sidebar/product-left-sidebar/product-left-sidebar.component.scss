@@ -35,6 +35,13 @@
     vertical-align: middle;
     background-color: #388e3c;
 }
+.sticky-scroll.fixed-section{width: 33% !important;}
+.product-carousel{height: 436px !important;}
+.product-buttons{width: 425px;
+    position: relative;
+    left: 48px;}
+@media (min-width: 1024px) {.sticky-scroll.fixed-section{width: 35.3% !important;}}
+@media (min-width: 1366px) {.sticky-scroll.fixed-section{width: 33% !important;}}
 // *{box-sizing: border-box;}
 
 // .img-zoom-container {
