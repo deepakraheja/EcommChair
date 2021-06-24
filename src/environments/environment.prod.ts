@@ -26,4 +26,5 @@ export const environment = {
   Invoice_URL: 'https://store.alibabachair.com/TempPDF/',
   APIURL:'https://store.alibabachair.com/',
   CCAvenue: 'www.alibabachair.com/',
+  AccessoryImage: 'https://store.alibabachair.com/AccessoryImage/',
 };

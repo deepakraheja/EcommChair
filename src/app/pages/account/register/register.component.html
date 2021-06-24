@@ -4,10 +4,23 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 offset-md-3 mb-5">
-                
-                <div class="theme-card">
 
-                    <!-- {{RegistrationForm.value|json}}  -->
+                <div class="theme-card" style="background-color: #f7f7f7;">
+                    <div class="Create">
+                        Create your alibabachair Account
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <div style="font-size: 16px;font-family: system-ui;">You have selected <span *ngIf="Bbuyer"><b>
+                                busniness bulk buyer option</b></span> <span *ngIf="!Bbuyer"><b> Personal
+                                buyer option</b></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a
+                            href="/home/chair">Change
+                        </a> </div>
+                    <br>
+                    <br>
+                    <!-- {{RegistrationForm.value|json}}   -->
 
                     <form class="theme-form" [formGroup]="RegistrationForm">
                         <!-- <div class="form-group "><input autocomplete="new-password" id="" type="tel"
@@ -17,6 +30,7 @@
                                     class="mobileNumberPlacholder">Mobile Number<span
                                         style="color: rgb(255, 87, 34);">*</span></span> </span><i class="bar"></i>
                         </div> -->
+
                         <div class="form-group">
                             <label>Mobile Number</label>
                             <div class="input-group">
@@ -87,17 +101,64 @@
                         </div>
                         <div *ngIf="mobileOTP">
 
-                            <div class="form-group" style="display: none;">
+                            <div class="otpContainer">
+                                <label>OTP sent to Mobile</label><span style="color:red">*</span>
+                                <div>
+                                    <input type="text" id="txtemail" class="form-control" formControlName="mobileotp"
+                                        maxlength='6' #SetFocus style="width: 605px;" id="txtverify">
 
-                                <!-- <label for="email">Your Full Name</label><span style="color:red">*</span>
+                                    <div *ngIf="submitted && f.mobileotp.errors" class="invalid-feedback">
+                                        <div *ngIf="f.mobileotp.errors.required">OTP is required</div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group">
+
+                                <label for="email">Your Full Name</label><span style="color:red">*</span>
                                 <input type="text" class="form-control" id="fname" formControlName="name" maxlength="45"
                                     autocomplete="off" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
 
                                 <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
                                     <div>Full Name is required
                                     </div>
-                                </div> -->
+                                </div>
                             </div>
+
+                            <div class="form-group" *ngIf="Bbuyer">
+
+                                <label for="email">Company Name</label><span style="color:red">*</span>
+                                <input type="text" class="form-control" id="BusinessName" formControlName="BusinessName"
+                                    autocomplete="off" maxlength="100"
+                                    [ngClass]="{ 'is-invalid': submitted && f.BusinessName.errors }">
+                                <div *ngIf="submitted && f.BusinessName.errors" class="invalid-feedback">
+                                    <div>Company Name is required
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group" *ngIf="Bbuyer">
+
+                                <label for="email">Goods And Services Tax No (GSTIN)</label><span
+                                    style="color:red">*</span>
+                                <input #GSTNo type="text" class="form-control input-upper" id="txtGSTNo"
+                                    autocomplete="off" (input)="GSTNo.value = GSTNo.value.toUpperCase()"
+                                    formControlName="GSTNo" maxlength="15" placeholder="GST No">
+                                <div *ngIf="submitted && f.GSTNo.errors" class="Customerror">
+                                    <div>GST Number is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12" *ngIf="Bbuyer"
+                                style="line-height: 21px;font-size: 16px;font-family: system-ui;"> <b> # Note:</b> GSTIN
+                                cannot be
+                                changed after placing order. Please provide a valid GSTIN
+                                - if you don't, we will not be able to pass the GST credit to you. GST
+                                registration state must match either billing or shipping state. Please write to
+                                us at care@alibabachair.com or call us: +91-9811585898, 9871636292 before placing the
+                                order and we will ensure
+                                appropriate processing of invoice(s).</div>
                             <div class="form-group" style="display: none;">
                                 <!-- <label>Please select</label><span style="color:red">*</span>
                                 <select class="custom-select" formControlName="IsPersonal" id="ddlIsPersonal"
@@ -344,8 +405,8 @@
                                 </div>
                             </div> -->
 
-                            <div class="form-group" style="display: none;">
-                                <!-- <label>Email ID</label><span style="color:red">*</span>
+                            <div class="form-group">
+                                <label>Email ID</label><span style="color:red">*</span>
                                 <div class="input-group">
                                     <input type="text" id="txtemail" class="form-control" formControlName="email"
                                         maxlength="50" autocomplete="off"
@@ -355,21 +416,10 @@
                                         <div *ngIf="f.email.errors.required">Email is required</div>
                                         <div *ngIf="f.email.errors.email">Email ID must be a valid email address</div>
                                     </div>
-                                </div> -->
-                            </div>
-
-                            <div class="otpContainer">
-                                <label>OTP sent to Mobile</label><span style="color:red">*</span>
-                                <div>
-                                    <input type="text" id="txtemail" class="form-control" formControlName="mobileotp"
-                                        maxlength='6' #SetFocus style="width: 605px;" id="txtverify">
-
-                                    <div *ngIf="submitted && f.mobileotp.errors" class="invalid-feedback">
-                                        <div *ngIf="f.mobileotp.errors.required">OTP is required</div>
-
-                                    </div>
                                 </div>
                             </div>
+
+
                             <br>
                             <div class="form-group">
                                 <label for="review">Set Password</label><span style="color:red">*</span>
@@ -391,18 +441,21 @@
                                 </div>
                                 <div *ngIf="(submitted) && RegistrationForm.controls.password.errors?.minlength"
                                     class="Customerror">
-                                    Password must be at least 8 characters.
+                                    Use 8 or more characters with a mix of letters, numbers & symbols
                                 </div>
 
                             </div>
                             <div class="mt-3 text-center">
                                 <button class="btn btn-primary px-4" type="submit"
-                                    [ngClass]="{'btn-loading': VerifyStart}" (click)=" CreateRegistration();">CREATE
+                                    [ngClass]="{'btn-loading': VerifyStart}" (click)="CreateRegistration();">CREATE
                                     ACCOUNT</button>
 
                             </div>
                         </div>
-                        <div class=" text-center mt-4 font-weight-light">
+                        <div class=" text-center mt-4 font-weight-light" style="Font-size: 20px;font-family: ui-serif;">
+                            OR
+                        </div>
+                        <div class=" text-center mt-4 font-weight-light" style="Font-size: 20px;font-family: ui-serif;">
                             Already have an account? <a href="javaScript:void(0);" (click)="Login()"
                                 class="text-primary">Login</a>
                         </div>

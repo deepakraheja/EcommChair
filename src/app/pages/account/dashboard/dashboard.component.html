@@ -379,6 +379,16 @@
                                                     <img [src]="ProductImage+product?.productId+'/frontImage/'+product?.frontImage"
                                                         alt="Product" class="checkout-prouduct-img">
                                                     {{ product?.productName }}
+
+                                                    <table>
+                                                        <tr>
+                                                            <td>
+                                                                <div [innerHtml]="product?.accessoryDescription">
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+
                                                     <br>
                                                     <span style="color: red;" *ngIf="lst.statusId>=3">
                                                         Dispatched By : {{product?.transportName}}, Tracking Id :
@@ -394,7 +404,8 @@
                                                     </span>
                                                 </td>
                                                 <td style="text-align: right;">
-                                                    {{ product?.salePrice | currency:productService?.Currency.currency:'symbol'}}
+                                                    {{ product?.accessoryPrice+product?.salePrice |
+                                                    currency:productService?.Currency.currency:'symbol'}}
                                                 </td>
                                                 <td>
                                                     {{ product?.quantity }}
@@ -404,21 +415,27 @@
                                                 </td>
                                                 <td *ngIf="product?.additionalDiscountAmount>0"
                                                     style="text-align: right;">
-                                                    {{ product?.additionalDiscountAmount | currency:productService?.Currency.currency:'symbol'}}
+                                                    {{ product?.additionalDiscountAmount |
+                                                    currency:productService?.Currency.currency:'symbol'}}
                                                 </td>
                                                 <td style="text-align: right;">
-                                                    {{ (product?.salePrice*product?.quantity-product?.additionalDiscountAmount) | currency:productService?.Currency.currency:'symbol' }}
+                                                    {{
+                                                    ((product?.accessoryPrice+product?.salePrice)*product?.quantity-product?.additionalDiscountAmount)
+                                                    | currency:productService?.Currency.currency:'symbol' }}
                                                 </td>
                                                 <td style="text-align: right;">
                                                     {{ product?.gstRate }}%
                                                 </td>
                                                 <td style="text-align: right;">
-                                                    {{ product?.gstAmount | currency:productService?.Currency.currency:'symbol'}}
+                                                    {{ product?.accessoryGSTAmount+product?.gstAmount |
+                                                    currency:productService?.Currency.currency:'symbol'}}
                                                 </td>
                                                 <td style="text-align: right;">
                                                     <span
                                                         style="float: right; font-size: 16px; line-height: 20px;  font-weight: 400;">
-                                                        {{ (product.salePrice*product?.quantity-product?.additionalDiscountAmount+product?.gstAmount) | currency:productService?.Currency.currency:'symbol' }}</span>
+                                                        {{
+                                                        ((product?.accessoryPrice+product.salePrice)*product?.quantity-product?.additionalDiscountAmount+(product?.accessoryGSTAmount+product?.gstAmount))
+                                                        | currency:productService?.Currency.currency:'symbol' }}</span>
                                                 </td>
                                             </tr>
                                             <tr *ngIf='!OrderTrackingListByOrderId(lst.orderId).length'>
@@ -443,21 +460,25 @@
                                                 </td>
                                                 <td *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.additionalDiscount>0"
                                                     style="text-align: right;">
-                                                    <b>{{ getTotalAdditionalDiscountAmount(lst.orderId) | currency:productService?.Currency.currency:'symbol'}}</b>
+                                                    <b>{{ getTotalAdditionalDiscountAmount(lst.orderId) |
+                                                        currency:productService?.Currency.currency:'symbol'}}</b>
                                                 </td>
                                                 <td style="text-align: right;">
                                                     <b>
-                                                        {{ getTotalAmountWithDis(lst.orderId) | currency:productService?.Currency.currency:'symbol'}}</b>
+                                                        {{ getTotalAmountWithDis(lst.orderId) |
+                                                        currency:productService?.Currency.currency:'symbol'}}</b>
                                                 </td>
                                                 <td>
                                                 </td>
                                                 <td style="text-align: right;">
-                                                    <b>{{ getTotalGSTAmount(lst.orderId) | currency:productService?.Currency.currency:'symbol'}}</b>
+                                                    <b>{{ getTotalGSTAmount(lst.orderId) |
+                                                        currency:productService?.Currency.currency:'symbol'}}</b>
                                                 </td>
                                                 <td style="text-align: right;">
                                                     <span
                                                         style="float: right; font-size: 16px; line-height: 20px; color: var(--theme-deafult); font-weight: 400;">
-                                                        {{ getTotal(lst.orderId) | currency:productService?.Currency.currency:'symbol'}}</span>
+                                                        {{ getTotal(lst.orderId) |
+                                                        currency:productService?.Currency.currency:'symbol'}}</span>
                                                 </td>
                                             </tr>
 
@@ -494,7 +515,8 @@
                                                 <td colspan="2" style="text-align: right;">
                                                     <span
                                                         style="float: right; font-size: 16px; line-height: 20px; color: var(--theme-deafult); font-weight: 400;">
-                                                        {{ getTotal(lst.orderId) | currency:productService?.Currency.currency:'symbol'}}</span>
+                                                        {{ getTotal(lst.orderId) |
+                                                        currency:productService?.Currency.currency:'symbol'}}</span>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -581,7 +603,8 @@
                                         *ngIf="lstUserData[0].isPersonal==false">
 
                                         <div class="field-label">Goods and Services Tax Identification Number (GSTIN)
-                                            <span style="color:red">*</span></div>
+                                            <span style="color:red">*</span>
+                                        </div>
                                         <input #businessLicenseNo type="text" id="txtbusinessLicenseNo"
                                             autocomplete="off"
                                             (input)="businessLicenseNo.value = checkoutForm.controls['businessLicenseNo'].value.toUpperCase()"

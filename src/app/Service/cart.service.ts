@@ -23,6 +23,14 @@ export class CartService {
     );
   }
 
+  AddToCartAccessory(_Obj: any[]): Observable<any[]> {
+    this._methodName = "AddToCartAccessory";
+    this._param = _Obj;
+    return this._http.post<any[]>(
+      this._url + this._methodName, this._param
+    );
+  }
+
   DelCartById(_Obj: any): Observable<any[]> {
     this._methodName = "DelCartById";
     this._param = _Obj;

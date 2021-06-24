@@ -8,6 +8,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { CategoryService } from 'src/app/Service/category.service';
 import { CustomerStoryService } from 'src/app/Service/customer-story.service';
 import { environment } from 'src/environments/environment';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SelectionBuyerComponent } from 'src/app/pages/account/selection-buyer/selection-buyer.component';
 
 @Component({
   selector: 'app-fashion-one',
@@ -16,10 +18,10 @@ import { environment } from 'src/environments/environment';
 })
 export class FashionOneComponent implements OnInit {
   public counter = 43808;
-  APIURL=environment.APIURL;
+  APIURL = environment.APIURL;
   public ImageSrc: string
   public products: Product[] = [];
-  public TodayCounter=new Date();
+  public TodayCounter = new Date();
   public InstaSliderConfig: any = {
     loop: true,
     dots: false,
@@ -58,12 +60,14 @@ export class FashionOneComponent implements OnInit {
   public productskartselling: Productkart[] = [];
 
   public bannerItems: any[];
+  user: any;
 
   constructor(public productService: ProductService,
     private _prodService: ProductsService,
     private spinner: NgxSpinnerService,
     public _categoryService: CategoryService,
-    public _customerStory: CustomerStoryService
+    public _customerStory: CustomerStoryService,
+    private modalService: NgbModal,
   ) {
 
     // this.productService.getProducts.subscribe(response => {
@@ -95,7 +99,10 @@ export class FashionOneComponent implements OnInit {
     this.counter = year + today + hour + min + seconds;
     //console.log(seconds);
     this.Set_Time();
+    localStorage.removeItem('Bbuyer');
   }
+
+
 
   LoadData() {
     //this.spinner.show();
@@ -109,7 +116,7 @@ export class FashionOneComponent implements OnInit {
     // debugger
     if (this.counter != 0) {
       this.counter++;
-      this.TodayCounter=new Date();
+      this.TodayCounter = new Date();
     }
     else {
       clearTimeout();
@@ -132,7 +139,7 @@ export class FashionOneComponent implements OnInit {
 
 
   //Added on 08/07/2020
-  BindProductByCategory() { 
+  BindProductByCategory() {
 
     let productObj = {
       Active: true,
@@ -244,7 +251,6 @@ export class FashionOneComponent implements OnInit {
 
 
   BindBanner(): void {
-
     this._categoryService.GetBannerJson().subscribe(bannerItems => {
 
       this.bannerItems = bannerItems;
@@ -252,11 +258,27 @@ export class FashionOneComponent implements OnInit {
     });
 
   }
-
-
-
   ngOnInit(): void {
+    this.openModal();
     this.BindBanner();
+  }
+
+  openModal() {
+    debugger
+    this.user = JSON.parse(localStorage.getItem('LoggedInUser'));
+
+    //  $('#myModal').modal({backdrop: 'static', keyboard: false})  
+    if (this.user == null || this.user == undefined) {
+      //this.router.navigate(['/pages/login/cart']);
+      this.modalService.open(SelectionBuyerComponent, {
+        size: 'lg',
+        ariaLabelledBy: 'Cart-Modal',
+        centered: true,
+        windowClass: 'theme-modal cart-modal CartModal',
+        backdrop: 'static',
+        keyboard: false
+      });
+    }
   }
 
   // Product Tab collection

@@ -20,7 +20,8 @@
                         <!-- side-bar colleps block stat -->
                         <div class="collection-filter-block">
                             <!-- brand filter start -->
-                            <app-brands [productskart]="Allproductskart" [brands]="brands" (brandsFilter)="updateFilter($event)">
+                            <app-brands [productskart]="Allproductskart" [brands]="brands"
+                                (brandsFilter)="updateFilter($event)">
                             </app-brands>
                             <!-- color filter start here -->
                             <!-- <app-colors [products]="products" [colors]="colors" (colorsFilter)="updateFilter($event)">
@@ -59,9 +60,16 @@
                                         <h5>Clothing fashions
                                         </h5>
                                         <p>
-                                            Fashion is a popular aesthetic expression at a particular time and place and in a specific context, especially in clothing, footwear, lifestyle, accessories, makeup, hairstyle, and body proportions.[1] Whereas a trend often connotes a peculiar aesthetic
-                                            expression and often lasting shorter than a season, fashion is a distinctive and industry-supported expression traditionally tied to the fashion season and collections.[2] Style is an expression that lasts over
-                                            many seasons and is often connected to cultural movements and social markers, symbols, class, and culture (ex. Baroque, Rococo, etc.). According to sociologist Pierre Bourdieu, fashion connotes "the latest fashion,
+                                            Fashion is a popular aesthetic expression at a particular time and place and
+                                            in a specific context, especially in clothing, footwear, lifestyle,
+                                            accessories, makeup, hairstyle, and body proportions.[1] Whereas a trend
+                                            often connotes a peculiar aesthetic
+                                            expression and often lasting shorter than a season, fashion is a distinctive
+                                            and industry-supported expression traditionally tied to the fashion season
+                                            and collections.[2] Style is an expression that lasts over
+                                            many seasons and is often connected to cultural movements and social
+                                            markers, symbols, class, and culture (ex. Baroque, Rococo, etc.). According
+                                            to sociologist Pierre Bourdieu, fashion connotes "the latest fashion,
                                             the latest difference.
                                         </p>
                                     </div>
@@ -88,22 +96,30 @@
                                     </li>
                                 </ul>
                                 <div class="collection-product-wrapper" id="productskart">
-                                    <app-grid [productskart]="productskart" [paginate]="paginate" [layoutView]="layoutView" [sortBy]="sortBy" (setGrid)="updateGridLayout($event)" (setLayout)="updateLayoutView($event)" (sortedBy)="sortByFilter($event)">
+                                    <app-grid [productskart]="productskart" [paginate]="paginate"
+                                        [layoutView]="layoutView" [sortBy]="sortBy" (setGrid)="updateGridLayout($event)"
+                                        (setLayout)="updateLayoutView($event)" (sortedBy)="sortByFilter($event)">
                                     </app-grid>
                                     <div class="product-wrapper-grid" [ngClass]="layoutView">
 
                                         <div class="row">
-                                            <div class="col-grid-box" [ngClass]="grid" *ngFor="let product of productskart">
+                                            <div class="col-grid-box" [ngClass]="grid"
+                                                *ngFor="let product of productskart">
                                                 <div class="product-box">
-                                                    <app-product-box [productkart]="product" [currency]="productService?.Currency" [thumbnail]="false" [cartModal]="true" [loader]="true">
+                                                    <app-product-box [productkart]="product"
+                                                        [currency]="productService?.Currency" [thumbnail]="false"
+                                                        [cartModal]="true" [loader]="true">
                                                     </app-product-box>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12 text-center section-b-space mt-5 no-found" *ngIf="!productskart.length">
+                                            <div class="col-sm-12 text-center section-b-space mt-5 no-found"
+                                                *ngIf="!productskart.length">
                                                 <img src="assets/images/empty-search.jpg" class="img-fluid mb-4">
                                                 <h3>Sorry! Couldn't find the product you were looking For!!! </h3>
-                                                <p>Please check if you have misspelt something or try searching with other words.</p>
-                                                <a href='/shop/collection/left/sidebar?category=chair' class="btn btn-solid">continue shopping</a>
+                                                <p>Please check if you have misspelt something or try searching with
+                                                    other words.</p>
+                                                <a href='/shop/collection/left/sidebar?category=chair'
+                                                    class="btn btn-solid">continue shopping</a>
                                             </div>
                                         </div>
                                         <!-- <div class="row">
@@ -126,7 +142,8 @@
                                             </div>
                                         </div> -->
                                     </div>
-                                    <app-pagination [productskart]="productskart" [paginate]="paginate" (setPage)="setPage($event)">
+                                    <app-pagination [productskart]="productskart" [paginate]="paginate"
+                                        (setPage)="setPage($event)">
                                     </app-pagination>
                                 </div>
                             </div>

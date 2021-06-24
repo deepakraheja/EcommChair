@@ -25,6 +25,7 @@ import { FaqComponent } from './faq/faq.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { PrivacypolicyComponent } from './privacypolicy/privacypolicy.component';
 import { ReturnpolicyComponent } from './returnpolicy/returnpolicy.component';
+import { SelectionBuyerComponent } from './account/selection-buyer/selection-buyer.component';
 // import { BlogLeftSidebarComponent } from './blog/blog-left-sidebar/blog-left-sidebar.component';
 // import { BlogRightSidebarComponent } from './blog/blog-right-sidebar/blog-right-sidebar.component';
 // import { BlogNoSidebarComponent } from './blog/blog-no-sidebar/blog-no-sidebar.component';
@@ -57,6 +58,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'selection',
+    component: SelectionBuyerComponent
   },
   {
     path: 'login/:cart',

@@ -31,6 +31,9 @@ import { ThanksComponent } from './account/thanks/thanks.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { PrivacypolicyComponent } from './privacypolicy/privacypolicy.component';
 import { ReturnpolicyComponent } from './returnpolicy/returnpolicy.component';
+import { SelectionBuyerComponent } from './account/selection-buyer/selection-buyer.component';
+// import { SubmitMessageComponent } from './account/submit-message/submit-message.component';
+
 // Blog Components
 // import { BlogLeftSidebarComponent } from './blog/blog-left-sidebar/blog-left-sidebar.component';
 // import { BlogRightSidebarComponent } from './blog/blog-right-sidebar/blog-right-sidebar.component';
@@ -72,6 +75,9 @@ import { ReturnpolicyComponent } from './returnpolicy/returnpolicy.component';
     ThanksComponent,
     PrivacypolicyComponent,
     ReturnpolicyComponent,
+    SelectionBuyerComponent,
+    // SubmitMessageComponent,
+    
     // BlogLeftSidebarComponent,
     // BlogRightSidebarComponent,
     // BlogNoSidebarComponent,

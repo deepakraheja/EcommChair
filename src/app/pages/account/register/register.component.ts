@@ -67,6 +67,7 @@ export class RegisterComponent implements OnInit {
   txtPinCode: any;
   AadharNumberMask: string;
   Personal: number;
+  Bbuyer: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -111,19 +112,19 @@ export class RegisterComponent implements OnInit {
 
   }
 
-  keypressEvent(event) {
-    debugger;
-    // let pos = index;
-    // if (event.keyCode === 8 && event.which === 8) {
-    //   pos = index - 1;
-    // } else {
-    //   pos = index + 1;
-    // }
-    // if (pos > -1 && pos < this.formInput.length) {
-    //   this.rows._results[pos].nativeElement.focus();
-    // }
+  // keypressEvent(event) {
+  //   debugger;
+  //   // let pos = index;
+  //   // if (event.keyCode === 8 && event.which === 8) {
+  //   //   pos = index - 1;
+  //   // } else {
+  //   //   pos = index + 1;
+  //   // }
+  //   // if (pos > -1 && pos < this.formInput.length) {
+  //   //   this.rows._results[pos].nativeElement.focus();
+  //   // }
 
-  }
+  // }
 
   addMask(args) {
 
@@ -159,20 +160,20 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.RegistrationForm = this.formBuilder.group({
       password: ['', [Validators.required, Validators.minLength(8)]],
-      email: [''],
-      //email: ['', [Validators.required, Validators.email]],
-      name: [''],
+      //email: [''],
+      email: ['', [Validators.required, Validators.email]],
+      name: ['', [Validators.required]],
       mobileNo: ['', [Validators.required, Validators.minLength(10), Validators.pattern("^[0-9]*$")]],
       //mobilecode: ['', [Validators.required]],
       //OTPArray: new FormArray([]),
 
       BusinessType: [''],
       Industry: [''],
-      businessLicenseType: [''],
-      GSTNo: [''],
+      businessLicenseType: ['GSTIN'],
+      GSTNo: ['', [Validators.required]],
       PANNo: [''],
       AadharCard: [''],
-      BusinessName: [''],
+      BusinessName: ['', [Validators.required]],
       BusinessPhone: [''],
       Address1: [''],
       Address2: [''],
@@ -182,6 +183,7 @@ export class RegisterComponent implements OnInit {
       mobileotp: [''],
       //IsPersonal: ['', Validators.required],
       IsPersonal: [false],
+      IsBusiness: [false]
 
       //otp1: ['',],
       //otp2: ['',],
@@ -192,51 +194,55 @@ export class RegisterComponent implements OnInit {
 
     //this.formInput.forEach(() => this.OTPFormArray.push(new FormControl('')));
 
+    debugger
+    this.Bbuyer = Boolean(JSON.parse(localStorage.getItem('Bbuyer')));
+    //alert(this.Bbuyer);
+
   }
 
-  onChangePersonal(type: number) {
-    this.isPersonal = type == 1;
-    const businessType = this.RegistrationForm.get('BusinessType');
-    const businessLicenseType = this.RegistrationForm.get('businessLicenseType');
-    const Industry = this.RegistrationForm.get('Industry');
+  // onChangePersonal(type: number) {
+  //   this.isPersonal = type == 1;
+  //   const businessType = this.RegistrationForm.get('BusinessType');
+  //   const businessLicenseType = this.RegistrationForm.get('businessLicenseType');
+  //   const Industry = this.RegistrationForm.get('Industry');
 
-    const businessName = this.RegistrationForm.get('BusinessName');
-    const businessPhone = this.RegistrationForm.get('BusinessPhone');
+  //   const businessName = this.RegistrationForm.get('BusinessName');
+  //   const businessPhone = this.RegistrationForm.get('BusinessPhone');
 
-    const gstNo = this.RegistrationForm.get('GSTNo');
-    const panNo = this.RegistrationForm.get('PANNo');
-    const AadharCard = this.RegistrationForm.get('AadharCard');
+  //   const gstNo = this.RegistrationForm.get('GSTNo');
+  //   const panNo = this.RegistrationForm.get('PANNo');
+  //   const AadharCard = this.RegistrationForm.get('AadharCard');
 
-    if (type == 1) {
-      businessType.clearValidators();
-      businessLicenseType.clearValidators();
-      Industry.clearValidators()
-      businessName.clearValidators();
-      businessPhone.clearValidators();
-      gstNo.clearValidators();
-      panNo.clearValidators();
-      AadharCard.clearValidators();
-    }
-    else {
-      businessType.setValidators([Validators.required]);
-      businessLicenseType.setValidators([Validators.required]);
-      Industry.setValidators([Validators.required]);
-      businessName.setValidators([Validators.required]);
-      businessPhone.setValidators([Validators.required]);
-      gstNo.setValidators([Validators.required]);
-      panNo.setValidators([Validators.required]);
-      AadharCard.setValidators([Validators.required]);
-    }
+  //   if (type == 1) {
+  //     businessType.clearValidators();
+  //     businessLicenseType.clearValidators();
+  //     Industry.clearValidators()
+  //     businessName.clearValidators();
+  //     businessPhone.clearValidators();
+  //     gstNo.clearValidators();
+  //     panNo.clearValidators();
+  //     AadharCard.clearValidators();
+  //   }
+  //   else {
+  //     businessType.setValidators([Validators.required]);
+  //     businessLicenseType.setValidators([Validators.required]);
+  //     Industry.setValidators([Validators.required]);
+  //     businessName.setValidators([Validators.required]);
+  //     businessPhone.setValidators([Validators.required]);
+  //     gstNo.setValidators([Validators.required]);
+  //     panNo.setValidators([Validators.required]);
+  //     AadharCard.setValidators([Validators.required]);
+  //   }
 
-    businessType.updateValueAndValidity();
-    businessLicenseType.updateValueAndValidity();
-    Industry.updateValueAndValidity();
-    businessName.updateValueAndValidity();
-    businessPhone.updateValueAndValidity();
-    gstNo.updateValueAndValidity();
-    panNo.updateValueAndValidity();
-    AadharCard.updateValueAndValidity();
-  }
+  //   businessType.updateValueAndValidity();
+  //   businessLicenseType.updateValueAndValidity();
+  //   Industry.updateValueAndValidity();
+  //   businessName.updateValueAndValidity();
+  //   businessPhone.updateValueAndValidity();
+  //   gstNo.updateValueAndValidity();
+  //   panNo.updateValueAndValidity();
+  //   AadharCard.updateValueAndValidity();
+  // }
 
   Change() {
     this.mobileOTP = false
@@ -244,25 +250,25 @@ export class RegisterComponent implements OnInit {
 
   }
 
-  ChangeLicenseType() {
+  // ChangeLicenseType() {
 
-    debugger;
-    // $('#txtGSTNo').val("");
+  //   debugger;
+  //   // $('#txtGSTNo').val("");
 
-    const gstNo = this.RegistrationForm.get('GSTNo');
-    const panNo = this.RegistrationForm.get('PANNo');
-    const AadharCard = this.RegistrationForm.get('AadharCard');
+  //   const gstNo = this.RegistrationForm.get('GSTNo');
+  //   const panNo = this.RegistrationForm.get('PANNo');
+  //   const AadharCard = this.RegistrationForm.get('AadharCard');
 
-    gstNo.reset();
-    panNo.reset();
-    AadharCard.reset();
-    // $('#txtGSTNo').attr("value", "");
-    // $('#txtPANNo').attr("value", "");
-    // $('#txtAadharCard').attr("value", "");
+  //   gstNo.reset();
+  //   panNo.reset();
+  //   AadharCard.reset();
+  //   // $('#txtGSTNo').attr("value", "");
+  //   // $('#txtPANNo').attr("value", "");
+  //   // $('#txtAadharCard').attr("value", "");
 
-    //const gstNo = this.RegistrationForm.get('GSTNo');
-    //gstNo.updateValueAndValidity();
-  }
+  //   //const gstNo = this.RegistrationForm.get('GSTNo');
+  //   //gstNo.updateValueAndValidity();
+  // }
 
   keydownEvent(event) {
     debugger
@@ -327,47 +333,47 @@ export class RegisterComponent implements OnInit {
 
   get f() { return this.RegistrationForm.controls; }
 
-  formControlValueChanged() {
+  // formControlValueChanged() {
 
-    const businessLicenseType = this.RegistrationForm.get('businessLicenseType');
-    const gstNo = this.RegistrationForm.get('GSTNo');
-    const panNo = this.RegistrationForm.get('PANNo');
-    const AadharCard = this.RegistrationForm.get('AadharCard');
+  //   const businessLicenseType = this.RegistrationForm.get('businessLicenseType');
+  //   const gstNo = this.RegistrationForm.get('GSTNo');
+  //   const panNo = this.RegistrationForm.get('PANNo');
+  //   const AadharCard = this.RegistrationForm.get('AadharCard');
 
 
-    if (businessLicenseType.value == 'GSTIN') {
-      gstNo.setValidators([Validators.required]);
+  //   if (businessLicenseType.value == 'GSTIN') {
+  //     gstNo.setValidators([Validators.required]);
 
-      panNo.clearValidators();
-      AadharCard.clearValidators();
+  //     panNo.clearValidators();
+  //     AadharCard.clearValidators();
 
-      gstNo.updateValueAndValidity();
-      panNo.updateValueAndValidity();
-      AadharCard.updateValueAndValidity();
-    }
-    else if (businessLicenseType.value == 'BusinessPAN') {
+  //     gstNo.updateValueAndValidity();
+  //     panNo.updateValueAndValidity();
+  //     AadharCard.updateValueAndValidity();
+  //   }
+  //   else if (businessLicenseType.value == 'BusinessPAN') {
 
-      panNo.setValidators([Validators.required]);
+  //     panNo.setValidators([Validators.required]);
 
-      gstNo.clearValidators();
-      AadharCard.clearValidators();
+  //     gstNo.clearValidators();
+  //     AadharCard.clearValidators();
 
-      gstNo.updateValueAndValidity();
-      panNo.updateValueAndValidity();
-      AadharCard.updateValueAndValidity();
-    }
-    else if (businessLicenseType.value == 'AadharCard') {
+  //     gstNo.updateValueAndValidity();
+  //     panNo.updateValueAndValidity();
+  //     AadharCard.updateValueAndValidity();
+  //   }
+  //   else if (businessLicenseType.value == 'AadharCard') {
 
-      AadharCard.setValidators([Validators.required]);
+  //     AadharCard.setValidators([Validators.required]);
 
-      panNo.clearValidators();
-      gstNo.clearValidators();
+  //     panNo.clearValidators();
+  //     gstNo.clearValidators();
 
-      AadharCard.updateValueAndValidity();
-      gstNo.updateValueAndValidity();
-      panNo.updateValueAndValidity();
-    }
-  }
+  //     AadharCard.updateValueAndValidity();
+  //     gstNo.updateValueAndValidity();
+  //     panNo.updateValueAndValidity();
+  //   }
+  // }
 
   //*****************************Validate mobile && call checkMobileAlreadyExist function************/
   validateAndCheckMobile() {
@@ -417,7 +423,7 @@ export class RegisterComponent implements OnInit {
       else if (res > 0) {
         this.mobileotpSendStart = false;
         this.showMessage('You are already registered. Please log in.');
-        this.router.navigate(['/home/chair']);
+        //this.router.navigate(['/home/chair']);
         this.modalService.open(LoginComponent, {
           size: 'lg',
           //ariaLabelledBy: 'Cart-Modal',
@@ -463,7 +469,7 @@ export class RegisterComponent implements OnInit {
     mobileotp.updateValueAndValidity();
 
     this.toastr.success('OTP has been sent.');
-    this.counter = 60;// for OTP time
+    this.counter = 600;// for OTP timee
     this.mobileOTP = true;
     this.Set_Time();
     setTimeout(() => {
@@ -565,7 +571,7 @@ export class RegisterComponent implements OnInit {
         return false;
       });
     }
-  
+
 
   }
 
@@ -578,11 +584,24 @@ export class RegisterComponent implements OnInit {
   //****************************** Create Registration into database*************//
   CreateRegistration() {
     debugger
+
+    if (!this.Bbuyer) {
+      const businessName = this.RegistrationForm.get('BusinessName');
+      businessName.clearValidators();
+      businessName.updateValueAndValidity();
+
+      const GSTNo = this.RegistrationForm.get('GSTNo');
+      GSTNo.clearValidators();
+      GSTNo.updateValueAndValidity();
+
+    }
+
+    debugger
     this.verifyMOtp = this.verifyMobileOtp();
 
     if (this.verifyMOtp == false)
       return;
-      debugger
+    debugger
     this.submitted = true;
 
     // this.Personal = Number(this.RegistrationForm.get('IsPersonal').value);
@@ -602,11 +621,11 @@ export class RegisterComponent implements OnInit {
     // }
 
     if (this.RegistrationForm.invalid) {
-      // if ($('#fname').val() == '') {
-      //   this.toastr.error('Please fill in all the * required fields.');
-      //   $('#fname').focus();
-      //   return;
-      // }
+      if ($('#fname').val() == '') {
+        this.toastr.error('Please fill in all the * required fields.');
+        $('#fname').focus();
+        return;
+      }
 
       // if (this.Personal == 0) {
       //   if ($('#ddlBusinessType option:selected').val() == '') {
@@ -630,14 +649,22 @@ export class RegisterComponent implements OnInit {
       //     return;
       //   }
 
-      //   if ($('#ddlLicenseType option:selected').val() == 'GSTIN') {
-      //     this.GSTNo = $("#txtGSTNo").val().length;//this.RegistrationForm.get('GSTNo').value
-      //     if (this.GSTNo < 15) {
-      //       this.showMessage('Please, Enter 15-digit GST number');
-      //       $('#txtGSTNo').focus();
-      //       return
-      //     }
-      //   }
+      if (this.Bbuyer) {
+        if ($('#BusinessName').val() == '') {
+          this.toastr.error('Please fill in all the * required fields.');
+          $('#BusinessName').focus();
+          return;
+        }
+
+        //if ($('#ddlLicenseType option:selected').val() == 'GSTIN') {
+        this.GSTNo = $("#txtGSTNo").val().length;//this.RegistrationForm.get('GSTNo').value
+        if (this.GSTNo < 15) {
+          this.showMessage('Please, Enter 15-digit GST number');
+          $('#txtGSTNo').focus();
+          return
+        }
+      }
+      //}
       //   else if ($('#ddlLicenseType option:selected').val() == 'BusinessPAN') {
       //     this.PANNo = $("#txtPANNo").val().length;//this.RegistrationForm.get('PANNo').value
       //     if (this.PANNo < 10) {
@@ -667,10 +694,7 @@ export class RegisterComponent implements OnInit {
       //   //   }
       //   // }
 
-      //   if ($('#BusinessName').val() == '') {
-      //     $('#BusinessName').focus();
-      //     return;
-      //   }
+
 
       //   if ($('#BusinessPhone').val() == '') {
       //     $('#BusinessPhone').focus();
@@ -715,10 +739,10 @@ export class RegisterComponent implements OnInit {
       //   return;
       // }
 
-      // if ($('#txtemail').val() == '') {
-      //   $('#txtemail').focus();
-      //   return;
-      // }
+      if ($('#txtemail').val() == '') {
+        $('#txtemail').focus();
+        return;
+      }
 
       if ($('#password').val() == '') {
         $('#password').focus();
@@ -732,11 +756,28 @@ export class RegisterComponent implements OnInit {
     else {
       debugger
       this.spinner.show();
-      
-      //const IsPersonal = this.RegistrationForm.get('IsPersonal');
-      ////IsPersonal.setValue(IsPersonal.value == "1" ? true : false);
-      //IsPersonal.updateValueAndValidity();
-      
+
+      if (!this.Bbuyer) {
+        const IsPersonal = this.RegistrationForm.get('IsPersonal');
+        //IsPersonal.setValue(IsPersonal.value == "1" ? true : false);
+        IsPersonal.setValue(true);
+        IsPersonal.updateValueAndValidity();
+
+        const IsBusiness = this.RegistrationForm.get('IsBusiness');
+        IsBusiness.setValue(false);
+        IsBusiness.updateValueAndValidity();
+      }
+      else {
+        const IsPersonal = this.RegistrationForm.get('IsPersonal');
+        //IsPersonal.setValue(IsPersonal.value == "1" ? true : false);
+        IsPersonal.setValue(false);
+        IsPersonal.updateValueAndValidity();
+
+        const IsBusiness = this.RegistrationForm.get('IsBusiness');
+        IsBusiness.setValue(true);
+        IsBusiness.updateValueAndValidity();
+      }
+
       this.userService.UserRegistration(this.RegistrationForm.value).subscribe(res => {
         debugger
         if (res <= 0) {
@@ -761,7 +802,7 @@ export class RegisterComponent implements OnInit {
                 this._SharedDataService.AssignUser(res);
                 this._SharedDataService.UserCart(res);
 
-                this.toastr.success("Thank you for registering with us. You should receive a confirmation text message(SMS) shortly with your user name and password reminder.");
+                //this.toastr.success("Thank you for registering with us. You should receive a confirmation text message(SMS) shortly with your user name and password reminder.");
                 //  
                 // this.route.paramMap.subscribe((params: ParamMap) => {
                 //   if (params.get('cart') != "" && params.get('cart') != null && params.get('cart') != undefined) {
@@ -769,6 +810,18 @@ export class RegisterComponent implements OnInit {
                 //   }
                 //   else {
                 this.router.navigate(['/home/chair']);
+                this.modalService.open(ThanksComponent, {
+                  size: 'md',
+                  backdrop: 'static',
+                  //ariaLabelledBy: 'Cart-Modal',
+                  //centered: true,
+                  //windowClass: 'theme-modal cart-modal CartModal'
+                }).result.then((result) => {
+                  `Result ${result}`
+                }, (reason) => {
+                  this.modalService.dismissAll();
+                });
+
                 //   }
                 // });
               }

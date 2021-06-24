@@ -142,8 +142,17 @@
                                     <!-- <h3 *ngIf="user==null || user[0]?.isPersonal==true">
                                         {{ (productkart[0]?.businessPrice) | currency: productService.Currency?.currency:'symbol' }}
                                     </h3> -->
-                                    <h3 *ngIf="user==null || user[0]?.isPersonal==false">
-                                        {{ (productkart[0]?.businessPrice) | currency: productService.Currency?.currency:'symbol' }}
+                                    <h3
+                                        *ngIf="(user==null || user[0]?.isPersonal==false) && (updatedPrice==0 && updatedPrice6==0 && updatedPrice2==0 && updatedPrice3==0 && updatedPrice4==0 && updatedPrice5==0)">
+                                        {{ (productkart[0]?.businessPrice) | currency:
+                                        productService.Currency?.currency:'symbol' }}
+                                    </h3>
+                                    <h3
+                                        *ngIf="(user==null || user[0]?.isPersonal==false)  && (updatedPrice!=0 || updatedPrice2!=0 || updatedPrice3!=0 || updatedPrice4!=0 || updatedPrice5!=0 || updatedPrice6!=0)">
+                                        {{ (
+                                        productkart[0]?.businessPrice+updatedPrice6+updatedPrice+updatedPrice2+updatedPrice3+updatedPrice4+updatedPrice5)
+                                        | currency:
+                                        productService.Currency?.currency:'symbol' }}
                                     </h3>
                                     <ul class="color-variant">
                                         <li [class]="color" [class.active]="activeSlide == color.colorindex.toString()"
@@ -152,7 +161,35 @@
                                             (click)="changecolor(color,color.colorindex.toString())">
                                         </li>
                                     </ul>
-                                    <div class="product-description border-product mt-2">
+                                    <br>
+                                    <!-- <div *ngIf="accessorysummary!=''" [innerHtml]="accessorysummary">
+
+                                    </div> -->
+                                    <div *ngFor="let summary6 of accessorysummary6">
+                                        <div [innerHtml]="summary6.description"></div>
+
+                                    </div>
+                                    <div *ngFor="let summary of accessorysummary">
+                                        <div [innerHtml]="summary.description"></div>
+
+                                    </div>
+                                    <div *ngFor="let summary of accessorysummary2">
+                                        <div [innerHtml]="summary.description"></div>
+
+                                    </div>
+                                    <div *ngFor="let summary of accessorysummary3">
+                                        <div [innerHtml]="summary.description"></div>
+
+                                    </div>
+                                    <div *ngFor="let summary of accessorysummary4">
+                                        <div [innerHtml]="summary.description"></div>
+
+                                    </div>
+                                    <div *ngFor="let summary of accessorysummary5">
+                                        <div [innerHtml]="summary.description"></div>
+
+                                    </div>
+                                    <div class=" product-description border-product mt-2">
                                         <!-- <h4 class="clearfix" style="color: #222222;text-transform: capitalize;">
                                             select color
                                         </h4> -->
@@ -296,37 +333,561 @@
 
 
                                     </div>
+                                    <table class="table table-bordered table-hover">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th class="thead-dark" colspan="2" style="text-align: center;">
+                                                    ITEM SPECIFICATION
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- <tr>
+                                                <td>
+                                                    Colour
+                                                </td>
+                                                <td>
+                                                    {{productkart[0]?.salePrice}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Colour Option
+                                                </td>
+                                                <td>
+                                                    {{productkart[0]?.salePrice}}
+                                                </td>
+                                            </tr> -->
+                                            <tr>
+                                                <td style="width: 50%;">
+                                                    Seat Material
+                                                </td>
+                                                <td>
+                                                    {{productkart[0]?.seatMaterial}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Back Material
+                                                </td>
+                                                <td>
+                                                    {{productkart[0]?.backMaterial}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Seating Height
+                                                </td>
+                                                <td>
+                                                    {{productkart[0]?.seatingHeight}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Back Size
+                                                </td>
+                                                <td>
+                                                    {{productkart[0]?.backSize}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Total Height
+                                                </td>
+                                                <td>
+                                                    {{productkart[0]?.totalHeight}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Width
+                                                </td>
+                                                <td>
+                                                    {{productkart[0]?.width}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Depth
+                                                </td>
+                                                <td>
+                                                    {{productkart[0]?.depth}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Overall Dimension
+                                                </td>
+                                                <td>
+                                                    {{productkart[0]?.overallDimension}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Assembly Type
+                                                </td>
+                                                <td>
+                                                    {{productkart[0]?.assemblyType}}
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+
+                                    </table>
                                 </div>
                             </div>
 
-                            <div class="col-12 col-sm-6 col-md-6 mt-2">
+                            <div *ngIf="AccessoryCategory.length>0" class="col-12 col-sm-6 col-md-6 mt-2" style="height: 700px; overflow-y:
+                                scroll;">
 
-                                <table class="table table-bordered table-hover">
+                                <table class="table table-bordered table-hover" *ngIf="AccessoryCategory.length>0">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th class="thead-dark" colspan="2" style="text-align: center;">
-                                                ITEM SPECIFICATION
+                                            <th class="thead-dark" colspan="4" style="text-align: center;">
+                                                Make your own chair (optional)
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <!-- <tr>
                                             <td>
-                                                Colour
+
                                             </td>
                                             <td>
-                                                {{productkart[0]?.salePrice}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Colour Option
+
                                             </td>
                                             <td>
-                                                {{productkart[0]?.salePrice}}
+                                                Name
+                                            </td>
+                                            <td>
+                                                Amount
                                             </td>
                                         </tr> -->
-                                        <tr>
+                                        <tr *ngFor="let category of AccessoryCategory6">
+
+                                            <td>
+                                                <h3>{{category.name}}(select any one)</h3>
+                                                <table>
+                                                    <tr>
+                                                        <td>
+
+                                                        </td>
+                                                        <td>
+
+                                                        </td>
+                                                        <td>
+                                                            Name
+                                                        </td>
+                                                        <td>
+                                                            Amount
+                                                        </td>
+                                                    </tr>
+                                                    <tr *ngFor="let acc of category.children; let myIndex = index">
+                                                        <td>
+                                                            <input #checkboxes6 type="checkbox"
+                                                                id="acc-{{acc.accessoryId}}"
+                                                                [(ngModel)]="acc.isSelected"
+                                                                (change)="fnCheckAccessory6(category.children,acc,$event,myIndex)"
+                                                                [value]="acc.accessoryId" [name]="acc.accessoryId" />
+                                                        </td>
+                                                        <td style=" width: 127px;">
+                                                            <img id="Zoom-{{acc.accessoryId}}" class="img-fluid"
+                                                                style=" width: 70px;"
+                                                                [src]="AccessoryImage+acc?.accessoryId+'/'+acc?.image" />
+                                                        </td>
+                                                        <td>
+                                                            <label>
+
+                                                                {{acc.name}}
+                                                            </label>
+                                                        </td>
+
+                                                        <td>
+                                                            <span *ngIf="acc.isAddPrice==1">(+)</span>
+                                                            <span *ngIf="acc.isAddPrice==0">(-)</span>
+                                                            {{(acc.price) | currency:
+                                                            productService.Currency?.currency:'symbol'}}
+
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+
+                                            </td>
+                                            <!-- <td>
+                                                <input type="radio" id="acc-{{acc.accessoryId}}"
+                                                    [(ngModel)]="accessoryId" [value]="acc.accessoryId" />
+                                            </td>
+                                            <td style=" width: 127px;">
+                                                <img id="zoom_011" class="img-fluid" style=" width: 70px;"
+                                                    [src]="AccessoryImage+acc?.accessoryId+'/'+acc?.image" />
+                                            </td>
+                                            <td>
+                                                <label>
+
+                                                    {{acc.name}}
+                                                </label>
+                                            </td>
+
+                                            <td>
+                                                {{(acc.price) | currency: productService.Currency?.currency:'symbol'}}
+                                            </td> -->
+                                        </tr>
+
+                                        <tr *ngFor="let category of AccessoryCategory1">
+
+                                            <td>
+                                                <h4>{{category.name}}&nbsp;(Select any one)</h4>
+                                                <table>
+                                                    <tr>
+                                                        <td>
+
+                                                        </td>
+                                                        <td>
+
+                                                        </td>
+                                                        <td>
+                                                            Name
+                                                        </td>
+                                                        <td>
+                                                            Amount
+                                                        </td>
+                                                    </tr>
+                                                    <tr *ngFor="let acc of category.children; let myIndex = index">
+                                                        <td>
+                                                            <input #checkboxes1 type="checkbox"
+                                                                id="acc-{{acc.accessoryId}}"
+                                                                [(ngModel)]="acc.isSelected"
+                                                                (change)="fnCheckAccessory(category.children,acc,$event,myIndex)"
+                                                                [value]="acc.accessoryId" [name]="acc.accessoryId" />
+                                                        </td>
+                                                        <td style=" width: 127px;">
+                                                            <img id="Zoom-{{acc.accessoryId}}" class="img-fluid"
+                                                                style=" width: 70px;"
+                                                                [src]="AccessoryImage+acc?.accessoryId+'/'+acc?.image" />
+                                                        </td>
+                                                        <td>
+                                                            <label>
+
+                                                                {{acc.name}}
+                                                            </label>
+                                                        </td>
+
+                                                        <td>
+                                                            <span *ngIf="acc.isAddPrice==1">(+)</span>
+                                                            <span *ngIf="acc.isAddPrice==0">(-)</span>
+                                                            {{(acc.price) | currency:
+                                                            productService.Currency?.currency:'symbol'}}
+
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+
+                                            </td>
+                                            <!-- <td>
+                                                <input type="radio" id="acc-{{acc.accessoryId}}"
+                                                    [(ngModel)]="accessoryId" [value]="acc.accessoryId" />
+                                            </td>
+                                            <td style=" width: 127px;">
+                                                <img id="zoom_011" class="img-fluid" style=" width: 70px;"
+                                                    [src]="AccessoryImage+acc?.accessoryId+'/'+acc?.image" />
+                                            </td>
+                                            <td>
+                                                <label>
+
+                                                    {{acc.name}}
+                                                </label>
+                                            </td>
+
+                                            <td>
+                                                {{(acc.price) | currency: productService.Currency?.currency:'symbol'}}
+                                            </td> -->
+                                        </tr>
+
+                                        <tr *ngFor="let category of AccessoryCategory2">
+
+                                            <td>
+                                                <h4>{{category.name}}&nbsp;(Select any one)</h4>
+                                                <table>
+                                                    <tr>
+                                                        <td>
+
+                                                        </td>
+                                                        <td>
+
+                                                        </td>
+                                                        <td>
+                                                            Name
+                                                        </td>
+                                                        <td>
+                                                            Amount
+                                                        </td>
+                                                    </tr>
+                                                    <tr *ngFor="let acc of category.children; let myIndex = index">
+                                                        <td>
+                                                            <input #checkboxes2 type="checkbox"
+                                                                id="acc-{{acc.accessoryId}}"
+                                                                [(ngModel)]="acc.isSelected"
+                                                                (change)="fnCheckAccessory2(category.children,acc,$event,myIndex)"
+                                                                [value]="acc.accessoryId" [name]="acc.accessoryId" />
+                                                        </td>
+                                                        <td style=" width: 127px;">
+                                                            <img id="Zoom-{{acc.accessoryId}}" class="img-fluid"
+                                                                style=" width: 70px;"
+                                                                [src]="AccessoryImage+acc?.accessoryId+'/'+acc?.image" />
+                                                        </td>
+                                                        <td>
+                                                            <label>
+
+                                                                {{acc.name}}
+                                                            </label>
+                                                        </td>
+
+                                                        <td>
+                                                            <span *ngIf="acc.isAddPrice==1">(+)</span>
+                                                            <span *ngIf="acc.isAddPrice==0">(-)</span>
+                                                            {{(acc.price) | currency:
+                                                            productService.Currency?.currency:'symbol'}}
+
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+
+                                            </td>
+                                            <!-- <td>
+                                                <input type="radio" id="acc-{{acc.accessoryId}}"
+                                                    [(ngModel)]="accessoryId" [value]="acc.accessoryId" />
+                                            </td>
+                                            <td style=" width: 127px;">
+                                                <img id="zoom_011" class="img-fluid" style=" width: 70px;"
+                                                    [src]="AccessoryImage+acc?.accessoryId+'/'+acc?.image" />
+                                            </td>
+                                            <td>
+                                                <label>
+
+                                                    {{acc.name}}
+                                                </label>
+                                            </td>
+
+                                            <td>
+                                                {{(acc.price) | currency: productService.Currency?.currency:'symbol'}}
+                                            </td> -->
+                                        </tr>
+                                        <tr *ngFor="let category of AccessoryCategory3">
+
+                                            <td>
+                                                <h4>{{category.name}}&nbsp;(Select any one)</h4>
+                                                <table>
+                                                    <tr>
+                                                        <td>
+
+                                                        </td>
+                                                        <td>
+
+                                                        </td>
+                                                        <td>
+                                                            Name
+                                                        </td>
+                                                        <td>
+                                                            Amount
+                                                        </td>
+                                                    </tr>
+                                                    <tr *ngFor="let acc of category.children; let myIndex = index">
+                                                        <td>
+                                                            <input #checkboxes2 type="checkbox"
+                                                                id="acc-{{acc.accessoryId}}"
+                                                                [(ngModel)]="acc.isSelected"
+                                                                (change)="fnCheckAccessory3(category.children,acc,$event,myIndex)"
+                                                                [value]="acc.accessoryId" [name]="acc.accessoryId" />
+                                                        </td>
+                                                        <td style=" width: 127px;">
+                                                            <img id="Zoom-{{acc.accessoryId}}" class="img-fluid"
+                                                                style=" width: 70px;"
+                                                                [src]="AccessoryImage+acc?.accessoryId+'/'+acc?.image" />
+                                                        </td>
+                                                        <td>
+                                                            <label>
+
+                                                                {{acc.name}}
+                                                            </label>
+                                                        </td>
+
+                                                        <td>
+                                                            <span *ngIf="acc.isAddPrice==1">(+)</span>
+                                                            <span *ngIf="acc.isAddPrice==0">(-)</span>
+                                                            {{(acc.price) | currency:
+                                                            productService.Currency?.currency:'symbol'}}
+
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+
+                                            </td>
+                                            <!-- <td>
+                                                <input type="radio" id="acc-{{acc.accessoryId}}"
+                                                    [(ngModel)]="accessoryId" [value]="acc.accessoryId" />
+                                            </td>
+                                            <td style=" width: 127px;">
+                                                <img id="zoom_011" class="img-fluid" style=" width: 70px;"
+                                                    [src]="AccessoryImage+acc?.accessoryId+'/'+acc?.image" />
+                                            </td>
+                                            <td>
+                                                <label>
+
+                                                    {{acc.name}}
+                                                </label>
+                                            </td>
+
+                                            <td>
+                                                {{(acc.price) | currency: productService.Currency?.currency:'symbol'}}
+                                            </td> -->
+                                        </tr>
+
+
+                                        <tr *ngFor="let category of AccessoryCategory4">
+
+                                            <td>
+                                                <h4>{{category.name}}&nbsp;(Select any one)</h4>
+                                                <table>
+                                                    <tr>
+                                                        <td>
+
+                                                        </td>
+                                                        <td>
+
+                                                        </td>
+                                                        <td>
+                                                            Name
+                                                        </td>
+                                                        <td>
+                                                            Amount
+                                                        </td>
+                                                    </tr>
+                                                    <tr *ngFor="let acc of category.children; let myIndex = index">
+                                                        <td>
+                                                            <input #checkboxes2 type="checkbox"
+                                                                id="acc-{{acc.accessoryId}}"
+                                                                [(ngModel)]="acc.isSelected"
+                                                                (change)="fnCheckAccessory4(category.children,acc,$event,myIndex)"
+                                                                [value]="acc.accessoryId" [name]="acc.accessoryId" />
+                                                        </td>
+                                                        <td style=" width: 127px;">
+                                                            <img id="Zoom-{{acc.accessoryId}}" class="img-fluid"
+                                                                style=" width: 70px;"
+                                                                [src]="AccessoryImage+acc?.accessoryId+'/'+acc?.image" />
+                                                        </td>
+                                                        <td>
+                                                            <label>
+
+                                                                {{acc.name}}
+                                                            </label>
+                                                        </td>
+
+                                                        <td>
+                                                            <span *ngIf="acc.isAddPrice==1">(+)</span>
+                                                            <span *ngIf="acc.isAddPrice==0">(-)</span>
+                                                            {{(acc.price) | currency:
+                                                            productService.Currency?.currency:'symbol'}}
+
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+
+                                            </td>
+                                            <!-- <td>
+                                                <input type="radio" id="acc-{{acc.accessoryId}}"
+                                                    [(ngModel)]="accessoryId" [value]="acc.accessoryId" />
+                                            </td>
+                                            <td style=" width: 127px;">
+                                                <img id="zoom_011" class="img-fluid" style=" width: 70px;"
+                                                    [src]="AccessoryImage+acc?.accessoryId+'/'+acc?.image" />
+                                            </td>
+                                            <td>
+                                                <label>
+
+                                                    {{acc.name}}
+                                                </label>
+                                            </td>
+
+                                            <td>
+                                                {{(acc.price) | currency: productService.Currency?.currency:'symbol'}}
+                                            </td> -->
+                                        </tr>
+                                        <tr *ngFor="let category of AccessoryCategory5">
+
+                                            <td>
+                                                <h4>{{category.name}}&nbsp;(Select any one)</h4>
+                                                <table>
+                                                    <tr>
+                                                        <td>
+
+                                                        </td>
+                                                        <td>
+
+                                                        </td>
+                                                        <td>
+                                                            Name
+                                                        </td>
+                                                        <td>
+                                                            Amount
+                                                        </td>
+                                                    </tr>
+                                                    <tr *ngFor="let acc of category.children; let myIndex = index">
+                                                        <td>
+                                                            <input #checkboxes2 type="checkbox"
+                                                                id="acc-{{acc.accessoryId}}"
+                                                                [(ngModel)]="acc.isSelected"
+                                                                (change)="fnCheckAccessory5(category.children,acc,$event,myIndex)"
+                                                                [value]="acc.accessoryId" [name]="acc.accessoryId" />
+                                                        </td>
+                                                        <td style=" width: 127px;">
+                                                            <img id="Zoom-{{acc.accessoryId}}" class="img-fluid"
+                                                                style=" width: 70px;"
+                                                                [src]="AccessoryImage+acc?.accessoryId+'/'+acc?.image" />
+                                                        </td>
+                                                        <td>
+                                                            <label>
+
+                                                                {{acc.name}}
+                                                            </label>
+                                                        </td>
+
+                                                        <td>
+                                                            <span *ngIf="acc.isAddPrice==1">(+)</span>
+                                                            <span *ngIf="acc.isAddPrice==0">(-)</span>
+                                                            {{(acc.price) | currency:
+                                                            productService.Currency?.currency:'symbol'}}
+
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+
+                                            </td>
+                                            <!-- <td>
+                                                <input type="radio" id="acc-{{acc.accessoryId}}"
+                                                    [(ngModel)]="accessoryId" [value]="acc.accessoryId" />
+                                            </td>
+                                            <td style=" width: 127px;">
+                                                <img id="zoom_011" class="img-fluid" style=" width: 70px;"
+                                                    [src]="AccessoryImage+acc?.accessoryId+'/'+acc?.image" />
+                                            </td>
+                                            <td>
+                                                <label>
+
+                                                    {{acc.name}}
+                                                </label>
+                                            </td>
+
+                                            <td>
+                                                {{(acc.price) | currency: productService.Currency?.currency:'symbol'}}
+                                            </td> -->
+                                        </tr>
+                                        <!-- <tr>
                                             <td style="width: 50%;">
                                                 Seat Material
                                             </td>
@@ -397,7 +958,7 @@
                                             <td>
                                                 {{productkart[0]?.assemblyType}}
                                             </td>
-                                        </tr>
+                                        </tr> -->
 
                                     </tbody>
 

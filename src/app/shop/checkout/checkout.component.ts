@@ -261,7 +261,7 @@ export class CheckoutComponent implements OnInit {
   getTotal() {
     var TotalAmount = 0;
     this.productSizeColor.forEach(element => {
-      TotalAmount += Number(((element.salePrice * element.quantity) - element.additionalDiscountAmount + element.gstAmount).toFixed(2));
+      TotalAmount += Number((((element.accessoryPrice + element.salePrice) * element.quantity) - element.additionalDiscountAmount + element.gstAmount).toFixed(2));
     });
     return TotalAmount;
   }
@@ -285,7 +285,7 @@ export class CheckoutComponent implements OnInit {
   getTotalAmountWithDis() {
     var TotalAmount = 0;
     this.productSizeColor.forEach(element => {
-      TotalAmount += Number(((element.salePrice * element.quantity) - element.additionalDiscountAmount).toFixed(2));
+      TotalAmount += Number((((element.accessoryPrice + element.salePrice) * element.quantity) - element.additionalDiscountAmount).toFixed(2));
     });
     return TotalAmount;
   }
@@ -441,7 +441,7 @@ export class CheckoutComponent implements OnInit {
 
   SelectdeliverAddress(template: TemplateRef<any>, lst) {
     // Hack: Scrolls to top of Page after page view initialized
-    let top = document.getElementById('divContinue');
+    let top = document.getElementById('tableamount');
     if (top !== null) {
       top.scrollIntoView();
       top = null;

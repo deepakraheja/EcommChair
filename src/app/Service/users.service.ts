@@ -15,9 +15,10 @@ export class UsersService {
 
   constructor(private _http: HttpClient) { }
 
-  UserRegistration(_BrandObj: any): Observable<any> {
+  UserRegistration(_UserObj: any): Observable<any> {
+    debugger
     this._methodName = "UserRegistration";
-    this._param = _BrandObj;
+    this._param = _UserObj;
     return this._http.post<any>(
       this._url + this._methodName, this._param
     );

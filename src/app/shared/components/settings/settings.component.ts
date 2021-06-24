@@ -112,6 +112,7 @@ export class SettingsComponent implements OnInit {
       };
       this._cartService.GetCartById(obj).subscribe(response => {
         //  
+        debugger
         this.productSizeColor = response;
       });
     }

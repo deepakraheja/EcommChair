@@ -138,6 +138,9 @@
                                             &nbsp;
                                             <h5 class="text-red" *ngIf="product?.setType!=2 && product?.perDiscount>0">
                                                 {{ product.perDiscount/product.totalPieces | number:'1.2-2' }}%</h5>
+                                           
+                                            <div [innerHtml]="product.accessoryDescription">
+                                            </div>
                                         </div>
 
                                         <a href="javascript:void(0)"
@@ -151,7 +154,7 @@
                                         <div>
 
                                             <h3 *ngIf="product?.setType==1">
-                                                {{ product.salePrice*product.totalPieces | currency:productService?.Currency.currency:'symbol' }}
+                                                {{ (product.accessoryPrice+product.salePrice)*product.totalPieces | currency:productService?.Currency.currency:'symbol' }}
                                             </h3>
                                             <h3 *ngIf="product?.setType==2">
                                                 {{ (product.salePrice*product.totalPieces).toFixed() | currency:productService?.Currency.currency:'symbol' }}

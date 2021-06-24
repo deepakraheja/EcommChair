@@ -72,7 +72,7 @@ export class CartComponent implements OnInit {
     this.productSizeColor.forEach(element => {
       this.TotalPieces += element.totalPieces;
       if (element.setType != 3) {
-        this.Price += element.salePrice * element.totalPieces;
+        this.Price += (element.salePrice + element.accessoryPrice) * element.totalPieces;
       }
       else {
         this.Price += element.salePrice;

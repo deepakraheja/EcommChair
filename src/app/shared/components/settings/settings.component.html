@@ -40,10 +40,12 @@
                     <div class="media">
                         <!-- [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]" -->
                         <a>
-                            <img class="mr-3"  *ngIf="product?.setNo>0" [src]="ProductImage+product?.productId+'/productSetImage/'+product?.setNo+'/'+product?.productImg[0]">
+                            <img class="mr-3" *ngIf="product?.setNo>0"
+                                [src]="ProductImage+product?.productId+'/productSetImage/'+product?.setNo+'/'+product?.productImg[0]">
                             <!-- <img class="mr-3"  *ngIf="product?.setNo==0" [src]="ProductImage+product?.productId+'/productColorImage/'+product?.productSizeColorId+'/'+product?.productImg[0]"> -->
-                            <img class="mr-3"  *ngIf="product?.setNo==0" [src]="ProductImage+product?.productId+'/frontImage/'+product?.frontImage">
-                        
+                            <img class="mr-3" *ngIf="product?.setNo==0"
+                                [src]="ProductImage+product?.productId+'/frontImage/'+product?.frontImage">
+
                             <!-- <img class="mr-3" [src]="ProductImage+product?.productId+'/productColorImage/'+product?.productSizeColorId+'/'+product?.productImg[0]"> -->
                             <!-- [alt]="product?.images[0].alt" -->
                         </a>
@@ -53,7 +55,8 @@
                                 <h6>{{ (product?.productName).split('|')[0] }}</h6>
                             </a>
                             <h6>
-                                {{ product?.quantity }} x {{ product?.salePrice | currency:productService?.Currency.currency:'symbol' }}
+                                {{ product?.quantity }} x
+                                {{ (product.accessoryPrice+ product?.salePrice) | currency:productService?.Currency.currency:'symbol' }}
                             </h6>
                         </div>
                     </div>

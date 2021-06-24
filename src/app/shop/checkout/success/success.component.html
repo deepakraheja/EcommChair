@@ -97,10 +97,14 @@
                         <tr *ngFor="let product of orderDetails[0].orderDetails">
                             <td>
                                 <img [src]="ProductImage+product?.productId+'/frontImage/'+product?.frontImage"
-                                    alt="Product" class="checkout-prouduct-img"> {{ product?.productName }}
+                                    alt="Product" class="checkout-prouduct-img">
+                                {{ product?.productName }}
+                                <br>
+                                <div [innerHtml]="product.accessoryDescription">
+                                </div>
                             </td>
                             <td style="text-align: right;">
-                                {{ product?.salePrice | currency:productService?.Currency.currency:'symbol'}}
+                                {{( product?.accessoryPrice+ product?.salePrice )| currency:productService?.Currency.currency:'symbol'}}
                             </td>
                             <td>
                                 {{ product?.quantity }}
@@ -112,17 +116,17 @@
                                 {{ product?.additionalDiscountAmount | currency:productService?.Currency.currency:'symbol'}}
                             </td>
                             <td style="text-align: right;" *ngIf="orderDetails[0]?.isPersonal==0">
-                                {{ (product?.salePrice*product?.quantity-product?.additionalDiscountAmount) | currency:productService?.Currency.currency:'symbol' }}
+                                {{ ((product?.accessoryPrice+product?.salePrice)*product?.quantity-product?.additionalDiscountAmount) | currency:productService?.Currency.currency:'symbol' }}
                             </td>
                             <td style="text-align: right;" *ngIf="orderDetails[0]?.isPersonal==0">
                                 {{ product?.gstRate }}%
                             </td>
                             <td style="text-align: right;" *ngIf="orderDetails[0]?.isPersonal==0">
-                                {{ product?.gstAmount | currency:productService?.Currency.currency:'symbol'}}
+                                {{(product?.accessoryGSTAmount+ product?.gstAmount) | currency:productService?.Currency.currency:'symbol'}}
                             </td>
                             <td style="text-align: right;">
                                 <span style="float: right; font-size: 16px; line-height: 20px;  font-weight: 400;">
-                                    {{ (product.salePrice*product?.quantity-product?.additionalDiscountAmount+product?.gstAmount) | currency:productService?.Currency.currency:'symbol' }}</span>
+                                    {{ ((product?.accessoryPrice+product.salePrice)*product?.quantity-product?.additionalDiscountAmount+(product?.gstAmount+product?.accessoryGSTAmount)) | currency:productService?.Currency.currency:'symbol' }}</span>
                             </td>
                         </tr>
                         <tr *ngIf='!orderDetails.length'>

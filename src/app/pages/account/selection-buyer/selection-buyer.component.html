@@ -1,0 +1,73 @@
+<!-- <app-breadcrumb [title]="'Login'" [breadcrumb]="'Login'"></app-breadcrumb> -->
+<!-- section start -->
+<div class="login-page container-fluid">
+    <div class="row">
+        <div class="col-lg-4 login-left-bg theme-card">
+            <div class="login-left">
+                <img src="assets/images/icon/logo-a.png" alt="ALI BABA CHAIR" class="img-fluid">
+                <p style="font-weight: 900;padding-bottom: 10px;">Get access to your Orders and shopping-cart</p>
+
+            </div>
+        </div>
+
+        <div class="col-lg-8 login-right-bg theme-card">
+            <div>
+                <div class="form-group" style="min-height:406px">
+                    <span style="font-size: 23px;background-color:lightgray;
+                    font-family: monospace;">Please select an option to continue</span>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <label class="rodio-inline" style="Font-size: 23px;font-family: serif;">
+                        <input type="radio" value="0" (change)="onChangePersonal('false',template)" />&nbsp;Personal
+                        buyer
+                        &nbsp;&nbsp;
+                    </label>
+                    <br>
+                    <br>
+                    <br>
+                    <span style="margin-left: 77px;
+                    font-size: 18px;
+                    font-family: ui-monospace;">OR</span>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <label class="rodio-inline" style="Font-size: 23px;font-family: serif;">
+                        <input type="radio" value="1" [(ngModel)]="isSelected"
+                            (change)="onChangePersonal('true',template)" />&nbsp;Business bulk
+                        buyer
+                    </label>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left"> Business bulk buyer</h4>
+
+    </div>
+    <div class="modal-body">
+        <span style="font-size: 18px;
+       font-family: ui-monospace;">If you are a business bulk buyer then you will be unable to buy less than 10
+            piece for single design. Company
+            name and
+            GST number will be mandatory.
+            <br />
+            <br />
+            Do you want to continue as business bulk buyer?
+        </span>
+    </div>
+    <div class="modal-footer">
+
+        <button type="button" (click)="fnSubmit('true')" class="btn btn-raised btn-primary">continue</button>
+        <a class="close" (click)="close()"><img src="assets/images/icon/close.svg" alt="Close"></a>
+        <button type="button" class="btn btn-raised btn-primary" (click)="modalRef.hide()">Cancel</button>
+    </div>
+
+</ng-template>
+<!--Section ends-->

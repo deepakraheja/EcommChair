@@ -16,6 +16,7 @@ export class productSizeColor {
     additionalDiscountAmount?: number;
     moq?: number;
     isPersonal?: boolean;
+    accessoryPrice?: number;
 
     constructor(
         productSizeColorId?: number,
@@ -33,7 +34,8 @@ export class productSizeColor {
         setType?: number,
         additionalDiscountAmount?: number,
         moq?: number,
-        isPersonal?: boolean
+        isPersonal?: boolean,
+        accessoryPrice?: number,
     ) {
         this.productSizeColorId = productSizeColorId;
         this.productSizeId = productSizeId;
@@ -51,6 +53,7 @@ export class productSizeColor {
         this.additionalDiscountAmount = additionalDiscountAmount;
         this.moq = moq;
         this.isPersonal = isPersonal;
+        this.accessoryPrice = accessoryPrice
     }
 
 }

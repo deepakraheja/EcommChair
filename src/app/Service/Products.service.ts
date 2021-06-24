@@ -47,6 +47,19 @@ export class ProductsService {
     );
   }
 
+
+
+  GetAccessoryByproductId(_productObj: any): Observable<any[]> {
+    debugger
+    this._methodName = "GetAccessoryByproductId";
+    this._param = _productObj;
+    return this._http.post<any[]>(
+      this._url + this._methodName, this._param
+    );
+  }
+
+  
+
   GetWithSetProductByRowID(_productObj: any): Observable<Productkart[]> {
     //  ;
     this._methodName = "GetWithSetProductByRowID";

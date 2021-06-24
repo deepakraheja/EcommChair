@@ -1,0 +1,17 @@
+
+<form 
+id="nonseamless" 
+method="post" 
+name="redirect" 
+action="https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction"
+> 
+    <input type="hidden" id="encRequest" name="encRequest" value="' + encRequest + '">
+    <input type="hidden" name="access_code" id="access_code" value="' + accessCode + '">
+</form>
+
+<div class="container">
+    <div class="row">
+      <h1>Proceed to Pay</h1>
+      <button (click)="pay()"></button>
+    </div>
+  </div>

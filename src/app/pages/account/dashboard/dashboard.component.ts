@@ -112,7 +112,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getBusineesType(val) {
-    
+
     if (val == 'SoleProprietorship')
       return 'Sole Proprietorship';
     if (val == 'Partnership')
@@ -126,7 +126,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getBusineesLicenseType(val) {
-    
+
     if (val == 'GSTIN')
       return 'GSTIN';//'Goods and Services Tax Identification Number (GSTIN)';
     if (val == 'BusinessPAN')
@@ -149,11 +149,13 @@ export class DashboardComponent implements OnInit {
   }
 
   LoadAllOrder() {
+    debugger
     // let obj = {
     //   UserID: Number(this.LoggedInUser[0].userID)
     // };
     //this.spinner.show();
     this._OrderService.GetOrderByUserId().subscribe(res => {
+      debugger
       this.spinner.hide();
       this.lstOrder = res;
       //console.log(res);
@@ -175,7 +177,7 @@ export class DashboardComponent implements OnInit {
     var lst = this.OrderTrackingListByOrderId(OrderId);
     var TotalAmount = 0;
     lst.forEach(element => {
-      TotalAmount += Number(((element.salePrice * element.quantity) - element.additionalDiscountAmount + element.gstAmount));
+      TotalAmount += Number((((element.accessoryPrice + element.salePrice) * element.quantity) - element.additionalDiscountAmount + (element.accessoryGSTAmount + element.gstAmount)));
     });
     return TotalAmount;
   }
@@ -202,7 +204,7 @@ export class DashboardComponent implements OnInit {
     var lst = this.OrderTrackingListByOrderId(OrderId);
     var TotalAmount = 0;
     lst.forEach(element => {
-      TotalAmount += Number(((element.salePrice * element.quantity) - element.additionalDiscountAmount));
+      TotalAmount += Number((((element.accessoryPrice + element.salePrice) * element.quantity) - element.additionalDiscountAmount));
     });
     return TotalAmount;
   }
@@ -211,9 +213,9 @@ export class DashboardComponent implements OnInit {
     var lst = this.OrderTrackingListByOrderId(OrderId);
     var TotalGSTAmount = 0;
     lst.forEach(element => {
-      TotalGSTAmount += Number((element.gstAmount));
+      TotalGSTAmount += Number((element.accessoryGSTAmount + element.gstAmount));
     });
-    
+
     return TotalGSTAmount;
   }
 
@@ -222,11 +224,15 @@ export class DashboardComponent implements OnInit {
   }
 
   Logout() {
+    debugger;
 
     localStorage.removeItem('LoggedInUser');
     localStorage.removeItem('Token');
-    this._SharedDataService.AssignUser(null);
+    localStorage.removeItem('buyer');
+    localStorage.removeItem('Bbuyer');
     this.router.navigate(['/home/chair']);
+    this._SharedDataService.AssignUser(null);
+    
   }
 
   NewBillingAddress(template: TemplateRef<any>) {
@@ -390,7 +396,7 @@ export class DashboardComponent implements OnInit {
         password: this.ChangePwdForm.value.password,
         NewPassword: this.ChangePwdForm.value.NewPassword
       }
-     // this.spinner.show();
+      // this.spinner.show();
       this._userService.UpdatePwd(obj).subscribe(res => {
         this.spinner.hide();
         if (Number(res) > 0) {

@@ -2,12 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+//import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { ToastrModule } from 'ngx-toastr';
-import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import { TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -21,6 +21,7 @@ import 'mousetrap';
 import { DatePipe } from '@angular/common';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { OrderInvoiceComponent } from './Report/order-invoice/order-invoice.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 // Import the library
@@ -28,7 +29,7 @@ import { OrderInvoiceComponent } from './Report/order-invoice/order-invoice.comp
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
-   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
+  return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 }
 
 @NgModule({
@@ -38,14 +39,14 @@ export function HttpLoaderFactory(http: HttpClient) {
     PagesComponent,
     OrderInvoiceComponent,
     //ElementsComponent
-  ], 
+  ],
   imports: [
     NgxSpinnerModule,
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
-    
+
     BrowserAnimationsModule,
     HttpClientModule,
-    NgbModule,
+    //NgbModule,
     LoadingBarHttpClientModule,
     LoadingBarRouterModule,
     ToastrModule.forRoot({
@@ -55,15 +56,15 @@ export function HttpLoaderFactory(http: HttpClient) {
       preventDuplicates: true
     }),
     TranslateModule.forRoot({
-        loader: {
-            provide: TranslateLoader,
-            useFactory: HttpLoaderFactory,
-            deps: [HttpClient]
-        }
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
     }),
     SharedModule,
     AppRoutingModule,
-  
+    ModalModule.forRoot(),
     //NgxImageZoomModule, // <-- Add this line
   ],
   providers: [DatePipe,

@@ -55,6 +55,7 @@
     "ng-masonry-grid": "^1.3.0",
     "ng5-slider": "^1.2.4",
     "ngx-bar-rating": "^1.1.0",
+    "ngx-bootstrap": "^6.2.0",
     "ngx-isotope": "^0.1.7",
     "ngx-mask": "^10.0.4",
     "ngx-masonry": "^1.1.4",

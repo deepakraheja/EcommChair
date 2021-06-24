@@ -356,7 +356,8 @@
                                 </h5>
                                 <div class="checkout-details">
                                     <div class="order-box table-responsive">
-                                        <table class="table table-bordered table-hover checkout-product-table">
+                                        <table class="table table-bordered table-hover checkout-product-table"
+                                            id="tableamount">
                                             <thead class="thead-dark">
                                                 <tr>
                                                     <th class="thead-dark">
@@ -397,9 +398,18 @@
                                                             alt="Product" class="checkout-prouduct-img">
                                                         {{ product?.productName }}
 
+                                                        <table>
+                                                            <tr>
+                                                                <td>
+                                                                    <div [innerHtml]="product.accessoryDescription">
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+
                                                     </td>
                                                     <td style="text-align: right;">
-                                                        {{ product?.salePrice | currency:productService?.Currency.currency:'symbol'}}
+                                                        {{ (product.accessoryPrice+ product?.salePrice )| currency:productService?.Currency.currency:'symbol'}}
                                                     </td>
                                                     <td>
                                                         {{ product?.quantity }}
@@ -414,7 +424,7 @@
                                                     </td>
                                                     <td style="text-align: right;"
                                                         *ngIf="productSizeColor[0]?.isPersonal==0">
-                                                        {{ (product?.salePrice*product?.quantity-product?.additionalDiscountAmount) | currency:productService?.Currency.currency:'symbol' }}
+                                                        {{ ((product.accessoryPrice+product?.salePrice)*product?.quantity-product?.additionalDiscountAmount) | currency:productService?.Currency.currency:'symbol' }}
                                                     </td>
                                                     <td style="text-align: right;"
                                                         *ngIf="productSizeColor[0]?.isPersonal==0">
@@ -428,7 +438,7 @@
                                                         <span
                                                             style="float: right; font-size: 16px; line-height: 20px;  font-weight: 400;">
                                                             {{
-                                                            (product?.salePrice*product?.quantity-product?.additionalDiscountAmount+product?.gstAmount)
+                                                            ((product.accessoryPrice+product?.salePrice)*product?.quantity-product?.additionalDiscountAmount+product?.gstAmount)
                                                             | currency:productService?.Currency.currency:'symbol'
                                                             }}</span>
                                                     </td>
@@ -552,12 +562,13 @@
                                         <b>{{email}}</b>
                                     </div>
 
-                                    <button style="width:200px;" class="btn btn-solid" (click)="Continue()">Continue</button>
-                                 
+                                    <button style="width:200px;" class="btn btn-solid"
+                                        (click)="Continue()">Continue</button>
+
                                 </div>
-                              
+
                             </div>
-                            
+
                             <!--*********************Payment Options****************-->
                             <div id="divContinue" style="visibility: hidden;">btnContinue</div>
                             <div class="checkout-steps" *ngIf="PaymentOption1">
