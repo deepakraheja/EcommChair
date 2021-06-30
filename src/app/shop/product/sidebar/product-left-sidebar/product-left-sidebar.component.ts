@@ -127,6 +127,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   public accessoryId = null;
   businessPrice: any = 0;
   productid: any;
+  IsShowReviews=0;
 
   constructor(private route: ActivatedRoute,
 
