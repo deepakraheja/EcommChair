@@ -7,6 +7,8 @@ import { Productkart } from '../../../shared/classes/productkart';
 import { ProductsService } from 'src/app/Service/Products.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BrandService } from 'src/app/Service/Brand.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SelectionBuyerComponent } from 'src/app/pages/account/selection-buyer/selection-buyer.component';
 
 @Component({
   selector: 'app-collection-left-sidebar',
@@ -34,6 +36,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
   public sortBy: string; // Sorting Order
   public mobileSidebar: boolean = false;
   public loader: boolean = true;
+  user: any;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -41,47 +44,59 @@ export class CollectionLeftSidebarComponent implements OnInit {
     public productService: ProductService,
     private _prodService: ProductsService,
     private spinner: NgxSpinnerService,
-    private Brand: BrandService
+    private Brand: BrandService,
+    private modalService: NgbModal,
   ) {
-    // Get Query params..
-    this.route.queryParams.subscribe(params => {
 
-      this.brands = params.brand ? params.brand.split(",") : [];
-      this.colors = params.color ? params.color.split(",") : [];
-      this.size = params.size ? params.size.split(",") : [];
-      this.minPrice = params.minPrice ? params.minPrice : this.minPrice;
-      this.maxPrice = params.maxPrice ? params.maxPrice : this.maxPrice;
-      this.tags = [...this.brands, ...this.colors, ...this.size]; // All Tags Array
+    debugger
+    this.user = JSON.parse(localStorage.getItem('LoggedInUser'));
 
-      this.category = params.category ? params.category : null;
-      this.sortBy = params.sortBy ? params.sortBy : 'ascending';
-      this.pageNo = params.page ? params.page : this.pageNo;
-      this.searchQuery = params.searchQuery ? params.searchQuery : null;
-      // Get Filtered Products..
-      //this.productService.filterProducts(this.tags).subscribe(response => {
+    //  $('#myModal').modal({backdrop: 'static', keyboard: false})  
+    if (this.user != null || this.user != undefined) {
+
+      //this.openModal();
 
 
+      // Get Query params..
+      this.route.queryParams.subscribe(params => {
 
-      // ***********************************************************
-      //
-      //******************Category Filter*******************************
-      //
-      //*********************************************************** */
+        this.brands = params.brand ? params.brand.split(",") : [];
+        this.colors = params.color ? params.color.split(",") : [];
+        this.size = params.size ? params.size.split(",") : [];
+        this.minPrice = params.minPrice ? params.minPrice : this.minPrice;
+        this.maxPrice = params.maxPrice ? params.maxPrice : this.maxPrice;
+        this.tags = [...this.brands, ...this.colors, ...this.size]; // All Tags Array
 
-      // if (params.category) {
+        this.category = params.category ? params.category : null;
+        this.sortBy = params.sortBy ? params.sortBy : 'ascending';
+        this.pageNo = params.page ? params.page : this.pageNo;
+        this.searchQuery = params.searchQuery ? params.searchQuery : null;
+        // Get Filtered Products..
+        //this.productService.filterProducts(this.tags).subscribe(response => {
 
-      //   this.products = this.products.filter(item => item.type == this.category);
-      // }
 
-      //  
-      debugger
-      if (params.category == undefined || params.category) {
-        this.BindProductByCategory();
-        //this.BindBrand();
-      }
 
-      //})
-    })
+        // ***********************************************************
+        //
+        //******************Category Filter*******************************
+        //
+        //*********************************************************** */
+
+        // if (params.category) {
+
+        //   this.products = this.products.filter(item => item.type == this.category);
+        // }
+
+        //  
+        debugger
+        if (params.category == undefined || params.category) {
+          this.BindProductByCategory();
+          //this.BindBrand();
+        }
+
+        //})
+      })
+    }
   }
 
   // BindBrand() {
@@ -159,6 +174,25 @@ export class CollectionLeftSidebarComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.openModal();
+  }
+
+  openModal() {
+    debugger
+    this.user = JSON.parse(localStorage.getItem('LoggedInUser'));
+
+    //  $('#myModal').modal({backdrop: 'static', keyboard: false})  
+    if (this.user == null || this.user == undefined) {
+      this.router.navigate(['pages/userlogin']);
+      // this.modalService.open(SelectionBuyerComponent, {
+      //   size: 'lg',
+      //   ariaLabelledBy: 'Cart-Modal',
+      //   centered: true,
+      //   windowClass: 'theme-modal cart-modal CartModal',
+      //   backdrop: 'static',
+      //   keyboard: false
+      // });
+    }
   }
 
 

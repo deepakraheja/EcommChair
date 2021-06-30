@@ -81,46 +81,55 @@ export class CheckoutComponent implements OnInit {
     private modalService: NgbModal,
     private _userService: UsersService
   ) {
-    this._SharedDataService.currentUser.subscribe(a => {
-      this.user = a;
-      //this.user = JSON.parse(localStorage.getItem('LoggedInUser'));
-      this.email = this.user[0].email;
-      this.checkoutForm = this.fb.group({
-        billingAddressId: [0],
-        userID: this.user[0].userID,
-        fName: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-        //lName: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-        companyName: [''],
-        //phone: ['', [Validators.required, Validators.pattern('[0-9]+')]],
-        emailId: ['', [Validators.required, Validators.email]],
-        address: ['', [Validators.required, Validators.maxLength(200)]],
-        country: ['India', Validators.required],
-        city: ['', Validators.required],
-        state: ['', Validators.required],
-        zipCode: ['', [Validators.required, Validators.pattern('[0-9]+'), Validators.minLength(6)]],
-        orderNumber: this._datePipe.transform(new Date().toString(), 'yyyyMMddHHmmss'),
-        orderDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
-        paymentTypeId: [this.user[0].isVIPMember == true ? 3 : 1],
-        subTotal: [0],
-        tax: [18],
-        shippingCharge: [0],
-        totalAmount: [0],
-        notes: [''],
-        statusId: [0],
-        businessLicenseType: ['GSTIN'],
-        businessLicenseNo: [''],
+
+    this.user = JSON.parse(localStorage.getItem('LoggedInUser'));
+
+    //  $('#myModal').modal({backdrop: 'static', keyboard: false})  
+    if (this.user != null || this.user != undefined) {
+      this._SharedDataService.currentUser.subscribe(a => {
+        this.user = a;
+        //this.user = JSON.parse(localStorage.getItem('LoggedInUser'));
+        this.email = this.user[0].email;
+       
+        this.checkoutForm = this.fb.group({
+          billingAddressId: [0],
+          userID: this.user[0].userID,
+          fName: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+          //lName: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+          companyName: [''],
+          //phone: ['', [Validators.required, Validators.pattern('[0-9]+')]],
+          //emailId: ['', [Validators.required, Validators.email]],
+          emailId: [''],
+          address: ['', [Validators.required, Validators.maxLength(200)]],
+          country: ['India', Validators.required],
+          city: ['', Validators.required],
+          state: ['', Validators.required],
+          zipCode: ['', [Validators.required, Validators.pattern('[0-9]+'), Validators.minLength(6)]],
+          orderNumber: this._datePipe.transform(new Date().toString(), 'yyyyMMddHHmmss'),
+          orderDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
+          paymentTypeId: [this.user[0].isVIPMember == true ? 3 : 1],
+          subTotal: [0],
+          tax: [18],
+          shippingCharge: [0],
+          totalAmount: [0],
+          notes: [''],
+          statusId: [0],
+          businessLicenseType: [''],
+          businessLicenseNo: [''],
+        });
+
+        this.businessForm = this.fb.group({
+          BusinessType: ['', Validators.required],
+          Industry: ['', Validators.required],
+          businessLicenseType: ['GSTIN', Validators.required],
+          GSTNo: ['', Validators.required],
+          PANNo: ['', Validators.required],
+          AadharCard: ['', Validators.required],
+          BusinessName: ['', Validators.required],
+          BusinessPhone: ['', Validators.required]
+        });
       });
-      this.businessForm = this.fb.group({
-        BusinessType: ['', Validators.required],
-        Industry: ['', Validators.required],
-        businessLicenseType: ['GSTIN', Validators.required],
-        GSTNo: ['', Validators.required],
-        PANNo: ['', Validators.required],
-        AadharCard: ['', Validators.required],
-        BusinessName: ['', Validators.required],
-        BusinessPhone: ['', Validators.required]
-      });
-    });
+    }
   }
 
   // ngOnInit(): void {
@@ -202,20 +211,31 @@ export class CheckoutComponent implements OnInit {
 
   addPinCodeMask(obj: Object) {
     this.PinCodeMask = "000000";
+
   }
 
+
+
   ngOnInit(): void {
-    setTimeout(function () {
-      $.removeData($('img'), 'elevateZoom');
-      $('.zoomContainer').remove();
-    }, 200);
+    this.user = JSON.parse(localStorage.getItem('LoggedInUser'));
 
-    this.spinner.show();
-    this._SharedDataService.lstCart.subscribe(res => {
-      this.LoadCart();
-      this.LoadBillingAddress();
-    });
+    //  $('#myModal').modal({backdrop: 'static', keyboard: false})  
+    if (this.user != null || this.user != undefined) {
 
+      setTimeout(function () {
+        $.removeData($('img'), 'elevateZoom');
+        $('.zoomContainer').remove();
+      }, 200);
+
+      this.spinner.show();
+      this._SharedDataService.lstCart.subscribe(res => {
+        this.LoadCart();
+        this.LoadBillingAddress();
+      });
+    }
+    else {
+      this.router.navigate(['pages/userlogin']);
+    }
     // this.productService.ProductcartItems.subscribe(response => {
     //   this.productSizeColor = response
     //   //  ;

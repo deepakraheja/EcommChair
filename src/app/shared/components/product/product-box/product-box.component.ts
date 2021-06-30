@@ -47,7 +47,7 @@ export class ProductBoxComponent implements OnInit {
     //  ;
     this.user = JSON.parse(localStorage.getItem('LoggedInUser'));
     if (this.loader) {
-      setTimeout(() => { this.loader = false; }, 2000); // Skeleton Loader
+      setTimeout(() => { this.loader = false; }, 1000); // Skeleton Loader
     }
   }
 

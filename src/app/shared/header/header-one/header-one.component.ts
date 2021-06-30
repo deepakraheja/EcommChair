@@ -37,11 +37,13 @@ export class HeaderOneComponent implements OnInit {
     });
     this._SharedDataService.lstcompare.subscribe(response => {
       debugger
-      this.CompareCount = response.length;
+      if (response != null)
+        this.CompareCount = response.length;
     });
     this._SharedDataService.lstwishList.subscribe(response => {
       debugger
-      this.WishListCount = response.length;
+      if (response != null)
+        this.WishListCount = response.length;
       this.LoadWishList();
     });
   }
@@ -72,15 +74,15 @@ export class HeaderOneComponent implements OnInit {
   Logout() {
     localStorage.removeItem('LoggedInUser');
     localStorage.removeItem('Token');
-    
-    
+
+
     localStorage.removeItem('buyer');
     localStorage.removeItem('Bbuyer');
 
     this.LoggedInUser = [];
     this._SharedDataService.AssignUser(null);
     this._SharedDataService.UserCart(null);
-    this.router.navigate(['/home/chair']);
+    this.router.navigate(['/pages/userlogin']);
   }
   Login() {
     this.modalService.open(LoginComponent, {

@@ -9,6 +9,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 // import { BsModalRef } from 'ngx-bootstrap/modal';
 // import { BsModalService } from 'ngx-bootstrap/modal/bs-modal.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LoginComponent } from '../login/login.component';
 @Component({
   selector: 'app-selection-buyer',
   templateUrl: './selection-buyer.component.html',
@@ -86,4 +87,18 @@ export class SelectionBuyerComponent implements OnInit {
     this.isSelected = false;
     this.modalService.hide();
   }
+
+  Login() {
+
+    this.router.navigate(['pages/userlogin']);
+    this.NgmodalService.dismissAll();
+    // this.NgmodalService.open(LoginComponent, {
+    //   size: 'lg',
+    //   ariaLabelledBy: 'Cart-Modal',
+    //   centered: true,
+    //   windowClass: 'theme-modal cart-modal CartModal'
+    // });
+  }
+
+
 }

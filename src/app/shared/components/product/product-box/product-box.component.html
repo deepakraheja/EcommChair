@@ -132,10 +132,10 @@
           {{ productkart?.productName | titlecase }}</h6>
       </a>
 
-      <h4 *ngIf="user==null || user[0]?.isPersonal==true || productkart?.businessPrice==0">
-        {{ (productkart?.businessPrice) | currency:currency?.currency:'symbol' }}
+      <h4 *ngIf="user!=null && user[0]?.isPersonal==true && productkart?.salePrice>0">
+        {{ (productkart?.salePrice) | currency:currency?.currency:'symbol' }}
       </h4>
-      <h4 *ngIf="user!=null && user[0]?.isPersonal==false && productkart?.businessPrice>0">
+      <h4 *ngIf="user!=null && user[0]?.isBusiness==true && productkart?.businessPrice>0">
         {{ (productkart?.businessPrice) | currency:currency?.currency:'symbol' }}
       </h4>
 

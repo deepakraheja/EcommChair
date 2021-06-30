@@ -32,6 +32,7 @@ import { NgxMaskModule } from 'ngx-mask';
 import { PrivacypolicyComponent } from './privacypolicy/privacypolicy.component';
 import { ReturnpolicyComponent } from './returnpolicy/returnpolicy.component';
 import { SelectionBuyerComponent } from './account/selection-buyer/selection-buyer.component';
+import { UserLoginComponent } from './account/user-login/user-login.component';
 // import { SubmitMessageComponent } from './account/submit-message/submit-message.component';
 
 // Blog Components
@@ -76,6 +77,7 @@ import { SelectionBuyerComponent } from './account/selection-buyer/selection-buy
     PrivacypolicyComponent,
     ReturnpolicyComponent,
     SelectionBuyerComponent,
+    UserLoginComponent,
     // SubmitMessageComponent,
     
     // BlogLeftSidebarComponent,

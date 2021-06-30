@@ -230,7 +230,7 @@ export class DashboardComponent implements OnInit {
     localStorage.removeItem('Token');
     localStorage.removeItem('buyer');
     localStorage.removeItem('Bbuyer');
-    this.router.navigate(['/home/chair']);
+    this.router.navigate(['/pages/userlogin']);
     this._SharedDataService.AssignUser(null);
     
   }

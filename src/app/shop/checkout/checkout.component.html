@@ -110,6 +110,9 @@
 
                             </div>
                             <div class="checkout-steps" *ngIf="addaddress">
+                                {{checkoutForm.value|json}}
+
+
                                 <div class="step-heading">
                                     <span>Add New delivery Address</span>
                                 </div>
@@ -128,7 +131,7 @@
                                             Full Name must be an alphabates.
                                         </div>
                                     </div>
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                    <!-- <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <div class="field-label">Email Address <span style="color: red;">*</span></div>
                                         <input type="text" name="emailId"
                                             [formControl]="checkoutForm.controls['emailId']" value="" placeholder=""
@@ -140,7 +143,7 @@
                                         <div *ngIf="(Submitted) && form.emailId.errors.email" class="text text-danger">
                                             Invalid email address
                                         </div>
-                                    </div>
+                                    </div> -->
 
 
 
@@ -183,9 +186,9 @@
 
                                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                         <div class="field-label">State <span style="color: red;">*</span></div>
-                                        <input type="text" name="state" [formControl]="checkoutForm.controls['state']"
-                                            id="dest_addr_state" placeholder="State" autocomplete="off">
-                                        <!-- <select name="country" [formControl]="checkoutForm.controls['state']">
+                                        <!-- <input type="text" name="state" [formControl]="checkoutForm.controls['state']"
+                                            id="dest_addr_state" placeholder="State" autocomplete="off"> -->
+                                        <select name="country" [formControl]="checkoutForm.controls['state']">
                                             <option value="">Select State</option>
                                             <option value="Andhra Pradesh">Andhra Pradesh</option>
                                             <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands
@@ -225,7 +228,7 @@
                                             <option value="Uttarakhand">Uttarakhand</option>
                                             <option value="West Bengal">West Bengal</option>
 
-                                        </select> -->
+                                        </select>
                                         <div *ngIf="(checkoutForm.controls.state.touched || Submitted) && checkoutForm.controls.state.errors?.required"
                                             class="text text-danger">
                                             State is required
@@ -258,7 +261,8 @@
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-6"></div>
-                                    <div class="form-group col-md-12 col-sm-12 col-xs-12" style="padding: 12px 4px 12px 10px;
+                                    <div *ngIf="user[0].isPersonal==true"
+                                        class="form-group col-md-12 col-sm-12 col-xs-12" style="padding: 12px 4px 12px 10px;
                                     width: 100%;
                                      font-size: 18px; 
                                     border-bottom: 1px solid #dfdfdf;">Buying for your business?
@@ -280,7 +284,7 @@
                                     </div> -->
 
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12"
-                                        *ngIf="user[0].isPersonal==false">
+                                        *ngIf="user[0].isPersonal==true">
 
                                         <div class="field-label">Goods and Services Tax No (GSTIN)
                                         </div>
@@ -310,7 +314,8 @@
                                         Phone No must be number
                                     </div>
                                 </div> -->
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                    <div *ngIf="user[0].isPersonal==true"
+                                        class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <div class="field-label">Company Name </div>
                                         <input type="text" name="companyName" maxlength="150"
                                             [formControl]="checkoutForm.controls['companyName']" value=""
@@ -324,7 +329,8 @@
                                             Company Name must be an alphabates
                                         </div>
                                     </div>
-                                    <div class="form-group col-md-12 col-sm-12 col-xs-12"> Note: GSTIN cannot be
+                                    <div *ngIf="user[0].isPersonal==true"
+                                        class="form-group col-md-12 col-sm-12 col-xs-12"> Note: GSTIN cannot be
                                         changed after placing order. Please provide a valid GSTIN
                                         - if you don't, we will not be able to pass the GST credit to you. GST
                                         Registration state must match either billing or shipping state. Please write to
@@ -409,7 +415,8 @@
 
                                                     </td>
                                                     <td style="text-align: right;">
-                                                        {{ (product.accessoryPrice+ product?.salePrice )| currency:productService?.Currency.currency:'symbol'}}
+                                                        {{ (product.accessoryPrice+ product?.salePrice )|
+                                                        currency:productService?.Currency.currency:'symbol'}}
                                                     </td>
                                                     <td>
                                                         {{ product?.quantity }}
@@ -420,11 +427,14 @@
                                                     </td>
                                                     <td *ngIf="productSizeColor[0]?.additionalDiscount>0"
                                                         style="text-align: right;">
-                                                        {{ product?.additionalDiscountAmount | currency:productService?.Currency.currency:'symbol'}}
+                                                        {{ product?.additionalDiscountAmount |
+                                                        currency:productService?.Currency.currency:'symbol'}}
                                                     </td>
                                                     <td style="text-align: right;"
                                                         *ngIf="productSizeColor[0]?.isPersonal==0">
-                                                        {{ ((product.accessoryPrice+product?.salePrice)*product?.quantity-product?.additionalDiscountAmount) | currency:productService?.Currency.currency:'symbol' }}
+                                                        {{
+                                                        ((product.accessoryPrice+product?.salePrice)*product?.quantity-product?.additionalDiscountAmount)
+                                                        | currency:productService?.Currency.currency:'symbol' }}
                                                     </td>
                                                     <td style="text-align: right;"
                                                         *ngIf="productSizeColor[0]?.isPersonal==0">
@@ -432,7 +442,8 @@
                                                     </td>
                                                     <td style="text-align: right;"
                                                         *ngIf="productSizeColor[0]?.isPersonal==0">
-                                                        {{ product?.gstAmount | currency:productService?.Currency.currency:'symbol'}}
+                                                        {{ product?.gstAmount |
+                                                        currency:productService?.Currency.currency:'symbol'}}
                                                     </td>
                                                     <td style="text-align: right;">
                                                         <span
@@ -627,7 +638,8 @@
 
                                         <p class="text-green mb-4" *ngIf="getTotalAdditionalDiscountAmount()>0">You will
                                             save
-                                            {{ getTotalAdditionalDiscountAmount() | currency:productService?.Currency.currency:'symbol'}}
+                                            {{ getTotalAdditionalDiscountAmount() |
+                                            currency:productService?.Currency.currency:'symbol'}}
                                             Additional Discount on this order</p>
                                         <!-- <div class="text-center">
                                             <a class="btn btn-solid">check out</a>
@@ -737,7 +749,8 @@
                         <hr>
 
                         <p class="text-green mb-4" *ngIf="getTotalAdditionalDiscountAmount()>0">You will save
-                            {{ getTotalAdditionalDiscountAmount() | currency:productService?.Currency.currency:'symbol'}}
+                            {{ getTotalAdditionalDiscountAmount() |
+                            currency:productService?.Currency.currency:'symbol'}}
                             Additional Discount on this order</p>
                         <!-- <div class="text-center">
                             <a class="btn btn-solid">check out</a>
@@ -811,7 +824,8 @@
                                         *ngIf="user[0].isPersonal==false">
 
                                         <div class="field-label"> GSTIN
-                                            <span style="color:red">*</span></div>
+                                            <span style="color:red">*</span>
+                                        </div>
                                         <input #businessLicenseNo type="text" id="txtbusinessLicenseNo"
                                             autocomplete="off"
                                             (input)="businessLicenseNo.value = checkoutForm.controls['businessLicenseNo'].value.toUpperCase()"
