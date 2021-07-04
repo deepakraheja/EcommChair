@@ -167,7 +167,7 @@
                         <div class="page-title">
                             <h2>My Order</h2>
                         </div>
-
+                        <p *ngIf="lstOrder.length==0">No Order found</p>
                         <div *ngFor="let lst of lstOrder">
                             <div class="myorder-minidetails">
                                 <div class="order-parts">
@@ -176,13 +176,17 @@
                                 </div>
                                 <div class="order-parts">
                                     <span>Order Placed</span>
-                                    <span>{{lst.orderDate | date :'MM/dd/yyyy HH:mm:ss'}}</span>
+                                    <span>{{lst.orderDate | date :'dd/MM/yyyy hh:mm:ss aa'}}</span>
                                 </div>
                                 <div class="order-parts">
                                     <span>Total</span>
                                     <span>
                                         {{lst.totalAmount | currency:productService?.Currency.currency:'symbol'}}
                                     </span>
+                                </div>
+                                <div class="order-parts">
+                                    <span>Expected Dispatch</span>
+                                    <span>{{lst.dispatchDate | date :'dd/MM/yyyy hh:mm:ss aa'}}</span>
                                 </div>
                                 <!-- <div class="order-parts">
                                     <span>Ship To</span>
@@ -244,7 +248,7 @@
                                                                 </div>
                                                                 <div class="a-row a-size-base">
                                                                     <span class="a-color-secondary value">
-                                                                        {{lst.orderDate | date :'MM/dd/yyyy HH:mm:ss'}}
+                                                                        {{lst.orderDate | date :'dd/MM/yyyy hh:mm:ss aa'}}
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -390,12 +394,16 @@
                                                     </table>
 
                                                     <br>
-                                                    <span style="color: red;" *ngIf="lst.statusId>=3">
+                                                    <span style="color: red;"
+                                                        *ngIf="product?.transportName!='' && product?.transportName!=null">
                                                         Dispatched By : {{product?.transportName}}, Tracking Id :
-                                                        {{product?.bilty}}
+                                                        {{product?.bilty}}, 
+                                                        <br>
+                                                        Expected Delivery Date : {{product?.deliveryDate | date : 'dd/MM/yyyy hh:mm:ss aa'}}
                                                     </span>
                                                     <br>
-                                                    <span style="color: red;" *ngIf="lst.statusId>=3">
+                                                    <span style="color: red;"
+                                                        *ngIf="product?.transportName!='' && product?.transportName!=null">
                                                         Tracking URL : <a href="{{product?.trackingURL}}"
                                                             target="_blank" *ngIf="product?.trackingURL!=''">
                                                             <!-- Click here for Tracking URL -->
