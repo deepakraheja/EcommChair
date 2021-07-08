@@ -12,49 +12,30 @@
 
         <div class="col-lg-8 login-right-bg theme-card">
             <div>
-                <div class="form-group" style="min-height:406px">
-                    <span style="font-size: 23px;background-color:lightgray;
-                    font-family: monospace;">Please select an option to continue</span>
+                <div class="form-group" style="min-height:350px">
+                    <span class="popup-heading">Please select an option to continue</span>
                     <br>
                     <br>
                     <br>
                     <br>
-                    <label class="rodio-inline" style="Font-size: 23px;font-family: serif;">
-                        <input type="radio" value="0" (change)="onChangePersonal('false',template)" />&nbsp;Personal
+                    <label class="rodio-inline popup-label">
+                        <input type="radio" value="0" (change)="onChangePersonal('false',template)" style="width: 20px;" />&nbsp;Personal
                         buyer
                         &nbsp;&nbsp;
                     </label>
-                    <br>
-                    <br>
-                    <br>
-                    <span style="margin-left: 77px;
-                    font-size: 18px;
-                    font-family: ui-monospace;">OR</span>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <label class="rodio-inline" style="Font-size: 23px;font-family: serif;">
+                   
+                    
+                    
+                    <label class="rodio-inline popup-label">
                         <input type="radio" value="1" [(ngModel)]="isSelected"
-                            (change)="onChangePersonal('true',template)" />&nbsp;Business bulk
+                            (change)="onChangePersonal('true',template)" style="width: 20px;"/>&nbsp;Business bulk
                         buyer
                     </label>
+                    
+                    
                     <br>
                     <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <div class=" text-center mt-4 font-weight-light" style="Font-size: 18px;font-family: ui-serif;">
+                    <div class="popup-label">
                         Already have an account? <a href="javaScript:void(0);" (click)="Login()"
                             class="text-primary">Login</a>
                     </div>
