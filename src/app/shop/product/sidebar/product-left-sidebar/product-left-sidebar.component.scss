@@ -57,10 +57,20 @@
     background-color: #388e3c;
 }
 .sticky-scroll.fixed-section{width: 33% !important;}
-.product-carousel{height: 400px !important;}
+.product-carousel{height: 375px !important;}
 .product-buttons{width: 425px;
     position: relative;
     left: 48px;}
+    .thumbnail-imgs {
+        height: 375px;
+        overflow-y: auto !important;
+        max-height: 416px;}
+
+   .btn-reviews{position: relative;
+    margin-top: 20px;
+    margin-left: -15px;
+    float: left;}     
+
 @media (min-width: 1024px) {.sticky-scroll.fixed-section{width: 35.3% !important;}}
 @media (min-width: 1366px) {.sticky-scroll.fixed-section{width: 33% !important;}}
 // *{box-sizing: border-box;}
