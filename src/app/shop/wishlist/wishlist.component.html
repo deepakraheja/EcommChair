@@ -22,13 +22,16 @@
                     <tbody *ngFor="let productkart of products">
                         <tr>
                             <td>
-                                <a (click)="GoToDetail(productkart.rowID,productkart?.productSizeId,productkart?.setType,productkart?.setNo);">
-                                    <img [defaultImage]="ImageSrc ? ImageSrc : 'assets/images/product/placeholder.jpg'" [lazyLoad]="ImageSrc ? ImageSrc : ProductImage+productkart.productId+'/frontImage/'+productkart.frontImage" class="img-fluid lazy-loading" alt="" />
+                                <a
+                                    (click)="GoToDetail(productkart.rowID,productkart?.productSizeId,productkart?.setType,productkart?.setNo);">
+                                    <img [defaultImage]="ImageSrc ? ImageSrc : 'assets/images/product/placeholder.jpg'"
+                                        [lazyLoad]="ImageSrc ? ImageSrc : ProductImage+productkart.productId+'/frontImage/'+productkart.frontImage"
+                                        class="img-fluid lazy-loading" alt="" />
                                 </a>
                             </td>
                             <td>
                                 <a>{{
-                  productkart.productName | titlecase }}</a>
+                                    productkart.productName | titlecase }}</a>
                                 <div class="mobile-cart-content row">
                                     <div class="col-xs-3">
                                         <p>{{ productkart.qty > 0 ? 'in stock' : 'out of stock' }}</p>
@@ -37,19 +40,22 @@
                                         <!-- <h2 class="td-color">
                                             {{ (productkart.price | discount:product) * productService?.Currency.price | currency:productService?.Currency.currency:'symbol' }}
                                         </h2> -->
-                                        <h2 class="td-color" *ngIf="LoggedInUser==null || LoggedInUser[0]?.isPersonal==true || productkart?.salePrice==0">
+                                        <h2 class="td-color"
+                                            *ngIf="LoggedInUser==null || LoggedInUser[0]?.isPersonal==true || productkart?.salePrice==0">
                                             {{ (productkart?.salePrice) | currency:currency?.currency:'symbol' }}
                                         </h2>
-                                        <h2 class="td-color" *ngIf="LoggedInUser!=null && LoggedInUser[0]?.isPersonal==false && productkart?.salePrice>0">
+                                        <h2 class="td-color"
+                                            *ngIf="LoggedInUser!=null && LoggedInUser[0]?.isPersonal==false && productkart?.salePrice>0">
                                             {{ (productkart?.salePrice) | currency:currency?.currency:'symbol' }}
                                         </h2>
                                     </div>
                                     <div class="col-xs-3">
                                         <h2 class="td-color">
-                                            <a href="javascript:void(0)" (click)="removeItem(productkart)" class="icon mr-1">
-                                                <i class="ti-close"></i>
+                                            <a href="javascript:void(0)" (click)="removeItem(productkart)" class="icon">
+                                                <i class="ti-trash text-red" style="font-size:1.5rem;"></i>
                                             </a>
-                                            <a [routerLink]="['/shop/cart']" (click)="addToCart(productkart)" class="cart">
+                                            <a [routerLink]="['/shop/cart']" (click)="addToCart(productkart)"
+                                                class="cart">
                                                 <i class="ti-shopping-cart"></i>
                                             </a>
                                         </h2>
@@ -60,10 +66,12 @@
                                 <!-- <h2>
                                     {{ (productkart.price | discount:product) * productService?.Currency.price | currency:productService?.Currency.currency:'symbol' }}
                                 </h2> -->
-                                <h2 class="td-color" *ngIf="LoggedInUser==null || LoggedInUser[0]?.isPersonal==true || productkart?.salePrice==0">
+                                <h2 class="td-color"
+                                    *ngIf="LoggedInUser==null || LoggedInUser[0]?.isPersonal==true || productkart?.salePrice==0">
                                     {{ (productkart?.salePrice) | currency:currency?.currency:'symbol' }}
                                 </h2>
-                                <h2 class="td-color" *ngIf="LoggedInUser!=null && LoggedInUser[0]?.isPersonal==false && productkart?.salePrice>0">
+                                <h2 class="td-color"
+                                    *ngIf="LoggedInUser!=null && LoggedInUser[0]?.isPersonal==false && productkart?.salePrice>0">
                                     {{ (productkart?.salePrice) | currency:currency?.currency:'symbol' }}
                                 </h2>
                             </td>
@@ -71,10 +79,11 @@
                                 <p>{{ productkart.qty > 0 ? 'in stock' : 'out of stock' }}</p>
                             </td>
                             <td>
-                                <a href="javascript:void(0)" (click)="removeItem(productkart)" class="icon mr-3">
-                                    <i class="ti-close"></i>
-                                </a>
-                                <a href="javascript:void(0)" *ngIf="productkart.qty > 0" (click)="addToCart(productkart)" class="cart">
+                                <a href="javascript:void(0)" (click)="removeItem(productkart)" class="icon">
+                                    <i class="ti-trash text-red" style="font-size:1.5rem;"></i>
+                                </a>&nbsp;
+                                <a href="javascript:void(0)" *ngIf="productkart.qty > 0" style="font-size: 22px;"
+                                    (click)="addToCart(productkart)" class="cart">
                                     <i class="ti-shopping-cart"></i>
                                 </a>
                             </td>

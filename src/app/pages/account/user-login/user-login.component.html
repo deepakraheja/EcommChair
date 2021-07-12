@@ -36,13 +36,22 @@
                                 </div>
                             </div>
                             <div class="form-group text-center mt-5">
-                                <a data-lng="en" href='/pages/forget/password'>
+                                <a data-lng="en" href='pages/forget/password'>
                                     Forgot Password?
                                 </a>
                             </div>
                         </div>
                         <button [ngClass]="{'btn-loading': loginStart}" class="btn btn-solid"
                             (click)="Login()">Login</button>
+
+                        <div class="authentication-right text-center mt-5">
+                            <a data-lng="en" href='home/chair'>
+                                New to Alibaba
+                                Chair? Create an Account
+                            </a>
+                            <!-- <p> <button class="btn btn-link" (click)="Register();">New to Alibaba
+                        Chair? Create an Account</button></p> -->
+                        </div>
 
                     </form>
                 </div>

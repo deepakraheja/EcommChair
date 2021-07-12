@@ -8,7 +8,7 @@
             <h3><strong>Your Cart is Empty!</strong></h3>
             <h4>Add items to it now.</h4>
             <div class="text-center">
-                <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">continue shopping</a>
+                <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">Continue shopping</a>
             </div>
         </div>
         <!--*********************Delivery Address****************-->
@@ -44,7 +44,7 @@
                                                         {{lstBilling.state}}, {{lstBilling.zipCode}},
                                                         {{lstBilling.country}}
                                                     </div>
-                                                    <div *ngIf="user[0].isPersonal==false">
+                                                    <!-- <div *ngIf="user[0].isPersonal==false">
                                                         <b *ngIf="lstBilling.businessLicenseType=='GSTIN'">GST Number :
                                                         </b>
                                                         <b *ngIf="lstBilling.businessLicenseType=='BusinessPAN'">Business
@@ -52,13 +52,13 @@
                                                         <b *ngIf="lstBilling.businessLicenseType=='AadharCard'">Aadhar
                                                             Card : </b>
                                                         {{lstBilling.businessLicenseNo}}
-                                                    </div>
+                                                    </div> -->
                                                     <div>
                                                         <!-- <a href="javascript:void(0)" (click)="SelectBillingAddress(lstBilling)">Select
                                                                 Address</a> -->
                                                         <button type="submit" class="btn-solid btn mt-3" [id]="idx"
                                                             *ngIf="lstBilling.billingAddressId==AddressId"
-                                                            (click)="SelectdeliverAddress(templateBusinessDetails,lstBilling)">
+                                                            (click)="SelectdeliverAddress(lstBilling)">
                                                             Deliver to this address
                                                         </button>
                                                     </div>
@@ -110,9 +110,6 @@
 
                             </div>
                             <div class="checkout-steps" *ngIf="addaddress">
-                                <!-- {{checkoutForm.value|json}} -->
-
-
                                 <div class="step-heading">
                                     <span>Add New delivery Address</span>
                                 </div>
@@ -124,7 +121,7 @@
                                             autocomplete="off">
                                         <div *ngIf="(checkoutForm.controls.fName.touched || Submitted) && checkoutForm.controls.fName.errors?.required"
                                             class="text text-danger">
-                                            Full Name is required.
+                                            Full Name required
                                         </div>
                                         <div *ngIf="(checkoutForm.controls.fName.touched || Submitted) && checkoutForm.controls.fName.errors?.pattern"
                                             class="text text-danger">
@@ -144,23 +141,18 @@
                                             Invalid email address
                                         </div>
                                     </div> -->
-
-
-
-
-
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <div class="field-label">Address <span style="color: red;">*</span></div>
-                                        <textarea maxlength="200" name="address"
-                                            [formControl]="checkoutForm.controls['address']" style="height: 65px;"
+                                        <textarea maxlength="500" name="address"
+                                            [formControl]="checkoutForm.controls['address']" style="height: 80px;"
                                             value="" placeholder="" autocomplete="off"></textarea>
                                         <div *ngIf="(checkoutForm.controls.address.touched || Submitted) && checkoutForm.controls.address.errors?.required"
                                             class="text text-danger">
-                                            Address is required
+                                            Address required
                                         </div>
                                         <div *ngIf="(checkoutForm.controls.address.touched || Submitted) && checkoutForm.controls.address.errors?.maxlength"
                                             class="text text-danger">
-                                            Maximum 50 character
+                                            Maximum 500 character
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
@@ -172,7 +164,7 @@
                                             onchange="getPostOffice()">
                                         <div *ngIf="(checkoutForm.controls.zipCode.touched || Submitted) && checkoutForm.controls.zipCode.errors?.required"
                                             class="text text-danger">
-                                            Pin Code is required
+                                            Pin Code required
                                         </div>
                                         <div *ngIf="(checkoutForm.controls.zipCode.touched || Submitted) && (checkoutForm.controls.zipCode.value?.length>1 && checkoutForm.controls.zipCode.value?.length<6)"
                                             class="text text-danger">
@@ -244,7 +236,7 @@
                                         </datalist>
                                         <div *ngIf="(checkoutForm.controls.city.touched || Submitted) && checkoutForm.controls.city.errors?.required"
                                             class="text text-danger">
-                                            City is required
+                                            City required
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
@@ -257,7 +249,7 @@
                                         </select>
                                         <div *ngIf="(checkoutForm.controls.country.touched || Submitted) && checkoutForm.controls.country.errors?.required"
                                             class="text text-danger">
-                                            Country is required
+                                            Country required
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-6"></div>
@@ -433,7 +425,7 @@
                                                     <td style="text-align: right;"
                                                         *ngIf="productSizeColor[0]?.isPersonal==0">
                                                         {{
-                                                        ((product.accessoryPrice+product?.salePrice)*product?.quantity-product?.additionalDiscountAmount)
+                                                        ((product?.totalAmount)-product?.additionalDiscountAmount)
                                                         | currency:productService?.Currency.currency:'symbol' }}
                                                     </td>
                                                     <td style="text-align: right;"
@@ -449,7 +441,7 @@
                                                         <span
                                                             style="float: right; font-size: 16px; line-height: 20px;  font-weight: 400;">
                                                             {{
-                                                            ((product.accessoryPrice+product?.salePrice)*product?.quantity-product?.additionalDiscountAmount+product?.gstAmount)
+                                                            ((product?.totalAmount-product?.additionalDiscountAmount)+product?.gstAmount)
                                                             | currency:productService?.Currency.currency:'symbol'
                                                             }}</span>
                                                     </td>
@@ -474,7 +466,8 @@
                                                     </td>
                                                     <td style="text-align: right;"
                                                         *ngIf="productSizeColor[0]?.isPersonal==0">
-                                                        <b>{{ getTotalAmountWithDis() |
+                                                        <b>{{ getTotalAmountWithDis()-getTotalAdditionalDiscountAmount()
+                                                            |
                                                             currency:productService?.Currency.currency:'symbol'}}</b>
                                                     </td>
                                                     <td *ngIf="productSizeColor[0]?.isPersonal==0"></td>
@@ -607,8 +600,11 @@
                                         </p>
                                         <p class="d-flex justify-content-between">
                                             <span>Total Amount: </span>
-                                            <span><b>
+                                            <!-- <span><b>
                                                     {{ (getTotalAmountWithDis() + getTotalAdditionalDiscountAmount()) |
+                                                    currency:productService?.Currency.currency:'symbol'}}</b></span> -->
+                                            <span><b>
+                                                    {{ (getTotalAmountWithDis()) |
                                                     currency:productService?.Currency.currency:'symbol'}}</b></span>
                                         </p>
                                         <p *ngIf="productSizeColor[0]?.additionalDiscount>0"
@@ -722,7 +718,7 @@
                         <p class="d-flex justify-content-between">
                             <span>Total Amount: </span>
                             <span><b>
-                                    {{ (getTotalAmountWithDis() + getTotalAdditionalDiscountAmount()) |
+                                    {{ (getTotalAmountWithDis() ) |
                                     currency:productService?.Currency.currency:'symbol'}}</b></span>
                         </p>
                         <p *ngIf="productSizeColor[0]?.additionalDiscount>0" class="d-flex justify-content-between">
@@ -732,7 +728,7 @@
                         </p>
                         <p *ngIf="productSizeColor[0]?.additionalDiscount>0" class="d-flex justify-content-between">
                             <span>Gross Amount: </span>
-                            <span><b>{{ getTotalAmountWithDis() |
+                            <span><b>{{ getTotalAmountWithDis() - getTotalAdditionalDiscountAmount() |
                                     currency:productService?.Currency.currency:'symbol'}}</b></span>
                         </p>
                         <p class="d-flex justify-content-between" *ngIf="getTotalGSTAmount()>0">
@@ -743,7 +739,8 @@
                         <hr>
                         <p class="d-flex justify-content-between">
                             <span><b>Total Net Amount:</b> </span>
-                            <span><b>{{ (getTotalAmountWithDis()+ getTotalGSTAmount()) |
+                            <span><b>{{ ((getTotalAmountWithDis()- getTotalAdditionalDiscountAmount())+
+                                    getTotalGSTAmount()) |
                                     currency:productService?.Currency.currency:'symbol'}}</b></span>
                         </p>
                         <hr>
@@ -768,6 +765,7 @@
     </div>
 </section>
 <ng-template class="theme-modal" #templateBillingAddress let-modal>
+    <!-- {{checkoutForm.value|json}} -->
     <div class="modal-content quick-view-modal">
         <div class="modal-body">
             <button type="button" class="close" style="background-color: white;" (click)="modal.dismiss('Cross click')">
@@ -779,16 +777,16 @@
                         <div class="row">
                             <div class="col-lg-12 col-sm-12 col-xs-12">
                                 <div class="checkout-title">
-                                    <h3>Delivery Details</h3>
+                                    <h3>Edit Delivery Details</h3>
                                 </div>
                                 <div class="row check-out">
-                                    <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                         <div class="field-label">Full Name <span style="color:red">*</span></div>
                                         <input type="text" name="fName" [formControl]="checkoutForm.controls['fName']"
                                             value="" placeholder="" autocomplete="off">
                                         <div *ngIf="(checkoutForm.controls.fName.touched || Submitted) && checkoutForm.controls.fName.errors?.required"
                                             class="text text-danger">
-                                            Full Name is required.
+                                            Full Name required
                                         </div>
                                         <div *ngIf="(checkoutForm.controls.fName.touched || Submitted) && checkoutForm.controls.fName.errors?.pattern"
                                             class="text text-danger">
@@ -805,43 +803,6 @@
                                             Last Name must be an alphabates.
                                         </div>
                                     </div> -->
-                                    <div class="form-group col-md-4 col-sm-4 col-xs-4">
-                                        <div class="field-label">Company Name <span *ngIf="user[0].isPersonal==false"
-                                                style="color:red">*</span></div>
-                                        <input type="text" name="companyName"
-                                            [formControl]="checkoutForm.controls['companyName']" value="" placeholder=""
-                                            autocomplete="off">
-                                        <div *ngIf="(checkoutForm.controls.companyName.touched || Submitted) && checkoutForm.controls.companyName.errors?.required"
-                                            class="text text-danger">
-                                            Company Name is required.
-                                        </div>
-                                        <div *ngIf="(checkoutForm.controls.companyName.touched || Submitted) && checkoutForm.controls.companyName.errors?.pattern"
-                                            class="text text-danger">
-                                            Company Name must be an alphabates.
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-4 col-sm-4 col-xs-4"
-                                        *ngIf="user[0].isPersonal==false">
-
-                                        <div class="field-label"> GSTIN
-                                            <span style="color:red">*</span>
-                                        </div>
-                                        <input #businessLicenseNo type="text" id="txtbusinessLicenseNo"
-                                            autocomplete="off"
-                                            (input)="businessLicenseNo.value = checkoutForm.controls['businessLicenseNo'].value.toUpperCase()"
-                                            name="businessLicenseNo"
-                                            [formControl]="checkoutForm.controls['businessLicenseNo']" maxlength="15">
-                                        <div *ngIf="Submitted && checkoutForm.controls.businessLicenseNo.errors"
-                                            class="text text-danger">
-                                            <div>GSTIN is required.
-                                            </div>
-                                        </div>
-                                        <div *ngIf="Submitted && checkoutForm.controls.businessLicenseNo.value?.length>1 && checkoutForm.controls.businessLicenseNo.value?.length<12"
-                                            class="text text-danger">
-                                            <div>GSTIN must be 12 digit
-                                            </div>
-                                        </div>
-                                    </div>
 
                                     <!-- <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                         <div class="field-label">Phone <span style="color:red">*</span></div>
@@ -864,18 +825,18 @@
                                         </div>
                                     </div> -->
 
-                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                         <div class="field-label">Address <span style="color:red">*</span></div>
-                                        <textarea type="text" name="address"
+                                        <textarea type="text" maxlength="500" name="address" style="height: 80px;"
                                             [formControl]="checkoutForm.controls['address']" value=""
                                             placeholder="Address" autocomplete="off"></textarea>
                                         <div *ngIf="(checkoutForm.controls.address.touched || Submitted) && checkoutForm.controls.address.errors?.required"
                                             class="text text-danger">
-                                            Address is required.
+                                            Address required
                                         </div>
                                         <div *ngIf="(checkoutForm.controls.address.touched || Submitted) && checkoutForm.controls.address.errors?.maxlength"
                                             class="text text-danger">
-                                            Maximum 50 character
+                                            Maximum 500 character
                                         </div>
                                     </div>
 
@@ -888,7 +849,7 @@
                                             onchange="getPostOffice()">
                                         <div *ngIf="(checkoutForm.controls.zipCode.touched || Submitted) && checkoutForm.controls.zipCode.errors?.required"
                                             class="text text-danger">
-                                            Pin Code is required.
+                                            Pin Code required
                                         </div>
                                         <div *ngIf="(checkoutForm.controls.zipCode.touched || Submitted) && (checkoutForm.controls.zipCode.value?.length>1 && checkoutForm.controls.zipCode.value?.length<6)"
                                             class="text text-danger">
@@ -898,9 +859,9 @@
 
                                     <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                         <div class="field-label">State <span style="color:red">*</span></div>
-                                        <input type="text" name="state" [formControl]="checkoutForm.controls['state']"
-                                            id="dest_addr_state" placeholder="State" autocomplete="off">
-                                        <!-- <select name="country" [formControl]="checkoutForm.controls['state']">
+                                        <!-- <input type="text" name="state" [formControl]="checkoutForm.controls['state']"
+                                            id="dest_addr_state" placeholder="State" autocomplete="off"> -->
+                                        <select name="country" [formControl]="checkoutForm.controls['state']">
                                             <option value="">Select State</option>
                                             <option value="Andhra Pradesh">Andhra Pradesh</option>
                                             <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands
@@ -939,10 +900,10 @@
                                             <option value="Uttar Pradesh">Uttar Pradesh</option>
                                             <option value="Uttarakhand">Uttarakhand</option>
                                             <option value="West Bengal">West Bengal</option>
-                                        </select> -->
+                                        </select>
                                         <div *ngIf="(checkoutForm.controls.state.touched || Submitted) && checkoutForm.controls.state.errors?.required"
                                             class="text text-danger">
-                                            State is required.
+                                            State required
                                         </div>
                                     </div>
 
@@ -954,7 +915,7 @@
                                         </datalist>
                                         <div *ngIf="(checkoutForm.controls.city.touched || Submitted) && checkoutForm.controls.city.errors?.required"
                                             class="text text-danger">
-                                            City is required.
+                                            City required
                                         </div>
                                     </div>
                                     <div class="form-group col-md-4 col-sm-4 col-xs-4">
@@ -967,9 +928,48 @@
                                         </select>
                                         <div *ngIf="(checkoutForm.controls.country.touched || Submitted) && checkoutForm.controls.country.errors?.required"
                                             class="text text-danger">
-                                            Country is required.
+                                            Country required
                                         </div>
                                     </div>
+
+                                    <div class="form-group col-md-4 col-sm-4 col-xs-4"
+                                        *ngIf="user[0].isPersonal==false">
+                                        <div class="field-label">Company Name </div>
+                                        <input type="text" name="companyName"
+                                            [formControl]="checkoutForm.controls['companyName']" value="" placeholder=""
+                                            autocomplete="off">
+                                        <!-- <div *ngIf="(checkoutForm.controls.companyName.touched || Submitted) && checkoutForm.controls.companyName.errors?.required"
+                                            class="text text-danger">
+                                            Company Name is required.
+                                        </div> -->
+                                        <!-- <div *ngIf="(checkoutForm.controls.companyName.touched || Submitted) && checkoutForm.controls.companyName.errors?.pattern"
+                                            class="text text-danger">
+                                            Company Name must be an alphabates.
+                                        </div> -->
+                                    </div>
+                                    <div class="form-group col-md-4 col-sm-4 col-xs-4"
+                                        *ngIf="user[0].isPersonal==false">
+
+                                        <div class="field-label"> GSTIN
+
+                                        </div>
+                                        <input #businessLicenseNo type="text" id="txtbusinessLicenseNo"
+                                            autocomplete="off"
+                                            (input)="businessLicenseNo.value = checkoutForm.controls['businessLicenseNo'].value.toUpperCase()"
+                                            name="businessLicenseNo"
+                                            [formControl]="checkoutForm.controls['businessLicenseNo']" maxlength="15">
+                                        <!-- <div *ngIf="Submitted && checkoutForm.controls.businessLicenseNo.errors"
+                                            class="text text-danger">
+                                            <div>GSTIN required
+                                            </div>
+                                        </div> -->
+                                        <div *ngIf="Submitted && checkoutForm.controls.businessLicenseNo.value?.length>1 && checkoutForm.controls.businessLicenseNo.value?.length<12"
+                                            class="text text-danger">
+                                            <div>GSTIN must be 12 digit
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <!-- <div class="form-group col-md-4 col-sm-4 col-xs-4" *ngIf="user[0].isPersonal==false">
                                         <div class="field-label">Business License Type <span style="color:red">*</span></div>
                                         <select id="ddlLicenseType" name="businessLicenseType" [formControl]="checkoutForm.controls['businessLicenseType']">
@@ -1003,7 +1003,7 @@
     </div>
 </ng-template>
 
-<ng-template class="theme-modal" #templateBusinessDetails let-modal>
+<!-- <ng-template class="theme-modal" #templateBusinessDetails let-modal>
     <div class="modal-content quick-view-modal">
         <div class="modal-body">
             <button type="button" class="close" style="background-color: white;" (click)="modal.dismiss('Cross click')">
@@ -1151,4 +1151,4 @@
             </div>
         </div>
     </div>
-</ng-template>
+</ng-template> -->

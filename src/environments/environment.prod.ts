@@ -11,7 +11,10 @@ export const environment = {
   // ProductImage: 'http://208.109.12.71/EcommChairApiV3/ProductImage/',
   // Report_Path: 'http://208.109.12.71/EcommChairApiV3/ReportGenerate/',
   // WebSite_URL: 'http://208.109.12.71/EcommChair/',
-  // Invoice_URL:'http://208.109.12.71/EcommChairApiV3/TempPDF/',
+  // Invoice_URL: 'http://208.109.12.71/EcommChairApiV3/TempPDF/',
+  // APIURL: 'http://208.109.12.71/EcommChairApiV3/',
+  // CCAvenue: 'www.alibabachair.com/',
+  // AccessoryImage: 'http://208.109.12.71/EcommChairApiV3/AccessoryImage/',
 
   // BASE_API_URL: 'http://apiservice.alibabachair.com/api/',
   // ProductImage: 'http://apiservice.alibabachair.com/ProductImage/',
@@ -24,7 +27,7 @@ export const environment = {
   Report_Path: 'https://store.alibabachair.com/ReportGenerate/',
   WebSite_URL: 'www.alibabachair.com',
   Invoice_URL: 'https://store.alibabachair.com/TempPDF/',
-  APIURL:'https://store.alibabachair.com/',
+  APIURL: 'https://store.alibabachair.com/',
   CCAvenue: 'www.alibabachair.com/',
   AccessoryImage: 'https://store.alibabachair.com/AccessoryImage/',
 };

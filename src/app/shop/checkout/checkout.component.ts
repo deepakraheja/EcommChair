@@ -90,44 +90,46 @@ export class CheckoutComponent implements OnInit {
         this.user = a;
         //this.user = JSON.parse(localStorage.getItem('LoggedInUser'));
         this.email = this.user[0].email;
-       
+
         this.checkoutForm = this.fb.group({
           billingAddressId: [0],
           userID: this.user[0].userID,
-          fName: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-          //lName: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-          companyName: [''],
-          //phone: ['', [Validators.required, Validators.pattern('[0-9]+')]],
-          //emailId: ['', [Validators.required, Validators.email]],
-          emailId: [''],
-          address: ['', [Validators.required, Validators.maxLength(200)]],
-          country: ['India', Validators.required],
-          city: ['', Validators.required],
-          state: ['', Validators.required],
-          zipCode: ['', [Validators.required, Validators.pattern('[0-9]+'), Validators.minLength(6)]],
+          // fName: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+          // //lName: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+          // //companyName: [''],
+          // //phone: ['', [Validators.required, Validators.pattern('[0-9]+')]],
+          // //emailId: ['', [Validators.required, Validators.email]],
+          // //emailId: [''],
+          // address: ['', [Validators.required, Validators.maxLength(500)]],
+          // country: ['India', Validators.required],
+          // city: ['', Validators.required],
+          // state: ['', Validators.required],
+          // zipCode: ['', [Validators.required, Validators.pattern('[0-9]+'), Validators.minLength(6)]],
+
           orderNumber: this._datePipe.transform(new Date().toString(), 'yyyyMMddHHmmss'),
           orderDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
-          paymentTypeId: [this.user[0].isVIPMember == true ? 3 : 1],
+
+          paymentTypeId: [1],
           subTotal: [0],
           tax: [18],
           shippingCharge: [0],
           totalAmount: [0],
-          notes: [''],
-          statusId: [0],
-          businessLicenseType: [''],
-          businessLicenseNo: [''],
+          // notes: [''],
+          // statusId: [0],
+          // businessLicenseType: [''],
+          // businessLicenseNo: [''],
         });
 
-        this.businessForm = this.fb.group({
-          BusinessType: ['', Validators.required],
-          Industry: ['', Validators.required],
-          businessLicenseType: ['GSTIN', Validators.required],
-          GSTNo: ['', Validators.required],
-          PANNo: ['', Validators.required],
-          AadharCard: ['', Validators.required],
-          BusinessName: ['', Validators.required],
-          BusinessPhone: ['', Validators.required]
-        });
+        // this.businessForm = this.fb.group({
+        //   BusinessType: ['', Validators.required],
+        //   Industry: ['', Validators.required],
+        //   businessLicenseType: ['GSTIN', Validators.required],
+        //   GSTNo: ['', Validators.required],
+        //   PANNo: ['', Validators.required],
+        //   AadharCard: ['', Validators.required],
+        //   BusinessName: ['', Validators.required],
+        //   BusinessPhone: ['', Validators.required]
+        // });
       });
     }
   }
@@ -153,7 +155,7 @@ export class CheckoutComponent implements OnInit {
       city: [lst.city, Validators.required],
       state: [lst.state, Validators.required],
       zipCode: [lst.zipCode, [Validators.required, Validators.minLength(6)]],
-      businessLicenseType: [lst.businessLicenseType],
+      //businessLicenseType: [lst.businessLicenseType],
       businessLicenseNo: [lst.businessLicenseNo],
     });
     this.modalService.open(template, {
@@ -170,10 +172,10 @@ export class CheckoutComponent implements OnInit {
 
   SaveBillingAddress() {
     debugger
-    this.AddressValueChanged();
-    if (this.user[0].isPersonal == false) {
-      this.BusinessLicenseValidation();
-    }
+    //this.AddressValueChanged();
+    // if (this.user[0].isPersonal == false) {
+    //   this.BusinessLicenseValidation();
+    // }
     this.Submitted = true;
     if (this.checkoutForm.invalid) {
       this.toastr.error("All * fields are mandatory.");
@@ -193,7 +195,7 @@ export class CheckoutComponent implements OnInit {
         city: this.checkoutForm.value.city,
         state: this.checkoutForm.value.state,
         zipCode: this.checkoutForm.value.zipCode,
-        businessLicenseType: this.checkoutForm.value.businessLicenseType,
+        //businessLicenseType: this.checkoutForm.value.businessLicenseType,
         businessLicenseNo: this.checkoutForm.value.businessLicenseNo,
       }
       //  
@@ -231,6 +233,7 @@ export class CheckoutComponent implements OnInit {
       this._SharedDataService.lstCart.subscribe(res => {
         this.LoadCart();
         this.LoadBillingAddress();
+        this.spinner.hide();
       });
     }
     else {
@@ -258,6 +261,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   LoadBillingAddress() {
+    debugger
     if (this.user != null) {
       let obj = {
         UserID: this.user[0].userID
@@ -267,10 +271,12 @@ export class CheckoutComponent implements OnInit {
         if (this.lstBillingAddress.length == 0) {
           this.AddNewAddress();
         }
-        this.ROWID = res[0].rowID;
-        this.AddressId = res[0].billingAddressId;
-        this.email = res[0].emailId;
-        this.SelectedAddress = res[0].address + ' ' + res[0].city + ' ' + res[0].state + ' ' + res[0].zipCode + ' ' + res[0].country
+        else {
+          this.ROWID = res[0].rowID;
+          this.AddressId = res[0].billingAddressId;
+          this.email = res[0].emailId;
+          this.SelectedAddress = res[0].address + ' ' + res[0].city + ' ' + res[0].state + ' ' + res[0].zipCode + ' ' + res[0].country
+        }
       });
     }
     else {
@@ -281,7 +287,7 @@ export class CheckoutComponent implements OnInit {
   getTotal() {
     var TotalAmount = 0;
     this.productSizeColor.forEach(element => {
-      TotalAmount += Number((((element.accessoryPrice + element.salePrice) * element.quantity) - element.additionalDiscountAmount + element.gstAmount).toFixed(2));
+      TotalAmount += Number(((element.totalAmount) - element.additionalDiscountAmount + element.gstAmount).toFixed(2));
     });
     return TotalAmount;
   }
@@ -305,7 +311,9 @@ export class CheckoutComponent implements OnInit {
   getTotalAmountWithDis() {
     var TotalAmount = 0;
     this.productSizeColor.forEach(element => {
-      TotalAmount += Number((((element.accessoryPrice + element.salePrice) * element.quantity) - element.additionalDiscountAmount).toFixed(2));
+
+      //TotalAmount += Number((((element.accessoryPrice + element.salePrice) * element.quantity) - element.additionalDiscountAmount).toFixed(2));
+      TotalAmount += Number((((element.totalAmount))).toFixed(2));
     });
     return TotalAmount;
   }
@@ -400,9 +408,9 @@ export class CheckoutComponent implements OnInit {
       userID: this.user[0].userID,
       fName: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       //lName: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-      companyName: [''],
+      //companyName: [''],
       //phone: ['', [Validators.required, Validators.pattern('[0-9]+')]],
-      emailId: ['', [Validators.required, Validators.email]],
+      //emailId: ['', [Validators.required, Validators.email]],
       address: ['', [Validators.required, Validators.maxLength(200)]],
       country: ['India', Validators.required],
       city: ['', Validators.required],
@@ -410,39 +418,39 @@ export class CheckoutComponent implements OnInit {
       zipCode: ['', [Validators.required, Validators.pattern('[0-9]+'), Validators.minLength(6)]],
       orderNumber: this._datePipe.transform(new Date().toString(), 'yyyyMMddHHmmss'),
       orderDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
-      paymentTypeId: [this.user[0].isVIPMember == true ? 3 : 1],
+      paymentTypeId: [1],
       subTotal: [0],
       tax: [18],
       shippingCharge: [0],
       totalAmount: [0],
       notes: [''],
       statusId: [0],
-      businessLicenseType: ['GSTIN'],
+      businessLicenseType: [''],
       businessLicenseNo: [''],
     });
 
   }
 
-  addAadharMask(obj: object) {
-    this.AadharNumberMask = "0000 0000 0000";
-    this.showMask = false;
-  }
+  // addAadharMask(obj: object) {
+  //   this.AadharNumberMask = "0000 0000 0000";
+  //   this.showMask = false;
+  // }
 
 
-  addPhoneMask(obj: Object) {
-    this.PhoneMask = "0000000000";
-    this.showMask = false;
-  }
+  // addPhoneMask(obj: Object) {
+  //   this.PhoneMask = "0000000000";
+  //   this.showMask = false;
+  // }
 
-  ChangeLicenseType() {
-    const gstNo = this.checkoutForm.get('GSTNo');
-    const panNo = this.checkoutForm.get('PANNo');
-    const AadharCard = this.checkoutForm.get('AadharCard');
+  // ChangeLicenseType() {
+  //   const gstNo = this.checkoutForm.get('GSTNo');
+  //   const panNo = this.checkoutForm.get('PANNo');
+  //   const AadharCard = this.checkoutForm.get('AadharCard');
 
-    gstNo.reset();
-    panNo.reset();
-    AadharCard.reset();
-  }
+  //   gstNo.reset();
+  //   panNo.reset();
+  //   AadharCard.reset();
+  // }
 
   BusinessLicenseValidation() {
     const businessLicenseType = this.checkoutForm.get('businessLicenseType');
@@ -459,7 +467,7 @@ export class CheckoutComponent implements OnInit {
 
   get f() { return this.businessForm.controls; }
 
-  SelectdeliverAddress(template: TemplateRef<any>, lst) {
+  SelectdeliverAddress(lst) {
     // Hack: Scrolls to top of Page after page view initialized
     let top = document.getElementById('tableamount');
     if (top !== null) {
@@ -572,7 +580,7 @@ export class CheckoutComponent implements OnInit {
 
   SaveAddress() {
     debugger
-    this.AddressValueChanged();
+    //this.AddressValueChanged();
     // if (this.user[0].isPersonal == false) {
     //   this.BusinessLicenseValidation();
     // }
@@ -631,9 +639,11 @@ export class CheckoutComponent implements OnInit {
   }
 
   AddressValueChanged() {
+    debugger
     const zipCode = this.checkoutForm.get('zipCode');
     const state = this.checkoutForm.get('state');
     const city = this.checkoutForm.get('city');
+
     if (zipCode.value == '')
       zipCode.setValidators([Validators.required]);
     if (state.value == '')
@@ -646,141 +656,150 @@ export class CheckoutComponent implements OnInit {
     city.updateValueAndValidity();
   }
 
-  formControlValueChanged() {
+  // formControlValueChanged() {
 
-    const businessLicenseType = this.businessForm.get('businessLicenseType');
-    const gstNo = this.businessForm.get('GSTNo');
-    const panNo = this.businessForm.get('PANNo');
-    const AadharCard = this.businessForm.get('AadharCard');
+  //   const businessLicenseType = this.businessForm.get('businessLicenseType');
+  //   const gstNo = this.businessForm.get('GSTNo');
+  //   const panNo = this.businessForm.get('PANNo');
+  //   const AadharCard = this.businessForm.get('AadharCard');
 
-    if (businessLicenseType.value == 'GSTIN') {
-      gstNo.setValidators([Validators.required]);
+  //   if (businessLicenseType.value == 'GSTIN') {
+  //     gstNo.setValidators([Validators.required]);
 
-      panNo.clearValidators();
-      AadharCard.clearValidators();
+  //     panNo.clearValidators();
+  //     AadharCard.clearValidators();
 
-      gstNo.updateValueAndValidity();
-      panNo.updateValueAndValidity();
-      AadharCard.updateValueAndValidity();
-    }
-    else if (businessLicenseType.value == 'BusinessPAN') {
+  //     gstNo.updateValueAndValidity();
+  //     panNo.updateValueAndValidity();
+  //     AadharCard.updateValueAndValidity();
+  //   }
+  //   else if (businessLicenseType.value == 'BusinessPAN') {
 
-      panNo.setValidators([Validators.required]);
+  //     panNo.setValidators([Validators.required]);
 
-      gstNo.clearValidators();
-      AadharCard.clearValidators();
+  //     gstNo.clearValidators();
+  //     AadharCard.clearValidators();
 
-      gstNo.updateValueAndValidity();
-      panNo.updateValueAndValidity();
-      AadharCard.updateValueAndValidity();
-    }
-    else if (businessLicenseType.value == 'AadharCard') {
+  //     gstNo.updateValueAndValidity();
+  //     panNo.updateValueAndValidity();
+  //     AadharCard.updateValueAndValidity();
+  //   }
+  //   else if (businessLicenseType.value == 'AadharCard') {
 
-      AadharCard.setValidators([Validators.required]);
+  //     AadharCard.setValidators([Validators.required]);
 
-      panNo.clearValidators();
-      gstNo.clearValidators();
+  //     panNo.clearValidators();
+  //     gstNo.clearValidators();
 
-      AadharCard.updateValueAndValidity();
-      gstNo.updateValueAndValidity();
-      panNo.updateValueAndValidity();
-    }
-  }
+  //     AadharCard.updateValueAndValidity();
+  //     gstNo.updateValueAndValidity();
+  //     panNo.updateValueAndValidity();
+  //   }
+  // }
 
-  SaveBusinessDetail() {
-    this.formControlValueChanged();
-    this.Submitted = true;
-    if (this.businessForm.invalid) {
-      this.toastr.error("All * fields are mandatory.");
-      return;
-    }
-    else {
-      this.spinner.show();
-      this._userService.UpdateUserBusinessDetail(this.businessForm.value).subscribe(res => {
-        this.spinner.hide();
-        //this.lstBillingAddress = res;
-        this.toastr.success("Business detail has been saved successfully!");
-        this.modalService.dismissAll();
-        debugger
-        //this.AddressId = this.lstBillingAddress[this.lstBillingAddress.length - 1].billingAddressId;
-      });
-    }
-  }
+  // SaveBusinessDetail() {
+  //   //this.formControlValueChanged();
+  //   this.Submitted = true;
+  //   if (this.businessForm.invalid) {
+  //     this.toastr.error("All * fields are mandatory.");
+  //     return;
+  //   }
+  //   else {
+  //     this.spinner.show();
+  //     this._userService.UpdateUserBusinessDetail(this.businessForm.value).subscribe(res => {
+  //       this.spinner.hide();
+  //       //this.lstBillingAddress = res;
+  //       this.toastr.success("Business detail has been saved successfully!");
+  //       this.modalService.dismissAll();
+  //       debugger
+  //       //this.AddressId = this.lstBillingAddress[this.lstBillingAddress.length - 1].billingAddressId;
+  //     });
+  //   }
+  // }
 
   ProcessCheckOut() {
 
     debugger;
-    if (Number(this.checkoutForm.value.paymentTypeId) == 1) {
-      this.spinner.show();
-
-      let obj = {
-        BillingAddressId: Number(this.checkoutForm.value.billingAddressId),
-        OrderNumber: this._datePipe.transform(new Date().toString(), 'yyyyMMddHHmmss'),
-        OrderDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
-        TotalAmount: Number(this.getTotal()) + Number(this.checkoutForm.value.shippingCharge),
-      }
-
-      this._orderService.SaveCcavenueRequest(obj).subscribe(res => {
-        //  
-        debugger;
-        if (res != null && res > 0) {
-          debugger;
-
-          window.location.href = "ccavRequestHandler.aspx?BillingSession_Id=" + this.ROWID;
-
-          // setTimeout(function () {CCAvenue
-          //window.location.href = "http://localhost:61970/ccavRequestHandler.aspx?BillingSession_Id=" + this.ROWID;
-          //window.location.href = "https://www.alibabachair.com/ccavRequestHandler.aspx?BillingSession_Id=" + this.ROWID;
-          // }, 2000);
-          this.spinner.hide();
-        }
+    // if (Number(this.checkoutForm.value.paymentTypeId) == 1) {
+    this.spinner.show();
+    localStorage.setItem('ROWID', this.ROWID);
 
 
-      });
-
+    let obj = {
+      BillingAddressId: Number(this.checkoutForm.value.billingAddressId),
+      OrderNumber: this._datePipe.transform(new Date().toString(), 'yyyyMMddHHmmss'),
+      OrderDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
+      TotalAmount: Number(this.getTotal()) + Number(this.checkoutForm.value.shippingCharge),
     }
-    else if (Number(this.checkoutForm.value.paymentTypeId) == 2) {
-      // this.Submitted = true;
-      // if (this.checkoutForm.invalid) {
-      //   this.toastr.error("All * fields are mandatory.");
-      //   return;
-      // }
-      // else {
-      this.spinner.show();
-      debugger
-      let obj = {
-        billingAddressId: Number(this.checkoutForm.value.billingAddressId),
-        //userID: Number(this.user[0].userID),
-        //fName: this.checkoutForm.value.fName,
-        //lName: this.checkoutForm.value.lName,
-        //companyName: this.checkoutForm.value.companyName,
-        //phone: this.checkoutForm.value.phone,
-        //emailId: this.checkoutForm.value.emailId,
-        //address: this.checkoutForm.value.address,
-        //country: this.checkoutForm.value.country,
-        //city: this.checkoutForm.value.city,
-        //state: this.checkoutForm.value.state,
-        //zipCode: this.checkoutForm.value.zipCode,
-        orderNumber: this._datePipe.transform(new Date().toString(), 'yyyyMMddHHmmss'),
-        orderDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
-        paymentTypeId: Number(this.checkoutForm.value.paymentTypeId),
-        subTotal: Number(this.getTotal()),
-        tax: 0,
-        shippingCharge: 0,
-        totalAmount: Number(this.getTotal()) + Number(this.checkoutForm.value.shippingCharge),
-        notes: '',
-        statusId: 1
-      }
+
+    this._orderService.SaveCcavenueRequest(obj).subscribe(res => {
       //  
-      this._orderService.SaveOrder(obj).subscribe(res => {
-        //  
-        this.spinner.hide();
-        this._SharedDataService.UserCart([]);
-        this.router.navigate(['/shop/checkout/success/' + res]);
+      debugger;
+      if (res != null && res > 0) {
+        debugger;
+        let CCROWID = localStorage.getItem('ROWID');
+        localStorage.removeItem('ROWID');
+        
+        setTimeout(function () {
 
-      });
-      //}
-    }
+          window.location.href = "ccavRequestHandler.aspx?BillingSession_Id=" + CCROWID;
+          this.spinner.hide();
+
+        }, 2000);
+
+        // setTimeout(function () {CCAvenue
+        //window.location.href = "http://localhost:61970/ccavRequestHandler.aspx?BillingSession_Id=" + this.ROWID;
+        //window.location.href = "https://www.alibabachair.com/ccavRequestHandler.aspx?BillingSession_Id=" + this.ROWID;
+        // }, 2000);
+
+      }
+
+
+    });
+
+    //}
+    // else if (Number(this.checkoutForm.value.paymentTypeId) == 2) {
+    //   // this.Submitted = true;
+    //   // if (this.checkoutForm.invalid) {
+    //   //   this.toastr.error("All * fields are mandatory.");
+    //   //   return;
+    //   // }
+    //   // else {
+    //   this.spinner.show();
+    //   debugger
+    //   let obj = {
+    //     billingAddressId: Number(this.checkoutForm.value.billingAddressId),
+    //     //userID: Number(this.user[0].userID),
+    //     //fName: this.checkoutForm.value.fName,
+    //     //lName: this.checkoutForm.value.lName,
+    //     //companyName: this.checkoutForm.value.companyName,
+    //     //phone: this.checkoutForm.value.phone,
+    //     //emailId: this.checkoutForm.value.emailId,
+    //     //address: this.checkoutForm.value.address,
+    //     //country: this.checkoutForm.value.country,
+    //     //city: this.checkoutForm.value.city,
+    //     //state: this.checkoutForm.value.state,
+    //     //zipCode: this.checkoutForm.value.zipCode,
+    //     orderNumber: this._datePipe.transform(new Date().toString(), 'yyyyMMddHHmmss'),
+    //     orderDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
+    //     paymentTypeId: Number(this.checkoutForm.value.paymentTypeId),
+    //     subTotal: Number(this.getTotal()),
+    //     tax: 0,
+    //     shippingCharge: 0,
+    //     totalAmount: Number(this.getTotal()) + Number(this.checkoutForm.value.shippingCharge),
+    //     notes: '',
+    //     statusId: 1
+    //   }
+    //   //  
+    //   this._orderService.SaveOrder(obj).subscribe(res => {
+    //     //  
+    //     this.spinner.hide();
+    //     this._SharedDataService.UserCart([]);
+    //     this.router.navigate(['/shop/checkout/success/' + res]);
+
+    //   });
+    //   //}
+    // }
   }
 
 }

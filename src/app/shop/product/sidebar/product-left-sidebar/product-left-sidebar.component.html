@@ -479,7 +479,8 @@
                                 </div>
                             </div>
 
-                            <div *ngIf="AccessoryCategory.length>0" class="col-12 col-sm-6 col-md-6 mt-2" style="height: 892px; overflow-y:
+                            <div *ngIf="AccessoryCategory.length>0 && user[0].isBusiness==true"
+                                class="col-12 col-sm-6 col-md-6 mt-2" style="height: 892px; overflow-y:
                                 scroll;">
 
                                 <table class="table table-bordered table-hover" *ngIf="AccessoryCategory.length>0">
@@ -1193,29 +1194,39 @@
                             </div>
                             <div *ngIf="IsShowReviews">
                                 <div class="row border-top"
-                                *ngFor="let review of  productkart[0]?.productReview  | slice:3:productkart[0]?.productReview.length; index as i">
-    
-                                <div class="col-md-12">
-                                    <div class="row">
-    
-                                        <div class="col-md-12 pl-4 pt-4 pb-3">
-                                            <p> <span class="review-box "> {{review.rating}} ★</span> <b>
-                                                    <span class="review-point">{{review.titles}}</span> </b></p>
-                                            <p class="text-black mb-0" [innerHTML]="review.notes | safe: 'html'"></p>
-    
-                                        </div>
-                                        <div class="col-md-12 pt-0 pl-4 pb-3">
-                                            <p>{{review.name}} <i class="fa fa-check-circle"></i> Certified Buyer,
-                                                {{review.city}} {{review.createdDate | date : 'dd/MM/yyyy'}}</p>
+                                    *ngFor="let review of  productkart[0]?.productReview  | slice:3:productkart[0]?.productReview.length; index as i">
+
+                                    <div class="col-md-12">
+                                        <div class="row">
+
+                                            <div class="col-md-12 pl-4 pt-4 pb-3">
+                                                <p> <span class="review-box "> {{review.rating}} ★</span> <b>
+                                                        <span class="review-point">{{review.titles}}</span> </b></p>
+                                                <p class="text-black mb-0" [innerHTML]="review.notes | safe: 'html'">
+                                                </p>
+
+                                            </div>
+                                            <div class="col-md-12 pt-0 pl-4 pb-3">
+                                                <p>{{review.name}} <i class="fa fa-check-circle"></i> Certified Buyer,
+                                                    {{review.city}} {{review.createdDate | date : 'dd/MM/yyyy'}}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            </div>
-                           
-<a *ngIf="!IsShowReviews" (click)="IsShowReviews=1" class="btn-solid btn-reviews">Show More Reviews</a>
-<!-- <br> -->
-<a *ngIf="IsShowReviews" (click)="IsShowReviews=0">Hide Reviews</a>
+
+                            <button type="submit" *ngIf="!IsShowReviews" class="btn-solid btn"
+                                (click)="IsShowReviews=1">
+                                Show More Reviews
+                            </button>
+
+                            <button type="submit" *ngIf="IsShowReviews" class="btn-solid btn" (click)="IsShowReviews=0">
+                                Hide Reviews
+                            </button>
+
+                            <!-- <a *ngIf="!IsShowReviews" (click)="IsShowReviews=1">Show More Reviews</a>
+                            
+                            <a *ngIf="IsShowReviews" (click)="IsShowReviews=0">Hide Reviews</a> -->
                         </div>
                     </div>
                 </div>
