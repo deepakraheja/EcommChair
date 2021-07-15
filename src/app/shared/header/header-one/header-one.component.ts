@@ -37,14 +37,15 @@ export class HeaderOneComponent implements OnInit {
     });
     this._SharedDataService.lstcompare.subscribe(response => {
       debugger
-      if (response != null)
+      if (response != null && response.length > 0)
         this.CompareCount = response.length;
     });
     this._SharedDataService.lstwishList.subscribe(response => {
       debugger
-      if (response != null)
+      if (response != null && response.length > 0)
         this.WishListCount = response.length;
-      this.LoadWishList();
+      else
+        this.LoadWishList();
     });
   }
 
@@ -53,6 +54,8 @@ export class HeaderOneComponent implements OnInit {
     if (this.LoggedInUser != null) {
       this._wishListService.GetWishListById().subscribe(response => {
         this.WishListCount = response.length;
+        if (response.length > 0)
+          this._SharedDataService.UserwishList(response);
       });
     }
     else {
@@ -82,6 +85,7 @@ export class HeaderOneComponent implements OnInit {
     this.LoggedInUser = [];
     this._SharedDataService.AssignUser(null);
     this._SharedDataService.UserCart(null);
+    this._SharedDataService.UserwishList(null);
     this.router.navigate(['/pages/userlogin']);
   }
   Login() {

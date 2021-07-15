@@ -70,6 +70,7 @@ export class Productkart {
     suggestionNotes: string;
     userRecentlyProduct: any[];
     relatedProduct: any[];
+    isWishList: boolean;
     constructor(
         productID?: number,
         productName?: string,
@@ -138,7 +139,8 @@ export class Productkart {
         deliveryInformationNotes?: string,
         suggestionNotes?: string,
         userRecentlyProduct?: any[],
-        relatedProduct?: any[]
+        relatedProduct?: any[],
+        isWishList?: boolean
     ) {
         this.productID = productID;
         this.productName = productName;
@@ -212,6 +214,7 @@ export class Productkart {
         this.suggestionNotes = suggestionNotes;
         this.userRecentlyProduct = userRecentlyProduct;
         this.relatedProduct = relatedProduct;
+        this.isWishList = isWishList;
     }
 
 }

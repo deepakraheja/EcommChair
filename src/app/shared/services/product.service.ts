@@ -110,7 +110,7 @@ export class ProductService {
     this._wishListService.DelWishListById(obj).subscribe(res => {
       this.spinner.hide();
       this.toastrService.success('Product has been removed successfully from your Wishlist.');
-      this._SharedDataService.UserwishList([]);
+      this._SharedDataService.UserwishList(res);
     });
     return true
   }
@@ -498,8 +498,9 @@ export class ProductService {
       this.spinner.show();
       this._wishListService.AddToWishList(product).subscribe(res => {
         this.spinner.hide();
+        debugger
         this.toastrService.success("Product has been successfully added in WishList.");
-        this._SharedDataService.UserwishList([]);
+        this._SharedDataService.UserwishList(res);
       });
     }
     return true;

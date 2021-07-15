@@ -10,6 +10,7 @@ import { CustomerStoryService } from 'src/app/Service/customer-story.service';
 import { environment } from 'src/environments/environment';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SelectionBuyerComponent } from 'src/app/pages/account/selection-buyer/selection-buyer.component';
+import { SharedDataService } from 'src/app/Service/shared-data.service';
 
 @Component({
   selector: 'app-fashion-one',
@@ -68,6 +69,7 @@ export class FashionOneComponent implements OnInit {
     public _categoryService: CategoryService,
     public _customerStory: CustomerStoryService,
     private modalService: NgbModal,
+    private _SharedDataService: SharedDataService,
   ) {
 
     // this.productService.getProducts.subscribe(response => {
@@ -83,6 +85,8 @@ export class FashionOneComponent implements OnInit {
 
     this.LoadData();
     this.BindProductByCategory();
+
+
 
     var seconds = new Date().getSeconds()
     var today = new Date().getDate()
@@ -153,6 +157,26 @@ export class FashionOneComponent implements OnInit {
       this.productskart = products;
       this.productskartselling = products.filter(item => item.topSelling == true);
 
+      this._SharedDataService.lstwishList.subscribe(response => {
+        debugger
+        if (response != null && response.length > 0) {
+          this.productskart.forEach(element => {
+            response.forEach(element1 => {
+              if (element1.productSizeId == element.productSizeId) {
+                element.isWishList = true;
+              }
+            });
+          });
+
+          this.productskartselling.forEach(element => {
+            response.forEach(element1 => {
+              if (element1.productSizeId == element.productSizeId) {
+                element.isWishList = true;
+              }
+            });
+          });
+        }
+      });
     });
 
   }
@@ -261,6 +285,19 @@ export class FashionOneComponent implements OnInit {
   ngOnInit(): void {
     this.openModal();
     this.BindBanner();
+
+    this._SharedDataService.lstwishList.subscribe(response => {
+      debugger
+      if (response != null && response.length > 0) {
+        this.productskart.forEach(element => {
+          response.forEach(element1 => {
+            if (element1.productSizeId == element.productSizeId) {
+              element.isWishList = true;
+            }
+          });
+        });
+      }
+    });
   }
 
   openModal() {

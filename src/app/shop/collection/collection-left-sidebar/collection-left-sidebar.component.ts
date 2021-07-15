@@ -9,6 +9,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { BrandService } from 'src/app/Service/Brand.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SelectionBuyerComponent } from 'src/app/pages/account/selection-buyer/selection-buyer.component';
+import { SharedDataService } from 'src/app/Service/shared-data.service';
 
 @Component({
   selector: 'app-collection-left-sidebar',
@@ -46,6 +47,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private Brand: BrandService,
     private modalService: NgbModal,
+    private _SharedDataService: SharedDataService,
   ) {
 
     debugger
@@ -166,6 +168,19 @@ export class CollectionLeftSidebarComponent implements OnInit {
           this.paginate = this.productService.getPager(this.productskart.length, +this.pageNo);     // get paginate object from service
           this.productskart = this.productskart.slice(this.paginate.startIndex, this.paginate.endIndex + 1); // get current page of items
           setTimeout(() => this.spinner.hide(), 2000);
+
+          this._SharedDataService.lstwishList.subscribe(response => {
+            debugger
+            if (response != null && response.length > 0) {
+              this.productskart.forEach(element => {
+                response.forEach(element1 => {
+                  if (element1.productSizeId == element.productSizeId) {
+                    element.isWishList = true;
+                  }
+                });
+              });
+            }
+          });
         });
 
       });

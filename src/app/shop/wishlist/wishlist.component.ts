@@ -6,6 +6,7 @@ import { WishListService } from 'src/app/Service/wish-list.service';
 import { Productkart } from 'src/app/shared/classes/productkart';
 import { environment } from 'src/environments/environment';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { SharedDataService } from 'src/app/Service/shared-data.service';
 
 @Component({
   selector: 'app-wishlist',
@@ -22,13 +23,20 @@ export class WishlistComponent implements OnInit {
   constructor(private router: Router,
     public productService: ProductService,
     public _wishListService: WishListService,
-    private spinner: NgxSpinnerService,) {
+    private spinner: NgxSpinnerService,
+    private _SharedDataService: SharedDataService,
+  ) {
     //this.productService.wishlistItems.subscribe(response => this.products = response);
     this.LoadWishList();
   }
 
   ngOnInit(): void {
     //this.LoadWishList();
+    this._SharedDataService.lstwishList.subscribe(response => {
+      debugger
+      if (response != null)
+        this.products = response;
+    });
   }
 
   LoadWishList() {
@@ -52,8 +60,9 @@ export class WishlistComponent implements OnInit {
   }
 
   removeItem(product: any) {
-    if (this.productService.removeWishlistItem(product))
-      this.LoadWishList();
+    this.productService.removeWishlistItem(product)
+    // if (this.productService.removeWishlistItem(product))
+    //   this.LoadWishList();
   }
 
   GoToDetail(rowID, productSizeColorId, setType, setNo) {

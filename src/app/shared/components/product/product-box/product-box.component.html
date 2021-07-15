@@ -103,8 +103,14 @@
             <a href="javascript:void(0)" title="Add to cart" (click)="addToCart(productkart)" *ngIf="!cartModal">
                 <i class="ti-shopping-cart"></i>
             </a> -->
-      <a href="javascript:void(0)" title="Add to Wishlist" (click)="addToWishlist(productkart)">
+      <a href="javascript:void(0)" title="Add to Wishlist" *ngIf="!productkart.isWishList"
+        (click)="addToWishlist(productkart)">
         <i class="ti-heart" aria-hidden="true" style="color: #999;
+        font-size: 1.00rem;"> </i>
+      </a>
+      <a href="javascript:void(0)" title="Add to Wishlist" *ngIf="productkart.isWishList"
+        (click)="addToWishlist(productkart)">
+        <i class="ti-heart" aria-hidden="true" style="color: red;
         font-size: 1.00rem;"> </i>
       </a>
       <!-- <a href="javascript:void(0)" title="Quick View" (click)="QuickView.openModal()">
