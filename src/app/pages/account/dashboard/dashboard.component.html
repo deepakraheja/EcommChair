@@ -116,10 +116,11 @@
                                 <div class="box">
                                     <div class="box-title">
                                         <h3>Delivery Address</h3>
-                                        <a href="javascript:void(0)"
+                                        <!-- <a href="javascript:void(0)"
                                             (click)="NewBillingAddress(templateBillingAddress)"><i
-                                                class="fa fa-plus"></i> &nbsp; Add New Delivery Address</a>
+                                                class="fa fa-plus"></i> &nbsp; Add New Delivery Address</a> -->
                                     </div>
+                                    <p *ngIf="lstBillingAddress.length==0"> <b>No delivery address found.</b></p>
                                     <div *ngFor="let lstBilling of lstBillingAddress">
                                         <!-- <h6>Default Billing Address</h6> -->
                                         <address>
@@ -167,7 +168,7 @@
                         <div class="page-title">
                             <h2>My Order</h2>
                         </div>
-                        <p *ngIf="lstOrder.length==0">No Order found.</p>
+                        <p *ngIf="lstOrder.length==0"><b> No order found.</b></p>
                         <div *ngFor="let lst of lstOrder">
                             <div class="myorder-minidetails">
                                 <div class="order-parts">
@@ -397,9 +398,10 @@
                                                     <span style="color: red;"
                                                         *ngIf="product?.transportName!='' && product?.transportName!=null">
                                                         Dispatched By : {{product?.transportName}}, Tracking Id :
-                                                        {{product?.bilty}}, 
+                                                        {{product?.bilty}},
                                                         <br>
-                                                        Expected Delivery Date : {{product?.deliveryDate | date : 'dd/MM/yyyy hh:mm:ss aa'}}
+                                                        Expected Delivery Date : {{product?.deliveryDate | date :
+                                                        'dd/MM/yyyy hh:mm:ss aa'}}
                                                     </span>
                                                     <br>
                                                     <span style="color: red;"
@@ -858,7 +860,7 @@
                                         </div>
                                         <div *ngIf="(ChangePwdForm.controls.NewPassword.touched || Submitted) && ChangePwdForm.controls.NewPassword.errors?.minlength"
                                             class="text text-danger">
-                                            New Password must be greater than 7 character.
+                                            Use 8 or more characters with a mix of letters, numbers & symbols
                                         </div>
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -872,7 +874,7 @@
                                         </div>
                                         <div *ngIf="(ChangePwdForm.controls.ConfirmPwd.touched || Submitted) && ChangePwdForm.controls.ConfirmPwd.errors?.minlength"
                                             class="text text-danger">
-                                            Confirm Password must be greater than 7 character.
+                                            Use 8 or more characters with a mix of letters, numbers & symbols
                                         </div>
                                         <div *ngIf="(ChangePwdForm.controls.ConfirmPwd.touched || Submitted) && (ChangePwdForm.controls.NewPassword.value != ChangePwdForm.controls.ConfirmPwd.value)"
                                             class="text text-danger">

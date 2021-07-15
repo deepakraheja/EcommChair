@@ -234,7 +234,7 @@ export class ForgetPasswordComponent implements OnInit {
       }
 
 
-      this.userService.verify_mobile_otp(d).subscribe((res: any) => {
+      this.userService.VerifyMobileOtpforgetpassword(d).subscribe((res: any) => {
         debugger;
         this.VerifyStart = false;
         if (res != "-1" && res != "0") {

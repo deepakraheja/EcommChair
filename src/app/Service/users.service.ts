@@ -92,6 +92,18 @@ export class UsersService {
     );
   }
 
+
+  VerifyMobileOtpforgetpassword(_Obj: any): Observable<any[]> {
+
+    this._methodName = "VerifyMobileOtpforgetpassword";
+    this._param = _Obj;
+    return this._http.post<any[]>(
+      this._url + this._methodName, this._param
+    );
+  }
+
+
+
   GetUserInfo(): Observable<any[]> {
     this._methodName = "GetUserInfo";
     this._param = {};

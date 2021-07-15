@@ -18,14 +18,14 @@ export const environment = {
   //*********************Local Server************* */
 
   
-  BASE_API_URL: 'https://store.alibabachair.com/api/',
-  ProductImage: 'https://store.alibabachair.com/ProductImage/',
-  Report_Path: 'https://store.alibabachair.com/ReportGenerate/',
-  WebSite_URL: 'www.alibabachair.com',
-  Invoice_URL: 'https://store.alibabachair.com/TempPDF/',
-  APIURL: 'https://store.alibabachair.com/',
-  CCAvenue: 'www.alibabachair.com/',
-  AccessoryImage: 'https://store.alibabachair.com/AccessoryImage/',
+  // BASE_API_URL: 'https://store.alibabachair.com/api/',
+  // ProductImage: 'https://store.alibabachair.com/ProductImage/',
+  // Report_Path: 'https://store.alibabachair.com/ReportGenerate/',
+  // WebSite_URL: 'www.alibabachair.com',
+  // Invoice_URL: 'https://store.alibabachair.com/TempPDF/',
+  // APIURL: 'https://store.alibabachair.com/',
+  // CCAvenue: 'www.alibabachair.com/',
+  // AccessoryImage: 'https://store.alibabachair.com/AccessoryImage/',
 
 
   // BASE_API_URL: 'http://208.109.12.71/EcommChairApiV3/api/',
@@ -39,14 +39,14 @@ export const environment = {
 
 
   
-  // ProductImage: 'http://localhost:56283/ProductImage/',
-  // BASE_API_URL: 'http://localhost:56283/api/',
-  // Report_Path: 'http://localhost:56283/ReportGenerate/',
-  // WebSite_URL: 'http://localhost:4200/',
-  // Invoice_URL: 'http://localhost:56283/TempPDF/',
-  // APIURL: 'http://localhost:56283/',
-  // CCAvenue: 'http://localhost:61970/',
-  // AccessoryImage: 'http://localhost:56283/AccessoryImage/',
+  ProductImage: 'http://localhost:56283/ProductImage/',
+  BASE_API_URL: 'http://localhost:56283/api/',
+  Report_Path: 'http://localhost:56283/ReportGenerate/',
+  WebSite_URL: 'http://localhost:4200/',
+  Invoice_URL: 'http://localhost:56283/TempPDF/',
+  APIURL: 'http://localhost:56283/',
+  CCAvenue: 'http://localhost:61970/',
+  AccessoryImage: 'http://localhost:56283/AccessoryImage/',
 
   //*********************Production Server************* */
 
