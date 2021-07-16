@@ -182,6 +182,15 @@ export class DashboardComponent implements OnInit {
     return TotalAmount;
   }
 
+  getTotal_Personal(OrderId) {
+    var lst = this.OrderTrackingListByOrderId(OrderId);
+    var TotalAmount = 0;
+    lst.forEach(element => {
+      TotalAmount += Number((((element.price) * element.quantity) + (element.gstAmount)));
+    });
+    return TotalAmount;
+  }
+
   getTotalQty(OrderId) {
     var lst = this.OrderTrackingListByOrderId(OrderId);
     var TotalQty = 0;
@@ -205,6 +214,15 @@ export class DashboardComponent implements OnInit {
     var TotalAmount = 0;
     lst.forEach(element => {
       TotalAmount += Number((((element.accessoryPrice + element.salePrice) * element.quantity) - element.additionalDiscountAmount));
+    });
+    return TotalAmount;
+  }
+
+  getTotalAmountWithDis_Personal(OrderId) {
+    var lst = this.OrderTrackingListByOrderId(OrderId);
+    var TotalAmount = 0;
+    lst.forEach(element => {
+      TotalAmount += Number((((element.price) * element.quantity)));
     });
     return TotalAmount;
   }

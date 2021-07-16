@@ -52,7 +52,6 @@
                                     <div class="box">
                                         <div class="box-title">
                                             <h3>Contact Information</h3>
-                                            <!-- <a href="javascript:void(0)">Edit</a> -->
                                         </div>
                                         <div class="box-content">
                                             <h6><b>Name : </b>{{lstUserData[0].name}}</h6>
@@ -70,9 +69,7 @@
                                         </div>
                                         <div class="box-content">
                                             <h6><b>Business Name : </b>{{lstUserData[0].businessName}}</h6>
-                                            <!-- <h6><b>Business Type : </b>{{getBusineesType(lstUserData[0].businessType)}}
-                                            </h6>
-                                            <h6><b>Industry : </b>{{lstUserData[0].industry}}</h6> -->
+                                           
                                             <h6>
                                                 <b>Business LicenseType :
                                                 </b>{{ getBusineesLicenseType(lstUserData[0].businessLicenseType)}}
@@ -86,20 +83,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div class="col-sm-6">
-                                    <div class="box">
-                                        <div class="box-title">
-                                            Business Address Detail
-                                        </div>
-                                        <div class="box-content">
-                                            <h6><b>Address : </b>{{lstUserData[0].address1}} {{lstUserData[0].address2}}
-                                            </h6>
-                                            <h6><b>City : </b>{{lstUserData[0].city}}</h6>
-                                            <h6><b>State : </b>{{lstUserData[0].state}}</h6>
-                                            <h6><b>PinCode : </b>{{lstUserData[0].pinCode}}</h6>
-                                        </div>
-                                    </div>
-                                </div> -->
+                                
                             </div>
 
                         </div>
@@ -116,9 +100,7 @@
                                 <div class="box">
                                     <div class="box-title">
                                         <h3>Delivery Address</h3>
-                                        <!-- <a href="javascript:void(0)"
-                                            (click)="NewBillingAddress(templateBillingAddress)"><i
-                                                class="fa fa-plus"></i> &nbsp; Add New Delivery Address</a> -->
+                                        
                                     </div>
                                     <p *ngIf="lstBillingAddress.length==0"> <b>No delivery address found.</b></p>
                                     <div *ngFor="let lstBilling of lstBillingAddress">
@@ -129,8 +111,7 @@
 
                                                     <h4><b>Full Name : {{lstBilling.fName}} {{lstBilling.lName}}</b>
                                                     </h4>
-                                                    <!-- <div><b>{{lstBilling.phone}} &nbsp;&nbsp;&nbsp;
-                                                            {{lstBilling.emailId}}</b></div> -->
+                                                    
                                                     <div><b>Company Name : </b>{{lstBilling.companyName}}</div>
                                                     <div><b>Address : </b>
                                                         {{lstBilling.address}}, {{lstBilling.city}}
@@ -189,134 +170,26 @@
                                     <span>Expected Dispatch</span>
                                     <span>{{lst.dispatchDate | date :'dd/MM/yyyy hh:mm:ss aa'}}</span>
                                 </div>
-                                <!-- <div class="order-parts">
-                                    <span>Ship To</span>
-                                    <span>
-                                        {{lst.fName}} {{lst.lName}}
-                                    </span>
-                                </div>
-                                <div class="order-parts">
-                                    <span>Ship Address</span>
-                                    <span>
-                                        {{lst.address}} {{lst.city}},
-                                    </span>
-                                    <span>
-                                        {{lst.state}}, {{lst.zipCode}}, {{lst.country}}
-                                    </span>
-                                </div> -->
+                                
                                 <div class="order-parts">
                                     <span class="badge badge-success">{{lst.statusName}}</span>
                                 </div>
                                 <div class="order-parts">
-                                    <!-- <span> -->
-                                    <!-- <a href="{{WebSite_URL}}report/orderInvoice/{{lst.guid}}" target="_blank">Print
-                                        Order</a> -->
+                                    
                                     <a href="javaScript:void(0);" (click)="DownloadInvoice(lst)">Print Order</a>
-                                    <!-- </span> -->
-
-                                    <!-- <span class="badge badge-success">{{lst.statusName}}</span> -->
+                                   
                                 </div>
                                 <div class="order-parts">
                                     <input type="button" id="btn{{lst.orderId}}" value="Show" class="btn btn-primary"
                                         (click)="ShowDiv(lst.orderId);">
                                 </div>
                             </div>
-                            <!-- <div class="a-box a-color-offset-background order-info">
-                                        <div class="a-box-inner">
-                                            <div class="a-fixed-right-grid">
-                                                <div class="a-fixed-right-grid-inner">
-                                                    <div class="a-fixed-right-grid-col a-col-left">
-                                                        <div class="a-row">
-                                                            <div class="a-column a-span2">
-                                                                <div class="a-row a-size-mini">
-                                                                    <span class="a-color-secondary label"
-                                                                        style="font-weight: 700;">
-                                                                        Order #
-                                                                    </span>
-                                                                </div>
-                                                                <div class="a-row a-size-base">
-                                                                    <span class="a-color-secondary value">
-                                                                        {{lst.orderNumber}}
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="a-column a-span2">
-                                                                <div class="a-row a-size-mini">
-                                                                    <span class="a-color-secondary label"
-                                                                        style="font-weight: 700;">
-                                                                        Order Placed
-                                                                    </span>
-                                                                </div>
-                                                                <div class="a-row a-size-base">
-                                                                    <span class="a-color-secondary value">
-                                                                        {{lst.orderDate | date :'dd/MM/yyyy hh:mm:ss aa'}}
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="a-column a-span1">
-                                                                <div class="a-row a-size-mini">
-                                                                    <span class="a-color-secondary label"
-                                                                        style="font-weight: 700;">
-                                                                        Total
-                                                                    </span>
-                                                                </div>
-                                                                <div class="a-row a-size-base">
-                                                                    <span class="a-color-secondary value">
-                                                                        {{lst.totalAmount | currency:productService?.Currency.currency:'symbol'}}
-
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="a-column a-span2">
-                                                                <div class="a-row a-size-mini">
-                                                                    <span class="a-color-secondary label"
-                                                                        style="font-weight: 700;">
-                                                                        Ship To
-                                                                    </span>
-                                                                </div>
-                                                                <div class="a-row a-size-base">
-                                                                    <span class="a-color-secondary value">
-                                                                        {{lst.fName}} {{lst.lName}}
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="a-column a-span1">
-                                                                <div class="a-row a-size-mini">
-                                                                    <span class="a-color-secondary label"
-                                                                        style="font-weight: 700;">
-                                                                        Mobile No
-                                                                    </span>
-                                                                </div>
-                                                                <div class="a-row a-size-base">
-                                                                    <span class="a-color-secondary value">
-                                                                        {{lst.phone}}
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> -->
+                            
                             <div style="display: none;" id="{{lst.orderId}}">
                                 <div class="shipment-details">
                                     <div class="shipment">
-                                        <!-- <div class="product-name-img">
-                                            <a class="a-link-normal">
-                                                <img *ngIf="lstPro?.setNo>0" [src]="ProductImage+lstPro?.productId+'/productSetImage/'+lstPro?.setNo+'/'+lstPro?.productImg[0]" alt="">
-                                                <img *ngIf="lstPro?.setNo==0" [src]="ProductImage+lstPro?.productId+'/productColorImage/'+lstPro?.productSizeColorId+'/'+lstPro?.productImg[0]" alt="">
-                                            </a>
-                                            <div>
-                                                <div>{{lstPro.productName}}</div>
-                                                <div>Quantity : {{lstPro.quantity}}</div>
-                                                <div class="total-paid">
-                                                    {{lstPro.price | currency:productService?.Currency.currency:'symbol'}}
-                                                </div>
-                                            </div>
-                                        </div> -->
-                                        <div class="shipping-address">
+                                       
+                                        <div class="shipping-address" style="width: 80% !important">
                                             <p> <b>Shipping Address</b></p>
                                             <div> <b>To:</b> {{lst.fName}} {{lst.lName}}</div>
                                             {{lst.address}} {{lst.city}}, {{lst.state}}, {{lst.zipCode}},
@@ -342,7 +215,7 @@
                                         </ul>
                                     </div>
 
-                                    <table class="table table-bordered table-hover">
+                                    <table class="table table-bordered table-hover" *ngIf="lstUserData[0].isPersonal==false">
                                         <thead class="thead-dark">
                                             <tr>
                                                 <th class="thead-dark">
@@ -379,8 +252,6 @@
                                         <tbody>
                                             <tr *ngFor="let product of OrderTrackingListByOrderId(lst.orderId)">
                                                 <td>
-                                                    <!-- <img *ngIf="product?.setNo>0" [src]="ProductImage+product?.productId+'/productSetImage/'+product?.setNo+'/'+product?.productImg[0]" alt="">
-                                                    <img *ngIf="product?.setNo==0" [src]="ProductImage+product?.productId+'/productColorImage/'+product?.productSizeColorId+'/'+product?.productImg[0]" alt="">  -->
                                                     <img [src]="ProductImage+product?.productId+'/frontImage/'+product?.frontImage"
                                                         alt="Product" class="checkout-prouduct-img">
                                                     {{ product?.productName }}
@@ -492,20 +363,6 @@
                                                 </td>
                                             </tr>
 
-                                            <!-- <tr>
-
-                                                <td colspan="5">
-                                                    <b> Packing</b>
-                                                </td>
-                                                <td *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.additionalDiscount>0">
-                                                </td>
-                                                <td *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.additionalDiscount>0">
-                                                </td>
-                                                <td colspan="2">
-                                                    <span style="float: right; font-size: 16px; line-height: 20px; color: var(--theme-deafult); font-weight: 400;">
-                                                        <b>Free Packing</b></span>
-                                                </td>
-                                            </tr> -->
                                             <tr class="total">
                                                 <td colspan="2">
                                                     <b>Total</b>
@@ -531,6 +388,182 @@
                                             </tr>
                                         </tbody>
                                     </table>
+
+                                    <!-- Table for Personal Buyer-->
+                                    <table class="table table-bordered table-hover" *ngIf="lstUserData[0].isPersonal==true">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th class="thead-dark">
+                                                    Product
+                                                </th>
+                                                <th class="thead-dark">
+                                                    Price
+                                                </th>
+                                                <th class="thead-dark">
+                                                    Qty
+                                                </th>
+                                                <th class="thead-dark"
+                                                    *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.additionalDiscount>0">
+                                                    Add. Dis (%)
+                                                </th>
+                                                <th class="thead-dark"
+                                                    *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.additionalDiscount>0">
+                                                    Add. Dis Amount
+                                                </th>
+                                                <th class="thead-dark">
+                                                    Total Amount <br> (Without GST)
+                                                </th>
+                                                <th class="thead-dark">
+                                                    GST Rate(%)
+                                                </th>
+                                                <th class="thead-dark">
+                                                    GST Amount
+                                                </th>
+                                                <th class="thead-dark">
+                                                    Total Amount
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let product of OrderTrackingListByOrderId(lst.orderId)">
+                                                <td>
+                                                    <img [src]="ProductImage+product?.productId+'/frontImage/'+product?.frontImage"
+                                                        alt="Product" class="checkout-prouduct-img">
+                                                    {{ product?.productName }}
+
+                                                    <table>
+                                                        <tr>
+                                                            <td>
+                                                                <div [innerHtml]="product?.accessoryDescription">
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+
+                                                    <br>
+                                                    <span style="color: red;"
+                                                        *ngIf="product?.transportName!='' && product?.transportName!=null">
+                                                        Dispatched By : {{product?.transportName}}, Tracking Id :
+                                                        {{product?.bilty}},
+                                                        <br>
+                                                        Expected Delivery Date : {{product?.deliveryDate | date :
+                                                        'dd/MM/yyyy hh:mm:ss aa'}}
+                                                    </span>
+                                                    <br>
+                                                    <span style="color: red;"
+                                                        *ngIf="product?.transportName!='' && product?.transportName!=null">
+                                                        Tracking URL : <a href="{{product?.trackingURL}}"
+                                                            target="_blank" *ngIf="product?.trackingURL!=''">
+                                                            <!-- Click here for Tracking URL -->
+                                                            {{product?.trackingURL}}
+                                                        </a>
+                                                    </span>
+                                                </td>
+                                                <td style="text-align: right;">
+                                                    {{ product?.salePrice |
+                                                    currency:productService?.Currency.currency:'symbol'}}
+                                                </td>
+                                                <td>
+                                                    {{ product?.quantity }}
+                                                </td>
+                                                <td *ngIf="product?.additionalDiscount>0" style="text-align: right;">
+                                                    {{ product?.additionalDiscount }}%
+                                                </td>
+                                                <td *ngIf="product?.additionalDiscountAmount>0"
+                                                    style="text-align: right;">
+                                                    {{ product?.additionalDiscountAmount |
+                                                    currency:productService?.Currency.currency:'symbol'}}
+                                                </td>
+                                                <td style="text-align: right;">
+                                                    {{
+                                                    ((product?.price)*product?.quantity)
+                                                    | currency:productService?.Currency.currency:'symbol' }}
+                                                </td>
+                                                <td style="text-align: right;">
+                                                    {{ product?.gstRate }}%
+                                                </td>
+                                                <td style="text-align: right;">
+                                                    {{ product?.gstAmount |
+                                                    currency:productService?.Currency.currency:'symbol'}}
+                                                </td>
+                                                <td style="text-align: right;">
+                                                    <span
+                                                        style="float: right; font-size: 16px; line-height: 20px;  font-weight: 400;">
+                                                        {{
+                                                        ((product.price)*product?.quantity+(product?.gstAmount))
+                                                        | currency:productService?.Currency.currency:'symbol' }}</span>
+                                                </td>
+                                            </tr>
+                                            <tr *ngIf='!OrderTrackingListByOrderId(lst.orderId).length'>
+                                                <td colspan="9"
+                                                    *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.additionalDiscount>0">
+                                                    There are no products in cart
+                                                </td>
+                                                <td colspan="7"
+                                                    *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.additionalDiscount==0">
+                                                    There are no products in cart
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <b>Subtotal</b>
+                                                </td>
+                                                <td>
+                                                    <b>{{getTotalQty(lst.orderId)}}</b>
+                                                </td>
+                                                <td
+                                                    *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.additionalDiscount>0">
+                                                </td>
+                                                <td *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.additionalDiscount>0"
+                                                    style="text-align: right;">
+                                                    <b>{{ getTotalAdditionalDiscountAmount(lst.orderId) |
+                                                        currency:productService?.Currency.currency:'symbol'}}</b>
+                                                </td>
+                                                <td style="text-align: right;">
+                                                    <b>
+                                                        {{ getTotalAmountWithDis_Personal(lst.orderId) |
+                                                        currency:productService?.Currency.currency:'symbol'}}</b>
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td style="text-align: right;">
+                                                    <b>{{ getTotalGSTAmount(lst.orderId) |
+                                                        currency:productService?.Currency.currency:'symbol'}}</b>
+                                                </td>
+                                                <td style="text-align: right;">
+                                                    <span
+                                                        style="float: right; font-size: 16px; line-height: 20px; color: var(--theme-deafult); font-weight: 400;">
+                                                        {{ getTotal_Personal(lst.orderId) |
+                                                        currency:productService?.Currency.currency:'symbol'}}</span>
+                                                </td>
+                                            </tr>
+
+                                            <tr class="total">
+                                                <td colspan="2">
+                                                    <b>Total</b>
+                                                </td>
+                                                <td
+                                                    *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.additionalDiscount>0">
+                                                </td>
+                                                <td
+                                                    *ngIf="OrderTrackingListByOrderId(lst.orderId)[0]?.additionalDiscount>0">
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td colspan="2" style="text-align: right;">
+                                                    <span
+                                                        style="float: right; font-size: 16px; line-height: 20px; color: var(--theme-deafult); font-weight: 400;">
+                                                        {{ getTotal_Personal(lst.orderId) |
+                                                        currency:productService?.Currency.currency:'symbol'}}</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
                                 </div>
 
                             </div>
@@ -583,16 +616,7 @@
                                             Full Name must be an alphabates.
                                         </div>
                                     </div>
-                                    <!-- <div class="form-group col-md-4 col-sm-4 col-xs-4">
-                                        <div class="field-label">Last Name </div>
-                                        <input type="text" name="lName" [formControl]="checkoutForm.controls['lName']" value="" placeholder="" autocomplete="off">
-                                        <div *ngIf="(checkoutForm.controls.lName.touched || Submitted) && checkoutForm.controls.lName.errors?.required" class="text text-danger">
-                                            Last Name is required.
-                                        </div>
-                                        <div *ngIf="(checkoutForm.controls.lName.touched || Submitted) && checkoutForm.controls.lName.errors?.pattern" class="text text-danger">
-                                            Last Name must be an alphabates.
-                                        </div>
-                                    </div> -->
+                                   
                                     <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                         <div class="field-label">Company Name <span
                                                 *ngIf="lstUserData[0].isPersonal==false" style="color:red">*</span>
@@ -627,26 +651,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- <div class="form-group col-md-4 col-sm-4 col-xs-4">
-                                        <div class="field-label">Phone <span style="color:red">*</span></div>
-                                        <input type="text" name="phone" maxlength="10" [formControl]="checkoutForm.controls['phone']" value="" placeholder="" autocomplete="off">
-                                        <div *ngIf="(checkoutForm.controls.phone.touched || Submitted) && checkoutForm.controls.phone.errors?.required" class="text text-danger">
-                                            Phone No is required.
-                                        </div>
-                                        <div *ngIf="(checkoutForm.controls.phone.touched || Submitted) && checkoutForm.controls.phone.errors?.pattern" class="text text-danger">
-                                            Phone No is must be number.
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-4 col-sm-4 col-xs-4">
-                                        <div class="field-label">Email Address <span style="color:red">*</span></div>
-                                        <input type="text" name="emailId" [formControl]="checkoutForm.controls['emailId']" value="" placeholder="" autocomplete="off">
-                                        <div *ngIf="(checkoutForm.controls.emailId.touched || Submitted) && checkoutForm.controls.emailId.errors?.required" class="text text-danger">
-                                            Email address is required
-                                        </div>
-                                        <div *ngIf="(checkoutForm.controls.emailId.touched || Submitted) && checkoutForm.controls.emailId.errors?.emailId" class="text text-danger">
-                                            Invalid Email Address
-                                        </div>
-                                    </div> -->
+                                    
 
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <div class="field-label">Address <span style="color:red">*</span></div>
@@ -680,46 +685,7 @@
                                         <div class="field-label">State <span style="color:red">*</span></div>
                                         <input type="text" name="state" [formControl]="checkoutForm.controls['state']"
                                             id="dest_addr_state" value="" placeholder="" autocomplete="off">
-                                        <!-- <select name="country" [formControl]="checkoutForm.controls['state']">
-                                            <option value="">Select State</option>
-                                            <option value="Andhra Pradesh">Andhra Pradesh</option>
-                                            <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands
-                                            </option>
-                                            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                                            <option value="Assam">Assam</option>
-                                            <option value="Bihar">Bihar</option>
-                                            <option value="Chandigarh">Chandigarh</option>
-                                            <option value="Chhattisgarh">Chhattisgarh</option>
-                                            <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
-                                            <option value="Daman and Diu">Daman and Diu</option>
-                                            <option value="Delhi">Delhi</option>
-                                            <option value="Lakshadweep">Lakshadweep</option>
-                                            <option value="Puducherry">Puducherry</option>
-                                            <option value="Goa">Goa</option>
-                                            <option value="Gujarat">Gujarat</option>
-                                            <option value="Haryana">Haryana</option>
-                                            <option value="Himachal Pradesh">Himachal Pradesh</option>
-                                            <option value="Jammu and Kashmir">Jammu and Kashmir</option>
-                                            <option value="Jharkhand">Jharkhand</option>
-                                            <option value="Karnataka">Karnataka</option>
-                                            <option value="Kerala">Kerala</option>
-                                            <option value="Madhya Pradesh">Madhya Pradesh</option>
-                                            <option value="Maharashtra">Maharashtra</option>
-                                            <option value="Manipur">Manipur</option>
-                                            <option value="Meghalaya">Meghalaya</option>
-                                            <option value="Mizoram">Mizoram</option>
-                                            <option value="Nagaland">Nagaland</option>
-                                            <option value="Odisha">Odisha</option>
-                                            <option value="Punjab">Punjab</option>
-                                            <option value="Rajasthan">Rajasthan</option>
-                                            <option value="Sikkim">Sikkim</option>
-                                            <option value="Tamil Nadu">Tamil Nadu</option>
-                                            <option value="Telangana">Telangana</option>
-                                            <option value="Tripura">Tripura</option>
-                                            <option value="Uttar Pradesh">Uttar Pradesh</option>
-                                            <option value="Uttarakhand">Uttarakhand</option>
-                                            <option value="West Bengal">West Bengal</option>
-                                        </select> -->
+                                        
                                         <div *ngIf="(checkoutForm.controls.state.touched || Submitted) && checkoutForm.controls.state.errors?.required"
                                             class="text text-danger">
                                             State is required
@@ -740,33 +706,14 @@
                                     <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                         <div class="field-label">Country <span style="color:red">*</span></div>
                                         <select name="country" [formControl]="checkoutForm.controls['country']">
-                                            <!-- <option value="" selected>Select Country</option> -->
                                             <option value="India">India</option>
-                                            <!-- <option value="USA">USA</option>
-                                            <option value="Australia">Australia</option> -->
                                         </select>
                                         <div *ngIf="(checkoutForm.controls.country.touched || Submitted) && checkoutForm.controls.country.errors?.required"
                                             class="text text-danger">
                                             Country is required
                                         </div>
                                     </div>
-                                    <!-- <div class="form-group col-md-4 col-sm-4 col-xs-4" *ngIf="lstUserData[0].isPersonal==false">
-                                        <div class="field-label">Business License Type <span style="color:red">*</span></div>
-                                        <select id="ddlLicenseType" name="businessLicenseType" [formControl]="checkoutForm.controls['businessLicenseType']">
-                                            <option value="">select</option>
-                                            <option value="GSTIN"> Goods and Services Tax Identification Number (GSTIN)
-                                            </option>
-                                            <option value="BusinessPAN">Business PAN</option>
-                                            <option value="AadharCard">Aadhar Card</option>
-                                        </select>
-                                        <div *ngIf="Submitted && checkoutForm.controls.businessLicenseType.errors" class="text text-danger">
-                                            <div>Business License Type is required
-                                            </div>
-                                        </div>
-                                    </div> -->
-
-
-
+                                    
                                     <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                         <div class="field-label">&nbsp;</div>
                                         <button type="submit" class="btn-solid btn" (click)="SaveBillingAddress()">

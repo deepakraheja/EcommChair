@@ -14,9 +14,9 @@
                     <br>
                     <br>
                     <div style="font-size: 16px;font-family: system-ui;">You have selected <span *ngIf="Bbuyer"><b>
-                                busniness bulk buyer</b></span> <span *ngIf="!Bbuyer"><b> Personal
+                                busniness bulk buyer option</b></span> <span *ngIf="!Bbuyer"><b> Personal
                                 buyer option</b></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a
-                            [routerLink]="['/home/chair']">Change option
+                            [routerLink]="['/home/chair']">Change
                         </a> </div>
                     <br>
                     <br>
@@ -104,8 +104,8 @@
                             <div class="otpContainer">
                                 <label>OTP sent to Mobile</label><span style="color:red">*</span>
                                 <div>
-                                    <input type="text" id="txtemail" class="form-control" formControlName="mobileotp"
-                                        maxlength='6' #SetFocus style="width: 605px;" id="txtverify">
+                                    <input type="text"  class="form-control" formControlName="mobileotp"
+                                        maxlength='6' #SetFocus id="txtverify">
 
                                     <div *ngIf="submitted && f.mobileotp.errors" class="invalid-feedback">
                                         <div *ngIf="f.mobileotp.errors.required">OTP is required</div>

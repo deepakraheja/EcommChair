@@ -113,4 +113,21 @@ export class SuccessComponent implements OnInit, AfterViewInit {
     });
     return TotalGSTAmount;
   }
+
+  getTotalAmountWithDis_Personal() {
+    var TotalAmount = 0;
+    (this.orderDetails[0].orderDetails).forEach(element => {
+      TotalAmount += Number((((element.price) * element.quantity)));
+    });
+    return TotalAmount;
+  }
+
+  getTotal_Personal() {
+
+    var TotalAmount = 0;
+    (this.orderDetails[0].orderDetails).forEach(element => {
+      TotalAmount += Number((((element.price) * element.quantity) + element.gstAmount));
+    });
+    return TotalAmount;
+  }
 }
