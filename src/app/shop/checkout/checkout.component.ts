@@ -408,7 +408,7 @@ export class CheckoutComponent implements OnInit {
       userID: this.user[0].userID,
       fName: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       //lName: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-      //companyName: [''],
+      companyName: [''],
       //phone: ['', [Validators.required, Validators.pattern('[0-9]+')]],
       //emailId: ['', [Validators.required, Validators.email]],
       address: ['', [Validators.required, Validators.maxLength(200)]],
@@ -534,6 +534,7 @@ export class CheckoutComponent implements OnInit {
     const billingAddressId = this.checkoutForm.get('billingAddressId');
     billingAddressId.setValue(lst.billingAddressId);
     billingAddressId.updateValueAndValidity();
+    this.onItemChange(lst);
     //}
 
 
@@ -721,83 +722,83 @@ export class CheckoutComponent implements OnInit {
 
     debugger;
     // if (Number(this.checkoutForm.value.paymentTypeId) == 1) {
-    this.spinner.show();
-    localStorage.setItem('ROWID', this.ROWID);
+    // this.spinner.show();
+    // localStorage.setItem('ROWID', this.ROWID);
 
 
-    let obj = {
-      BillingAddressId: Number(this.checkoutForm.value.billingAddressId),
-      OrderNumber: this._datePipe.transform(new Date().toString(), 'yyyyMMddHHmmss'),
-      OrderDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
-      TotalAmount: Number(this.getTotal()) + Number(this.checkoutForm.value.shippingCharge),
-    }
+    // let obj = {
+    //   BillingAddressId: Number(this.checkoutForm.value.billingAddressId),
+    //   OrderNumber: this._datePipe.transform(new Date().toString(), 'yyyyMMddHHmmss'),
+    //   OrderDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
+    //   TotalAmount: Number(this.getTotal()) + Number(this.checkoutForm.value.shippingCharge),
+    // }
 
-    this._orderService.SaveCcavenueRequest(obj).subscribe(res => {
-      //  
-      debugger;
-      if (res != null && res > 0) {
-        debugger;
-        let CCROWID = localStorage.getItem('ROWID');
-        localStorage.removeItem('ROWID');
-        
-        setTimeout(function () {
+    // this._orderService.SaveCcavenueRequest(obj).subscribe(res => {
+    //   //  
+    //   debugger;
+    //   if (res != null && res > 0) {
+    //     debugger;
+    //     let CCROWID = localStorage.getItem('ROWID');
+    //     localStorage.removeItem('ROWID');
 
-          window.location.href = "ccavRequestHandler.aspx?BillingSession_Id=" + CCROWID;
-          this.spinner.hide();
+    //     setTimeout(function () {
 
-        }, 2000);
+    //       window.location.href = "ccavRequestHandler.aspx?BillingSession_Id=" + CCROWID;
+    //       this.spinner.hide();
 
-        // setTimeout(function () {CCAvenue
-        //window.location.href = "http://localhost:61970/ccavRequestHandler.aspx?BillingSession_Id=" + this.ROWID;
-        //window.location.href = "https://www.alibabachair.com/ccavRequestHandler.aspx?BillingSession_Id=" + this.ROWID;
-        // }, 2000);
+    //     }, 2000);
 
-      }
+    //     // setTimeout(function () {CCAvenue
+    //     //window.location.href = "http://localhost:61970/ccavRequestHandler.aspx?BillingSession_Id=" + this.ROWID;
+    //     //window.location.href = "https://www.alibabachair.com/ccavRequestHandler.aspx?BillingSession_Id=" + this.ROWID;
+    //     // }, 2000);
+
+    //   }
 
 
-    });
+    // });
 
     //}
     // else if (Number(this.checkoutForm.value.paymentTypeId) == 2) {
-    //   // this.Submitted = true;
-    //   // if (this.checkoutForm.invalid) {
-    //   //   this.toastr.error("All * fields are mandatory.");
-    //   //   return;
-    //   // }
-    //   // else {
-    //   this.spinner.show();
-    //   debugger
-    //   let obj = {
-    //     billingAddressId: Number(this.checkoutForm.value.billingAddressId),
-    //     //userID: Number(this.user[0].userID),
-    //     //fName: this.checkoutForm.value.fName,
-    //     //lName: this.checkoutForm.value.lName,
-    //     //companyName: this.checkoutForm.value.companyName,
-    //     //phone: this.checkoutForm.value.phone,
-    //     //emailId: this.checkoutForm.value.emailId,
-    //     //address: this.checkoutForm.value.address,
-    //     //country: this.checkoutForm.value.country,
-    //     //city: this.checkoutForm.value.city,
-    //     //state: this.checkoutForm.value.state,
-    //     //zipCode: this.checkoutForm.value.zipCode,
-    //     orderNumber: this._datePipe.transform(new Date().toString(), 'yyyyMMddHHmmss'),
-    //     orderDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
-    //     paymentTypeId: Number(this.checkoutForm.value.paymentTypeId),
-    //     subTotal: Number(this.getTotal()),
-    //     tax: 0,
-    //     shippingCharge: 0,
-    //     totalAmount: Number(this.getTotal()) + Number(this.checkoutForm.value.shippingCharge),
-    //     notes: '',
-    //     statusId: 1
-    //   }
-    //   //  
-    //   this._orderService.SaveOrder(obj).subscribe(res => {
-    //     //  
-    //     this.spinner.hide();
-    //     this._SharedDataService.UserCart([]);
-    //     this.router.navigate(['/shop/checkout/success/' + res]);
+    // this.Submitted = true;
+    // if (this.checkoutForm.invalid) {
+    //   this.toastr.error("All * fields are mandatory.");
+    //   return;
+    // }
+    // else {
+    this.spinner.show();
+    debugger
+    let obj = {
+      billingAddressId: Number(this.checkoutForm.value.billingAddressId),
+      //userID: Number(this.user[0].userID),
+      //fName: this.checkoutForm.value.fName,
+      //lName: this.checkoutForm.value.lName,
+      //companyName: this.checkoutForm.value.companyName,
+      //phone: this.checkoutForm.value.phone,
+      //emailId: this.checkoutForm.value.emailId,
+      //address: this.checkoutForm.value.address,
+      //country: this.checkoutForm.value.country,
+      //city: this.checkoutForm.value.city,
+      //state: this.checkoutForm.value.state,
+      //zipCode: this.checkoutForm.value.zipCode,
+      orderNumber: this._datePipe.transform(new Date().toString(), 'yyyyMMddHHmmss'),
+      orderDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
+      paymentTypeId: Number(this.checkoutForm.value.paymentTypeId),
+      subTotal: Number(this.getTotal()),
+      tax: 0,
+      shippingCharge: 0,
+      totalAmount: Number(this.getTotal()) + Number(this.checkoutForm.value.shippingCharge),
+      notes: '',
+      statusId: 1
+    }
+    //  
+    this._orderService.SaveOrder(obj).subscribe(res => {
+      //  
+      this.spinner.hide();
+      this._SharedDataService.UserCart([]);
+      this.router.navigate(['/shop/checkout/success/' + res]);
 
-    //   });
+    });
     //   //}
     // }
   }
