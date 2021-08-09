@@ -1362,8 +1362,8 @@
                                         <!-- <iframe width="560" height="315" [src]="productkart[0]?.videoURL | safe: 'resourceUrl'" allow="autoplay; encrypted-media" allowfullscreen></iframe> -->
                                         <!-- {{productkart[0]?.videoURL}} -->
                                         <youtube-player videoId="{{(productkart[0]?.videoURL).split('watch?v=')[1]}}"
-                                            suggestedQuality="highres" [height]="315" [width]="560" [startSeconds]="4"
-                                            [endSeconds]="8">
+                                            suggestedQuality="highres" [height]="315" [width]="560" [startSeconds]="0"
+                                            >
                                         </youtube-player>
                                     </div>
                                 </ng-template>
