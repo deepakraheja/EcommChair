@@ -18,7 +18,7 @@ import { SharedDataService } from 'src/app/Service/shared-data.service';
 })
 export class CollectionLeftSidebarComponent implements OnInit {
 
-  public grid: string = 'col-xl-3 col-md-6';
+  public grid: string = 'col-xl-4 col-md-6';
   public layoutView: string = 'grid-view';
   public products: Product[] = [];
 
