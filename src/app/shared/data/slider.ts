@@ -92,7 +92,7 @@ export let CollectionSlider: any = {
     navSpeed: 300,
     responsive: {
         991: {
-            items: 4 
+            items: 3 
         },
         767: {
             items: 3    

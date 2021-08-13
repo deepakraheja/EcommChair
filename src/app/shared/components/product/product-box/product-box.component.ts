@@ -19,6 +19,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./product-box.component.scss']
 })
 export class ProductBoxComponent implements OnInit {
+  public activeSlide: any = 0;
 
   public ProductImage = environment.ProductImage;
   @Input() product: Product;
@@ -91,7 +92,7 @@ export class ProductBoxComponent implements OnInit {
     this.ImageSrc = src;
   }
 
-  GoToDetail(rowID, productSizeColorId, setType, setNo) {
+  GoToDetail(rowID, productSizeId, setType, setNo) {
     // this.user = JSON.parse(localStorage.getItem('LoggedInUser'));
     // //  
     // if (this.user == null || this.user == undefined) {
@@ -122,7 +123,7 @@ export class ProductBoxComponent implements OnInit {
 
     this.spinner.show();
     if (setType == 1) {
-      this.router.navigateByUrl('/shop/product/left/sidebar/' + rowID + '/' + productSizeColorId);
+      this.router.navigateByUrl('/shop/product/left/sidebar/' + rowID + '/' + productSizeId);
       this.spinner.hide();
     }
     else if (setType == 2) {
@@ -130,7 +131,7 @@ export class ProductBoxComponent implements OnInit {
       this.spinner.hide();
     }
     if (setType == 3) {
-      this.router.navigateByUrl('/shop/product/left/sidebarwithbundle/' + rowID + '/' + productSizeColorId);
+      this.router.navigateByUrl('/shop/product/left/sidebarwithbundle/' + rowID + '/' + productSizeId);
       this.spinner.hide();
     }
 

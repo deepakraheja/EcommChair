@@ -69,7 +69,7 @@
                                         </div>
                                         <div class="box-content">
                                             <h6><b>Business Name : </b>{{lstUserData[0].businessName}}</h6>
-                                           
+
                                             <h6>
                                                 <b>Business LicenseType :
                                                 </b>{{ getBusineesLicenseType(lstUserData[0].businessLicenseType)}}
@@ -83,7 +83,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
 
                         </div>
@@ -100,7 +100,7 @@
                                 <div class="box">
                                     <div class="box-title">
                                         <h3>Delivery Address</h3>
-                                        
+
                                     </div>
                                     <p *ngIf="lstBillingAddress.length==0"> <b>No delivery address found.</b></p>
                                     <div *ngFor="let lstBilling of lstBillingAddress">
@@ -111,7 +111,7 @@
 
                                                     <h4><b>Full Name : {{lstBilling.fName}} {{lstBilling.lName}}</b>
                                                     </h4>
-                                                    
+
                                                     <div><b>Company Name : </b>{{lstBilling.companyName}}</div>
                                                     <div><b>Address : </b>
                                                         {{lstBilling.address}}, {{lstBilling.city}}
@@ -170,25 +170,29 @@
                                     <span>Expected Dispatch</span>
                                     <span>{{lst.dispatchDate | date :'dd/MM/yyyy hh:mm:ss aa'}}</span>
                                 </div>
-                                
-                                <div class="order-parts">
+
+                                <div class="order-parts" *ngIf="lst.statusId!=7">
                                     <span class="badge badge-success">{{lst.statusName}}</span>
                                 </div>
-                                <div class="order-parts">
-                                    
-                                    <a href="javaScript:void(0);" (click)="DownloadInvoice(lst)">Print Order</a>
-                                   
+
+                                <div class="order-parts" *ngIf="lst.statusId==7">
+                                    <span class="badge badge-success">{{lst.statusName}} ( due to out of stock)</span>
                                 </div>
-                                <div class="order-parts">
+                                <div class="order-parts" *ngIf="lst.statusId!=7">
+
+                                    <a href="javaScript:void(0);" (click)="DownloadInvoice(lst)">Print Order</a>
+
+                                </div>
+                                <div class="order-parts" *ngIf="lst.statusId!=7">
                                     <input type="button" id="btn{{lst.orderId}}" value="Show" class="btn btn-primary"
                                         (click)="ShowDiv(lst.orderId);">
                                 </div>
                             </div>
-                            
+
                             <div style="display: none;" id="{{lst.orderId}}">
                                 <div class="shipment-details">
                                     <div class="shipment">
-                                       
+
                                         <div class="shipping-address" style="width: 80% !important">
                                             <p> <b>Shipping Address</b></p>
                                             <div> <b>To:</b> {{lst.fName}} {{lst.lName}}</div>
@@ -215,7 +219,8 @@
                                         </ul>
                                     </div>
 
-                                    <table class="table table-bordered table-hover" *ngIf="lstUserData[0].isPersonal==false">
+                                    <table class="table table-bordered table-hover"
+                                        *ngIf="lstUserData[0].isPersonal==false">
                                         <thead class="thead-dark">
                                             <tr>
                                                 <th class="thead-dark">
@@ -390,7 +395,8 @@
                                     </table>
 
                                     <!-- Table for Personal Buyer-->
-                                    <table class="table table-bordered table-hover" *ngIf="lstUserData[0].isPersonal==true">
+                                    <table class="table table-bordered table-hover"
+                                        *ngIf="lstUserData[0].isPersonal==true">
                                         <thead class="thead-dark">
                                             <tr>
                                                 <th class="thead-dark">
@@ -616,7 +622,7 @@
                                             Full Name must be an alphabates.
                                         </div>
                                     </div>
-                                   
+
                                     <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                         <div class="field-label">Company Name <span
                                                 *ngIf="lstUserData[0].isPersonal==false" style="color:red">*</span>
@@ -651,7 +657,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
 
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <div class="field-label">Address <span style="color:red">*</span></div>
@@ -685,7 +691,7 @@
                                         <div class="field-label">State <span style="color:red">*</span></div>
                                         <input type="text" name="state" [formControl]="checkoutForm.controls['state']"
                                             id="dest_addr_state" value="" placeholder="" autocomplete="off">
-                                        
+
                                         <div *ngIf="(checkoutForm.controls.state.touched || Submitted) && checkoutForm.controls.state.errors?.required"
                                             class="text text-danger">
                                             State is required
@@ -713,7 +719,7 @@
                                             Country is required
                                         </div>
                                     </div>
-                                    
+
                                     <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                         <div class="field-label">&nbsp;</div>
                                         <button type="submit" class="btn-solid btn" (click)="SaveBillingAddress()">

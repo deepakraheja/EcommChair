@@ -127,7 +127,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   public accessoryId = null;
   businessPrice: any = 0;
   productid: any;
-  IsShowReviews=0;
+  IsShowReviews = 0;
 
   constructor(private route: ActivatedRoute,
 
@@ -785,6 +785,10 @@ export class ProductLeftSidebarComponent implements OnInit {
     this.SelectedColor.push({
       productSizeId: Number(lst.productSizeId)
     });
+    this.spinner.show();
+    this.router.navigateByUrl('/shop/product/left/sidebar/' + this.productid + '/' + lst.productSizeId);
+    setTimeout(() => this.spinner.hide(), 1000);
+
   }
 
   // Get Product Color
