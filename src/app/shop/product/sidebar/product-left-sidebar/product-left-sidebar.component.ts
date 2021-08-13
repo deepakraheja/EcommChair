@@ -208,13 +208,13 @@ export class ProductLeftSidebarComponent implements OnInit {
         rowID: productid,
 
       }
-      debugger
+      //debugger
 
       this._prodService.GetAccessoryByproductId(productObj).subscribe(res => {
         if (!res) { // When product is empty redirect 404
           this.router.navigateByUrl('/pages/404', { skipLocationChange: true });
         } else {
-          debugger
+          //debugger
           this.AccessoryCategory = res;
           this.AccessoryCategory1 = res.filter(val => val.accessoryCategoryId == 1);
           this.AccessoryCategory2 = res.filter(val => val.accessoryCategoryId == 2);
@@ -257,7 +257,7 @@ export class ProductLeftSidebarComponent implements OnInit {
           this.businessPrice = this.productkart[0]?.businessPrice;
           this.recentlyProduct = product[0].userRecentlyProduct;
           this.RelatedProducts = product[0].relatedProduct;
-          debugger
+          //debugger
           //this.BindRelatedProductsByCategory(product[0].subcatecode);
         }
         setTimeout(() => this.spinner.hide(), 1000);
@@ -267,7 +267,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   }
 
   fnCheckAccessory6(list: any, item: any, evt: any, rdoId: string) {
-    debugger
+    //debugger
     //console.log(list);
 
     this.checkboxes6.forEach((element) => {
@@ -321,7 +321,7 @@ export class ProductLeftSidebarComponent implements OnInit {
       }
 
       this.accessorysummary6.forEach((item, index) => {
-        debugger
+        //debugger
         if (item.accessoryId == evt.target.value)
           this.accessorysummary6.splice(index, 1);
       });
@@ -331,7 +331,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   }
 
   fnCheckAccessory(list: any, item: any, evt: any, rdoId: string) {
-    debugger
+    //debugger
 
 
     this.checkboxes1.forEach((element) => {
@@ -349,7 +349,7 @@ export class ProductLeftSidebarComponent implements OnInit {
 
 
     this.accessorysummary.forEach((item, index) => {
-      debugger
+      //debugger
       this.accessorysummary.splice(index, 1);
     });
 
@@ -398,7 +398,7 @@ export class ProductLeftSidebarComponent implements OnInit {
       }
 
       this.accessorysummary.forEach((item, index) => {
-        debugger
+        //debugger
         if (item.accessoryId == evt.target.value)
           this.accessorysummary.splice(index, 1);
       });
@@ -408,7 +408,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   }
 
   fnCheckAccessory2(list: any, item: any, evt: any, rdoId: string) {
-    debugger
+    //debugger
     //console.log(list);
 
     this.checkboxes2.forEach((element) => {
@@ -427,7 +427,7 @@ export class ProductLeftSidebarComponent implements OnInit {
     //   evt.target.checked = true;
 
     this.accessorysummary2.forEach((item, index) => {
-      debugger
+      //debugger
       this.accessorysummary2.splice(index, 1);
     });
 
@@ -476,7 +476,7 @@ export class ProductLeftSidebarComponent implements OnInit {
       }
 
       this.accessorysummary2.forEach((item, index) => {
-        debugger
+        //debugger
         if (item.accessoryId == evt.target.value)
           this.accessorysummary2.splice(index, 1);
       });
@@ -485,7 +485,7 @@ export class ProductLeftSidebarComponent implements OnInit {
 
   }
   fnCheckAccessory3(list: any, item: any, evt: any, rdoId: string) {
-    debugger
+    //debugger
     //console.log(list);
 
     this.checkboxes3.forEach((element) => {
@@ -504,7 +504,7 @@ export class ProductLeftSidebarComponent implements OnInit {
     //   evt.target.checked = true;
 
     this.accessorysummary3.forEach((item, index) => {
-      debugger
+      //debugger
       this.accessorysummary3.splice(index, 1);
     });
 
@@ -553,7 +553,7 @@ export class ProductLeftSidebarComponent implements OnInit {
       }
 
       this.accessorysummary3.forEach((item, index) => {
-        debugger
+        //debugger
         if (item.accessoryId == evt.target.value)
           this.accessorysummary3.splice(index, 1);
       });
@@ -563,7 +563,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   }
 
   fnCheckAccessory4(list: any, item: any, evt: any, rdoId: string) {
-    debugger
+    //debugger
     //console.log(list);
 
     this.checkboxes4.forEach((element) => {
@@ -582,7 +582,7 @@ export class ProductLeftSidebarComponent implements OnInit {
     //   evt.target.checked = true;
 
     this.accessorysummary4.forEach((item, index) => {
-      debugger
+      //debugger
       this.accessorysummary4.splice(index, 1);
     });
 
@@ -631,7 +631,7 @@ export class ProductLeftSidebarComponent implements OnInit {
       }
 
       this.accessorysummary4.forEach((item, index) => {
-        debugger
+        //debugger
         if (item.accessoryId == evt.target.value)
           this.accessorysummary4.splice(index, 1);
       });
@@ -641,7 +641,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   }
 
   fnCheckAccessory5(list: any, item: any, evt: any, rdoId: string) {
-    debugger
+    //debugger
     //console.log(list);
 
     this.checkboxes5.forEach((element) => {
@@ -660,7 +660,7 @@ export class ProductLeftSidebarComponent implements OnInit {
     //   evt.target.checked = true;
 
     this.accessorysummary5.forEach((item, index) => {
-      debugger
+      //debugger
       this.accessorysummary5.splice(index, 1);
     });
 
@@ -709,7 +709,7 @@ export class ProductLeftSidebarComponent implements OnInit {
       }
 
       this.accessorysummary5.forEach((item, index) => {
-        debugger
+        //debugger
         if (item.accessoryId == evt.target.value)
           this.accessorysummary5.splice(index, 1);
       });
@@ -755,7 +755,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   }
 
   ChangeImage() {
-    debugger;
+    //debugger;
     //this.activeSlide = index;
     setTimeout(() => $("#zoom_01").ezPlus(
       {
@@ -766,7 +766,7 @@ export class ProductLeftSidebarComponent implements OnInit {
     ), 500);
 
     //  ;
-    debugger
+    //debugger
     // this.bigProductImageIndex = Number(index);
     // this.activeSlide = Number(index);
     // this.SelectedColor = [];
@@ -778,7 +778,7 @@ export class ProductLeftSidebarComponent implements OnInit {
 
   changecolor(lst, index: string) {
     //  ;
-    debugger
+    //debugger
     this.bigProductImageIndex = Number(index);
     this.activeSlide = Number(index);
     this.SelectedColor = [];
@@ -793,7 +793,7 @@ export class ProductLeftSidebarComponent implements OnInit {
 
   // Get Product Color
   Color(variants) {
-    //debugger
+    ////debugger
     if (variants != null) {
 
       const uniqColor = []
@@ -856,7 +856,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   // Add to cart
   async addToCart(type: Number) {
 
-    debugger;
+    //debugger;
 
     // setTimeout(function(){ 
     //   $("#zoom_01").css("display", "none");
@@ -883,7 +883,7 @@ export class ProductLeftSidebarComponent implements OnInit {
       // (array).forEach(element => {
 
       //   if (element.isSelected) {
-      //     debugger
+      //     //debugger
       //     obj.push({
       //       UserID: Number(this.user[0].userID),
       //       ProductSizeId: Number(element.productSizeId),
@@ -893,7 +893,7 @@ export class ProductLeftSidebarComponent implements OnInit {
       //   }
       // });
       //  ;
-      debugger
+      //debugger
       obj.push({
         UserID: Number(this.user[0].userID),
         ProductSizeId: Number(this.SelectedColor[0].productSizeId),
@@ -903,7 +903,7 @@ export class ProductLeftSidebarComponent implements OnInit {
       //if (Number(obj.length) > 0) {
       const status = await this.productService.addToCartProduct(obj);
       if (status) {
-        debugger
+        //debugger
 
         if (this.accessorysummary6.length > 0) {
           this.accessorysummary.push(
