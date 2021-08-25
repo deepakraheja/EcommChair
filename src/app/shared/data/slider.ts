@@ -23,7 +23,7 @@ export let HomeSlider: any = {
         }
     },
 };
-
+ 
 // Blog Slider
 export let BlogSlider: any = {
     loop: true,
