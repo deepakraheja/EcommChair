@@ -1,7 +1,7 @@
 // Home Slider
 export let HomeSlider: any = {
-    autoplay:true,
-    autoplayTimeout:2000,
+    // autoplay:true,
+    // autoplayTimeout:2000,
     loop: true,
     nav: true,
     dots: false,
