@@ -73,7 +73,7 @@
                             </div>
                             <div class="col-10 col-sm-10 col-xl-10 product-carousel border-grey">
                                 <div class="img-zoom-container">
-                                    <img id="zoom_01" class="img-fluid"
+                                    <img id="zoom_01" class="img-fluid zoom-img"
                                         [src]="activeSlide==0?ProductImage+productkart[0]?.productID+'/frontImage/'+productkart[0]?.frontImage:ProductImage+productkart[0]?.productID+'/productColorImage/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productSizeColorId+'/'+productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg[activeSlide]" />
                                     <!-- <owl-carousel-o [options]="ProductDetailsMainSliderConfig" #owlCar class="product-slick" class="p-1">
                                     <ng-container *ngFor="let image of productkart[0]?.productSizeColor[bigProductImageIndex]?.productImg; index as i">
@@ -93,12 +93,12 @@
                         <div class="product-buttons row mt-2">
                             <div class="col-md-6 mb-2">
                                 <a href="javascrip:void(0)" class="btn btn-solid w-100"
-                                    [class.disabled]="productkart[0]?.qty==0" (click)="addToCart(1)"><i
+                                    [class.disabled]="productkart[0]?.qty<=0" (click)="addToCart(1)"><i
                                         class="fa fa-shopping-cart"></i> add to cart</a>
                             </div>
                             <div class="col-md-6 mb-2">
                                 <a href="javascrip:void(0)" class="btn btn-solid w-100"
-                                    [class.disabled]="productkart[0]?.qty==0" (click)="addToCart(2)"><i
+                                    [class.disabled]="productkart[0]?.qty<=0" (click)="addToCart(2)"><i
                                         class="fa fa-bolt"></i>
                                     Buy now</a>
                             </div>
@@ -174,7 +174,7 @@
                                     <ul class="color-variant">
                                         <li [class]="color" [class.active]="activeSlide == color.colorindex.toString()"
                                             *ngFor="let color of Color(productkart[0]?.productSizeColor); index as i"
-                                            [ngStyle]="{'background-color': color.color}"
+                                            [ngStyle]="{'background': 'url(' + ProductImage + productkart[0]?.productID +'/productColorImage/'+productkart[0]?.productSizeColorId +'/'+productkart[0]?.productSizeColorId +') no-repeat 0 0 / cover'}"
                                             (click)="changecolor(color,color.colorindex.toString())">
                                         </li>
                                     </ul>

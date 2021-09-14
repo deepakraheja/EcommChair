@@ -56,6 +56,7 @@ export interface image {
 
 export class ProductLeftSidebarComponent implements OnInit {
 
+  public backgroundUrl = "";
   public updatedPrice = 0;
   public updatedPrice6 = 0;
   public updatedPrice2 = 0;
@@ -143,6 +144,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   ) {
     this.activeSlide = 0;
     // this.route.data.subscribe(response => this.product = response.data );
+    this.backgroundUrl = 'http://localhost:56283/ProductImage/20/productColorImage/19/20-08142021120831-1.jpg';
   }
 
   ngAfterViewInit() {
@@ -191,10 +193,10 @@ export class ProductLeftSidebarComponent implements OnInit {
         zoomWindowHeight: 500
       }), 3000);
 
-      setTimeout(() => $("#Zoom-10").ezPlus({
-        zoomWindowWidth: 300,
-        zoomWindowHeight: 300
-      }), 3000);
+      // setTimeout(() => $("#Zoom-10").ezPlus({
+      //   zoomWindowWidth: 300,
+      //   zoomWindowHeight: 300
+      // }), 3000);
 
     });
   }
@@ -251,12 +253,14 @@ export class ProductLeftSidebarComponent implements OnInit {
         if (!product) { // When product is empty redirect 404
           this.router.navigateByUrl('/pages/404', { skipLocationChange: true });
         } else {
-
+          debugger
           this.productkart = product;
 
           this.businessPrice = this.productkart[0]?.businessPrice;
           this.recentlyProduct = product[0].userRecentlyProduct;
           this.RelatedProducts = product[0].relatedProduct;
+          this.activeSlide = 0;
+          this.ChangeImage();
           //debugger
           //this.BindRelatedProductsByCategory(product[0].subcatecode);
         }
